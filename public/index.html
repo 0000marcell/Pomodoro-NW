@@ -1,0 +1,102 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="css/flipclock.css">
+    <link rel="stylesheet" href="css/jornal.css">
+    <link rel="stylesheet" href="css/index.css">
+		<link rel="stylesheet" href="css/normalize.css">
+  	<link rel="stylesheet" href="css/style.css">
+		<script src="js/libs/jquery-1.10.2.js"></script>
+    <!-- // <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
+    <script src="js/JSONIO.js"></script>
+
+    <script src="js/libs/flipclock.js"></script>
+		<script src="js/libs/pomodoroclock.js"></script>
+		<!-- // <script src="js/libs/index.js"></script> -->
+  	<script src="js/libs/handlebars-1.1.2.js"></script>
+  	<script src="js/libs/ember-1.7.0.js"></script>
+  	<script src="js/ember-data.js"></script>
+    <script src="js/ember-validations.js"></script>
+    <script src="js/libs/ember-easyForm.js"></script>
+    <script src="js/app.js"></script>
+
+    <!-- to activate the test runner, add the "?test" query string parameter -->
+  	<script src="tests/runner.js"></script>
+	</head>
+	<body>
+
+  <script type="text/x-handlebars">
+    {{outlet}}
+    <div class="mainclass">
+      <div class="btn-group btn-group-justified">
+      </div>
+    </div> 
+    <div class="btn-group btn-group-justified">
+    </div>
+    <div class="clock" style="margin:2em;"></div>
+    <div class="message"></div>
+    <button {{action 'startClock'}}>Start</button>
+    <button {{action 'stopClock'}}>Stop</button>
+  </script>  
+
+  <script type="text/x-handlebars" data-template-name="tasks">
+    {{outlet}}
+  </script>
+
+  
+  <script type="text/x-handlebars" id="index">
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="tasks/index">
+    <table id="tasks_table" class="table task-table">
+      <thead>
+        <tr>
+          <th>Activate</th>
+          <th>Name</th>
+          <th>Pomodoros</th>
+          <th><button type="button" class="btn btn-default new-button" {{action "new"}}><span class="glyphicon glyphicon-plus"></span></button></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each task in model}}
+          <tr {{bind-attr id=task.htmlID}}>
+            <td><button type="button" class="btn btn-success" {{action "selectTask" task.id}}><span class="glyphicon glyphicon-arrow-right"></span>Select</button></td>
+            <td class="name">{{#link-to "tasks.show" task}}{{task.name}}{{/link-to}}</td>
+            <td class="pomodoros">{{task.pomodoros}}</td>
+            <td class="action-buttons"><button type="button" class="btn btn-default edit-button" {{action "edit" task}}><span class="glyphicon glyphicon-pencil"></span></button>
+                <button type="button" class="btn btn-default delete-button" {{action "delete" task}}><span class="glyphicon glyphicon-remove"></button></td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="tasks/show">
+  <h2><span class="name">{{name}}</span></h2>
+  <p>By <span class="pomodoros">{{pomodoros}}</span></p>
+  <p class="action-buttons"><button type="button" class="btn btn-default edit-button" {{action "edit" model}}><span class="glyphicon glyphicon-pencil"></span></button>
+      <button type="button" class="btn btn-default delete-button" {{action "delete" model}}><span class="glyphicon glyphicon-remove"></button></p>
+  <p>{{#link-to 'tasks' class="index-link"}}Back to tasks index{{/link-to}}</p>
+  </script>
+
+    <script type="text/x-handlebars" data-template-name="tasks/edit">
+    <h2>{{#if isNew}}New{{else}}Edit{{/if}} Task</h2>
+    {{#form-for controller id="form-task" wrapper="bootstrap"}}
+      {{#input name}}
+        {{label-field name text="Task"}}
+        {{input-field name class="form-control" autofocus="true"}}
+        {{#if view.showError}}
+          {{error-field name}}
+        {{/if}}
+      {{/input}}
+      <button type="submit" class="btn btn-primary save-button" {{action "save" model}}>Save</button>
+      {{#if isNew}}
+      <button type="button" class="btn btn-default cancel-button" {{action "delete" model}}>Cancel</button>
+      {{else}}
+      <button type="button" class="btn btn-default cancel-button" {{action "cancel" model}}>Cancel</button>
+      <button type="button" class="btn btn-danger delete-button" {{action "delete" model}}>Delete</button>
+      {{/if}}
+    {{/form-for}}
+  </script>
+	
+	</body>
+</html>
