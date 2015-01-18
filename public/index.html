@@ -8,7 +8,6 @@
 		<script src="js/libs/jquery-1.10.2.js"></script>
     <!-- // <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
     <script src="js/JSONIO.js"></script>
-
     <script src="js/libs/flipclock.js"></script>
 		<script src="js/libs/pomodoroclock.js"></script>
 		<!-- // <script src="js/libs/index.js"></script> -->
@@ -59,11 +58,11 @@
       <tbody>
         {{#each task in model}}
           <tr {{bind-attr id=task.htmlID}}>
-            <td><button type="button" class="btn btn-success" {{action "selectTask" task.id}}><span class="glyphicon glyphicon-arrow-right"></span>Select</button></td>
+            <td><button type="button" class="btn btn-success" {{action "selectTask" task.id}}><span class="glyphicon glyphicon-arrow-right"></span>Select!</button></td>
             <td class="name">{{#link-to "tasks.show" task}}{{task.name}}{{/link-to}}</td>
             <td class="pomodoros">{{task.pomodoros}}</td>
             <td class="action-buttons"><button type="button" class="btn btn-default edit-button" {{action "edit" task}}><span class="glyphicon glyphicon-pencil"></span></button>
-                <button type="button" class="btn btn-default delete-button" {{action "delete" task}}><span class="glyphicon glyphicon-remove"></button></td>
+              </td>
           </tr>
         {{/each}}
       </tbody>
@@ -86,6 +85,13 @@
         {{input-field name class="form-control" autofocus="true"}}
         {{#if view.showError}}
           {{error-field name}}
+        {{/if}}
+      {{/input}}
+      {{#input length}}
+        {{label-field length text="Lenght"}}
+        {{input-field length class="form-control" autofocus="false"}}
+        {{#if view.showError}}
+          {{error-field length}}
         {{/if}}
       {{/input}}
       <button type="submit" class="btn btn-primary save-button" {{action "save" model}}>Save</button>

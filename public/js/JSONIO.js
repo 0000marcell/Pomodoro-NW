@@ -19,6 +19,7 @@ JSONIO.prototype.setFile = function(fileName){
 };
 
 JSONIO.prototype.save = function(json){
+	alert("json "+json);
 	fs.writeFile(this.file, json, function (err) {
 	  if (err) throw err;
 	  console.log('It\'s saved!');

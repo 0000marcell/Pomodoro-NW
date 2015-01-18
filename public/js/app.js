@@ -88,10 +88,16 @@ App.ApplicationRoute = Ember.Route.extend({
       var i = 0;
       this.store.find('task').then(function(data){
         data.forEach(function(value) {
-          var tmp = {id: i++, name: value.get("name"), pomodoros: value.get("pomodoros")};
+          var length = value.get("length") || "25:00";
+          console.log("length "+length);
+          alert("value length "+value.get("length"));
+          alert('length '+length);
+          var tmp = {id: i++, name: value.get("name"), 
+          pomodoros: value.get("pomodoros"), length: value.get("length")};
           json.tasks.push(tmp);
           jsonString = JSON.stringify(json);
         });
+        alert('gonna save '+jsonString);
         jsonio.save(jsonString);
       });
     },
