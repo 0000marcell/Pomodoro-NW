@@ -1,14 +1,10 @@
 {
   "tasks":[
     {
-      "id": "1",
-      "name": "Study Maths!",
+      "id": "0",
+      "name": "Example",
+      "length": "25",
       "date": "12345"
-    },
-    {
-      "id": "2",
-      "name": "Study Ember!",
-      "date": "123456"
     }
   ]
 }

@@ -5,8 +5,12 @@ function JSONIO(){
 }
 
 JSONIO.prototype.read = function(){
+	var content;
 	try{
-		var content = fs.readFileSync(this.file, "utf8");
+		content = fs.readFileSync(this.file, "utf8");
+		if (content == 'undefined'){
+			content = fs.readFileSync("back.json", "utf8");
+		}
 		var obj = JSON.parse(content);
 		return obj;
 	}catch(err){
@@ -19,9 +23,11 @@ JSONIO.prototype.setFile = function(fileName){
 };
 
 JSONIO.prototype.save = function(json){
-	alert("json "+json);
+	
 	fs.writeFile(this.file, json, function (err) {
-	  if (err) throw err;
+	  if (err){
+	   throw err;
+	  };
 	  console.log('It\'s saved!');
 	});	
 }
