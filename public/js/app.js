@@ -37,7 +37,8 @@ App.Router.map(function() {
 
 App.Task = DS.Model.extend(Ember.Validations.Mixin, {
   name: DS.attr('string'),
-  type: DS.attr('string'),
+  creation_date: DS.attr('string'),
+  last_active: DS.attr('string'),
   pomodoros: DS.attr('string'),
   duration: DS.attr('string'),
   
@@ -82,6 +83,11 @@ App.ApplicationRoute = Ember.Route.extend({
       var _this = this;
       task.validate().then(function() {
         task.save();
+        var date = _this.get("getCurrentDate").call(this);
+        console.log("gonna set creation date "+task.get('creation_date'));
+        console.log("returned current date "+date);
+        task.set('creation_date', date);
+        console.log("creation_date after "+date);
         _this.send("saveIntoFile");
         _this.transitionTo('index');
       });
@@ -96,7 +102,8 @@ App.ApplicationRoute = Ember.Route.extend({
         data.forEach(function(value) {
           var tmp = {id: i++,
             name: value.get("name"),
-            type: value.get('type'),
+            creation_date: value.get('creation_date'),
+            last_active: value.get('last_active'),
             duration: value.get("duration"),
             pomodoros: value.get("pomodoros")};
           json.tasks.push(tmp);
@@ -130,12 +137,32 @@ App.ApplicationRoute = Ember.Route.extend({
     selectTask: function(id){
       currentSelected = id;
       var currentSelectedDuration;
+      var _this = this;
       this.store.find('task', id).then(function(task){
        currentSelectedDuration = task.get('duration');
+       task.set('last_active', _this.get("getCurrentDate").call(this));
        pomodoroTime = parseInt(currentSelectedDuration) * 60;
        pomodoroClock.reset(pomodoroTime);
       });
-    }
+    },
+  },
+  getCurrentDate: function(){
+    var today = new Date();
+    var S = today.getSeconds(); 
+    var M = today.getMinutes(); 
+    var H = today.getHours();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+    if(dd<10) {
+        dd='0'+dd
+    } 
+    if(mm<10) {
+        mm='0'+mm
+    } 
+    today = mm+'/'+dd+'/'+yyyy+'|'+H+'|'+M+'|'+S;
+    console.log("gonna return date !!! "+today);
+    return today;
   }
 });
 
@@ -242,6 +269,7 @@ function shortInterval(){
 }
 
 App.ApplicationController = Ember.ObjectController.extend({
+  
   actions: {
     startClock: function() {
       if(currentSelected != -1){

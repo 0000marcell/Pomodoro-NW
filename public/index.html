@@ -40,7 +40,6 @@
   <script type="text/x-handlebars" id="index">
   </script>
   <script type="text/x-handlebars" data-template-name="tasks/index">
-    <button>Refresh</button>
     <table id="tasks_table" class="table task-table">
       <thead>
         <tr>
@@ -80,13 +79,6 @@
         {{input-field name class="form-control" autofocus="true"}}
         {{#if view.showError}}
           {{error-field name}}
-        {{/if}}
-      {{/input}}
-      {{#input type}}
-        {{label-field type text="Type"}}
-        {{input-field type class="form-control" }}
-        {{#if view.showError}}
-          {{error-field type}}
         {{/if}}
       {{/input}}
       {{#input duration}}
