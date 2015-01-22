@@ -3,8 +3,9 @@
     {
       "id": "0",
       "name": "Example",
-      "length": "25",
-      "date": "12345"
+      "duration": "25",
+     	"creation_date": "12345",
+     	"last_time": "123456" 
     }
   ]
 }

@@ -40,13 +40,14 @@
   <script type="text/x-handlebars" id="index">
   </script>
   <script type="text/x-handlebars" data-template-name="tasks/index">
+    <button>Refresh</button>
     <table id="tasks_table" class="table task-table">
       <thead>
         <tr>
           <th>Activate</th>
           <th>Name</th>
           <th>Pomodoros</th>
-          <th>Lenght</th>
+          <th>Duration</th>
           <th><button type="button" class="btn btn-default new-button" {{action "new"}}><span class="glyphicon glyphicon-plus"></span></button></th>
         </tr>
       </thead>
@@ -56,7 +57,7 @@
             <td><button type="button" class="btn btn-success" {{action "selectTask" task.id}}><span class="glyphicon glyphicon-arrow-right"></span>Select!</button></td>
             <td class="name">{{#link-to "tasks.show" task}}{{task.name}}{{/link-to}}</td>
             <td class="pomodoros">{{task.pomodoros}}</td>
-            <td class="length">{{task.length}}</td>
+            <td class="duration">{{task.duration}}</td>
             <td class="action-buttons"><button type="button" class="btn btn-default edit-button" {{action "edit" task}}><span class="glyphicon glyphicon-pencil"></span></button>
               </td>
           </tr>
@@ -79,6 +80,13 @@
         {{input-field name class="form-control" autofocus="true"}}
         {{#if view.showError}}
           {{error-field name}}
+        {{/if}}
+      {{/input}}
+      {{#input type}}
+        {{label-field type text="Type"}}
+        {{input-field type class="form-control" }}
+        {{#if view.showError}}
+          {{error-field type}}
         {{/if}}
       {{/input}}
       {{#input duration}}

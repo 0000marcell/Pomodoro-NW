@@ -8,6 +8,7 @@ var pause = false;
 var pomodoroClock;
 var jsonio;
 var currentSelected = -1;
+var newTask;
 
 App = Ember.Application.create({
   LOG_TRANSITIONS: true
@@ -26,7 +27,6 @@ Ember.EasyForm.Config.registerWrapper('bootstrap', {
   labelClass: ''
 });
 
-
 App.Router.map(function() {
   this.resource('tasks', function() {
     this.route('new');
@@ -37,8 +37,9 @@ App.Router.map(function() {
 
 App.Task = DS.Model.extend(Ember.Validations.Mixin, {
   name: DS.attr('string'),
+  type: DS.attr('string'),
   pomodoros: DS.attr('string'),
-  length: DS.attr('string'),
+  duration: DS.attr('string'),
   
   // To identify html tag for a task.
   htmlID: function() {
@@ -52,8 +53,7 @@ App.Task = DS.Model.extend(Ember.Validations.Mixin, {
   },
   durations : ['55:00','1:00','50:00','45:00','40:00','35:00','30:00','25:00',
     '20:00'
-  ],
-  duration: '25:00'
+  ]
 });
 
 App.resetFixtures = function() {
@@ -94,9 +94,11 @@ App.ApplicationRoute = Ember.Route.extend({
       var _this = this;
       this.store.find('task').then(function(data){
         data.forEach(function(value) {
-          var length = value.get("duration");
-          var tmp = {id: i++, name: value.get("name"), 
-          pomodoros: value.get("pomodoros"), length: length};
+          var tmp = {id: i++,
+            name: value.get("name"),
+            type: value.get('type'),
+            duration: value.get("duration"),
+            pomodoros: value.get("pomodoros")};
           json.tasks.push(tmp);
           jsonString = JSON.stringify(json);
         });
@@ -121,16 +123,16 @@ App.ApplicationRoute = Ember.Route.extend({
     delete: function(task) {
       var _this = this;
       task.destroyRecord().then(function(){
-       _this.send("saveIntoFile"); 
+       _this.send("saveIntoFile");
       });
       this.transitionTo('tasks');
     },
     selectTask: function(id){
       currentSelected = id;
-      var currentSelectedLength;
+      var currentSelectedDuration;
       this.store.find('task', id).then(function(task){
-       currentSelectedLength = task.get('length');
-       pomodoroTime = parseInt(currentSelectedLength) * 60;
+       currentSelectedDuration = task.get('duration');
+       pomodoroTime = parseInt(currentSelectedDuration) * 60;
        pomodoroClock.reset(pomodoroTime);
       });
     }
@@ -170,8 +172,8 @@ App.TasksEditRoute = Ember.Route.extend({
 
 App.TasksNewRoute = Ember.Route.extend({
   model: function() {
-    console.log("a new record was created!");
-    return this.store.createRecord('task');
+    newTask = this.store.createRecord('task'); 
+    return newTask;
   },
 
   isNew: true,
