@@ -84,10 +84,7 @@ App.ApplicationRoute = Ember.Route.extend({
       task.validate().then(function() {
         task.save();
         var date = _this.get("getCurrentDate").call(this);
-        console.log("gonna set creation date "+task.get('creation_date'));
-        console.log("returned current date "+date);
         task.set('creation_date', date);
-        console.log("creation_date after "+date);
         _this.send("saveIntoFile");
         _this.transitionTo('index');
       });
@@ -123,16 +120,17 @@ App.ApplicationRoute = Ember.Route.extend({
     // Roll back and transition to /tasks/:task_id.
     cancel: function(task) {
       task.rollback();
-      this.transitionTo('tasks');
+      this.transitionTo('index');
     },
 
     // Delete specified task.
     delete: function(task) {
       var _this = this;
+      console.log("gonna destroy the new record!");
       task.destroyRecord().then(function(){
        _this.send("saveIntoFile");
+       _this.transitionTo('index');
       });
-      this.transitionTo('tasks');
     },
     selectTask: function(id){
       currentSelected = id;
@@ -161,7 +159,6 @@ App.ApplicationRoute = Ember.Route.extend({
         mm='0'+mm
     } 
     today = mm+'/'+dd+'/'+yyyy+'|'+H+'|'+M+'|'+S;
-    console.log("gonna return date !!! "+today);
     return today;
   }
 });
@@ -283,6 +280,50 @@ App.ApplicationController = Ember.ObjectController.extend({
     }
   }
 });
+
+// var App = Ember.Application.create();
+
+// App.ApplicationRoute = Ember.Route.extend({
+//   actions: {
+//     openModal: function(modalName, model) {
+//       this.controllerFor(modalName).set('model', model);
+//       return this.render(modalName, {
+//         into: 'application',
+//         outlet: 'modal'
+//       });
+//     },
+    
+//     closeModal: function() {
+//       return this.disconnectOutlet({
+//         outlet: 'modal',
+//         parentView: 'application'
+//       });
+//     }
+//   }
+// });
+
+// App.IndexRoute = Ember.Route.extend({
+//   model: function() {
+//     return Em.Object.create({name: 'Mitch'});
+//   }
+// });
+
+App.ModalController = Ember.ObjectController.extend({
+  actions: {
+    close: function() {
+      return this.send('closeModal');
+    }
+  }
+});
+
+// App.ModalDialogComponent = Ember.Component.extend({
+//   actions: {
+//     close: function() {
+//       return this.sendAction();
+//     }
+//   }
+// });
+
 
 
 

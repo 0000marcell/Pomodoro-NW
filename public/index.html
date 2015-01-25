@@ -76,7 +76,7 @@
     {{#form-for controller id="form-task" wrapper="bootstrap"}}
       {{#input name}}
         {{label-field name text="Task"}}
-        {{input-field name class="form-control" autofocus="true"}}
+        {{input-field name class="form-control" autofocus="false"}}
         {{#if view.showError}}
           {{error-field name}}
         {{/if}}
@@ -96,8 +96,8 @@
       <button type="button" class="btn btn-default cancel-button" {{action "cancel" model}}>Cancel</button>
       <button type="button" class="btn btn-danger delete-button" {{action "delete" model}}>Delete</button>
       {{/if}}
-    {{/form-for}}
+    {{/form-for}} 
   </script>
-	
 	</body>
 </html>
+
