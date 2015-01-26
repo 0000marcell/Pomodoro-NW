@@ -5,9 +5,14 @@
     <link rel="stylesheet" href="css/index.css">
 		<link rel="stylesheet" href="css/normalize.css">
   	<link rel="stylesheet" href="css/style.css">
+    <link type="text/css" href="css/base.css" rel="stylesheet" />
+    <link type="text/css" href="css/PieChart.css" rel="stylesheet" />
 		<script src="js/libs/jquery-1.10.2.js"></script>
     <!-- // <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
     <script src="js/JSONIO.js"></script>
+    
+    <script language="javascript" type="text/javascript" src="js/jit.js"></script>
+    <script language="javascript" type="text/javascript" src="js/example1.js"></script>
     <script src="js/libs/flipclock.js"></script>
 		<script src="js/libs/pomodoroclock.js"></script>
 		<!-- // <script src="js/libs/index.js"></script> -->
@@ -35,11 +40,13 @@
     <button {{action 'stopClock'}}>Stop</button>
   </script>  
   <script type="text/x-handlebars" data-template-name="tasks">
+    <button type="button" class="btn btn-default new-button" {{action "main" }}>"Back"</button>
     {{outlet}}
   </script>
   <script type="text/x-handlebars" id="index">
   </script>
   <script type="text/x-handlebars" data-template-name="tasks/index">
+   <button type="button" class="btn btn-default new-button" {{action "statistics" }}>"Statistics"</button>
     <table id="tasks_table" class="table task-table">
       <thead>
         <tr>
@@ -96,7 +103,17 @@
       <button type="button" class="btn btn-default cancel-button" {{action "cancel" model}}>Cancel</button>
       <button type="button" class="btn btn-danger delete-button" {{action "delete" model}}>Delete</button>
       {{/if}}
-    {{/form-for}} 
+    {{/form-for}}
+  </script>
+  <script type="text/x-handlebars" data-template-name="tasks/statistics">
+   <h1>Statistics</h1>
+  <div id="container">
+    <div id="center-container">
+      <div id="infovis"></div>    
+    </div>
+    <div id="log"></div>
+    </div>
+    <a onclick="init();">init</a>
   </script>
 	</body>
 </html>

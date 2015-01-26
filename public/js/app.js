@@ -32,6 +32,7 @@ App.Router.map(function() {
     this.route('new');
     this.route('show', {path: '/:task_id'});
     this.route('edit', {path: '/:task_id/edit'});
+    this.route('statistics');
   });
 });
 
@@ -89,6 +90,13 @@ App.ApplicationRoute = Ember.Route.extend({
         _this.transitionTo('index');
       });
     },
+    statistics: function(){
+      // init();
+      this.transitionTo('tasks.statistics'); 
+    },
+    main: function(){
+     this.transitionTo('tasks');  
+    },
     saveIntoFile: function(){
       var json = {tasks : []};
       var data = this.store.find('task');
@@ -122,7 +130,6 @@ App.ApplicationRoute = Ember.Route.extend({
       task.rollback();
       this.transitionTo('index');
     },
-
     // Delete specified task.
     delete: function(task) {
       var _this = this;
@@ -133,6 +140,7 @@ App.ApplicationRoute = Ember.Route.extend({
       });
     },
     selectTask: function(id){
+      pomodoroClock.stop();
       currentSelected = id;
       var currentSelectedDuration;
       var _this = this;
@@ -160,6 +168,21 @@ App.ApplicationRoute = Ember.Route.extend({
     } 
     today = mm+'/'+dd+'/'+yyyy+'|'+H+'|'+M+'|'+S;
     return today;
+  },
+  generateJSONstats: function(){
+    this.store.find('task').then(function(data){
+      data.forEach(function(value) {
+        var tmp = {id: i++,
+          name: value.get("name"),
+          creation_date: value.get('creation_date'),
+          last_active: value.get('last_active'),
+          duration: value.get("duration"),
+          pomodoros: value.get("pomodoros")};
+        json.tasks.push(tmp);
+        jsonString = JSON.stringify(json);
+      });
+      jsonio.save(jsonString);
+    });
   }
 });
 

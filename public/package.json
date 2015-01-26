@@ -9,13 +9,13 @@
     "icon": "link.png",
     "toolbar": false,
     "frame": true,
-    "width": 500,
-    "height": 500,
+    "width": 880,
+    "height": 680,
     "position": "center",
     "min_width": 400,
     "min_height": 200,
-    "max_width": 800,
-    "max_height": 600
+    "max_width": 880,
+    "max_height": 680
   },
   "webkit": {
     "plugin": true
