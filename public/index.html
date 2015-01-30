@@ -10,7 +10,7 @@
 		<script src="js/libs/jquery-1.10.2.js"></script>
     <!-- // <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
     <script src="js/JSONIO.js"></script>
-    
+    <script src="js/libs/pomodoroStatistics.js"></script>
     <script language="javascript" type="text/javascript" src="js/jit.js"></script>
     <script language="javascript" type="text/javascript" src="js/example1.js"></script>
     <script src="js/libs/flipclock.js"></script>
@@ -62,7 +62,7 @@
           <tr {{bind-attr id=task.htmlID}}>
             <td><button type="button" class="btn btn-success" {{action "selectTask" task.id}}><span class="glyphicon glyphicon-arrow-right"></span>Select!</button></td>
             <td class="name">{{#link-to "tasks.show" task}}{{task.name}}{{/link-to}}</td>
-            <td class="pomodoros">{{task.pomodoros}}</td>
+            <td class="pomodoros">{{task.pomodoros.length}}</td>
             <td class="duration">{{task.duration}}</td>
             <td class="action-buttons"><button type="button" class="btn btn-default edit-button" {{action "edit" task}}><span class="glyphicon glyphicon-pencil"></span></button>
               </td>
@@ -73,7 +73,8 @@
   </script>
   <script type="text/x-handlebars" data-template-name="tasks/show">
   <h2><span class="name">{{name}}</span></h2>
-  <p>By <span class="pomodoros">{{pomodoros}}</span></p>
+  <h6>Pomodoros: <span class="pomodoros">{{pomodoros.length}}</span></h6>
+  <h6>Total Time: {{totalTime}}</h6>
   <p class="action-buttons"><button type="button" class="btn btn-default edit-button" {{action "edit" model}}><span class="glyphicon glyphicon-pencil"></span></button>
       <button type="button" class="btn btn-default delete-button" {{action "delete" model}}><span class="glyphicon glyphicon-remove"></button></p>
   <p>{{#link-to 'tasks' class="index-link"}}Back to tasks index{{/link-to}}</p>

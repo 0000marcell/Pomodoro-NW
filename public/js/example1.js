@@ -26,55 +26,163 @@ var Log = {
 };
 
 
-function init(){
-    console.log("init is running mother fucker!");
-    //init data
-    var json = {
-        'label': ['label A', 'label B'],
-        'values': [
-        {
-          'label': 'date A',
-          'values': [80]
-        }, 
-        {
-          'label': 'date B',
-          'values': [0, 20]
-        }]
-    };
-    //end
-    //init PieChart
-    var pieChart = new $jit.PieChart({
+function init(json){
+    //Area Chart
+    // var areaChart = new $jit.AreaChart({
+    //   //id of the visualization container
+    //   injectInto: 'infovis',
+    //   //add animations
+    //   animate: true,
+    //   //separation offsets
+    //   Margin: {
+    //     top: 5,
+    //     left: 5,
+    //     right: 5,
+    //     bottom: 5
+    //   },
+    //   labelOffset: 10,
+    //   //whether to display sums
+    //   showAggregates: true,
+    //   //whether to display labels at all
+    //   showLabels: true,
+    //   //could also be 'stacked'
+    //   type: useGradients? 'stacked:gradient' : 'stacked',
+    //   //label styling
+    //   Label: {
+    //     type: labelType, //can be 'Native' or 'HTML'
+    //     size: 13,
+    //     family: 'Arial',
+    //     color: 'white'
+    //   },
+    //   //enable tips
+    //   Tips: {
+    //     enable: true,
+    //     onShow: function(tip, elem) {
+    //       tip.innerHTML = "<b>" + elem.name + "</b>: " + elem.value;
+    //     }
+    //   },
+    //   //add left and right click handlers
+    //   filterOnClick: true,
+    //   restoreOnRightClick:true
+    // });
+    // areaChart.loadJSON(json);
+
+    //Pie Chart
+    // var pieChart = new $jit.PieChart({
+    //   //id of the visualization container
+    //   injectInto: 'infovis',
+    //   //whether to add animations
+    //   animate: true,
+    //   //offsets
+    //   offset: 30,
+    //   sliceOffset: 0,
+    //   labelOffset: 20,
+    //   //slice style
+    //   type: useGradients? 'stacked:gradient' : 'stacked',
+    //   //whether to show the labels for the slices
+    //   showLabels:true,
+    //   //resize labels according to
+    //   //pie slices values set 7px as
+    //   //min label size
+    //   resizeLabels: 7,
+    //   //label styling
+    //   Label: {
+    //     type: labelType, //Native or HTML
+    //     size: 20,
+    //     family: 'Arial',
+    //     color: 'white'
+    //   },
+    //   //enable tips
+    //   Tips: {
+    //     enable: true,
+    //     onShow: function(tip, elem) {
+    //        tip.innerHTML = "<b>" + elem.name + "</b>: " + elem.value;
+    //     }
+    //   }
+    // });
+    // pieChart.loadJSON(json);
+
+    // // BarChart V
+    var barChart = new $jit.BarChart({
       //id of the visualization container
       injectInto: 'infovis',
       //whether to add animations
       animate: true,
-      //offsets
-      offset: 30,
-      sliceOffset: 0,
-      labelOffset: 20,
-      //slice style
+      //horizontal or vertical barcharts
+      orientation: 'vertical',
+      //bars separation
+      barsOffset: 20,
+      //visualization offset
+      Margin: {
+        top:5,
+        left: 5,
+        right: 5,
+        bottom:5
+      },
+      //labels offset position
+      labelOffset: 5,
+      //bars style
       type: useGradients? 'stacked:gradient' : 'stacked',
-      //whether to show the labels for the slices
+      //whether to show the aggregation of the values
+      showAggregates:true,
+      //whether to show the labels for the bars
       showLabels:true,
-      //resize labels according to
-      //pie slices values set 7px as
-      //min label size
-      resizeLabels: 7,
-      //label styling
+      //labels style
       Label: {
         type: labelType, //Native or HTML
-        size: 20,
+        size: 13,
         family: 'Arial',
         color: 'white'
       },
-      //enable tips
+      //add tooltips
       Tips: {
         enable: true,
         onShow: function(tip, elem) {
-           tip.innerHTML = "<b>" + elem.name + "</b>: " + elem.value;
+          tip.innerHTML = "<b>" + elem.name + "</b>: " + elem.value;
         }
       }
     });
-    //load JSON data.
-    pieChart.loadJSON(json);
+    barChart.loadJSON(json);
+
+    // BarChart H
+    // var barChart = new $jit.BarChart({
+    //   //id of the visualization container
+    //   injectInto: 'infovis',
+    //   //whether to add animations
+    //   animate: true,
+    //   //horizontal or vertical barcharts
+    //   orientation: 'horizontal',
+    //   //bars separation
+    //   barsOffset: 0.5,
+    //   //visualization offset
+    //   Margin: {
+    //     top: 5,
+    //     left: 5,
+    //     right: 5,
+    //     bottom: 5
+    //   },
+    //   //labels offset position
+    //   labelOffset:5,
+    //   //bars style
+    //   type:'stacked',
+    //   //whether to show the aggregation of the values
+    //   showAggregates:true,
+    //   //whether to show the labels for the bars
+    //   showLabels:true,
+    //   //label styles
+    //   Label: {
+    //     type: labelType, //Native or HTML
+    //     size: 13,
+    //     family: 'Arial',
+    //     color: 'white'
+    //   },
+    //   //tooltip options
+    //   Tips: {
+    //     enable: true,
+    //     onShow: function(tip, elem) {
+    //       tip.innerHTML = "<b>" + elem.name + "</b>: " + elem.value;
+    //     }
+    //   }
+    // });
+    // barChart.loadJSON(json);
 }
