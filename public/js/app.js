@@ -105,8 +105,15 @@ App.ApplicationRoute = Ember.Route.extend({
       this.transitionTo('tasks.edit', task);
     },
     show: function(task){
-      task.set('totalTime');
-      this.transitionTo('tasks.show');
+      var length = parseInt(task.get('pomodoros').length);
+      var duration = parseInt(task.get('duration')); 
+      var totalTimeInMin = length * duration;
+      console.log("total time in min "+totalTimeInMin);
+      var hours = Math.floor(totalTimeInMin/60);
+      var min = totalTimeInMin % 60;
+      console.log("task show !!!"+task.get('pomodoros').length);
+      task.set('totalTime', hours+'h'+min+'m'); 
+      this.transitionTo('tasks.show', task);
     },
     // Save and transition to /tasks/:task_id only if validation passes.
     save: function(task) {
@@ -209,21 +216,6 @@ App.ApplicationRoute = Ember.Route.extend({
     } 
     today = mm+'/'+dd+'/'+yyyy+'|'+H+'|'+M+'|'+S;
     return today;
-  },
-  generateJSONstats: function(){
-    this.store.find('task').then(function(data){
-      data.forEach(function(value) {
-        var tmp = {id: i++,
-          name: value.get("name"),
-          creation_date: value.get('creation_date'),
-          last_active: value.get('last_active'),
-          duration: value.get("duration"),
-          pomodoros: value.get("pomodoros")};
-        json.tasks.push(tmp);
-        jsonString = JSON.stringify(json);
-      });
-      jsonio.save(jsonString);
-    });
   }
 });
 
@@ -281,6 +273,8 @@ App.TasksNewRoute = Ember.Route.extend({
     }
   }
 });
+
+
 
 App.IndexView = Ember.View.extend({
   didInsertElement: function(){

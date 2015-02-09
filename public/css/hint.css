@@ -1,0 +1,228 @@
+@import url(http://fonts.googleapis.com/css?family=Archivo+Narrow:400);
+@import url(http://fonts.googleapis.com/css?family=Archivo+Narrow:700);
+
+button, .button, input[type=submit] {
+  border: 0;
+  background: #5786c1;
+  color: white;
+  padding: 8px 14px;
+  font-weight: bold;
+  font-size: 18px;
+  text-decoration: none;
+  display: inline-block;
+  /* needed for anchors */
+  position: relative;
+  box-shadow: 1px 0px #3a587f, 0px 1px #4171ae, 2px 1px #3a587f, 1px 2px #4171ae, 3px 2px #3a587f, 2px 3px #4171ae, 4px 3px #3a587f, 3px 4px #4171ae, 5px 4px #3a587f, 4px 5px #4171ae, 6px 5px #3a587f, 5px 6px #4171ae;
+}
+button:hover, button:focus, button.hover, button.focus, .button:hover, .button:focus, .button.hover, .button.focus, input[type=submit]:hover, input[type=submit]:focus, input[type=submit].hover, input[type=submit].focus {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 0px #3a587f, 0px 1px #4171ae, 2px 1px #3a587f, 1px 2px #4171ae, 3px 2px #3a587f, 2px 3px #4171ae, 4px 3px #3a587f, 3px 4px #4171ae;
+}
+button:active, button.active, .button:active, .button.active, input[type=submit]:active, input[type=submit].active {
+  transform: translate(4px, 4px);
+  box-shadow: 1px 0px #3a587f, 0px 1px #4171ae, 2px 1px #3a587f, 1px 2px #4171ae;
+}
+
+body {
+  padding: 50px;
+  background: lightblue;
+}
+
+.col {
+  width: 160px;
+  float: left;
+}
+
+.wrap {
+  /*width: 100px;*/
+  /*margin: 100px auto;*/
+  /* button stuffs */
+}
+.wrap button {
+  border: 0;
+  background: #5786c1;
+  color: white;
+  padding: 8px 14px;
+  font-weight: bold;
+  font-size: 18px;
+  text-decoration: none;
+  display: inline-block;
+  /* needed for anchors */
+  position: relative;
+  box-shadow: 1px 0px #3a587f, 0px 1px #4171ae, 2px 1px #3a587f, 1px 2px #4171ae, 3px 2px #3a587f, 2px 3px #4171ae, 4px 3px #3a587f, 3px 4px #4171ae, 5px 4px #3a587f, 4px 5px #4171ae, 6px 5px #3a587f, 5px 6px #4171ae;
+  /*font-family: 'Archivo Narrow', sans-serif;*/
+  /*font-weight: bold;*/
+  font-size: 36px;
+  text-shadow: 1px 1px 0px #ffffff;
+  display: block;
+  padding: 10px 30px;
+  margin: 0 auto;
+  min-width: 200px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+  box-shadow: 1px 1px 1px #ffffff;
+  -moz-box-shadow: 1px 1px 1px #ffffff;
+  -webkit-box-shadow: 1px 1px 1px #ffffff;
+  text-shadow: 1px 1px 0px #fff;
+  font-weight: 400;
+  color: #333;
+  border: 1px solid #aaa;
+  cursor: pointer;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  background: #feffe8;
+}
+
+.wrap button:hover {
+  background: -moz-linear-gradient(top, #fffce7 0%, #fdfd9f 100%);
+  /* FF3.6+ */
+  background: -webkit-linear-gradient(top, #fffce7 0%, #fdfd9f 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: linear-gradient(to bottom, #fffce7 0%, #fdfd9f 100%);
+  /* W3C */
+}
+
+.wrap button:active {
+  background: -moz-linear-gradient(top, #f8c67a 0%, #e28904 49%, #f9ac39 50%, #f9d4a1 100%);
+  /* FF3.6+ */
+  background: -webkit-linear-gradient(top, #f8c67a 0%, #e28904 49%, #f9ac39 50%, #f9d4a1 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: linear-gradient(to bottom, #f8c67a 0%, #e28904 49%, #f9ac39 50%, #f9d4a1 100%);
+  /* W3C */
+}
+
+.wrap button span {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  position: absolute;
+  padding: 10px;
+  width: 190px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  text-shadow: 0 0 0 #ffffff;
+  font-weight: normal;
+  color: rgba(255, 255, 255, 0);
+  opacity: 0;
+  font-size: 16px;
+  -moz-transition: all 0.4s ease-in;
+  -webkit-transition: all 0.4s ease-in;
+  -o-transition: all 0.4s ease-in;
+  transition: all 0.4s ease-in;
+  -webkit-transition-delay: 0.2s;
+  -moz-transition-delay: 0.2s;
+  -o-transition-delay: 0.2s;
+  -transition-delay: 0.2s;
+  z-index: 1;
+}
+.wrap button span .nub {
+  display: block;
+  width: 10px;
+  height: 10px;
+  padding: 5px;
+  border-style: solid;
+  border-color: transparent;
+  background: rgba(255, 255, 255, 0.8);
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  position: absolute;
+  left: 42%;
+  -moz-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  z-index: 0;
+  -moz-transition: all 0.4s ease-in;
+  -webkit-transition: all 0.4s ease-in;
+  -o-transition: all 0.4s ease-in;
+  transition: all 0.4s ease-in;
+  -webkit-transition-delay: 0.2s;
+  -moz-transition-delay: 0.2s;
+  -o-transition-delay: 0.2s;
+  -transition-delay: 0.2s;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+}
+.wrap button span.top {
+  top: 0px;
+  left: 4px;
+}
+.wrap button span.top .nub {
+  left: 20%;
+  bottom: -8px;
+}
+.wrap button span.bottom {
+  bottom: 0px;
+  left: 4px;
+}
+.wrap button span.bottom .nub {
+  left: 20%;
+  top: -8px;
+}
+.wrap button span.left {
+  top: 0px;
+  left: 4px;
+}
+.wrap button span.left .nub {
+  left: 180px;
+  top: 20px;
+}
+.wrap button span.right {
+  top: 0px;
+  right: 4px;
+}
+.wrap button span.right .nub {
+  left: -8px;
+  top: 20px;
+  margin: 0 0 0 0;
+  -moz-transition: all 0.4s ease-in;
+  -webkit-transition: all 0.4s ease-in;
+  -o-transition: all 0.4s ease-in;
+  transition: all 0.4s ease-in;
+}
+.wrap button:hover span {
+  background: #0099ff;
+  height: auto;
+  color: #fff;
+  font-size: 16px;
+  opacity: 100;
+  -moz-transition: all 0.4s ease-in;
+  -webkit-transition: all 0.4s ease-in;
+  -o-transition: all 0.4s ease-in;
+  transition: all 0.4s ease-in;
+  -webkit-transition-delay: 0.2s;
+  -moz-transition-delay: 0.2s;
+  -o-transition-delay: 0.2s;
+  -transition-delay: 0.2s;
+}
+.wrap button:hover span .nub {
+  -moz-transition: all 0.4s ease-in;
+  -webkit-transition: all 0.4s ease-in;
+  -o-transition: all 0.4s ease-in;
+  transition: all 0.4s ease-in;
+  -webkit-transition-delay: 0.2s;
+  -moz-transition-delay: 0.2s;
+  -o-transition-delay: 0.2s;
+  -transition-delay: 0.2s;
+}
+
+.wrap button:hover span.bottom {
+  bottom: -60px;
+}
+.wrap button:hover span.left {
+  left: -193px;
+}
+.wrap button:hover span.right {
+  right: -193px;
+}
+.wrap button:hover span.top {
+  top: -60px;
+}
