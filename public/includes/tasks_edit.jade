@@ -1,0 +1,27 @@
+<script type="text/x-handlebars" data-template-name="tasks/edit">
+<h2>{{#if isNew}}New{{else}}Edit{{/if}} Task</h2>
+{{#form-for controller id="form-task" wrapper="bootstrap"}}
+{{#input name}}
+{{label-field name text="Task"}}
+{{input-field name class="form-control" autofocus="false"}}
+{{#if view.showError}}
+{{error-field name}}
+{{/if}}
+{{/input}}
+{{#input duration}}
+{{label-field duration text="Duration"}}
+{{input-field duration as='select'
+collection="durations"
+value="duration"
+class="form-control"
+}}
+{{/input}}
+<button type="submit" class="btn btn-primary save-button" {{action "save" model}}>Save</button>
+{{#if isNew}}
+<button type="button" class="btn btn-default cancel-button" {{action "delete" model}}>Cancel</button>
+{{else}}
+<button type="button" class="btn btn-default cancel-button" {{action "cancel" model}}>Cancel</button>
+<button type="button" class="btn btn-danger delete-button" {{action "delete" model}}>Delete</button>
+{{/if}}
+{{/form-for}}
+</script>

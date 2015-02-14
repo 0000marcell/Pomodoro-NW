@@ -1,6 +1,18 @@
 module.exports = function(grunt) {
 
   grunt.initConfig({
+    jade: {
+      compile: {
+        options: {
+          data: {
+            debug: false
+          }
+        },
+        files: {
+          "public/index.html": ["public/index.jade"]
+        }
+      }
+    },
     nodewebkit: {
       options: {
         build_dir: './build', // Where the build version of my node-webkit app is saved
@@ -14,8 +26,7 @@ module.exports = function(grunt) {
       src: './public/**/*' // Your node-webkit app
     },
   });
-
+  grunt.loadNpmTasks('grunt-contrib-jade');
   grunt.loadNpmTasks('grunt-node-webkit-builder');
-  grunt.registerTask('default', ['nodewebkit']);
-
+  grunt.registerTask('default', ['jade', 'nodewebkit']);
 };
