@@ -75,8 +75,6 @@
         {{#each task in model}}
           <tr {{bind-attr id=task.htmlID}}>
             <td>
-
-
             <!-- <button type="button" class="btn btn-success" {{action "selectTask" task.id}}><span class="glyphicon glyphicon-arrow-right"></span>Select!</button> -->
 
             <div class="onoffswitch">
@@ -86,8 +84,6 @@
                   <span class="onoffswitch-switch"></span>
               </label>
             </div>
-
-
             </td>
             <td class="name"><a {{action "show" task}}>{{task.name}}</a></td>
             <td class="pomodoros">{{task.pomodoros.length}}</td>

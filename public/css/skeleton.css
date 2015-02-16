@@ -25,6 +25,11 @@
 - Media Queries
 */
 
+/*Custom*/
+.centered {
+  text-align: center;
+}
+
 
 /* Grid
 –––––––––––––––––––––––––––––––––––––––––––––––––– */

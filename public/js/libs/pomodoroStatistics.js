@@ -2,6 +2,7 @@ function PomodoroStatistics(){
 }
 
 PomodoroStatistics.prototype.lastWeek = function(tasks){
+  console.log("tasks "+tasks);
   var today = new Date();
   var dd = today.getDate();
   var lastWeek = dd-7;
@@ -14,8 +15,10 @@ PomodoroStatistics.prototype.lastWeek = function(tasks){
     };
   json.label.push('Total');
   _this = this;
+  console.log("gonna iterate though tasks ");
   tasks.forEach(function(task){
     name = task.get("name");
+    console.log("task name "+name);
     duration = parseInt(task.get('duration')); 
     var taskTime = 0;
     json.label.push(task.get("name"));

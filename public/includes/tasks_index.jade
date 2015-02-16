@@ -3,17 +3,15 @@ script(type='text/x-handlebars', data-template-name='tasks/index')
   table#tasks_table.table.task-table
     thead
       tr
-        th Activate
-        |           
-        th Name
-        |           
-        th Pomodoros
-        |           
+        th Activate         
+        th Name 
+        th Pomodoros     
         th Duration
-        |           
         th
           .wrap
             <button class="glyphicon glyphicon-pencil" {{action "new"}}><span class="left">Create an New Task<span class="nub"></span></span></button>
         tbody
+          include each_task.html 
+
 
 

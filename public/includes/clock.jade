@@ -2,9 +2,12 @@ script(type='text/x-handlebars')
 		{{outlet}}
 		div(class='container')
 		div(class='row')
-			div(class='four columns')
-				div(class='clock')
-				div(class='message')
-			div(class='four columns')
-				<button {{action 'startClock'}}>Start</button>
-				<button {{action 'stopClock'}}>Stop</button>
+			.centered
+				div(class='eleven columns')
+					div(class='clock')
+					div(class='message')
+		.row 
+			.centered
+				div(class="four columns")
+					<button {{action 'startClock'}}>Start</button>
+					<button {{action 'stopClock'}}>Stop</button>
