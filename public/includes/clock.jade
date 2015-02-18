@@ -1,13 +1,14 @@
 script(type='text/x-handlebars') 
-		{{outlet}}
-		div(class='container')
-		div(class='row')
-			.centered
-				div(class='eleven columns')
-					div(class='clock')
-					div(class='message')
-		.row 
-			.centered
-				div(class="four columns")
-					<button {{action 'startClock'}}>Start</button>
-					<button {{action 'stopClock'}}>Stop</button>
+  {{outlet}}
+  .container
+    .one-third.column
+    .one-third.column
+      .row
+        .eleven.columns
+          .clock
+          .message
+      .row
+        .four.columns
+          <button {{action 'startClock'}}>Start</button>
+          <button {{action 'stopClock'}}>Stop</button>
+    .one-third.column
