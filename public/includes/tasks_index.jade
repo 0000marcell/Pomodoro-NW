@@ -1,17 +1,21 @@
 script(type='text/x-handlebars', data-template-name='tasks/index')
-  <button type="button" class="btn btn-default new-button" {{action "statistics" }}>"Statistics"</button>
-  table#tasks_table.table.task-table
-    thead
-      tr
-        th Activate         
-        th Name 
-        th Pomodoros     
-        th Duration
-        th
-          .wrap
-            <button class="glyphicon glyphicon-pencil" {{action "new"}}><span class="left">Create an New Task<span class="nub"></span></span></button>
-        tbody
-          include each_task.html 
+  <button type="button" {{action "statistics" }}>Statistics</button>
+  .container
+    .row
+      .nine.columns
+        table#tasks_table.table.task-table
+          thead
+            tr
+              th Activate         
+              th Name 
+              th Pomodoros     
+              th Duration
+              th
+                .wrap
+                  <button class="button-primary" {{action "new"}}>+</button>
+              tbody
+                .task-list
+                  include each_task.html 
 
 
 
