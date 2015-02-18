@@ -92,6 +92,8 @@ App.resetFixtures = function() {
 App.resetFixtures();
 
 App.ApplicationRoute = Ember.Route.extend({
+  taskVisibility: true,
+
   model: function() {
     return this.store.find('task');
   },
@@ -108,7 +110,6 @@ App.ApplicationRoute = Ember.Route.extend({
       var length = parseInt(task.get('pomodoros').length);
       var duration = parseInt(task.get('duration')); 
       var totalTimeInMin = length * duration;
-      console.log("total time in min "+totalTimeInMin);
       var hours = Math.floor(totalTimeInMin/60);
       var min = totalTimeInMin % 60;
       console.log("task show !!!"+task.get('pomodoros').length);
@@ -134,6 +135,16 @@ App.ApplicationRoute = Ember.Route.extend({
         });
       }); 
     },
+    showHideTasks: function(){
+      var _this = this; 
+      if(this.taskVisibility){
+        $('#tasks').hide('slow/400/fast', function(){
+           _this.taskVisibility = false;});  
+      }else{
+        $('#tasks').show('slow/400/fast', function(){
+           _this.taskVisibility = true;});  
+      }
+    },
     main: function(){
      this.transitionTo('tasks');  
     },
@@ -145,6 +156,7 @@ App.ApplicationRoute = Ember.Route.extend({
       var _this = this;
       this.store.find('task').then(function(tasks){
         tasks.forEach(function(task){
+          if(task.get("pomodoros") == undefined){task.set('pomodoros', '')};
           var tmp = {id: i++,
             name: task.get("name"),
             creation_date: task.get('creation_date'),
@@ -164,12 +176,8 @@ App.ApplicationRoute = Ember.Route.extend({
       this.store.find('task', currentSelected).then(function(task){
         var date = _this.get("getCurrentDate").call(this); 
         var pomodoro = { "date": date };
-        console.log("pomodoros type before "+task.get('pomodoros'));
-        console.log("pomodoros length before "+task.get('pomodoros').length);
         task.get('pomodoros').pushObject(pomodoro);
-        console.log("length after from object "+task.get('pomodoros').length);
         task.save().then(function(){
-         console.log("gonna save task into file!");
          _this.send('saveIntoFile');
         });
       });

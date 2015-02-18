@@ -2,6 +2,9 @@ script(type='text/x-handlebars')
   {{outlet}}
   .container
     .row
+      .four.columns.u-pull-right
+        <button type="button" class="button-primary " {{action 'showHideTasks' }}>Show/Hide</button>
+    .row
       .nine.columns
         .clock
         .message

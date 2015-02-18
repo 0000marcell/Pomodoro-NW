@@ -1,21 +1,21 @@
 script(type='text/x-handlebars', data-template-name='tasks/index')
-  <button type="button" {{action "statistics" }}>Statistics</button>
-  .container
-    .row
-      .nine.columns
-        table#tasks_table.table.task-table
-          thead
-            tr
-              th Activate         
-              th Name 
-              th Pomodoros     
-              th Duration
-              th
-                .wrap
-                  <button class="button-primary" {{action "new"}}>+</button>
-              tbody
-                .task-list
-                  include each_task.html 
+  #tasks
+    <button type="button" {{action "statistics" }}>Statistics</button>
+    .container
+      .row
+        .nine.columns
+          table#tasks_table
+            thead
+              tr
+                th Activate         
+                th Name 
+                th Pomodoros     
+                th Duration
+                th
+                  .wrap
+                    <button class="button-primary" {{action "new"}}>+</button>
+                tbody
+                  include each_task.html
 
 
 

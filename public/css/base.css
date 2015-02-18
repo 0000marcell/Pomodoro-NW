@@ -11,9 +11,13 @@ input, select {
 }
 
 table {
-    margin-top:-10px;
-    margin-left:7px;
+  margin-top:-10px;
+  margin-left:-50px;
+  overflow: scroll;
+  max-height: 100px;
 }
+
+
 
 h4 {
     font-size:1.1em;
@@ -98,6 +102,10 @@ a {
     width:400px;
     height:400px;
     overflow:hidden;
+}
+
+.hide {
+  visibility: hidden;
 }
 
 /*TOOLTIPS*/
