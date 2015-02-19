@@ -2,8 +2,8 @@ var clock;
 var intervalCount = 0;
 var pomodoroTime = 25 * 60;
 var restart = false;
-var shortIntervalTime = 2;
-var longIntervalTime = 3;
+var shortIntervalTime = 5 * 60;
+var longIntervalTime = 10 * 60;
 var pause = false;
 var pomodoroClock;
 var jsonio;
@@ -19,7 +19,7 @@ App.ApplicationAdapter = DS.FixtureAdapter.extend({
   namespace: 'Pomodoro-Grunt-Node'
 });
 
-Ember.EasyForm.Config.registerWrapper('bootstrap', {
+Ember.EasyForm.Config.registerWrapper('skeleton', {
   formClass: '',
   fieldErrorClass: 'has-error',
   inputClass: 'form-group',
@@ -78,7 +78,7 @@ App.Task = DS.Model.extend(Ember.Validations.Mixin, {
       presence: true
     }
   },
-  durations : ['55:00','1:00', '0.1', '50:00','45:00','40:00','35:00','30:00','25:00',
+  durations : ['55:00','1:00', '50:00','45:00','40:00','35:00','30:00','25:00',
     '20:00'
   ]
 });
@@ -203,7 +203,7 @@ App.ApplicationRoute = Ember.Route.extend({
       this.store.find('task', id).then(function(task){
        currentSelectedDuration = task.get('duration');
        task.set('last_active', _this.get("getCurrentDate").call(this));
-       pomodoroTime = parseInt(currentSelectedDuration) * 5;
+       pomodoroTime = parseInt(currentSelectedDuration) * 60;
        pomodoroClock.reset(pomodoroTime);
       });
     },
