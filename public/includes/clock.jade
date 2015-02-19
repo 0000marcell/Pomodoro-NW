@@ -1,11 +1,18 @@
-script(type='text/x-handlebars') 
+script(type='text/x-handlebars')
+  .container
+    .row 
+      .four.columns.u-pull-left
+        <button type="button" class="button-primary" {{action "main" }}><</button>
+      .four.columns.u-pull-right
+        <button type="button" class="button-primary" {{action "config" }}>Config</button>   
   {{outlet}}
   .container
     .row
-      .six.columns
+      .one-third.column
         #task-name
+      .one-third.column
         #task-status
-      .four.columns.u-pull-right
+      .one-third.column.u-pull-right
         <button type="button" class="button-primary " {{action 'showHideTasks' }}>Show/Hide</button>
     .row
       .nine.columns

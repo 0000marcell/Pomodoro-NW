@@ -1,7 +1,9 @@
 script(type='text/x-handlebars', data-template-name='tasks/index')
   #tasks
-    <button type="button" {{action "statistics" }}>Statistics</button>
     .container
+      .row
+       .four.columns
+          <button type="button" {{action "statistics" }}>Statistics</button> 
       .row
         .nine.columns
           table#tasks_table

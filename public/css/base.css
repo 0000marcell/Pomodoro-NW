@@ -6,13 +6,25 @@ html, body {
     background-color:#F2F2F2;
 }
 
+.clock-interval{
+  color: blue;
+}
+
+.clock-paused{
+  color: red;
+}
+
+.clock-active{
+  color: green;
+}
+
 input, select {
     font-size:0.9em;
 }
 
 table {
   margin-top:-10px;
-  margin-left:-50px;
+  margin-left:-10px;
   overflow: scroll;
   max-height: 100px;
 }

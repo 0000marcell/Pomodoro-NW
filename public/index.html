@@ -1,7 +1,5 @@
-<!DOCTYPE html><html><title>Pomodoro</title><link rel="stylesheet" href="css/styles.css"><script src="js/libs/jquery-1.10.2.js"></script><script src="js/JSONIO.js"></script><script src="js/libs/pomodoroStatistics.js"></script><script src="js/jit.js"></script><script src="js/example1.js"></script><script src="js/libs/flipclock.js"></script><script src="js/libs/pomodoroclock.js"></script><script src="js/libs/handlebars-1.1.2.js"></script><script src="js/libs/ember-1.7.0.js"></script><script src="js/ember-data.js"></script><script src="js/ember-validations.js"></script><script src="js/libs/ember-easyForm.js"></script><script src="tests/runner.js"></script><script src="js/app.js"></script><body><script type="text/x-handlebars"> 
-{{outlet}}<div class="container"><div class="row"><div class="six columns"><div id="task-name"></div></div><div class="four columns u-pull-right"><button type="button" class="button-primary " {{action 'showHideTasks' }}>Show/Hide</button></div></div><div class="row"><div class="nine columns"><div class="clock"></div><div class="message"></div></div></div><div class="row"><div class="nine columns"><button {{action 'startClock'}}>Start</button>
-<button {{action 'stopClock'}}>Stop</button></div></div></div></script><script type="text/x-handlebars" data-template-name="tasks"><div class="container"><div class="row"> <div class="nine columns"><button type="button" class="button-primary" {{action "main" }}><</button>
-{{outlet}}</div></div></div></script><script id="index" type="text/x-handlebars"></script><script type="text/x-handlebars" data-template-name="tasks/index"><div id="tasks"><button type="button" {{action "statistics" }}>Statistics</button><div class="container"><div class="row"><div class="nine columns"><table id="tasks_table"><thead><tr><th>Activate         </th><th>Name </th><th>Pomodoros     </th><th>Duration</th><th><div class="wrap"><button class="button-primary" {{action "new"}}>+</button></div></th><tbody>{{#each task in model}}
+<!DOCTYPE html><html><title>Pomodoro</title><link rel="stylesheet" href="css/styles.css"><script src="js/libs/jquery-1.10.2.js"></script><script src="js/JSONIO.js"></script><script src="js/libs/pomodoroStatistics.js"></script><script src="js/jit.js"></script><script src="js/example1.js"></script><script src="js/libs/flipclock.js"></script><script src="js/libs/pomodoroclock.js"></script><script src="js/libs/handlebars-1.1.2.js"></script><script src="js/libs/ember-1.7.0.js"></script><script src="js/ember-data.js"></script><script src="js/ember-validations.js"></script><script src="js/libs/ember-easyForm.js"></script><script src="tests/runner.js"></script><script src="js/app.js"></script><body><script type="text/x-handlebars"><div class="container"><div class="row"> <div class="four columns u-pull-left"><button type="button" class="button-primary" {{action "main" }}><</button></div><div class="four columns u-pull-right"><button type="button" class="button-primary" {{action "config" }}>Config</button>   </div></div></div>{{outlet}}<div class="container"><div class="row"><div class="one-third column"><div id="task-name"></div></div><div class="one-third column"><div id="task-status"></div></div><div class="one-third column u-pull-right"><button type="button" class="button-primary " {{action 'showHideTasks' }}>Show/Hide</button></div></div><div class="row"><div class="nine columns"><div class="clock"></div><div class="message"></div></div></div><div class="row"><div class="nine columns"><button {{action 'startClock'}}>Start</button>
+<button {{action 'stopClock'}}>Stop</button></div></div></div></script><script type="text/x-handlebars" data-template-name="tasks">{{outlet}}</script><script id="index" type="text/x-handlebars"></script><script type="text/x-handlebars" data-template-name="tasks/index"><div id="tasks"><div class="container"><div class="row"><div class="four columns"><button type="button" {{action "statistics" }}>Statistics</button> </div></div><div class="row"><div class="nine columns"><table id="tasks_table"><thead><tr><th>Activate         </th><th>Name </th><th>Pomodoros     </th><th>Duration</th><th><div class="wrap"><button class="button-primary" {{action "new"}}>+</button></div></th><tbody>{{#each task in model}}
   <tr {{bind-attr id=task.htmlID}}>
     <td>
       <input type="checkbox" on="change" id=task.id {{action "selectTask" task.id}}>
@@ -12,33 +10,37 @@
     <td class="action-buttons"><button type="button" class="btn btn-default edit-button" {{action "edit" task}}>Edit</button>
       </td>
   </tr>
-{{/each}}</tbody></tr></thead></table></div></div></div></div></script><script type="text/x-handlebars" data-template-name="tasks/show"><h2><span class="name">{{name}}</span></h2><h6>Pomodoros:<span class="pomodoros">{{pomodoros.length}}</span></h6><h6>Total Time: {{totalTime}}</h6><h6>Creation Date: {{creation_date}}</h6><h6>Last Active: {{last_active}}</h6><p class="action-buttons"><button type="button" class="btn btn-default edit-button" {{action "edit" model}}><span class="glyphicon glyphicon-pencil"></span></button>
-<button type="button" class="btn btn-default delete-button" {{action "delete" model}}><span class="glyphicon glyphicon-remove"></button></p><p>{{#link-to 'tasks' class="index-link"}}Back to tasks index{{/link-to}}</p></script><script type="text/x-handlebars" data-template-name="tasks/edit">
-  <h2>{{#if isNew}}New{{else}}Edit{{/if}} Task</h2>
-  {{#form-for controller id="form-task" wrapper="skeleton"}}
-    {{#input name}}
-      {{label-field name text="Task"}}
-      {{input-field name class="form-control" autofocus="false"}}
-      {{#if view.showError}}
-        {{error-field name}}
-      {{/if}}
-    {{/input}}
-    {{#input duration}}
-      {{label-field duration text="Duration"}}
-      {{input-field duration as='select'
-          collection="durations"
-          value="duration"
-          class="form-control"
-      }}
-    {{/input}}
-    <button type="submit" {{action "save" model}}>Save</button>
-    {{#if isNew}}
-    <button type="button" {{action "delete" model}}>Cancel</button>
-    {{else}}
-    <button type="button" {{action "cancel" model}}>Cancel</button>
-    <button type="button" {{action "delete" model}}>Delete</button>
-    {{/if}}
-  {{/form-for}}
-</script><script type="text/x-handlebars" data-template-name="tasks/statistics"><div class="row"><div class="eleven columns"><button type="button" {{action "setPeriod" 7}}>Last Week</button> 
-<button type="button" {{action "setPeriod" 30}}>Last Month</button> 
-<button type="button" {{action "setPeriod" 365}}>Last Year</button> </div></div><div class="row"><div class="eleven columns">   <h1>Statistics</h1><div id="container"><div id="center-container"><div id="infovis"></div><div id="log"></div></div></div></div></div></script></body></html>
+{{/each}}</tbody></tr></thead></table></div></div></div></div></script><script type="text/x-handlebars" data-template-name="tasks/show"><div class="container"><div class="row"><div class="eleven columns"><h2><span class="name">{{name}}</span><h6>Pomodoros:</h6><span class="pomodoros">{{pomodoros.length}}</span></h2><h6>Total Time: {{totalTime}}</h6><h6>Creation Date: {{creation_date}}</h6><h6>Last Active: {{last_active}}</h6><p class="action-buttons"><button type="button" class="btn btn-default edit-button" {{action "edit" model}}><span class="glyphicon glyphicon-pencil"></span></button>
+<button type="button" class="btn btn-default delete-button" {{action "delete" model}}><span class="glyphicon glyphicon-remove"></button></p><p>{{#link-to 'tasks' class="index-link"}}Back to tasks index{{/link-to}}</p></div></div></div></script><script type="text/x-handlebars" data-template-name="tasks/edit">
+  <div class="container">
+    <div class="row">
+      <div class="eleven columns">
+        <h2>{{#if isNew}}New{{else}}Edit{{/if}} Task</h2>
+        {{#form-for controller id="form-task" wrapper="skeleton"}}
+          {{#input name}}
+            {{label-field name text="Task"}}
+            {{input-field name class="form-control" autofocus="false"}}
+            {{#if view.showError}}
+              {{error-field name}}
+            {{/if}}
+          {{/input}}
+          {{#input duration}}
+            {{label-field duration text="Duration"}}
+            {{input-field duration as='select'
+                collection="durations"
+                value="duration"
+                class="form-control"
+            }}
+          {{/input}}
+          <button type="submit" {{action "save" model}}>Save</button>
+          {{#if isNew}}
+          <button type="button" {{action "delete" model}}>Cancel</button>
+          {{else}}
+          <button type="button" {{action "cancel" model}}>Cancel</button>
+          <button type="button" {{action "delete" model}}>Delete</button>
+          {{/if}}
+        {{/form-for}}
+      </div>
+    </div>
+  </div>
+</script><script type="text/x-handlebars" data-template-name="tasks/statistics"><div class="row"><div class="one-third column"><button type="button" {{action "setPeriod" 7}}>Last Week</button> </div><div class="one-third column"><button type="button" {{action "setPeriod" 30}}>Last Month</button> </div><div class="one-third column"><button type="button" {{action "setPeriod" 365}}>Last Year</button> </div></div><div class="row"><div class="eleven columns">   <h1>Statistics</h1><div id="container"><div id="center-container"><div id="infovis"></div><div id="log"></div></div></div></div></div></script><script type="text/x-handlebars" data-template-name="config"><h6>Choose Path</h6></script></body></html>
