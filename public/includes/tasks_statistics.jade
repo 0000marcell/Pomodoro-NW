@@ -1,7 +1,13 @@
 script(type='text/x-handlebars' data-template-name="tasks/statistics")
-  h1 Statistics
-  div(id="container")
-    div(id="center-container")
-      div(id="infovis")    
-      div(id="log")
-    a(onclick="init();") init
+  .row
+    .eleven.columns
+      <button type="button" {{action "setPeriod" 7}}>Last Week</button> 
+      <button type="button" {{action "setPeriod" 30}}>Last Month</button> 
+      <button type="button" {{action "setPeriod" 365}}>Last Year</button> 
+  .row
+    .eleven.columns    
+      h1 Statistics
+      #container
+        #center-container
+          #infovis
+          #log

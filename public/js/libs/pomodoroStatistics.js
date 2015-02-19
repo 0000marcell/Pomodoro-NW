@@ -1,11 +1,11 @@
 function PomodoroStatistics(){
 }
 
-PomodoroStatistics.prototype.lastWeek = function(tasks){
+PomodoroStatistics.prototype.getStatistics = function(tasks, period){
   console.log("tasks "+tasks);
   var today = new Date();
   var dd = today.getDate();
-  var lastWeek = dd-7;
+  var lastWeek = dd-period;
   var totalTime = 0;
   var name;
   var duration;
@@ -47,6 +47,7 @@ PomodoroStatistics.prototype.lastWeek = function(tasks){
     json.values[i].values.push(percentage);
   };
   console.log("final json "+JSON.stringify(json));
+  $('#infovis').html('');
   init(json);
 };
 

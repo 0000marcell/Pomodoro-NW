@@ -131,9 +131,14 @@ App.ApplicationRoute = Ember.Route.extend({
       _this = this;
       this.transitionTo('tasks.statistics').then(function(){
         _this.store.find('task').then(function(tasks){
-          statistics.lastWeek(tasks);   
+          statistics.getStatistics(tasks, 7);   
         });
       }); 
+    },
+    setPeriod: function(period){
+      this.store.find('task').then(function(tasks){
+        statistics.getStatistics(tasks, period);   
+      });
     },
     showHideTasks: function(){
       var _this = this; 
@@ -156,7 +161,10 @@ App.ApplicationRoute = Ember.Route.extend({
       var _this = this;
       this.store.find('task').then(function(tasks){
         tasks.forEach(function(task){
-          if(task.get("pomodoros") == undefined){task.set('pomodoros', '')};
+          if(task.get("pomodoros") == undefined){
+            var pomodoroArray = []; 
+            task.set('pomodoros', pomodoroArray);
+          };
           var tmp = {id: i++,
             name: task.get("name"),
             creation_date: task.get('creation_date'),
@@ -205,6 +213,7 @@ App.ApplicationRoute = Ember.Route.extend({
        task.set('last_active', _this.get("getCurrentDate").call(this));
        pomodoroTime = parseInt(currentSelectedDuration) * 60;
        pomodoroClock.reset(pomodoroTime);
+       $('#task-name').html("<h4>"+task.get('name')+"</h4>");
       });
     },
   },
@@ -302,7 +311,8 @@ App.IndexView = Ember.View.extend({
             return;
           }
           intervalCount++;
-          $('.message').html('intervalo! '+intervalCount);
+          $('#task-status').
+          // $('.message').html('intervalo! '+intervalCount);
           (intervalCount > 2) ? longInterval() : 
           shortInterval();
         }
