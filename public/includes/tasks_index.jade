@@ -2,9 +2,6 @@ script(type='text/x-handlebars', data-template-name='tasks/index')
   #tasks
     .container
       .row
-       .four.columns
-          <button type="button" {{action "statistics" }}>Statistics</button> 
-      .row
         .nine.columns
           .scrollable
             table#tasks_table
@@ -16,7 +13,7 @@ script(type='text/x-handlebars', data-template-name='tasks/index')
                   th Duration
                   th
                     .wrap
-                      <button class="button-primary" {{action "new"}}>+</button>
+                      <button class="button-primary" {{action "new"}}><i class="fa fa-plus fa-3x"></i></button>
                   tbody
                     include each_task.html
 

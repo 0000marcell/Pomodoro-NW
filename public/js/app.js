@@ -218,7 +218,7 @@ App.ApplicationRoute = Ember.Route.extend({
        pomodoroTime = parseInt(currentSelectedDuration) * 60;
        pomodoroClock.reset(pomodoroTime);
        $('#task-name').html("<h4>"+task.get('name')+"</h4>");
-       $('#task-status').html('<h3 class="clock-paused animated infinite flash">[Paused]</h3>');
+       $('#task-status').html('<h4 class="clock-paused animated infinite flash">[Paused]</h4>');
       });
     },
   },
@@ -307,7 +307,7 @@ App.IndexView = Ember.View.extend({
       callbacks: {
         stop: function() {
           if(pause == true){
-            $('#task-status').html('<h3 class="clock-paused animated infinite flash">[Paused]</h3>');
+            $('#task-status').html('<h4 class="clock-paused animated infinite flash">[Paused]</h4>');
             return;
           }
           if(restart == true){
@@ -317,7 +317,7 @@ App.IndexView = Ember.View.extend({
             return;
           }
           intervalCount++;
-          $('#task-status').html('<h3 class="clock-interval animated infinite pulse">[Interval]</h3>');
+          $('#task-status').html('<h4 class="clock-interval animated infinite pulse">[Interval]</h4>');
           // $('.message').html('intervalo! '+intervalCount);
           (intervalCount > 2) ? longInterval() : 
           shortInterval();
@@ -352,7 +352,7 @@ App.ApplicationController = Ember.ObjectController.extend({
   actions: {
     startClock: function() {
       if(currentSelected != -1){
-        $('#task-status').html('<h3 class="clock-active animated infinite pulse">[Active]</h3>');
+        $('#task-status').html('<h4 class="clock-active animated infinite pulse">[Active]</h4>');
         pomodoroClock.start();
       }else{
         alert("first select a task in the list :D");

@@ -1,5 +1,5 @@
 html, body {
-    margin:0;
+    margin-top: 10px;
     padding:0;
     font-family: "Lucida Grande", Verdana;
     font-size: 0.9em;
@@ -10,9 +10,23 @@ html, body {
   color: blue;
 }
 
+.centered{
+  text-align: center;
+}
+
+.centered-div{
+  width: 80%;
+  margin: 0 auto;
+}
+
+.clock{
+ width: 80%;
+ margin: 0 auto; 
+}
+
 .scrollable {
   height:300px;
-  width: 600px;
+  width: 550px;
   overflow:auto;
 }
 
