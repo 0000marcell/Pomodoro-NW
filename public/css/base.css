@@ -10,6 +10,12 @@ html, body {
   color: blue;
 }
 
+.scrollable {
+  height:300px;
+  width: 600px;
+  overflow:auto;
+}
+
 .clock-paused{
   color: red;
 }
@@ -23,10 +29,8 @@ input, select {
 }
 
 table {
-  margin-top:-10px;
-  margin-left:-10px;
+  margin-top:-10px; 
   overflow: scroll;
-  max-height: 100px;
 }
 
 
