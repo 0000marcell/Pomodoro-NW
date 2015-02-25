@@ -1,15 +1,15 @@
 script(type='text/x-handlebars' data-template-name="tasks/statistics")
-  .row
-    .one-third.column
-      <button type="button" {{action "setPeriod" 7}}>Last Week</button> 
-    .one-third.column
-      <button type="button" {{action "setPeriod" 30}}>Last Month</button> 
-    .one-third.column
-      <button type="button" {{action "setPeriod" 365}}>Last Year</button> 
-  .row
-    .eleven.columns    
-      h1 Statistics
-      #container
+  .container
+    .row
+      .one-third.column
+        <button type="button" {{action "setPeriod" 7}}>Last Week</button> 
+      .one-third.column
+        <button type="button" {{action "setPeriod" 30}}>Last Month</button> 
+      .one-third.column
+        <button type="button" {{action "setPeriod" 365}}>Last Year</button> 
+    .row
+      .eleven.columns    
+        h3 Statistics
         #center-container
           #infovis
           #log

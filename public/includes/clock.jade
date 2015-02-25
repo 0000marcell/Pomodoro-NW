@@ -8,18 +8,19 @@ script(type='text/x-handlebars')
       .four.columns.u-pull-right
         <button type="button" class="button-primary" {{action "config" }}><i class="fa fa-cog fa-2x"></i></button>   
   {{outlet}}
-  .container
-    .row
-      .one-third.column
-        #task-name
-      .one-third.column
-        #task-status
-      .one-third.column.u-pull-right
-        <button type="button" class="button-primary " {{action 'showHideTasks' }}>Show/Hide</button>
-    .row
-      .eleven.columns.centered
-        .clock
-        .message
-        <button {{action 'startClock'}}><i class="fa fa-play fa-2x"></i></button>
-        <button {{action 'stopClock'}}><i class="fa fa-stop fa-2x"></i></button>
+  #clock-container
+    .container
+      .row
+        .one-third.column
+          #task-name
+        .one-third.column
+          #task-status
+        .one-third.column.u-pull-right
+          <button type="button" class="button-primary " {{action 'showHideTasks' }}>Show/Hide</button>
+      .row
+        .eleven.columns.centered
+          .clock
+          .message
+          <button {{action 'startClock'}}><i class="fa fa-play fa-2x"></i></button>
+          <button {{action 'stopClock'}}><i class="fa fa-stop fa-2x"></i></button>
         

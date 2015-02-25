@@ -3,11 +3,14 @@
 }
 
 #center-container {
-  width:800px;
+  background-color:#1a1a1a;
+  height: 350px;
+  width:600px;
 }
 
 #infovis {
-  width:800px;
+  height: 350px;
+  width:600px;
 }
 
 #id-list {

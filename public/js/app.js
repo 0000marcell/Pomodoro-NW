@@ -8,8 +8,10 @@ var pause = false;
 var pomodoroClock;
 var jsonio;
 var statistics = new PomodoroStatistics();
+var appWindow = new WindowFunctions();
 var currentSelected = -1;
 var newTask;
+
 
 App = Ember.Application.create({
   LOG_TRANSITIONS: true
@@ -113,7 +115,6 @@ App.ApplicationRoute = Ember.Route.extend({
       var totalTimeInMin = length * duration;
       var hours = Math.floor(totalTimeInMin/60);
       var min = totalTimeInMin % 60;
-      console.log("task show !!!"+task.get('pomodoros').length);
       task.set('totalTime', hours+'h'+min+'m'); 
       this.transitionTo('tasks.show', task);
     },
@@ -130,7 +131,9 @@ App.ApplicationRoute = Ember.Route.extend({
     },
     statistics: function(){
       _this = this;
+      $('#clock-container').hide('slow/400/fast');
       this.transitionTo('tasks.statistics').then(function(){
+        appWindow.resize(798, 625); 
         _this.store.find('task').then(function(tasks){
           statistics.getStatistics(tasks, 7);   
         });
@@ -142,16 +145,19 @@ App.ApplicationRoute = Ember.Route.extend({
       });
     },
     showHideTasks: function(){
-      var _this = this; 
-      if(this.taskVisibility){
-        $('#tasks').hide('slow/400/fast', function(){
-           _this.taskVisibility = false;});  
+      $('#tasks').toggle('slow/400/fast');
+      if(appWindow.getWidth() == 554){
+        appWindow.resize(630, 605);
       }else{
-        $('#tasks').show('slow/400/fast', function(){
-           _this.taskVisibility = true;});  
+        appWindow.resize(554, 300);
       }
     },
+    resizeWindow: function(width, height){
+      win.width = width, win.height = height;  
+    },
     main: function(){
+     $('#clock-container').show('slow/400/fast');
+      appWindow.resize(615, 600);
      this.transitionTo('tasks');  
     },
     config: function(){
