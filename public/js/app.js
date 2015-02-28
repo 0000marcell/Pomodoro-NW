@@ -133,7 +133,7 @@ App.ApplicationRoute = Ember.Route.extend({
       _this = this;
       $('#clock-container').hide('slow/400/fast');
       this.transitionTo('tasks.statistics').then(function(){
-        appWindow.resize(798, 625); 
+        appWindow.resize(900, 640); 
         _this.store.find('task').then(function(tasks){
           statistics.getStatistics(tasks, 7);   
         });
