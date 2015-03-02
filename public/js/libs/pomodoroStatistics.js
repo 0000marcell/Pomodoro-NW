@@ -3,12 +3,13 @@ function PomodoroStatistics(){
 }
 
 PomodoroStatistics.prototype.getStatistics = function(tasks, period){
-    var dd = this.date.getDate(), lastPeriod = dd-period, totalTime = 0,
+    var dd = this.date.getDate(), lastDate = new Date(), totalTime = 0,
       name, duration, date, 
       json = { 'label': ['Total'],
                 'values': []
             };
-  this.setPeriod(dd, lastPeriod);
+  lastDate.setDate(lastDate.getDate() - period);
+  this.setPeriod(dd, lastDate);
   _this = this;
   tasks.forEach(function(task){
     name = task.get("name");
@@ -65,10 +66,10 @@ PomodoroStatistics.prototype.getDateIn = function(date, type){
 };
 
 
-PomodoroStatistics.prototype.setPeriod = function(dd, lastPeriod){
+PomodoroStatistics.prototype.setPeriod = function(dd, lastDate){
   var dd = this.date.getDate(), mm = this.date.getMonth()+1,
     yyyy = this.date.getFullYear(),
-    startPeriod = lastPeriod+"/"+mm+"/"+yyyy,
+    startPeriod = lastDate.getDay()+"/"+lastDate.getMonth()+1+"/"+yyyy,
     endPeriod = dd+"/"+mm+"/"+yyyy;
   $('#selected-period').html("<h6>period:"+startPeriod+" "+endPeriod+"</h6>");
 };
