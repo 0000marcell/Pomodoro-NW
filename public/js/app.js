@@ -96,7 +96,6 @@ App.resetFixtures();
 
 App.ApplicationRoute = Ember.Route.extend({
   taskVisibility: true,
-
   model: function() {
     return this.store.find('task');
   },
@@ -105,6 +104,7 @@ App.ApplicationRoute = Ember.Route.extend({
     new: function() {
       this.transitionTo('tasks.new');
     },
+    
     // Redirect to edit form.
     edit: function(task) {
       this.transitionTo('tasks.edit', task);
@@ -242,7 +242,7 @@ App.ApplicationRoute = Ember.Route.extend({
     if(mm<10) {
         mm='0'+mm
     } 
-    today = mm+'/'+dd+'/'+yyyy+'|'+H+'|'+M+'|'+S;
+    today = dd+'/'+mm+'/'+yyyy+'|'+H+'|'+M+'|'+S;
     return today;
   }
 });
@@ -412,8 +412,6 @@ App.ModalController = Ember.ObjectController.extend({
 //     }
 //   }
 // });
-
-
 
 
 

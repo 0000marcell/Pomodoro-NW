@@ -1,25 +1,31 @@
 function PomodoroStatistics(){
-  this.date = new Date();
+  this.date;
+  this.lastDate;
 }
 
 PomodoroStatistics.prototype.getStatistics = function(tasks, period){
-    var dd = this.date.getDate(), lastDate = new Date(), totalTime = 0,
+    var totalTime = 0, taskTime = 0,
       name, duration, date, 
       json = { 'label': ['Total'],
                 'values': []
             };
-  lastDate.setDate(lastDate.getDate() - period);
-  this.setPeriod(dd, lastDate);
+  $('#total-time-tasks').empty(); 
+  this.date = new Date(), this.lastDate = new Date();
+  this.lastDate.setDate(this.lastDate.getDate() - period); 
+  this.setPeriod();
   _this = this;
   tasks.forEach(function(task){
     name = task.get("name");
     duration = parseInt(task.get('duration')); 
-    var taskTime = 0;
+    taskTime = 0;
     json.label.push(task.get("name"));
-    var taskObj = { 'label': task.get("name"), 'values':[]}; 
+    var taskObj = { 'label': task.get("name"), 'values':[]};
+    // console.log("pomodoro length "+task.get('pomodoros').length);
+    if(!task.get('pomodoros').length)
+      return;
     for(var i = 0; i < task.get('pomodoros').length; i++){
       date = task.get('pomodoros')[i].date; 
-      if(_this.isInRange(date, 'day', lastPeriod))
+      if(_this.isInRange(date))
         taskTime += 60 * duration;
     };
     _this.setTaskTime(taskTime.toString(), name);
@@ -27,6 +33,7 @@ PomodoroStatistics.prototype.getStatistics = function(tasks, period){
     taskObj.values.push(taskTime);
     json.values.pushObject(taskObj);
   });
+  // console.log("totalTime "+totalTime+" taskTime "+taskTime);
   _this.setTaskTime(totalTime.toString(), 'Total');
   var taskObj = { 'label': 'Total', 'values':[totalTime]};
   json.values.pushObject(taskObj); 
@@ -39,43 +46,36 @@ PomodoroStatistics.prototype.getStatistics = function(tasks, period){
       };
     }
     var percentage = Math.round(100/(totalTime/taskTime));
+    if(!percentage)
+      percentage = 0
     json.values[i].values.push(percentage);
   };
-  console.log("final json "+JSON.stringify(json));
-  $('#infovis').html('');
+  $('#infovis').empty();
+  // console.log("final json "+JSON.stringify(json));
   init(json);
 };
 
-PomodoroStatistics.prototype.isInRange = function(date, type, last){
- var day = this.getDateIn(date, 'day');
- if(day >= last){
-  return true;
- }else{
-  return false;
- }
-};
-
-PomodoroStatistics.prototype.getDateIn = function(date, type){
-  var result = date.split('/');
-  if(type == 'month'){
-    return result[0];
-  }
-  if(type == 'day'){
-    return result[1];
+PomodoroStatistics.prototype.isInRange = function(date){
+  var taskArray = date.split('|')[0].split('/'),
+      taskDate = new Date(taskArray[2],(taskArray[1] - 1),taskArray[0]);
+  // console.log("task date day "+taskDate.getDate()+" task month "+taskDate.getMonth()+" task year "+taskDate.getFullYear());
+  // console.log("last date day "+this.lastDate.getDate()+" task month "+this.lastDate.getMonth()+" task year "+this.lastDate.getFullYear());
+  if(taskDate >= this.lastDate){
+    // console.log("gonna return true");
+    return true
+  }else{
+    return false
   }
 };
 
 
-PomodoroStatistics.prototype.setPeriod = function(dd, lastDate){
-  var dd = this.date.getDate(), mm = this.date.getMonth()+1,
-    yyyy = this.date.getFullYear(),
-    startPeriod = lastDate.getDay()+"/"+lastDate.getMonth()+1+"/"+yyyy,
-    endPeriod = dd+"/"+mm+"/"+yyyy;
+PomodoroStatistics.prototype.setPeriod = function(){
+  var startPeriod = this.lastDate.getDate()+"/"+(this.lastDate.getMonth()+1)+"/"+this.lastDate.getFullYear(),
+    endPeriod = this.date.getDate()+"/"+(this.date.getMonth()+1)+"/"+this.date.getFullYear();
   $('#selected-period').html("<h6>period:"+startPeriod+" "+endPeriod+"</h6>");
 };
 
 PomodoroStatistics.prototype.setTaskTime = function(time, name){
-  console.log("gonna append "+time.toHHMMSS());
   $('#total-time-tasks').append('<p>'+name+": "+time.toHHMMSS()+'</p>');
 }
 

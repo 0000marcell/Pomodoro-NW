@@ -13,7 +13,7 @@ script(type='text/x-handlebars', data-template-name='tasks/index')
                   th Duration
                   th
                     .wrap
-                      <button class="button-primary" {{action "new"}}><i class="fa fa-plus fa-3x"></i></button>
+                      <button id="button-new" class="button-primary" {{action "new"}}><i class="fa fa-plus fa-3x"></i></button>
                   tbody
                     include each_task.html
 

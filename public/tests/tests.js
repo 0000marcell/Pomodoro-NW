@@ -1,31 +1,108 @@
-// in order to see the app running inside the QUnit runner
 App.rootElement = '#ember-testing';
 
-// Common test setup
+
 App.setupForTesting();
 App.injectTestHelpers();
 
-// common QUnit module declaration
+
 module("Integration tests", {
   setup: function() {
-    // before each test, ensure the application is ready to run.
     Ember.run(App, App.advanceReadiness);
   },
 
   teardown: function() {
-    // reset the application state between each test
     App.reset();
   }
 });
 
-// QUnit test case
-test("/", function() {
-  // async helper telling the application to go to the '/' route
-  visit("/");
+/* 
+  
+  Integration tests 
 
-  // helper waiting the application is idle before running the callback
+*/
+
+// Page load
+test("/", function() {
+  visit("/");
   andThen(function() {
-    equal(find("h2").text(), "Welcome to Ember.js", "Application header is rendered");
-    equal(find("li").length, 3, "There are three items in the list");
+    equal($('#load-test').html(), 'testing', "Page loaded");
   });
 });
+
+// Back button
+
+test('Go back to the main page!', function() {
+  visit('/');
+  click('#button-main');
+  andThen(function() {
+    equal(currentRouteName(), 'tasks.index');
+  });
+});
+
+// Config button 
+
+test('Go to the config page!', function() {
+  visit('/');
+  click('#button-config');
+  andThen(function() {
+    equal(currentRouteName(), 'config');
+  });
+});
+
+//Statistics Button
+test('Go to the statistics page!', function() {
+  visit('/');
+  click('#button-statistics');
+  andThen(function() {
+    equal(currentRouteName(), 'tasks.statistics');
+  });
+});
+
+// // New Button
+// test('Go to the new page!', function() {
+//   visit('/');
+//   click('#button-new');
+//   andThen(function() {
+//     equal(currentRouteName(), 'tasks.edit');
+//   });
+// });
+
+// Tasks Table
+test('Iteration through tasks', function(assert) {
+  visit('/');
+  andThen(function(){
+    assert.ok(find('tbody tr').length >= 1, "taks_index didn't load properly");
+  }); 
+});
+
+
+
+// Show and hide button
+// test('Testing show/hide button', function(assert) {
+//   visit('/');
+//   click('#button-show-hide-tasks');
+//   andThen(function() {
+//     console.log(find('tbody tr').length);
+//     assert.ok(find('tbody tr').length == 0, "tasks_index didn't hide properly");
+//   });
+// });
+
+/*
+   Unit Tests
+*/
+
+module('Unit:');
+
+test('Testing show method', function(){
+  var app = App.ApplicationRoute.create();
+  app.set('foo', 'baz');
+  app.testMethod();
+  equal(app.get('foo'), 'baz');
+});
+
+
+
+
+
+
+
