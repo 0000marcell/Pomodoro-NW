@@ -1,6 +1,7 @@
 function PomodoroStatistics(){
   this.date;
   this.lastDate;
+  // this.newPomodoros = [];
 }
 
 PomodoroStatistics.prototype.getStatistics = function(tasks, period){
@@ -23,16 +24,19 @@ PomodoroStatistics.prototype.getStatistics = function(tasks, period){
     // console.log("pomodoro length "+task.get('pomodoros').length);
     if(!task.get('pomodoros').length)
       return;
+    // _this.newPomodoros = []; 
     for(var i = 0; i < task.get('pomodoros').length; i++){
       date = task.get('pomodoros')[i].date; 
-      if(_this.isInRange(date))
+      // _this.swapDate(date, task, i);
+      if(_this.isInRange(date, task))
         taskTime += 60 * duration;
     };
+    // task.set('pomodoros', _this.newPomodoros); 
     _this.setTaskTime(taskTime.toString(), name);
     totalTime += parseInt(taskTime);
     taskObj.values.push(taskTime);
     json.values.pushObject(taskObj);
-  });
+  }); 
   // console.log("totalTime "+totalTime+" taskTime "+taskTime);
   _this.setTaskTime(totalTime.toString(), 'Total');
   var taskObj = { 'label': 'Total', 'values':[totalTime]};
@@ -57,16 +61,23 @@ PomodoroStatistics.prototype.getStatistics = function(tasks, period){
 
 PomodoroStatistics.prototype.isInRange = function(date){
   var taskArray = date.split('|')[0].split('/'),
-      taskDate = new Date(taskArray[2],(taskArray[1] - 1),taskArray[0]);
-  // console.log("task date day "+taskDate.getDate()+" task month "+taskDate.getMonth()+" task year "+taskDate.getFullYear());
-  // console.log("last date day "+this.lastDate.getDate()+" task month "+this.lastDate.getMonth()+" task year "+this.lastDate.getFullYear());
+      taskDate = new Date(taskArray[2],(taskArray[1] - 1), taskArray[0]);
   if(taskDate >= this.lastDate){
-    // console.log("gonna return true");
     return true
   }else{
     return false
   }
 };
+
+// PomodoroStatistics.prototype.swapDate = function(date, task, i){
+//   var hours = date.split('|');
+//   var taskArray = date.split('|')[0].split('/'), 
+//       newDate = taskArray[1]+"/"+taskArray[0]+"/"+taskArray[2]+
+//       "|"+hours[1]+"|"+hours[2]+"|"+hours[3]; 
+//   console.log("new date: "+newDate);
+//   var dateObject = {date: newDate};
+//   this.newPomodoros.push(dateObject);
+// };
 
 
 PomodoroStatistics.prototype.setPeriod = function(){

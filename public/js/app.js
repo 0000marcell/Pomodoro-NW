@@ -130,18 +130,19 @@ App.ApplicationRoute = Ember.Route.extend({
       });
     },
     statistics: function(){
-      _this = this;
+      _this2 = this;
       $('#clock-container').hide('slow/400/fast');
       this.transitionTo('tasks.statistics').then(function(){
         appWindow.resize(900, 640); 
-        _this.store.find('task').then(function(tasks){
-          statistics.getStatistics(tasks, 7);   
+        _this2.store.find('task').then(function(tasks){
+          statistics.getStatistics(tasks, 7);  
         });
       }); 
     },
     setPeriod: function(period){
+      _this = this;
       this.store.find('task').then(function(tasks){
-        statistics.getStatistics(tasks, period);   
+        statistics.getStatistics(tasks, period);
       });
     },
     showHideTasks: function(){
@@ -181,11 +182,9 @@ App.ApplicationRoute = Ember.Route.extend({
             last_active: task.get('last_active'),
             duration: task.get("duration"),
             pomodoros: task.get("pomodoros")};
-          console.log("pomodoros in save in to file "+task.get('pomodoros'));
           json.tasks.push(tmp);
           jsonString = JSON.stringify(json);
         });
-        console.log("gonna save jsonio!");
         jsonio.save(jsonString);
       });
     },
