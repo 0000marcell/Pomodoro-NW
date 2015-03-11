@@ -304,6 +304,7 @@ App.TasksNewRoute = Ember.Route.extend({
 
 
 App.IndexView = Ember.View.extend({
+  streak: 0,
   didInsertElement: function(){
     this.controller.transitionToRoute('tasks');
     clock = $('.clock').FlipClock({
@@ -318,10 +319,12 @@ App.IndexView = Ember.View.extend({
           if(restart == true){
             pomodoroClock.reset(pomodoroTime);
             pomodoroClock.start();
+            $('#task-status').html('<h4 class="clock-active animated infinite pulse">[Active]</h4>');
             restart = false;
             return;
           }
           intervalCount++;
+          $('#streak').html(intervalCount);
           $('#task-status').html('<h4 class="clock-interval animated infinite pulse">[Interval]</h4>');
           // $('.message').html('intervalo! '+intervalCount);
           (intervalCount > 2) ? longInterval() : 

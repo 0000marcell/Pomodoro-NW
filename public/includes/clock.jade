@@ -18,9 +18,16 @@ script(type='text/x-handlebars')
         .one-third.column.u-pull-right
           <button id="button-show-hide-tasks" type="button" class="button-primary " {{action 'showHideTasks' }}>Show/Hide</button>
       .row
-        .eleven.columns.centered
-          .clock
-          .message
+        .twelve.columns.centered
+          .ten.columns
+            .clock
+            .message
+          .two.columns.u-pull-right
+            .pomodoro-counter
+              p Streak
+              h3#streak 0
+      .row
+        .eleven.columns.centered   
           <button {{action 'startClock'}}><i class="fa fa-play fa-2x"></i></button>
           <button {{action 'stopClock'}}><i class="fa fa-stop fa-2x"></i></button>
         

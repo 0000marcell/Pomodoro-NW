@@ -6,9 +6,20 @@ html, body {
     background-color:#F2F2F2;
 }
 
+.pomodoro-counter{
+  color: #FFF !important;
+  background-color: #33C3F0;
+  height: 100px;
+}
+
+.pomodoro-counter h3{
+  margin-top: -20px !important;
+}
+
 .clock-interval{
   color: blue;
 }
+
 
 .centered{
   text-align: center;
