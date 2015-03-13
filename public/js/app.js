@@ -147,11 +147,9 @@ App.ApplicationRoute = Ember.Route.extend({
     },
     showHideTasks: function(){
       $('#tasks').toggle('slow/400/fast');
-      if(appWindow.getWidth() == 554){
-        appWindow.resize(630, 605);
-      }else{
-        appWindow.resize(554, 300);
-      }
+      var height = (this.taskVisibility) ? 325 : 625;
+      this.taskVisibility = (height == 625) ? true : false;
+      appWindow.resize(630, height);
     },
     resizeWindow: function(width, height){
       win.width = width, win.height = height;  
