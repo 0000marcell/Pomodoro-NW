@@ -24,7 +24,6 @@ PomodoroClock.prototype.showClock = function(){
 }
 
 PomodoroClock.prototype.initialize = function(){
-  console.log('initialize!');
   this.showClock(); 
   clock.setCountdown(true);
   clock.setTime(pomodoroTime);

@@ -1,13 +1,13 @@
 {
   "main": "index.html",
-  "name": "PomodoroG-dev",
+  "name": "PomodoroG-dev2",
   "description": "Pomodoro Clock App",
   "version": "0.1.0",
   "keywords": [ "Pomdoro", "Clock" ],
   "window": {
     "title": "PomodoroG",
     "icon": "public/PomodoroG.png",
-    "toolbar": false,
+    "toolbar": true,
     "frame": true,
     "width": 615,
     "height": 590,

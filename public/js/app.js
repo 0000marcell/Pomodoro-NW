@@ -1,16 +1,10 @@
-var clock;
-var intervalCount = 0;
-var pomodoroTime = 25 * 60;
-var restart = false;
-var shortIntervalTime = 5 * 60;
-var longIntervalTime = 10 * 60;
-var pause = false;
-var pomodoroClock;
-var jsonio;
-var statistics = new PomodoroStatistics();
-var appWindow = new WindowFunctions();
-var currentSelected = -1;
-var newTask;
+var appClock, intervalCount = 0,
+    pomodoroTime = 25 * 60, restart = false,
+    shortIntervalTime = 5 * 60, longIntervalTime = 10 * 60,
+    pause = false, pomodoroClock,
+    jsonio = new JSONIO(), statistics = new PomodoroStatistics(), 
+    appWindow = new WindowFunctions(), currentSelected = -1,
+    newTask;
 
 
 App = Ember.Application.create({
@@ -46,7 +40,6 @@ DS.ArrayTransform = DS.Transform.extend({
         ? serialized 
         : [];
   },
-
   serialize: function(deserialized) {
     var type = Ember.typeOf(deserialized);
     if (type == 'array') {
@@ -81,15 +74,54 @@ App.Task = DS.Model.extend(Ember.Validations.Mixin, {
       presence: true
     }
   },
-  durations : ['55:00','1:00', '50:00','45:00','40:00','35:00','30:00','25:00',
-    '20:00'
-  ]
+  durations : ['55:00','1:00', '50:00','45:00'
+               ,'40:00','35:00','30:00','25:00','20:00'],
+
+  setTotalTime: function(){
+    this.set('totalTime', this.calculateTotalTime());   
+  },
+
+  calculateTotalTime: function(){
+    var length = parseInt(this.get('pomodoros').length),
+        duration = parseInt(this.get('duration')),
+        totalTimeInMin = length * duration,
+        hours = Math.floor(totalTimeInMin/60),
+        min = totalTimeInMin % 60;
+    return hours+'h'+min+'m'
+  },
+  saveOnFile: function(){
+    var json = {tasks : []}, data = this.store.find('task');
+        i = 0, _this = this;
+    this.store.find('task').then(function(tasks){
+      tasks.forEach(function(task){
+        _this.createPomodoroArrayIfUnd(task);
+        json.tasks.push(
+                   _this.createJsonString(task, i++));
+      });
+      jsonio.save(JSON.stringify(json));
+    });
+  },
+  createPomodoroArrayIfUnd: function(task){
+   if(task.get("pomodoros") == undefined){
+    var pomodoroArray = []; 
+    task.set('pomodoros', pomodoroArray);
+   }
+  },
+  createJsonString: function(task, index){
+    var tmp = {id: index,
+        name: task.get("name"),
+        creation_date: task.get('creation_date'),
+        last_active: task.get('last_active'),
+        duration: task.get("duration"),
+        pomodoros: task.get("pomodoros")};
+    return tmp
+  }
 });
 
 App.resetFixtures = function() {
-  jsonio = new JSONIO();
   jsonio.setFile("data.json");
-  App.Task.FIXTURES = $.map(jsonio.read(), function(el) { return el; });
+  App.Task.FIXTURES = $.map(jsonio.read(), 
+                      function(el) { return el; });
 };
 
 App.resetFixtures();
@@ -100,22 +132,14 @@ App.ApplicationRoute = Ember.Route.extend({
     return this.store.find('task');
   },
   actions: {
-    // Redirect to new form.
     new: function() {
       this.transitionTo('tasks.new');
     },
-    
-    // Redirect to edit form.
     edit: function(task) {
       this.transitionTo('tasks.edit', task);
     },
     show: function(task){
-      var length = parseInt(task.get('pomodoros').length);
-      var duration = parseInt(task.get('duration')); 
-      var totalTimeInMin = length * duration;
-      var hours = Math.floor(totalTimeInMin/60);
-      var min = totalTimeInMin % 60;
-      task.set('totalTime', hours+'h'+min+'m'); 
+      task.setTotalTime();
       this.transitionTo('tasks.show', task);
     },
     // Save and transition to /tasks/:task_id only if validation passes.
@@ -123,19 +147,20 @@ App.ApplicationRoute = Ember.Route.extend({
       var _this = this;
       task.validate().then(function() {
         task.save();
-        var date = _this.get("getCurrentDate").call(this);
-        task.set('creation_date', date);
-        _this.send("saveIntoFile");
+        task.set('creation_date', 
+                  new Date().getDateString());
+        task.saveOnFile();
         _this.transitionTo('index');
       });
     },
+
     statistics: function(){
-      _this2 = this;
+      _this = this;
       $('#clock-container').hide('slow/400/fast');
       this.transitionTo('tasks.statistics').then(function(){
         appWindow.resize(900, 640); 
-        _this2.store.find('task').then(function(tasks){
-          statistics.getStatistics(tasks, 7);  
+        _this.store.find('task').then(function(tasks){
+          statistics.getStatistics(tasks, 7); 
         });
       }); 
     },
@@ -162,38 +187,13 @@ App.ApplicationRoute = Ember.Route.extend({
     config: function(){
       this.transitionTo('config');
     },
-    saveIntoFile: function(){
-      var json = {tasks : []};
-      var data = this.store.find('task');
-      var jsonString;
-      var i = 0;
-      var _this = this;
-      this.store.find('task').then(function(tasks){
-        tasks.forEach(function(task){
-          if(task.get("pomodoros") == undefined){
-            var pomodoroArray = []; 
-            task.set('pomodoros', pomodoroArray);
-          };
-          var tmp = {id: i++,
-            name: task.get("name"),
-            creation_date: task.get('creation_date'),
-            last_active: task.get('last_active'),
-            duration: task.get("duration"),
-            pomodoros: task.get("pomodoros")};
-          json.tasks.push(tmp);
-          jsonString = JSON.stringify(json);
-        });
-        jsonio.save(jsonString);
-      });
-    },
     savePomodoro: function(){
       var _this = this;
       this.store.find('task', currentSelected).then(function(task){
-        var date = _this.get("getCurrentDate").call(this); 
-        var pomodoro = { "date": date };
+        var pomodoro = { "date": new Date().getDateString()};
         task.get('pomodoros').pushObject(pomodoro);
         task.save().then(function(){
-         _this.send('saveIntoFile');
+          task.saveOnFile();
         });
       });
     },
@@ -206,7 +206,7 @@ App.ApplicationRoute = Ember.Route.extend({
     delete: function(task) {
       var _this = this;
       task.destroyRecord().then(function(){
-       _this.send("saveIntoFile");
+       task.saveOnFile();
        _this.transitionTo('index');
       });
     },
@@ -217,30 +217,13 @@ App.ApplicationRoute = Ember.Route.extend({
       var _this = this;
       this.store.find('task', id).then(function(task){
        currentSelectedDuration = task.get('duration');
-       task.set('last_active', _this.get("getCurrentDate").call(this));
+       task.set('last_active', new Date().getDateString());
        pomodoroTime = parseInt(currentSelectedDuration) * 60;
        pomodoroClock.reset(pomodoroTime);
        $('#task-name').html("<h4>"+task.get('name')+"</h4>");
        $('#task-status').html('<h4 class="clock-paused animated infinite flash">[Paused]</h4>');
       });
     },
-  },
-  getCurrentDate: function(){
-    var today = new Date();
-    var S = today.getSeconds(); 
-    var M = today.getMinutes(); 
-    var H = today.getHours();
-    var dd = today.getDate();
-    var mm = today.getMonth()+1; //January is 0!
-    var yyyy = today.getFullYear();
-    if(dd<10) {
-        dd='0'+dd
-    } 
-    if(mm<10) {
-        mm='0'+mm
-    } 
-    today = dd+'/'+mm+'/'+yyyy+'|'+H+'|'+M+'|'+S;
-    return today;
   }
 });
 

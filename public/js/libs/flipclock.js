@@ -580,7 +580,6 @@ var FlipClock;
 	 */
 	 	
 	FlipClock.Factory = FlipClock.Base.extend({
-		
 		/**
 		 * The clock's animation rate.
 		 * 
