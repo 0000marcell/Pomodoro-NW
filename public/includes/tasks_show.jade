@@ -2,18 +2,17 @@ script(type='text/x-handlebars' data-template-name="tasks/show")
   .container
     .row
       .eleven.columns
-        h2
-          span(class="name")
-            {{name}}
-          h6 Pomodoros:
-          span(class="pomodoros")
-            {{pomodoros.length}}
+        h3 {{name}}
+    .row 
+      .eleven.columns
+        h6 Pomodoros: {{pomodoros.length}} 
+    .row
+      .eleven.columns
         h6 Total Time: {{totalTime}}
-        h6 Creation Date: {{creation_date}}
-        h6 Last Active: {{last_active}}
-        p(class="action-buttons")
-          <button type="button" class="btn btn-default edit-button" {{action "edit" model}}><span class="glyphicon glyphicon-pencil"></span></button>
-          <button type="button" class="btn btn-default delete-button" {{action "delete" model}}><span class="glyphicon glyphicon-remove"></button>
-        p
-          {{#link-to 'tasks' class="index-link"}}Back to tasks index{{/link-to}}
+    .row
+      .eleven.columns
+        h6 Creation Date: {{formated_creation_date}}
+    .row
+      .eleven.columns
+        h6 Last Active: {{formated_last_active}}
 

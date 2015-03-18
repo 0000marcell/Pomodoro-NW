@@ -59,7 +59,9 @@ App.register("transform:array", DS.ArrayTransform);
 App.Task = DS.Model.extend(Ember.Validations.Mixin, {
   name: DS.attr('string'),
   creation_date: DS.attr('string'),
+  formated_creation_date: DS.attr('string'),
   last_active: DS.attr('string'),
+  formated_last_active: DS.attr('string'),
   pomodoros: DS.attr('array'),
   duration: DS.attr('string'),
   totalTime: DS.attr('string'),
@@ -115,6 +117,15 @@ App.Task = DS.Model.extend(Ember.Validations.Mixin, {
         duration: task.get("duration"),
         pomodoros: task.get("pomodoros")};
     return tmp
+  },
+  formatDates: function(){
+    this.set('formated_creation_date', this.formatDate('creation_date'));
+    this.set('formated_last_active', this.formatDate('last_active'));
+  },
+  formatDate: function(unformatedDate){
+    var arr = this.get('creation_date').split('|'),
+        date = arr[0];
+    return arr[0]+' '+arr[1]+'h'+arr[2]+'m';
   }
 });
 
@@ -140,6 +151,7 @@ App.ApplicationRoute = Ember.Route.extend({
     },
     show: function(task){
       task.setTotalTime();
+      task.formatDates();
       this.transitionTo('tasks.show', task);
     },
     // Save and transition to /tasks/:task_id only if validation passes.
@@ -281,7 +293,6 @@ App.TasksNewRoute = Ember.Route.extend({
     }
   }
 });
-
 
 
 App.IndexView = Ember.View.extend({
