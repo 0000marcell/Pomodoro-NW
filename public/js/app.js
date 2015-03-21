@@ -3,7 +3,7 @@ var appClock, intervalCount = 0,
     shortIntervalTime = 5 * 60, longIntervalTime = 10 * 60,
     pause = false, pomodoroClock,
     jsonio = new JSONIO(), statistics = new PomodoroStatistics(), 
-    appWindow = new WindowFunctions(), currentSelected = -1,
+    appWindow = new WindowFunctions(), currentSelected = -1, clockState = new ClockState(),
     newTask;
 
 
@@ -224,6 +224,8 @@ App.ApplicationRoute = Ember.Route.extend({
     },
     selectTask: function(id){
       pomodoroClock.stop();
+      intervalCount = 0;
+      $('#streak').html(intervalCount);
       currentSelected = id;
       var currentSelectedDuration;
       var _this = this;
@@ -233,7 +235,7 @@ App.ApplicationRoute = Ember.Route.extend({
        pomodoroTime = parseInt(currentSelectedDuration) * 60;
        pomodoroClock.reset(pomodoroTime);
        $('#task-name').html("<h4>"+task.get('name')+"</h4>");
-       $('#task-status').html('<h4 class="clock-paused animated infinite flash">[Paused]</h4>');
+       clockState.pause();
       });
     },
   }
@@ -296,7 +298,6 @@ App.TasksNewRoute = Ember.Route.extend({
 
 
 App.IndexView = Ember.View.extend({
-  streak: 0,
   didInsertElement: function(){
     this.controller.transitionToRoute('tasks');
     clock = $('.clock').FlipClock({
@@ -305,20 +306,19 @@ App.IndexView = Ember.View.extend({
       callbacks: {
         stop: function() {
           if(pause == true){
-            $('#task-status').html('<h4 class="clock-paused animated infinite flash">[Paused]</h4>');
+            clockState.pause();
             return;
           }
           if(restart == true){
             pomodoroClock.reset(pomodoroTime);
             pomodoroClock.start();
-            $('#task-status').html('<h4 class="clock-active animated infinite pulse">[Active]</h4>');
+            clockState.activate();
             restart = false;
             return;
           }
           intervalCount++;
           $('#streak').html(intervalCount);
-          $('#task-status').html('<h4 class="clock-interval animated infinite pulse">[Interval]</h4>');
-          // $('.message').html('intervalo! '+intervalCount);
+          clockState.interval();
           (intervalCount > 2) ? longInterval() : 
           shortInterval();
         }
@@ -352,7 +352,7 @@ App.ApplicationController = Ember.ObjectController.extend({
   actions: {
     startClock: function() {
       if(currentSelected != -1){
-        $('#task-status').html('<h4 class="clock-active animated infinite pulse">[Active]</h4>');
+        clockState.activate();
         pomodoroClock.start();
       }else{
         alert("first select a task in the list :D");
