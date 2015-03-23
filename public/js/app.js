@@ -238,6 +238,14 @@ App.ApplicationRoute = Ember.Route.extend({
        clockState.pause();
       });
     },
+    backupData: function(){
+      if(!$('#destDirectory').val()){
+        alert('first choose a directory');
+        return;
+      }
+      var dest = $('#destDirectory').val()+'/data.json';
+      jsonio.copy('data.json', dest);
+    },
   }
 });
 
@@ -406,6 +414,17 @@ App.ModalController = Ember.ObjectController.extend({
 //     }
 //   }
 // });
+
+
+function chooseFile(name) {
+    var chooser = $(name);
+    chooser.change(function(evt) {
+      console.log($(this).val());
+    });
+
+    chooser.trigger('click');  
+  }
+  chooseFile('#fileDialog');
 
 
 

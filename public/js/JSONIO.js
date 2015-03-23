@@ -30,3 +30,8 @@ JSONIO.prototype.save = function(json){
 	  console.log('It\'s saved!');
 	});	
 }
+
+JSONIO.prototype.copy = function(source, dest){
+	fs.createReadStream(source).pipe(fs.createWriteStream(dest));
+	alert('file was copied!');	
+}

@@ -2,4 +2,16 @@ script(type='text/x-handlebars', data-template-name='config')
   .container
     .row
       .eleven.columns
-        h3 Choose Path
+        h6 Configuration
+    .row
+      .eleven.columns
+        p select file to use as source
+        input(id='dataFile' type="file")
+        // input(id="fileDialog" type="file")
+    .row
+      .eleven.columns
+        .five.columns
+          p select backup directory
+          input(id="destDirectory" type="file" webkitdirectory)
+        .three.columns
+          <button type="submit" {{action "backupData"}}>make backup</button>
