@@ -1,6 +1,6 @@
 var appClock, intervalCount = 0,
     pomodoroTime = 25 * 60, restart = false,
-    shortIntervalTime = 5 * 60, longIntervalTime = 10 * 60,
+    shortIntervalTime = 5 * 10, longIntervalTime = 10 * 60,
     pause = false, pomodoroClock,
     jsonio = new JSONIO(), statistics = new PomodoroStatistics(), 
     appWindow = new WindowFunctions(), currentSelected = -1, clockState = new ClockState(),
@@ -320,7 +320,7 @@ App.IndexView = Ember.View.extend({
           if(restart == true){
             pomodoroClock.reset(pomodoroTime);
             pomodoroClock.start();
-            clockState.activate();
+            clockState.reactivate();
             restart = false;
             return;
           }

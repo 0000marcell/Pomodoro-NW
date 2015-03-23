@@ -8,8 +8,13 @@ ClockState.prototype.activate = function(){
     this.interval();
   }else{
     $('#task-status').html('<h4 class="clock-active animated infinite pulse">[Active]</h4>');  
-    this.currentState = 'active'
+    this.currentState = 'active';
   }
+}
+
+ClockState.prototype.reactivate = function(){
+  $('#task-status').html('<h4 class="clock-active animated infinite pulse">[Active]</h4>');  
+  this.currentState = 'active';
 }
 
 ClockState.prototype.pause = function(){
