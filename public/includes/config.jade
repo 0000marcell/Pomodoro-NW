@@ -5,9 +5,11 @@ script(type='text/x-handlebars', data-template-name='config')
         h6 Configuration
     .row
       .eleven.columns
-        p select file to use as source
-        input(id='dataFile' type="file")
-        // input(id="fileDialog" type="file")
+        .five.columns
+          p select file to use as source
+          input(id="sourceDir" type="file")
+        .three.columns
+          <button type="submit" {{action "chooseAsSource"}}>Choose as source</button> 
     .row
       .eleven.columns
         .five.columns
