@@ -246,6 +246,13 @@ App.ApplicationRoute = Ember.Route.extend({
       var dest = $('#destDirectory').val()+'/data.json';
       jsonio.copy('data.json', dest);
     },
+    chooseAsSource: function(){
+      if(!$('#sourceDir').val()){
+        alert('first choose a source file!');
+        return;
+      }
+      jsonio.copy($('#sourceDir').val(), 'data.json');
+    },
   }
 });
 
