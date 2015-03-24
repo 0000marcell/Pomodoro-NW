@@ -6,8 +6,8 @@ script(type='text/x-handlebars', data-template-name='config')
     .row
       .eleven.columns
         .five.columns
-          p select file to use as source
-          input(id="sourceDir" type="file" nwworkingdir="/home/Documents/")
+          p select a JSON file to use as source
+          input(id="sourceDir" type="file" accept=".json")
         .three.columns
           <button type="submit" {{action "chooseAsSource"}}>Choose as source</button> 
     .row
