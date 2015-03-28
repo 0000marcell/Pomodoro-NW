@@ -1,6 +1,6 @@
 App.rootElement = '#ember-testing';
 
-
+setResolver(Ember.DefaultResolver.create({namespace: App}));
 App.setupForTesting();
 App.injectTestHelpers();
 
@@ -40,7 +40,6 @@ test('Go back to the main page!', function() {
 });
 
 // Config button 
-
 test('Go to the config page!', function() {
   visit('/');
   click('#button-config');
@@ -58,15 +57,6 @@ test('Go to the statistics page!', function() {
   });
 });
 
-// // New Button
-// test('Go to the new page!', function() {
-//   visit('/');
-//   click('#button-new');
-//   andThen(function() {
-//     equal(currentRouteName(), 'tasks.edit');
-//   });
-// });
-
 // Tasks Table
 test('Iteration through tasks', function(assert) {
   visit('/');
@@ -75,29 +65,28 @@ test('Iteration through tasks', function(assert) {
   }); 
 });
 
-
-
-// Show and hide button
-// test('Testing show/hide button', function(assert) {
-//   visit('/');
-//   click('#button-show-hide-tasks');
-//   andThen(function() {
-//     console.log(find('tbody tr').length);
-//     assert.ok(find('tbody tr').length == 0, "tasks_index didn't hide properly");
-//   });
-// });
-
 /*
    Unit Tests
 */
-
 module('Unit:');
 
-test('Testing show method', function(){
-  var app = App.ApplicationRoute.create();
-  app.set('foo', 'baz');
-  app.testMethod();
-  equal(app.get('foo'), 'baz');
+// test('Testing setTotalTime in ApplicationRoute', function(){
+//   var app = App.ApplicationRoute.create();
+//   app.setTotalTime();
+//   console.log("pomodoros value "+app.get('totalTime').length);
+// });
+
+moduleForModel('task', 'Task Model');
+
+test('Testing setTotalTime in ApplicationRoute', function() {
+  // this.subject aliases the createRecord method on the model
+  var task = this.subject({ totalTime: 4 });
+  Ember.run(function() {
+    task.set('pomodoros', ['1', '1', '1']);
+    task.set('duration', '25:00');
+    task.setTotalTime();
+  });
+  equal(task.get('totalTime'), '1h15m');
 });
 
 

@@ -76,13 +76,12 @@ App.Task = DS.Model.extend(Ember.Validations.Mixin, {
       presence: true
     }
   },
-  durations : ['55:00','1:00', '50:00','45:00'
+  durations: ['55:00','1:00', '50:00','45:00'
                ,'40:00','35:00','30:00','25:00','20:00'],
 
   setTotalTime: function(){
     this.set('totalTime', this.calculateTotalTime());   
   },
-
   calculateTotalTime: function(){
     var length = parseInt(this.get('pomodoros').length),
         duration = parseInt(this.get('duration')),
@@ -292,9 +291,7 @@ App.TasksNewRoute = Ember.Route.extend({
     newTask = this.store.createRecord('task'); 
     return newTask;
   },
-
   isNew: true,
-
   renderTemplate: function(controller, model) {
     this.render('tasks.edit', {
       controller: controller
@@ -379,33 +376,6 @@ App.ApplicationController = Ember.ObjectController.extend({
   }
 });
 
-// var App = Ember.Application.create();
-
-// App.ApplicationRoute = Ember.Route.extend({
-//   actions: {
-//     openModal: function(modalName, model) {
-//       this.controllerFor(modalName).set('model', model);
-//       return this.render(modalName, {
-//         into: 'application',
-//         outlet: 'modal'
-//       });
-//     },
-    
-//     closeModal: function() {
-//       return this.disconnectOutlet({
-//         outlet: 'modal',
-//         parentView: 'application'
-//       });
-//     }
-//   }
-// });
-
-// App.IndexRoute = Ember.Route.extend({
-//   model: function() {
-//     return Em.Object.create({name: 'Mitch'});
-//   }
-// });
-
 App.ModalController = Ember.ObjectController.extend({
   actions: {
     close: function() {
@@ -413,26 +383,6 @@ App.ModalController = Ember.ObjectController.extend({
     }
   }
 });
-
-// App.ModalDialogComponent = Ember.Component.extend({
-//   actions: {
-//     close: function() {
-//       return this.sendAction();
-//     }
-//   }
-// });
-
-
-function chooseFile(name) {
-    var chooser = $(name);
-    chooser.change(function(evt) {
-      console.log($(this).val());
-    });
-
-    chooser.trigger('click');  
-  }
-  chooseFile('#fileDialog');
-
 
 
 
