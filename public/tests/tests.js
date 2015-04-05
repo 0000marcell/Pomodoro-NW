@@ -70,15 +70,9 @@ test('Iteration through tasks', function(assert) {
 */
 module('Unit:');
 
-// test('Testing setTotalTime in ApplicationRoute', function(){
-//   var app = App.ApplicationRoute.create();
-//   app.setTotalTime();
-//   console.log("pomodoros value "+app.get('totalTime').length);
-// });
-
 moduleForModel('task', 'Task Model');
 
-test('Testing setTotalTime in ApplicationRoute', function() {
+test('Testing setTotalTime in App.Task', function() {
   // this.subject aliases the createRecord method on the model
   var task = this.subject({ totalTime: 4 });
   Ember.run(function() {
@@ -87,6 +81,13 @@ test('Testing setTotalTime in ApplicationRoute', function() {
     task.setTotalTime();
   });
   equal(task.get('totalTime'), '1h15m');
+});
+
+test('Testing generateJSON in App.Task', function(){
+  var task = App.__container__.lookup('model:task');
+  var json = task.generateJSON();
+  alert('json '+json.tasks[0].name);
+  equal(null, null);
 });
 
 

@@ -6,7 +6,6 @@ var appClock, intervalCount = 0,
     appWindow = new WindowFunctions(), currentSelected = -1, clockState = new ClockState(),
     newTask;
 
-
 App = Ember.Application.create({
   LOG_TRANSITIONS: true
 });
@@ -91,16 +90,19 @@ App.Task = DS.Model.extend(Ember.Validations.Mixin, {
     return hours+'h'+min+'m'
   },
   saveOnFile: function(){
-    var json = {tasks : []}, data = this.store.find('task');
-        i = 0, _this = this;
+    jsonio.save(JSON.stringify(this.generateJSON()));
+  },
+  generateJSON: function(){
+    var json = {tasks : []},
+    _this = this;
     this.store.find('task').then(function(tasks){
       tasks.forEach(function(task){
         _this.createPomodoroArrayIfUnd(task);
         json.tasks.push(
                    _this.createJsonString(task, i++));
       });
-      jsonio.save(JSON.stringify(json));
     });
+    return json;
   },
   createPomodoroArrayIfUnd: function(task){
    if(task.get("pomodoros") == undefined){
@@ -360,7 +362,6 @@ function shortInterval(){
 }
 
 App.ApplicationController = Ember.ObjectController.extend({
-  
   actions: {
     startClock: function() {
       if(currentSelected != -1){
