@@ -4,7 +4,6 @@ setResolver(Ember.DefaultResolver.create({namespace: App}));
 App.setupForTesting();
 App.injectTestHelpers();
 
-
 module("Integration tests", {
   setup: function() {
     Ember.run(App, App.advanceReadiness);
@@ -14,11 +13,8 @@ module("Integration tests", {
     App.reset();
   }
 });
-
-/* 
-  
-  Integration tests 
-
+/*  
+  Integration tests
 */
 
 // Page load
