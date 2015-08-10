@@ -1,0 +1,5 @@
+language: node_js
+node_js:
+  - "0.12"
+env:
+- CODECLIMATE_REPO_TOKEN=7bce0e0c7addf93f1aa79830b3821e3c347c04f22ceec134e480598b8fb3332b codeclimate-test-reporter < public/tests/coverage/lcov.info
