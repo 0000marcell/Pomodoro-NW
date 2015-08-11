@@ -2,6 +2,7 @@
 
 Simple pomodoro tracker app for mac, linux and windows made using web technologies:
 * ember
+* Jade
 * NW.js
 * Node.js
 the app can be packed to any of the system mentioned using nw.js (A.K.A nodewebkit) 
