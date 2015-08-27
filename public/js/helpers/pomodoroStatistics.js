@@ -78,7 +78,7 @@ PomodoroStatistics.prototype.abortIfPomodorosEmpty = function(){
 }
 
 PomodoroStatistics.prototype.createTaskObj = function(){
-  this.name = this.task.get("name"), this.taskTime = 0
+  this.name = this.task.get("name").substring(0, 5), this.taskTime = 0
   this.taskDuration = parseInt(this.task.get('duration')); 
   this.jsonStatistics.label.push(this.task.get("name"));
   this.taskObj = { 'label': this.task.get("name"), 'values':[]};

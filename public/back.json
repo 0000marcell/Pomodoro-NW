@@ -5,8 +5,8 @@
       "name": "Example",
       "duration": "1:00",
       "pomodoros": [],
-     	"creation_date": "12345",
-     	"last_time": "123456" 
+      "creation_date": "12345",
+      "last_time": "123456" 
     }
   ]
 }

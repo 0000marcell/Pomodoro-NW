@@ -21,7 +21,7 @@
             intervalCount++;
             $('#streak').html(intervalCount);
             clockState.interval();
-            (intervalCount > 2) ? longInterval() : 
+            ((intervalCount % 3) == 0) ? longInterval() : 
             shortInterval();
           }
         }

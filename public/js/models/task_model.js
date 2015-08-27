@@ -33,19 +33,23 @@ App.Task = DS.Model.extend(Ember.Validations.Mixin, {
     return hours+'h'+min+'m'
   },
   saveOnFile: function(){
-    jsonio.save(JSON.stringify(this.generateJSON()));
+    this.generateJSON();
+    
   },
   generateJSON: function(){
     var json = {tasks : []},
     _this = this;
+    i = 0;
     this.store.find('task').then(function(tasks){
       tasks.forEach(function(task){
         _this.createPomodoroArrayIfUnd(task);
         json.tasks.push(
                    _this.createJsonString(task, i++));
       });
+    }).then(function(){
+      jsonio.save(JSON.stringify(json));
+      console.log("gonna return json "+JSON.stringify(json));
     });
-    return json;
   },
   createPomodoroArrayIfUnd: function(task){
    if(task.get("pomodoros") == undefined){
