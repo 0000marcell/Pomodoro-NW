@@ -10,6 +10,7 @@
     "grunt-node-webkit-builder": "^0.1.21"
   },
   "dependencies": {
+    "aws-sdk": "^2.1.48",
     "jade": "^1.9.2"
   }
 }

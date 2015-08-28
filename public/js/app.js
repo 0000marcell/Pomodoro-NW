@@ -1,3 +1,8 @@
+// AWS Set-up 
+var AWS = require('aws-sdk');
+AWS.config.update({accessKeyId: 'AKIAIGLNE5EBTG5RFINQ', secretAccessKey: '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', region: 'sa-east-1'});
+var bucket = new AWS.S3({params: {Bucket: 'pomodorog'}});
+
 var appClock, intervalCount = 0,
     pomodoroTime = 25 * 60, restart = false,
     shortIntervalTime = 1 * 5, longIntervalTime = 1 * 10,
@@ -12,4 +17,6 @@ App = Ember.Application.create({
 
 App.ApplicationAdapter = DS.FixtureAdapter.extend({
   namespace: 'Pomodoro-Grunt-Node'
-});
+});  
+
+  

@@ -7,10 +7,11 @@ function JSONIO(){
 JSONIO.prototype.read = function(){
 	var content;
 	try{
-		content = fs.readFileSync(this.file, "utf8");
+		content = fs.readFileSync(this.file);
 		if (content == 'undefined'){
-			content = fs.readFileSync("back.json", "utf8");
+			content = fs.readFileSync("back.json");
 		}
+		console.log("content "+content);
 		var obj = JSON.parse(content);
 		return obj;
 	}catch(err){

@@ -47,8 +47,17 @@ App.Task = DS.Model.extend(Ember.Validations.Mixin, {
                    _this.createJsonString(task, i++));
       });
     }).then(function(){
-      jsonio.save(JSON.stringify(json));
-      console.log("gonna return json "+JSON.stringify(json));
+      var content = JSON.stringify(json);
+      jsonio.save(content);
+      _this.uploadToAWS(content);
+    });
+  },
+  uploadToAWS: function(content){
+    alert("gonna upload to aws");
+    var params = {Key: 'test.json', Body: content};
+    bucket.upload(params, function (err, data) {
+      console.log("err "+err);
+      console.log("data "+data);
     });
   },
   createPomodoroArrayIfUnd: function(task){
@@ -78,9 +87,23 @@ App.Task = DS.Model.extend(Ember.Validations.Mixin, {
 });
 
 App.resetFixtures = function() {
-  jsonio.setFile("data.json");
+  jsonio.setFile("back.json");
   App.Task.FIXTURES = $.map(jsonio.read(), 
-                      function(el) { return el; });
+                    function(el) { return el; }); 
+  var params = {Key: 'test.json'};
+  bucket.getObject(params, function(error, data) {
+    if (error) {
+      console.log("File sync failed!");
+    } else {
+      console.log("Successfully sync data");
+      var attachment = data.Body.toString();
+      App.Task.FIXTURES = $.map(JSON.parse(attachment), 
+                    function(el) { return el; }); 
+      // App.transitionTo('index');
+    }
+  });
 };
+
+
 
 App.resetFixtures();
