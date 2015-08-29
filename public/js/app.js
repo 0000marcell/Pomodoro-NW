@@ -1,8 +1,9 @@
 // AWS Set-up 
 var AWS = require('aws-sdk');
-AWS.config.update({accessKeyId: 'AKIAIGLNE5EBTG5RFINQ', secretAccessKey: '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', region: 'sa-east-1'});
+aws_info = read_aws_info();
+console.log("acess key id "+aws_info.accessKeyId);
+AWS.config.update({accessKeyId: aws_info.accessKeyId, secretAccessKey: aws_info.secretAccessKey, region: aws_info.region});
 var bucket = new AWS.S3({params: {Bucket: 'pomodorog'}});
-
 var appClock, intervalCount = 0,
     pomodoroTime = 25 * 60, restart = false,
     shortIntervalTime = 1 * 5, longIntervalTime = 1 * 10,

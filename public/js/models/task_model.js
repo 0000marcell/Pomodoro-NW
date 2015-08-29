@@ -53,11 +53,11 @@ App.Task = DS.Model.extend(Ember.Validations.Mixin, {
     });
   },
   uploadToAWS: function(content){
-    alert("gonna upload to aws");
-    var params = {Key: 'test.json', Body: content};
-    bucket.upload(params, function (err, data) {
-      console.log("err "+err);
-      console.log("data "+data);
+    var params = {Key: 'data.json', Body: content};
+    bucket.upload(params, function (error, data) {
+      if(error){
+        alert("File sync failed "+error);
+      }
     });
   },
   createPomodoroArrayIfUnd: function(task){
@@ -87,13 +87,13 @@ App.Task = DS.Model.extend(Ember.Validations.Mixin, {
 });
 
 App.resetFixtures = function() {
-  jsonio.setFile("back.json");
+  jsonio.setFile("data.json");
   App.Task.FIXTURES = $.map(jsonio.read(), 
                     function(el) { return el; }); 
-  var params = {Key: 'test.json'};
+  var params = {Key: 'data.json'};
   bucket.getObject(params, function(error, data) {
     if (error) {
-      console.log("File sync failed!");
+      alert("File sync failed : "+error);
     } else {
       console.log("Successfully sync data");
       var attachment = data.Body.toString();
