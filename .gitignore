@@ -2,4 +2,5 @@
 *sublime-*
 node_modules
 build
+cache
 /public/aws_config.json
