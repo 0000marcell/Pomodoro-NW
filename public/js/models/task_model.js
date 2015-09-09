@@ -8,7 +8,6 @@ App.Task = DS.Model.extend(Ember.Validations.Mixin, {
   duration: DS.attr('string'),
   totalTime: DS.attr('string'),
   
-  // To identify html tag for a task.
   htmlID: function() {
     return 'task' + this.get('id');
   }.property('id'),
@@ -95,7 +94,7 @@ App.resetFixtures = function() {
     if (error) {
       alert("File sync failed : "+error);
     } else {
-      console.log("Successfully sync data");
+      // alert("Successfully sync data");
       var attachment = data.Body.toString();
       App.Task.FIXTURES = $.map(JSON.parse(attachment), 
                     function(el) { return el; }); 

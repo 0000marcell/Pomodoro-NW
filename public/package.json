@@ -1,6 +1,7 @@
 {
   "main": "index.html",
   "name": "PomodoroG-dev2",
+  "node-remote": "localhost",
   "description": "Pomodoro Clock App",
   "version": "0.1.0",
   "keywords": [ "Pomdoro", "Clock" ],

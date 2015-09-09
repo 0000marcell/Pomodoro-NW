@@ -1,4 +1,5 @@
 function longInterval(){
+  win.focus();
   var controller = App.__container__.lookup("controller:application");
   controller.send('savePomodoro','External');
   restart = true;
@@ -7,6 +8,7 @@ function longInterval(){
 }
 
 function shortInterval(){
+  win.focus();
   var controller = App.__container__.lookup("controller:application");
   controller.send('savePomodoro','External');
   restart = true;

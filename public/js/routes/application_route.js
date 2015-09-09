@@ -95,7 +95,7 @@ App.ApplicationRoute = Ember.Route.extend({
       this.store.find('task', id).then(function(task){
        currentSelectedDuration = task.get('duration');
        task.set('last_active', new Date().getDateString());
-       pomodoroTime = parseInt(currentSelectedDuration) * 5;
+       pomodoroTime = parseInt(currentSelectedDuration) * 60;
        pomodoroClock.reset(pomodoroTime);
        $('#task-name').html("<h4>"+task.get('name')+"</h4>");
        clockState.pause();

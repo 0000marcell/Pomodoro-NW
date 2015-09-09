@@ -13,20 +13,16 @@ module.exports = function(grunt) {
         }
       }
     },
-    nodewebkit: {
+    nwjs: {
       options: {
-        build_dir: './build', // Where the build version of my node-webkit app is saved
-        credits: './public/credits.html',
-        mac_icns: './example/icon.icns', // Path to the Mac icon file
-        mac: true, // We want to build it for mac
-        win: false, // We want to build it for win
-        linux32: false, // We don't need linux32
-        linux64: false, // We don't need linux64
+        version: '0.12.2',
+        platforms: ['osx'],
+        buildDir: 'build',
       },
-      src: './public/**/*' // Your node-webkit app
+      src: 'public/**/*' // Your node-webkit app
     },
   });
   grunt.loadNpmTasks('grunt-contrib-jade');
-  // grunt.loadNpmTasks('grunt-node-webkit-builder');
-  grunt.registerTask('default', ['jade']);
+  grunt.loadNpmTasks('grunt-nw-builder');
+  grunt.registerTask('default', ['jade', 'nwjs']);
 };
