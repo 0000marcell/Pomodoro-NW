@@ -43,4 +43,111 @@
       </div>
     </div>
   </div>
-</script><script type="text/x-handlebars" data-template-name="tasks/statistics"><div class="container"><div class="row"><div class="one-third column"><button type="button" {{action "setPeriod" 7}}>Last Week</button> </div><div class="one-third column"><button type="button" {{action "setPeriod" 30}}>Last Month</button> </div><div class="one-third column"><button type="button" {{action "setPeriod" 365}}>Last Year</button> </div></div><div class="row"><div class="five columns">   <h6>Statistics</h6></div><div class="five columns"><div id="selected-period"></div></div></div><div class="row"><div class="three columns"><div id="total-time-tasks"></div></div><div class="nine columns"><div id="center-container"><div id="infovis"></div><div id="log"></div></div></div></div></div></script><script type="text/x-handlebars" data-template-name="config"><div class="container"><div class="row"><div class="eleven columns"><h6>Configuration</h6></div></div><div class="row"><div class="eleven columns"><div class="five columns"><p>select a JSON file to use as source</p><input id="sourceDir" type="file" accept=".json"></div><div class="three columns"><button type="submit" {{action "chooseAsSource"}}>Choose as source</button> </div></div></div><div class="row"><div class="eleven columns"><div class="five columns"><p>select backup directory</p><input id="destDirectory" type="file" webkitdirectory></div><div class="three columns"><button type="submit" {{action "backupData"}}>make backup</button></div></div></div></div></script><!-- Libs--><script src="js/libs/jquery-1.10.2.js"></script><script src="js/helpers/string.js"></script><script src="js/helpers/date.js"></script><script src="js/helpers/JSONIO.js"></script><script src="js/helpers/pomodoroStatistics.js"></script><script src="js/helpers/windowFunctions.js"></script><script src="js/libs/jit.js"></script><script src="js/helpers/example1.js"></script><script src="js/libs/flipclock.js"></script><script src="js/libs/handlebars-1.1.2.js"></script><script src="js/libs/ember-1.7.0.js"></script><script src="js/libs/ember-data.js"></script><script src="js/libs/ember-validations.js"></script><script src="js/libs/ember-easyForm.js"></script><script src="js/libs/aws-sdk.min.js"></script><!-- Helpers--><script src="js/helpers/clock_helper.js"></script><script src="js/helpers/aws_helper.js"></script><script src="js/helpers/clockState.js"></script><script src="js/helpers/pomodoroclock.js"></script><script src="js/app.js"></script><script src="js/views/ember_easyform.js"></script><script src="js/routes/router.js"></script><script src="js/models/arraytransform_helper.js"></script><script src="js/models/task_model.js"></script><script src="js/routes/application_route.js"></script><script src="js/routes/task_route.js"></script><script src="js/routes/tasks_index_route.js"></script><script src="js/controllers/task_index_controller.js"></script><script src="js/routes/tasks_edit_route.js"></script><script src="js/routes/tasks_new_route.js"></script><script src="js/views/index_view.js"></script><!-- Controllers--><script src="js/controllers/application_controller.js"></script><!-- - Coment the lines below if you don't want the tests--><!----></body></html>
+</script><script type="text/x-handlebars" data-template-name="tasks/statistics"><div class="container"><div class="row"><div class="one-third column"><button type="button" {{action "setPeriod" 7}}>Last Week</button> </div><div class="one-third column"><button type="button" {{action "setPeriod" 30}}>Last Month</button> </div><div class="one-third column"><button type="button" {{action "setPeriod" 365}}>Last Year</button> </div></div><div class="row"><div class="five columns">   <h6>Statistics</h6></div><div class="five columns"><div id="selected-period"></div></div></div><div class="row"><div class="three columns"><div id="total-time-tasks"></div></div><div class="nine columns"><div id="center-container"><div id="infovis"></div><div id="log"></div></div></div></div><div class="row"><div class="nine columns"><!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.graph {
+  font: 10px sans-serif;
+  shape-rendering: crispEdges;
+}
+
+.day {
+  fill: #fff;
+  stroke: #ccc;
+}
+
+.month {
+  fill: none;
+  stroke: #000;
+  stroke-width: 2px;
+}
+
+.RdYlGn .q0-11{fill:rgb(165,0,38)}
+.RdYlGn .q1-11{fill:rgb(215,48,39)}
+.RdYlGn .q2-11{fill:rgb(244,109,67)}
+.RdYlGn .q3-11{fill:rgb(253,174,97)}
+.RdYlGn .q4-11{fill:rgb(254,224,139)}
+.RdYlGn .q5-11{fill:rgb(255,255,191)}
+.RdYlGn .q6-11{fill:rgb(217,239,139)}
+.RdYlGn .q7-11{fill:rgb(166,217,106)}
+.RdYlGn .q8-11{fill:rgb(102,189,99)}
+.RdYlGn .q9-11{fill:rgb(26,152,80)}
+.RdYlGn .q10-11{fill:rgb(0,104,55)}
+
+</style>
+<body class="graph">
+<script>
+
+var width = 960,
+    height = 136,
+    cellSize = 17; // cell size
+
+var percent = d3.format(".1%"),
+    format = d3.time.format("%Y-%m-%d");
+
+var color = d3.scale.quantize()
+    .domain([-.05, .05])
+    .range(d3.range(11).map(function(d) { return "q" + d + "-11"; }));
+
+var svg = d3.select(".graph").selectAll("svg")
+    .data(d3.range(1990, 2011))
+  .enter().append("svg")
+    .attr("width", width)
+    .attr("height", height)
+    .attr("class", "RdYlGn")
+  .append("g")
+    .attr("transform", "translate(" + ((width - cellSize * 53) / 2) + "," + (height - cellSize * 7 - 1) + ")");
+
+svg.append("text")
+    .attr("transform", "translate(-6," + cellSize * 3.5 + ")rotate(-90)")
+    .style("text-anchor", "middle")
+    .text(function(d) { return d; });
+
+var rect = svg.selectAll(".day")
+    .data(function(d) { return d3.time.days(new Date(d, 0, 1), new Date(d + 1, 0, 1)); })
+  .enter().append("rect")
+    .attr("class", "day")
+    .attr("width", cellSize)
+    .attr("height", cellSize)
+    .attr("x", function(d) { return d3.time.weekOfYear(d) * cellSize; })
+    .attr("y", function(d) { return d.getDay() * cellSize; })
+    .datum(format);
+
+rect.append("title")
+    .text(function(d) { return d; });
+
+svg.selectAll(".month")
+    .data(function(d) { return d3.time.months(new Date(d, 0, 1), new Date(d + 1, 0, 1)); })
+  .enter().append("path")
+    .attr("class", "month")
+    .attr("d", monthPath);
+
+d3.csv("dji.csv", function(error, csv) {
+  if (error) throw error;
+
+  var data = d3.nest()
+    .key(function(d) { return d.Date; })
+    .rollup(function(d) { return (d[0].Close - d[0].Open) / d[0].Open; })
+    .map(csv);
+
+  rect.filter(function(d) { return d in data; })
+      .attr("class", function(d) { return "day " + color(data[d]); })
+    .select("title")
+      .text(function(d) { return d + ": " + percent(data[d]); });
+});
+
+function monthPath(t0) {
+  var t1 = new Date(t0.getFullYear(), t0.getMonth() + 1, 0),
+      d0 = t0.getDay(), w0 = d3.time.weekOfYear(t0),
+      d1 = t1.getDay(), w1 = d3.time.weekOfYear(t1);
+  return "M" + (w0 + 1) * cellSize + "," + d0 * cellSize
+      + "H" + w0 * cellSize + "V" + 7 * cellSize
+      + "H" + w1 * cellSize + "V" + (d1 + 1) * cellSize
+      + "H" + (w1 + 1) * cellSize + "V" + 0
+      + "H" + (w0 + 1) * cellSize + "Z";
+}
+
+d3.select(self.frameElement).style("height", "2910px");
+
+</script></div></div></div></script><script type="text/x-handlebars" data-template-name="config"><div class="container"><div class="row"><div class="eleven columns"><h6>Configuration</h6></div></div><div class="row"><div class="eleven columns"><div class="five columns"><p>select a JSON file to use as source</p><input id="sourceDir" type="file" accept=".json"></div><div class="three columns"><button type="submit" {{action "chooseAsSource"}}>Choose as source</button> </div></div></div><div class="row"><div class="eleven columns"><div class="five columns"><p>select backup directory</p><input id="destDirectory" type="file" webkitdirectory></div><div class="three columns"><button type="submit" {{action "backupData"}}>make backup</button></div></div></div></div></script><!-- Libs--><script src="js/libs/jquery-1.10.2.js"></script><script src="js/helpers/string.js"></script><script src="js/helpers/date.js"></script><script src="js/helpers/JSONIO.js"></script><script src="js/helpers/pomodoroStatistics.js"></script><script src="js/helpers/windowFunctions.js"></script><script src="js/libs/d3.min.js"></script><script src="js/libs/jit.js"></script><script src="js/helpers/example1.js"></script><script src="js/libs/flipclock.js"></script><script src="js/libs/handlebars-1.1.2.js"></script><script src="js/libs/ember-1.7.0.js"></script><script src="js/libs/ember-data.js"></script><script src="js/libs/ember-validations.js"></script><script src="js/libs/ember-easyForm.js"></script><script src="js/libs/aws-sdk.min.js"></script><!-- Helpers--><script src="js/helpers/clock_helper.js"></script><script src="js/helpers/aws_helper.js"></script><script src="js/helpers/clockState.js"></script><script src="js/helpers/pomodoroclock.js"></script><script src="js/app.js"></script><script src="js/views/ember_easyform.js"></script><script src="js/routes/router.js"></script><script src="js/models/arraytransform_helper.js"></script><script src="js/models/task_model.js"></script><script src="js/routes/application_route.js"></script><script src="js/routes/task_route.js"></script><script src="js/routes/tasks_index_route.js"></script><script src="js/controllers/task_index_controller.js"></script><script src="js/routes/tasks_edit_route.js"></script><script src="js/routes/tasks_new_route.js"></script><script src="js/views/index_view.js"></script><!-- Controllers--><script src="js/controllers/application_controller.js"></script><!-- - Coment the lines below if you don't want the tests--><!----></body></html>
