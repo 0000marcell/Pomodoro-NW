@@ -7,6 +7,7 @@ script(type='text/x-handlebars' data-template-name="tasks/statistics")
         <button type="button" {{action "setPeriod" 30}}>Last Month</button> 
       .one-third.column
         <button type="button" {{action "setPeriod" 365}}>Last Year</button> 
+      
     .row
       .five.columns    
         h6 Statistics
@@ -21,4 +22,5 @@ script(type='text/x-handlebars' data-template-name="tasks/statistics")
           #log
     .row
       .nine.columns
-        include d3.html
+        <button type="button" {{action "d3"}}>d3</button> 
+      .graph
