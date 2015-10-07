@@ -36,13 +36,7 @@ App.ApplicationRoute = Ember.Route.extend({
           statistics.getStatistics(tasks, 7); 
         });
       }); 
-    },
-    setPeriod: function(period){
-      _this = this;
-      this.store.find('task').then(function(tasks){
-        statistics.getStatistics(tasks, period);
-      });
-    },
+    }, 
     showHideTasks: function(){
       $('#tasks').toggle('slow/400/fast');
       var height = (this.taskVisibility) ? 325 : 625;

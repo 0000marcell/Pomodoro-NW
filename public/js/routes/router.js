@@ -1,4 +1,3 @@
-
 App.Router.map(function() {
   this.resource('tasks', function() {
     this.route('new');
