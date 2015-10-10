@@ -23,9 +23,14 @@ PomodoroStatistics.prototype.createJsonStatistics = function(tasks){
   tasks.forEach(function(task){
     _this.task = task;
     if(_this.abortIfPomodorosEmpty())
-      return
-    _this.createTaskObj();
+      return;
     _this.getTaskTotalTime();
+    console.log("this task time "+_this.taskTime);
+    if(typeof _this.taskTime === 'undefined' ||
+       _this.taskTime.toString() == 0)
+      return;
+    console.log("task time before create obj "+_this.taskTime.toString());
+    _this.createTaskObj();
     _this.includeTaskTime(_this.taskTime.toString(),
                           _this.name);
     _this.includeTaskObjInJsonStats();
@@ -64,6 +69,9 @@ PomodoroStatistics.prototype.includeTotalTimeObj = function(){
 }
 
 PomodoroStatistics.prototype.getTaskTotalTime = function(){
+  this.taskDuration = parseInt(this.task.get('duration')); 
+  console.log("task duration "+this.taskDuration);
+  this.taskTime = 0;
   for(var i = 0; i < this.task.get('pomodoros').length; i++){
     this.pomodoroDate = this.task.get('pomodoros')[i].date; 
     if(_this.isInRange())
@@ -78,8 +86,7 @@ PomodoroStatistics.prototype.abortIfPomodorosEmpty = function(){
 }
 
 PomodoroStatistics.prototype.createTaskObj = function(){
-  this.name = this.task.get("name").substring(0, 5), this.taskTime = 0
-  this.taskDuration = parseInt(this.task.get('duration')); 
+  this.name = this.task.get("name").substring(0, 5);
   this.jsonStatistics.label.push(this.task.get("name"));
   this.taskObj = { 'label': this.task.get("name"), 'values':[]};
 };

@@ -19,7 +19,7 @@ App.TasksStatisticsController = Ember.ObjectController.extend({
           .range(d3.range(11).map(function(d) { return "q" + d + "-11"; }));
 
       var svg = d3.select(".graph").selectAll("svg")
-          .data(d3.range(1990, 2011))
+          .data(d3.range(2010, 2011))
         .enter().append("svg")
           .attr("width", width)
           .attr("height", height)
