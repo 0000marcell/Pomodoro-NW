@@ -1,9 +1,9 @@
 html, body {
-    margin-top: 10px;
-    padding:0;
-    font-family: "Lucida Grande", Verdana;
-    font-size: 0.9em;
-    background-color:#fff;
+  margin-top: 10px;
+  padding:0;
+  font-family: "Lucida Grande", Verdana;
+  font-size: 0.9em;
+  background-color:#fff;
 }
 
 .pomodoro-counter{
@@ -72,6 +72,7 @@ a {
 }
 
 .graph {
+  margin-left: -60px !important;
   font: 10px sans-serif;
   shape-rendering: crispEdges;
 }
@@ -83,8 +84,8 @@ a {
 
 .month {
   fill: none;
-  stroke: #000;
-  stroke-width: 2px;
+  /*stroke: #000;
+  stroke-width: 2px;*/
 }
 
 #selected-period{
