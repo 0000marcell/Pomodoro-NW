@@ -15,11 +15,10 @@ App.TasksStatisticsController = Ember.ObjectController.extend({
           format = d3.time.format("%Y-%m-%d");
 
       var color = d3.scale.quantize()
-          .domain([-.05, .05])
-          .range(d3.range(11).map(function(d) { 
+          .domain([0, 5])
+          .range(d3.range(6).map(function(d) {
                                                 console.log("the range "+"q" + d + "-11");
-                                                return "q" + d + "-11"; }));
-      console.log(" COLOR "+color);
+                                                return "q" + d + "-5"; }));
 
       var svg = d3.select(".graph").selectAll("svg")
           .data(d3.range(2014, 2015))
@@ -54,20 +53,18 @@ App.TasksStatisticsController = Ember.ObjectController.extend({
           .attr("class", "month")
           .attr("d", monthPath);
 
-      d3.csv("dji.csv", function(error, csv) {
+      d3.csv("test.csv", function(error, csv) {
         if (error) throw error;
 
         var data = d3.nest()
           .key(function(d) { return d.Date; })
           .rollup(function(d) { 
-                                console.log("gonna return "+(d[0].Close - d[0].Open) / d[0].Open);
                                 return (d[0].Close - d[0].Open) / d[0].Open;  })
           .map(csv);
 
         rect.filter(function(d) { return d in data; })
-            .attr("class", function(d) {  console.log("d in color "+d);
-                                          console.log("data in color "+data[d]);
-                                          console.log("color "+"day " + color(data[d]));
+            .attr("class", function(d) {  
+                                          console.log("returned color gonna be "+color(data[d]));
                                           return "day " + color(data[d]); })
             .select("title")
             .text(function(d) { return d + ": " + percent(data[d]); });
