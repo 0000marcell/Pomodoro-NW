@@ -94,11 +94,9 @@ App.resetFixtures = function() {
     if (error) {
       alert("File sync failed : "+error);
     } else {
-      // alert("Successfully sync data");
       var attachment = data.Body.toString();
       App.Task.FIXTURES = $.map(JSON.parse(attachment), 
                     function(el) { return el; }); 
-      // App.transitionTo('index');
     }
   });
 };

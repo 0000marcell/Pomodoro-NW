@@ -35,6 +35,7 @@ App.ApplicationRoute = Ember.Route.extend({
         _this.store.find('task').then(function(tasks){
           statistics.getStatistics(tasks, 7); 
         });
+        statistics.loadD3Calendar();
       }); 
     }, 
     showHideTasks: function(){

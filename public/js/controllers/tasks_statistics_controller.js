@@ -58,7 +58,7 @@ App.TasksStatisticsController = Ember.ObjectController.extend({
 
         var data = d3.nest()
           .key(function(d) { return d.Date; })
-          .rollup(function(d) { 
+          .rollup(function(d) {
                                 return d[0].Pomodoros;  })
           .map(csv);
 
