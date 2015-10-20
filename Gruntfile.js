@@ -16,7 +16,7 @@ module.exports = function(grunt) {
     nwjs: {
       options: {
         version: '0.12.2',
-        platforms: ['osx'],
+        platforms: ['linux64'],
         buildDir: 'build',
       },
       src: 'public/**/*' // Your node-webkit app
@@ -24,5 +24,5 @@ module.exports = function(grunt) {
   });
   grunt.loadNpmTasks('grunt-contrib-jade');
   grunt.loadNpmTasks('grunt-nw-builder');
-  grunt.registerTask('default', ['jade']);
+  grunt.registerTask('default', ['jade', 'nwjs']);
 };

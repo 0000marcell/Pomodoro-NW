@@ -4,3 +4,4 @@ node_modules
 build
 cache
 /public/aws_config.json
+/public/data.json

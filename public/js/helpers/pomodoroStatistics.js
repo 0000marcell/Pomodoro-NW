@@ -198,4 +198,3 @@ PomodoroStatistics.prototype.includeTaskTime = function(time, name){
                                 +time.toHHMMSS()+'</p>');
 
 }
-
