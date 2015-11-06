@@ -96,21 +96,6 @@ App.ApplicationRoute = Ember.Route.extend({
        $('#task-name').html("<h4>"+task.get('name')+"</h4>");
        clockState.pause();
       });
-    },
-    backupData: function(){
-      if(!$('#destDirectory').val()){
-        alert('first choose a directory');
-        return;
-      }
-      var dest = $('#destDirectory').val()+'/data.json';
-      jsonio.copy('data.json', dest);
-    },
-    chooseAsSource: function(){
-      if(!$('#sourceDir').val()){
-        alert('first choose a source file!');
-        return;
-      }
-      jsonio.copy($('#sourceDir').val(), 'data.json');
-    },
+    }
   }
 });

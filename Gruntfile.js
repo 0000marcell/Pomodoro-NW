@@ -24,5 +24,5 @@ module.exports = function(grunt) {
   });
   grunt.loadNpmTasks('grunt-contrib-jade');
   grunt.loadNpmTasks('grunt-nw-builder');
-  grunt.registerTask('default', ['jade', 'nwjs']);
+  grunt.registerTask('default', ['jade']);
 };
