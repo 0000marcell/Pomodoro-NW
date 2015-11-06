@@ -8,6 +8,7 @@ PomodoroStatistics.prototype.initialize = function(){
             };
   this.totalTime = 0, this.taskDuration, this.taskName,
   this.taskObj, this.task, this.taskTime, this.period;
+  this.D3datesJSON, this.d3Date;
 }
 
 PomodoroStatistics.prototype.getStatistics = function(tasks, period){
@@ -18,8 +19,7 @@ PomodoroStatistics.prototype.getStatistics = function(tasks, period){
   this.createJsonStatistics(tasks);
 };
 
-PomodoroStatistics.prototype.loadD3Calendar = function(){
-  console.log("running load calendar ");
+PomodoroStatistics.prototype.loadD3Calendar = function(tasks){
   var width = 960,
       height = 136,
       cellSize = 17;
@@ -27,6 +27,7 @@ PomodoroStatistics.prototype.loadD3Calendar = function(){
   var percent = d3.format(".1%"),
     format = d3.time.format("%Y-%m-%d");
 
+  
   var color = d3.scale.quantize()
     .domain([0, 5])
     .range(d3.range(6).map(function(d) {
@@ -65,25 +66,53 @@ PomodoroStatistics.prototype.loadD3Calendar = function(){
     .attr("class", "month")
     .attr("d", monthPath);
 
-  d3.csv("test.csv", function(error, csv) {
+    // {
+    //   "Date": "2010-10-01",
+    //   "Pomodoros": 7, 
+    // }
+  this.D3datesJSON = [];
+  _this = this;
+  tasks.forEach(function(task){
+    for(var i = 0; i < task.get('pomodoros').length; i++){
+      _this.D3JSON = {"Date": "", "Pomodoros": 1};
+      _this.D3JSON.Date = task.get('pomodoros')[i].date.split("|"); 
+      console.log("dates "+_this.D3JSON.Date);
+      _this.D3includeDate();
+    }
+  });
+
+  // var myjson = '{"name": "flare","children": [{"name": "analytics","children": [{"name": "cluster","children": [{"name": "MergeEdge", "size": 10 }]}]}]}';
+  // d3.json("flare.json", function(error, json) {
+  //   root = JSON.parse( myjson ); //add this line
+  //   if (error) throw error;
+  //   var data = d3.nest()
+  //     .key(function(d) { return d.Date; })
+  //     .rollup(function(d) { return (d[0].Close - d[0].Open) / d[0].Open; })
+  //     .map(json);
+  //   rect.filter(function(d) { return d in data; })
+  //       .attr("class", function(d) { return "day " + color(data[d]); })
+  //     .select("title")
+  //       .text(function(d) { return d + ": " + percent(data[d]); });
+  // });
+
+  d3.json("data.json", function(error, json) {
+    console.log("d3 dates "+JSON.parse(_this.D3datesJSON));
+    root = JSON.parse(_this.D3datesJSON); 
     if (error) throw error;
 
     var data = d3.nest()
       .key(function(d) { return d.Date; })
       .rollup(function(d) {
                             return d[0].Pomodoros;  })
-      .map(csv);
+      .map(json);
 
     rect.filter(function(d) { return d in data; })
         .attr("class", function(d) {  
-                                      console.log("returned color gonna be "+color(data[d]));
                                       return "day " + color(data[d]); })
         .select("title")
         .text(function(d) { return d + ": " + percent(data[d]); });
     rect.on('click', function(d){ alert(percent(data[d]))});
   });
-
-    
 
   function monthPath(t0) {
     var t1 = new Date(t0.getFullYear(), t0.getMonth() + 1, 0),
@@ -98,6 +127,17 @@ PomodoroStatistics.prototype.loadD3Calendar = function(){
 
   d3.select(self.frameElement).style("height", "2910px");  
 };
+
+PomodoroStatistics.prototype.D3includeDate = function(){
+  for (var i = 0; i < this.D3datesJSON.length; i++) {
+    if(this.D3JSON == this.D3datesJSON[i].Date){
+      this.D3datesJSON[i].Pomodoros++;
+    }else{
+      this.D3datesJSON[i].push(this.D3JSON);
+    }
+  }
+  
+}
 
 PomodoroStatistics.prototype.createJsonStatistics = function(tasks){
   _this = this;

@@ -1,12 +1,6 @@
-{
-  "tasks":[
-    {
-      "id": "0",
-      "name": "Example",
-      "duration": "1:00",
-      "pomodoros": [],
-      "creation_date": "12345",
-      "last_time": "123456" 
-    }
-  ]
-}
+[
+  {
+    "Date": "0",
+    "Pomodoros": "Example" 
+  }
+]

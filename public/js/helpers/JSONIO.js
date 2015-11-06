@@ -11,7 +11,6 @@ JSONIO.prototype.read = function(){
 		if (content == 'undefined'){
 			content = fs.readFileSync("back.json");
 		}
-		console.log("content "+content);
 		var obj = JSON.parse(content);
 		return obj;
 	}catch(err){
