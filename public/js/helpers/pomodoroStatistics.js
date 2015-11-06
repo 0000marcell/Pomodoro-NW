@@ -25,7 +25,8 @@ PomodoroStatistics.prototype.loadD3Calendar = function(tasks){
       cellSize = 17;
 
   var percent = d3.format(".1%"),
-    format = d3.time.format("%Y-%m-%d");
+    format = d3.time.format("%d/%m/%Y");
+
 
   
   var color = d3.scale.quantize()
@@ -65,34 +66,16 @@ PomodoroStatistics.prototype.loadD3Calendar = function(tasks){
     .enter().append("path")
     .attr("class", "month")
     .attr("d", monthPath);
-    // {
-    //   "Date": "2010-10-01",
-    //   "Pomodoros": 7, 
-    // }
   var _this = this;
   this.D3datesJSON = [];
   tasks.forEach(function(task){
     for(var i = 0; i < task.get('pomodoros').length; i++){
       _this.D3JSON = {"Date": "", "Pomodoros": 1};
-      _this.D3JSON.Date = task.get('pomodoros')[i].date.split("|")[0].split("/").join("-");
+      _this.D3JSON.Date = task.get('pomodoros')[i].date.split("|")[0];
       (!_this.D3datesJSON.length) ? _this.D3datesJSON.push(_this.D3JSON) :
                            _this.D3includeDate();
     }
   });
-
-  // var myjson = '{"name": "flare","children": [{"name": "analytics","children": [{"name": "cluster","children": [{"name": "MergeEdge", "size": 10 }]}]}]}';
-  // d3.json("flare.json", function(error, json) {
-  //   root = JSON.parse( myjson ); //add this line
-  //   if (error) throw error;
-  //   var data = d3.nest()
-  //     .key(function(d) { return d.Date; })
-  //     .rollup(function(d) { return (d[0].Close - d[0].Open) / d[0].Open; })
-  //     .map(json);
-  //   rect.filter(function(d) { return d in data; })
-  //       .attr("class", function(d) { return "day " + color(data[d]); })
-  //     .select("title")
-  //       .text(function(d) { return d + ": " + percent(data[d]); });
-  // });
 
   d3.json("data.json", function(error, json) {
     json = _this.D3datesJSON;
