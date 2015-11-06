@@ -34,7 +34,7 @@ App.ApplicationRoute = Ember.Route.extend({
         appWindow.resize(900, 640); 
         _this.store.find('task').then(function(tasks){
           statistics.getStatistics(tasks, 7); 
-          statistics.loadD3Calendar();
+          statistics.loadD3Calendar(tasks);
         });
       }); 
     }, 

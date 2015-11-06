@@ -34,7 +34,7 @@ PomodoroStatistics.prototype.loadD3Calendar = function(tasks){
                                           return "q" + d + "-5"; }));
 
   var svg = d3.select(".graph").selectAll("svg")
-    .data(d3.range(2014, 2015))
+    .data(d3.range(2015, 2016))
     .enter().append("svg")
     .attr("width", width)
     .attr("height", height)
@@ -65,19 +65,18 @@ PomodoroStatistics.prototype.loadD3Calendar = function(tasks){
     .enter().append("path")
     .attr("class", "month")
     .attr("d", monthPath);
-
     // {
     //   "Date": "2010-10-01",
     //   "Pomodoros": 7, 
     // }
+  var _this = this;
   this.D3datesJSON = [];
-  _this = this;
   tasks.forEach(function(task){
     for(var i = 0; i < task.get('pomodoros').length; i++){
       _this.D3JSON = {"Date": "", "Pomodoros": 1};
-      _this.D3JSON.Date = task.get('pomodoros')[i].date.split("|"); 
-      console.log("dates "+_this.D3JSON.Date);
-      _this.D3includeDate();
+      _this.D3JSON.Date = task.get('pomodoros')[i].date.split("|")[0].split("/").join("-");
+      (!_this.D3datesJSON.length) ? _this.D3datesJSON.push(_this.D3JSON) :
+                           _this.D3includeDate();
     }
   });
 
@@ -96,8 +95,7 @@ PomodoroStatistics.prototype.loadD3Calendar = function(tasks){
   // });
 
   d3.json("data.json", function(error, json) {
-    console.log("d3 dates "+JSON.parse(_this.D3datesJSON));
-    root = JSON.parse(_this.D3datesJSON); 
+    json = _this.D3datesJSON;
     if (error) throw error;
 
     var data = d3.nest()
@@ -129,14 +127,16 @@ PomodoroStatistics.prototype.loadD3Calendar = function(tasks){
 };
 
 PomodoroStatistics.prototype.D3includeDate = function(){
-  for (var i = 0; i < this.D3datesJSON.length; i++) {
-    if(this.D3JSON == this.D3datesJSON[i].Date){
-      this.D3datesJSON[i].Pomodoros++;
-    }else{
-      this.D3datesJSON[i].push(this.D3JSON);
-    }
+  var found = 0;
+  for (var i = 0; i < _this.D3datesJSON.length; i++) {
+    if(_this.D3JSON.Date == _this.D3datesJSON[i].Date){
+      _this.D3datesJSON[i].Pomodoros++;
+      found = 1;
+      break;
+    } 
   }
-  
+  if(!found)
+    _this.D3datesJSON.push(_this.D3JSON);
 }
 
 PomodoroStatistics.prototype.createJsonStatistics = function(tasks){
