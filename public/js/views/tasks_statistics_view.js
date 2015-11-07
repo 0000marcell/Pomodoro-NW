@@ -1,7 +1,7 @@
 App.TasksStatisticsView= Ember.View.extend({
   didInsertElement: function(){
     appWindow.resize(900, 640);
-    console.log("test");
+    console.log("test222");
     App.Task.store.find('task').then(function(tasks){
       statistics.getStatistics(tasks, 7); 
       statistics.loadD3Calendar(tasks);
