@@ -28,15 +28,8 @@ App.ApplicationRoute = Ember.Route.extend({
     },
 
     statistics: function(){
-      _this = this;
       $('#clock-container').hide('slow/400/fast');
-      this.transitionTo('tasks.statistics').then(function(){
-        appWindow.resize(900, 640); 
-        _this.store.find('task').then(function(tasks){
-          statistics.getStatistics(tasks, 7); 
-          statistics.loadD3Calendar(tasks);
-        });
-      }); 
+      this.transitionTo('tasks.statistics');
     }, 
 
     showHideTasks: function(){
