@@ -1,9 +1,12 @@
 App.ApplicationRoute = Ember.Route.extend({
-  taskVisibility: true,
+  taskVisibility: true, 
   model: function() {
     return this.store.find('task');
   },
   actions: {
+    didTransition: function() {
+      this.taskVisibility = true; 
+    },
     new: function() {
       this.transitionTo('tasks.new');
     },
@@ -38,6 +41,7 @@ App.ApplicationRoute = Ember.Route.extend({
       this.taskVisibility = (height == 625) ? true : false;
       appWindow.resize(630, height);
     },
+    
     resizeWindow: function(width, height){
       win.width = width, win.height = height;  
     },
