@@ -15,13 +15,14 @@ module.exports = function(grunt) {
     nwjs: {
       options: {
         version: '0.12.2',
-        platforms: ['linux64'],
+        platforms: ['linux', 'win', 'osx'],
         buildDir: 'build',
       },
-      src: 'public/**/*' // Your node-webkit app
+      src: 'public/**/*'
     },
   });
   grunt.loadNpmTasks('grunt-contrib-jade');
   grunt.loadNpmTasks('grunt-nw-builder');
-  grunt.registerTask('default', ['jade', 'nwjs']);
+  // grunt.registerTask('default', ['jade', 'nwjs']);
+  grunt.registerTask('default', ['jade']);
 };
