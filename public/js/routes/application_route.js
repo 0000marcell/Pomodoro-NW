@@ -76,7 +76,8 @@ App.ApplicationRoute = Ember.Route.extend({
        _this.transitionTo('index');
       });
     },
-    selectTask: function(id){
+    selectTask: function(id, event){
+      Ember.set(event, "checked", true);
       pomodoroClock.stop();
       intervalCount = 0;
       pause = false;
