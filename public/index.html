@@ -2,12 +2,8 @@
 <button {{action 'startClock'}}><i class="fa fa-play fa-2x"></i></button>
 <button {{action 'stopClock'}}><i class="fa fa-stop fa-2x"></i></button></div></div></div></div></script><script type="text/x-handlebars" data-template-name="tasks/index"><div id="tasks"><div class="container"><div class="row"><div class="nine columns"><div class="scrollable"><table id="tasks_table"><thead><tr><th>Activate         </th><th>Name </th><th>Pomodoros     </th><th>Duration</th><th><div class="wrap"><button id="button-new" class="button-primary" {{action "new"}}><i class="fa fa-plus fa-3x"></i></button></div></th><tbody>{{#each task in model}}
   <tr {{bind-attr id=task.htmlID}}>
-    <td>
-      <div class="onoffswitch">
-        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox">
-        <label class="onoffswitch-label" {{action "selectTask" task.id this}}></label>
-      </div>
-      <!-- <input type="checkbox" on="change" id=task.id {{action "selectTask" task.id}}> -->
+    <td> 
+      <input type="checkbox" on="change" id=task.id {{action "selectTask" task.id}}>
     </td>
       <td class="name"><a {{action "show" task}}>{{task.name}}</a></td>
       <td class="pomodoros">{{task.pomodoros.length}}</td>

@@ -48,7 +48,7 @@ App.Task = DS.Model.extend(Ember.Validations.Mixin, {
     }).then(function(){
       var content = JSON.stringify(json);
       jsonio.save(content);
-      // _this.uploadToAWS(content);
+      _this.uploadToAWS(content);
     });
   },
   uploadToAWS: function(content){
@@ -89,16 +89,16 @@ App.resetFixtures = function() {
   jsonio.setFile("data.json");
   App.Task.FIXTURES = $.map(jsonio.read(), 
                     function(el) { return el; }); 
-  // var params = {Key: 'data.json'};
-  // bucket.getObject(params, function(error, data) {
-  //   if (error) {
-  //     alert("File sync failed : "+error);
-  //   } else {
-  //     var attachment = data.Body.toString();
-  //     App.Task.FIXTURES = $.map(JSON.parse(attachment), 
-  //                   function(el) { return el; }); 
-  //   }
-  // });
+  var params = {Key: 'data.json'};
+  bucket.getObject(params, function(error, data) {
+    if (error) {
+      alert("File sync failed : "+error);
+    } else {
+      var attachment = data.Body.toString();
+      App.Task.FIXTURES = $.map(JSON.parse(attachment), 
+                    function(el) { return el; }); 
+    }
+  });
 };
 
 

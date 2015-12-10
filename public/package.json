@@ -8,7 +8,7 @@
   "window": {
     "title": "PomodoroG",
     "icon": "public/PomodoroG.png",
-    "toolbar": true,
+    "toolbar": false,
     "frame": true,
     "resizable": false,
     "width": 615,

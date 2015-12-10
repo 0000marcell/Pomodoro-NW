@@ -1,11 +1,7 @@
 {{#each task in model}}
   <tr {{bind-attr id=task.htmlID}}>
-    <td>
-      <div class="onoffswitch">
-        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox">
-        <label class="onoffswitch-label" {{action "selectTask" task.id this}}></label>
-      </div>
-      <!-- <input type="checkbox" on="change" id=task.id {{action "selectTask" task.id}}> -->
+    <td> 
+      <input type="checkbox" on="change" id=task.id {{action "selectTask" task.id}}>
     </td>
       <td class="name"><a {{action "show" task}}>{{task.name}}</a></td>
       <td class="pomodoros">{{task.pomodoros.length}}</td>
