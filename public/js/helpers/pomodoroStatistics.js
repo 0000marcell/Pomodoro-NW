@@ -93,7 +93,7 @@ PomodoroStatistics.prototype.loadD3Calendar = function(tasks){
         .select("title")
         .text(function(d) { return d + ": " + percent(data[d]); });
     rect.on('click', function(d){ 
-												alert(d);
+												alert(data);
 												alert(data[d]);
 										 });
   });
