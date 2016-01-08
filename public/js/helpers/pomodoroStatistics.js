@@ -35,7 +35,7 @@ PomodoroStatistics.prototype.loadD3Calendar = function(tasks){
                                           return "q" + d + "-5"; }));
 
   var svg = d3.select(".graph").selectAll("svg")
-    .data(d3.range(2015, 2016))
+    .data(d3.range(2016, 2017))
     .enter().append("svg")
     .attr("width", width)
     .attr("height", height)
@@ -92,7 +92,10 @@ PomodoroStatistics.prototype.loadD3Calendar = function(tasks){
                                       return "day " + color(data[d]); })
         .select("title")
         .text(function(d) { return d + ": " + percent(data[d]); });
-    rect.on('click', function(d){ alert(percent(data[d]))});
+    rect.on('click', function(d){ 
+												alert(d);
+												alert(data[d]);
+										 });
   });
 
   function monthPath(t0) {
