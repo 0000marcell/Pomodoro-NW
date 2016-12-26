@@ -1,7 +1,7 @@
-function read_aws_info(){
+function read_aws_info(awsConfigPath){
   var content;
   try{
-    content = fs.readFileSync("aws_config.json");
+    content = fs.readFileSync(awsConfigPath);
     if (content == 'undefined'){
       alert(" aws config file was empty, plz enter your aws settings");   
     }
