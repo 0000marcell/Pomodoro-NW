@@ -48,7 +48,9 @@ App.Task = DS.Model.extend(Ember.Validations.Mixin, {
     }).then(function(){
       var content = JSON.stringify(json);
       jsonio.save(content);
-      _this.uploadToAWS(content);
+      if(awsUseStorage){
+        _this.uploadToAWS(content);
+      }
     });
   },
   uploadToAWS: function(content){
