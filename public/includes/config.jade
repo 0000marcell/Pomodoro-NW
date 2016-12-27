@@ -4,6 +4,9 @@ script(type='text/x-handlebars', data-template-name='config')
       .eleven.columns
         h6 Configuration
     .row
+      p Using aws: {{usingAws}}
+      p Config path: {{configPath}}
+    .row
       .eleven.columns
         .five.columns
           p select a JSON file to use as source

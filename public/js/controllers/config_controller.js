@@ -1,7 +1,6 @@
 App.ConfigController = Ember.ObjectController.extend({
-  init(){
-    alert('controller init: ', awsUseStorage);
-  },
+  usingAws: awsUseStorage,
+  configPath: awsConfigPath,
   actions: {
     chooseAsSource: function(){
       if(!$('#sourceDir').val()){
@@ -20,5 +19,3 @@ App.ConfigController = Ember.ObjectController.extend({
     }
   }
 });
-
-
