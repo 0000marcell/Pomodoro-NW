@@ -1,6 +1,7 @@
 App.ConfigController = Ember.ObjectController.extend({
   usingAws: awsUseStorage,
   configPath: awsConfigPath,
+  dirPath: __outsidedir,
   actions: {
     chooseAsSource: function(){
       if(!$('#sourceDir').val()){

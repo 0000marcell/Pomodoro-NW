@@ -15,8 +15,9 @@ module.exports = function(grunt) {
     nwjs: {
       options: {
         version: '0.12.2',
-        // platforms: ['linux', 'win', 'osx'],
-        platforms: ['osx'],
+        //platforms: ['linux', 'win', 'osx'],
+        platforms: ['win'],
+        //platforms: ['osx'],
         buildDir: 'build',
       },
       src: 'public/**/*'
@@ -24,6 +25,6 @@ module.exports = function(grunt) {
   });
   grunt.loadNpmTasks('grunt-contrib-jade');
   grunt.loadNpmTasks('grunt-nw-builder');
-  grunt.registerTask('default', ['jade']);
-  //grunt.registerTask('default', ['jade', 'nwjs']);
+  //grunt.registerTask('default', ['jade']);
+  grunt.registerTask('default', ['jade', 'nwjs']);
 };

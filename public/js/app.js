@@ -1,8 +1,16 @@
 // AWS Set-up 
 var path = require('path');
 var __dirname = path.dirname(document.currentScript.src.slice(7));
+var __outsidedir = path.join(__dirname, '/../../../');
 var awsConfigPath = `${__dirname}/helpers/aws_config.json`;
 var awsUseStorage = false;
+
+
+//Pouchdb
+/*
+var db = new PouchDB('my_database');
+*/
+
 
 if (fs.existsSync(awsConfigPath)) {
   awsUseStorage = true;
