@@ -1,15 +1,10 @@
 var path = require('path');
 var os = require('os');
-var __dirname = path.resolve(path.dirname(document.currentScript.src.slice(7)));
-var __outsidedir = path.join(__dirname, '../../../');
+var __homedir = os.homedir();
 var awsUseStorage = false;
-var pomodoroFilesPath = `${__outsidedir}pomodoro-files`;
+var pomodoroFilesPath = `${__homedir}/pomodoro-files`;
 var generalConfigPath = `${pomodoroFilesPath}/config.json`;
 var mainDataPath = `${pomodoroFilesPath}/data.json`;
-
-alert(`oshomedir ${os.homedir()}`);
-
-alert(`pomodoroFilesPath: ${pomodoroFilesPath}`);
 
 if(!fs.existsSync(pomodoroFilesPath)){
   try{
@@ -20,15 +15,15 @@ if(!fs.existsSync(pomodoroFilesPath)){
   var defaultConfig = {"accessKeyId": null, 
       "secretAccessKey": null, "region": null, 
       "mainDataPath": mainDataPath};
-  fs.writeFile(generalConfigPath, 
+  fs.writeFileSync(generalConfigPath, 
       JSON.stringify(defaultConfig));
   fs.createReadStream('data.json').pipe(fs.createWriteStream(mainDataPath));
-}else{
- try{
+}
+try{
   var config = JSON.parse(fs.readFileSync(generalConfigPath));
- }catch(err){
+  alert(config.region);
+}catch(err){
   alert(`error trying to read config file ${err}`);
- }
 }
 
 if (config.accessKeyId) {

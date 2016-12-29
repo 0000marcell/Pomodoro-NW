@@ -1,2 +1,3 @@
-var value = `${__dirname}/something`
-console.log('dirname: ', value);
+
+var config = {"testing": "marcell"};
+console.log('testing: ', config.testing);

@@ -1,14 +1,13 @@
 {
   "main": "index.html",
   "name": "Pomodoro-dev-2016-2",
-  "node-remote": "localhost",
   "description": "Pomodoro Clock App",
   "version": "0.1.0",
   "keywords": [ "Pomdoro", "Clock" ],
   "window": {
     "title": "PomodoroG",
     "icon": "public/PomodoroG.png",
-    "toolbar": false,
+    "toolbar": true,
     "frame": true,
     "resizable": false,
     "width": 615,
