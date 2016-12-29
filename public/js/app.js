@@ -1,15 +1,22 @@
 var path = require('path');
-var __dirname = path.dirname(document.currentScript.src.slice(7));
-var __outsidedir = path.join(__dirname, '/../../../');
+var os = require('os');
+var __dirname = path.resolve(path.dirname(document.currentScript.src.slice(7)));
+var __outsidedir = path.join(__dirname, '../../../');
 var awsUseStorage = false;
 var pomodoroFilesPath = `${__outsidedir}pomodoro-files`;
 var generalConfigPath = `${pomodoroFilesPath}/config.json`;
 var mainDataPath = `${pomodoroFilesPath}/data.json`;
 
+alert(`oshomedir ${os.homedir()}`);
+
 alert(`pomodoroFilesPath: ${pomodoroFilesPath}`);
 
 if(!fs.existsSync(pomodoroFilesPath)){
-  fs.mkdirSync(pomodoroFilesPath);
+  try{
+    fs.mkdirSync(pomodoroFilesPath);
+  }catch(err){
+    alert(`error trying to create folder: ${err}`)
+  }
   var defaultConfig = {"accessKeyId": null, 
       "secretAccessKey": null, "region": null, 
       "mainDataPath": mainDataPath};

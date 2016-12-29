@@ -14,7 +14,7 @@ module.exports = function(grunt) {
     },
     nwjs: {
       options: {
-        version: '0.12.2',
+        version: '0.19.3',
         //platforms: ['linux', 'win', 'osx'],
         platforms: ['win'],
         //platforms: ['osx'],
