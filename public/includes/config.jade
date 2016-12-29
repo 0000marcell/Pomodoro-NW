@@ -4,21 +4,5 @@ script(type='text/x-handlebars', data-template-name='config')
       .eleven.columns
         h6 Configuration
     .row
-      p Dir path: {{dirPath}}
-    .row
       p Using aws: {{usingAws}}
-      p Config path: {{configPath}}
-    .row
-      .eleven.columns
-        .five.columns
-          p select a JSON file to use as source
-          input(id="sourceDir" type="file" accept=".json")
-        .three.columns
-          <button type="submit" {{action "chooseAsSource"}}>Choose as source</button> 
-    .row
-      .eleven.columns
-        .five.columns
-          p select backup directory
-          input(id="destDirectory" type="file" webkitdirectory)
-        .three.columns
-          <button type="submit" {{action "backupData"}}>make backup</button>
+      p Files Path: {{filesPath}}

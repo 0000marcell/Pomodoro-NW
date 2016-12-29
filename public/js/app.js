@@ -1,25 +1,37 @@
-// AWS Set-up 
 var path = require('path');
 var __dirname = path.dirname(document.currentScript.src.slice(7));
 var __outsidedir = path.join(__dirname, '/../../../');
-var awsConfigPath = `${__dirname}/helpers/aws_config.json`;
 var awsUseStorage = false;
+var pomodoroFilesPath = `${__outsidedir}pomodoro-files`;
+var generalConfigPath = `${pomodoroFilesPath}/config.json`;
+var mainDataPath = `${pomodoroFilesPath}/data.json`;
 
+alert(`pomodoroFilesPath: ${pomodoroFilesPath}`);
 
-//Pouchdb
-/*
-var db = new PouchDB('my_database');
-*/
+if(!fs.existsSync(pomodoroFilesPath)){
+  fs.mkdirSync(pomodoroFilesPath);
+  var defaultConfig = {"accessKeyId": null, 
+      "secretAccessKey": null, "region": null, 
+      "mainDataPath": mainDataPath};
+  fs.writeFile(generalConfigPath, 
+      JSON.stringify(defaultConfig));
+  fs.createReadStream('data.json').pipe(fs.createWriteStream(mainDataPath));
+}else{
+ try{
+  var config = JSON.parse(fs.readFileSync(generalConfigPath));
+ }catch(err){
+  alert(`error trying to read config file ${err}`);
+ }
+}
 
-
-if (fs.existsSync(awsConfigPath)) {
+if (config.accessKeyId) {
   awsUseStorage = true;
 }else{
   awsUseStorage = false;
 }
+
 if(awsUseStorage){
-  aws_info = read_aws_info(awsConfigPath);
-  AWS.config.update({accessKeyId: aws_info.accessKeyId, secretAccessKey: aws_info.secretAccessKey, region: aws_info.region});
+  AWS.config.update({accessKeyId: config.accessKeyId, secretAccessKey: config.secretAccessKey, region: config.region});
   var bucket = new AWS.S3({params: {Bucket: 'pomodorog'}});
 }
 

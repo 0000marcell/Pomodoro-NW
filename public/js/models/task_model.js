@@ -88,7 +88,7 @@ App.Task = DS.Model.extend(Ember.Validations.Mixin, {
 });
 
 App.resetFixtures = function() {
-  jsonio.setFile("data.json");
+  jsonio.setFile(mainDataPath);
   App.Task.FIXTURES = $.map(jsonio.read(), 
                     function(el) { return el; }); 
   var params = {Key: 'data.json'};
