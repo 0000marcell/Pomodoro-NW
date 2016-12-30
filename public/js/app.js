@@ -12,16 +12,15 @@ if(!fs.existsSync(pomodoroFilesPath)){
   }catch(err){
     alert(`error trying to create folder: ${err}`)
   }
-  var defaultConfig = {"accessKeyId": null, 
-      "secretAccessKey": null, "region": null, 
-      "mainDataPath": mainDataPath};
+  var defaultConfig = {accessKeyId: null, 
+      secretAccessKey: null, region: null, 
+      mainDataPath: mainDataPath};
   fs.writeFileSync(generalConfigPath, 
       JSON.stringify(defaultConfig));
   fs.createReadStream('data.json').pipe(fs.createWriteStream(mainDataPath));
 }
 try{
   var config = JSON.parse(fs.readFileSync(generalConfigPath));
-  alert(config.region);
 }catch(err){
   alert(`error trying to read config file ${err}`);
 }
