@@ -1,3 +1,6 @@
+/*
+ Main funtion is createJsonStatistics
+*/
 function PomodoroStatistics(){
 }
 
@@ -123,7 +126,10 @@ PomodoroStatistics.prototype.D3includeDate = function(){
   if(!found)
     _this.D3datesJSON.push(_this.D3JSON);
 }
-
+/*
+ Loop through every task calculating all the statistics
+ task.get('pomodoros') 
+*/
 PomodoroStatistics.prototype.createJsonStatistics = function(tasks){
   _this = this;
   tasks.forEach(function(task){
