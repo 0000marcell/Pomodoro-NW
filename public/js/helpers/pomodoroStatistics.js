@@ -30,15 +30,13 @@ PomodoroStatistics.prototype.loadD3Calendar = function(tasks){
   var percent = d3.format(".1%"),
     format = d3.time.format("%d/%m/%Y");
 
-
-  
   var color = d3.scale.quantize()
     .domain([0, 5])
     .range(d3.range(6).map(function(d) {
                                           return "q" + d + "-5"; }));
 
   var svg = d3.select(".graph").selectAll("svg")
-    .data(d3.range(2016, 2017))
+    .data(d3.range(2017, 2018))
     .enter().append("svg")
     .attr("width", width)
     .attr("height", height)
