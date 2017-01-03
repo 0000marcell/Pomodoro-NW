@@ -1,5 +1,12 @@
 /*
  Main funtion is createJsonStatistics
+ pomodoro model 
+ tasks: [{id: 0, name: 
+  editing, 
+  creation_data: "27/12/2016|21|9|38", 
+  last_active: "09/11/2015|17|49|2",
+  duration: "25:00",
+  pomodoros: [{date:"23/02/2015|16|2|57"}]}]
 */
 function PomodoroStatistics(){
 }
@@ -36,7 +43,7 @@ PomodoroStatistics.prototype.loadD3Calendar = function(tasks){
                                           return "q" + d + "-5"; }));
 
   var svg = d3.select(".graph").selectAll("svg")
-    .data(d3.range(2017, 2018))
+    .data(d3.range(2015, 2018))
     .enter().append("svg")
     .attr("width", width)
     .attr("height", height)
@@ -226,4 +233,62 @@ PomodoroStatistics.prototype.includeTaskTime = function(time, name){
   $('#total-time-tasks').append('<p>'+name+": "
                                 +time.toHHMMSS()+'</p>');
 
+}
+
+/*
+ * Return all pomodoros on a given period in the format
+ * [{taskName: 'editing', date: "27/12/2016, hour: "17:9:38"}]
+ * date format: '27/12/2016'
+*/
+PomodoroStatistics.prototype.getPomodoros = function(startDate, endDate, tasks){
+  var selectedPomodoros = [];
+  var startDate = new Date(transformDate(startDate));
+  var endDate = new Date(transformDate(endDate));
+  var result = [];
+  tasks.forEach((task) => {
+    var date, hour, temp;
+    for(var pomodoro of task.get('pomodoros')){
+      var json = {taskName: task.get('name'), date: ""};
+      temp = pomodoro.date.split('|'); 
+      date = temp[0], hour = temp[1];
+      date = new Date(transformDate(date));
+      if(date >= startDate && date <= endDate){
+        json.date = date;
+        result.push(json);
+      }
+    }
+  }); 
+  return result;
+}
+
+function transformDate(date){
+  "27/01/2015" > "01/27/2015" 
+  var oldDate = date.split('/');
+  var newDate = [oldDate[1], oldDate[0], oldDate[2]].join('/');
+  return newDate;
+}
+
+PomodoroStatistics.prototype.mostProductiveMonth = function(tasks){
+  var pomodoros = this.getPomodoros("01/01/2016", "31/12/2016", tasks);
+  var monthsPomodoros = [];
+  for (var i = 1; i <= 12; i++) {
+    var start = new Date(2016, i-1, 1);
+    var end = new Date(2016, i, 0); // last day of the month
+    var result = [];
+    for(var pomodoro of pomodoros){
+      if(pomodoro.date >= start && pomodoro.date <= end){
+        result.push(pomodoro);
+      }
+    }
+    monthsPomodoros.push(result);
+  }
+  var bigger = [], biggerIndex = 0, i = 0;
+  for(var month of monthsPomodoros){
+    if(month.length > bigger.length){
+      bigger = month;
+      biggerIndex = i;
+    }
+    i++;
+  }
+  debugger;
 }

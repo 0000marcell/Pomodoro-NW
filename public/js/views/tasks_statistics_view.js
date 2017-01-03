@@ -4,6 +4,7 @@ App.TasksStatisticsView= Ember.View.extend({
     App.Task.store.find('task').then(function(tasks){
       statistics.getStatistics(tasks, 7); 
       statistics.loadD3Calendar(tasks);
+      statistics.mostProductiveMonth(tasks);
     });
   }
 });

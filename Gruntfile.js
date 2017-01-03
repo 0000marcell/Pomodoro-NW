@@ -15,9 +15,9 @@ module.exports = function(grunt) {
     nwjs: {
       options: {
         version: '0.19.3',
-        platforms: ['linux', 'win', 'osx64'],
+        //platforms: ['linux', 'win', 'osx64'],
         //platforms: ['win'],
-        //platforms: ['osx'],
+        platforms: ['osx64', 'win'],
         buildDir: 'build',
       },
       src: 'public/**/*'
