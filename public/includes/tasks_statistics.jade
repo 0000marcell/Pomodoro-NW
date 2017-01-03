@@ -8,7 +8,6 @@ script(type='text/x-handlebars' data-template-name="tasks/statistics")
         <button type="button" {{action "setPeriod" 30}}>Last Month</button> 
       .one-third.column
         <button type="button" {{action "setPeriod" 365}}>Last Year</button> 
-      
     .row
       .five.columns    
         h6 Statistics
@@ -21,6 +20,13 @@ script(type='text/x-handlebars' data-template-name="tasks/statistics")
         #center-container
           #infovis
           #log
+    .row
+      span most productive month 2015: {{mostProductiveMonth[0].month}}
+        {{mostProductiveMonth[1].hours}}
+      span most productive month 2016: {{mostProductiveMonth[1].month}} 
+        {{mostProductiveMonth[1].hours}}
+      span most productive month 2017: {{mostProductiveMonth[2].month}} 
+        {{mostProductiveMonth[2].hours}}
     .row
       .nine.columns
       .graph

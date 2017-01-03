@@ -267,13 +267,16 @@ function transformDate(date){
   var newDate = [oldDate[1], oldDate[0], oldDate[2]].join('/');
   return newDate;
 }
-
-PomodoroStatistics.prototype.mostProductiveMonth = function(tasks){
-  var pomodoros = this.getPomodoros("01/01/2016", "31/12/2016", tasks);
-  var monthsPomodoros = [];
+/*
+ * returns a object 
+ * /
+PomodoroStatistics.prototype.mostProductiveMonth = function(tasks, year){
+  var pomodoros = this.getPomodoros(`01/01/${year}`, `31/12/${year}`, tasks),
+      monthsPomodoros = [],
+      months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   for (var i = 1; i <= 12; i++) {
-    var start = new Date(2016, i-1, 1);
-    var end = new Date(2016, i, 0); // last day of the month
+    var start = new Date(year, i-1, 1);
+    var end = new Date(year, i, 0); // last day of the month
     var result = [];
     for(var pomodoro of pomodoros){
       if(pomodoro.date >= start && pomodoro.date <= end){
@@ -286,9 +289,9 @@ PomodoroStatistics.prototype.mostProductiveMonth = function(tasks){
   for(var month of monthsPomodoros){
     if(month.length > bigger.length){
       bigger = month;
-      biggerIndex = i;
+      biggerIndex = i+1;
     }
     i++;
   }
-  debugger;
+  return {month: months[biggerIndex], hours: `${(2*bigger.length)} hours`};
 }
