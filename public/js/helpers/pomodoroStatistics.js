@@ -269,7 +269,8 @@ function transformDate(date){
 }
 /*
  * returns a object 
- * /
+ * {month: 'January', hours: '216 hours'}
+*/
 PomodoroStatistics.prototype.mostProductiveMonth = function(tasks, year){
   var pomodoros = this.getPomodoros(`01/01/${year}`, `31/12/${year}`, tasks),
       monthsPomodoros = [],
@@ -289,9 +290,9 @@ PomodoroStatistics.prototype.mostProductiveMonth = function(tasks, year){
   for(var month of monthsPomodoros){
     if(month.length > bigger.length){
       bigger = month;
-      biggerIndex = i+1;
+      biggerIndex = i;
     }
     i++;
   }
-  return {month: months[biggerIndex], hours: `${(2*bigger.length)} hours`};
+  return {month: months[biggerIndex], hours: `${(bigger.length/2)} hours`};
 }

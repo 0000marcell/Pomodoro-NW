@@ -21,12 +21,9 @@ script(type='text/x-handlebars' data-template-name="tasks/statistics")
           #infovis
           #log
     .row
-      span most productive month 2015: {{mostProductiveMonth[0].month}}
-        {{mostProductiveMonth[1].hours}}
-      span most productive month 2016: {{mostProductiveMonth[1].month}} 
-        {{mostProductiveMonth[1].hours}}
-      span most productive month 2017: {{mostProductiveMonth[2].month}} 
-        {{mostProductiveMonth[2].hours}}
+      p most productive month 2015: {{mpMonth2015.month}}   {{mpMonth2015.hours}}
+      p most productive month 2016: {{mpMonth2016.month}}   {{mpMonth2016.hours}}
+      p most productive month 2017: {{mpMonth2017.month}}   {{mpMonth2017.hours}}
     .row
       .nine.columns
       .graph

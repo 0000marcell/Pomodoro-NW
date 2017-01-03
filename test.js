@@ -1,2 +1,2 @@
-var arr = ['1', '2'];
-console.log('arr: ', arr.join('/'));
+var result = 153//2
+console.log('result: ', result);
