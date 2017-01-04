@@ -17,6 +17,10 @@ App.TasksStatisticsController = Ember.ObjectController.extend({
         statistics.mostProductiveMonth(tasks, 2017));
       this.set('mpDay2015', 
         statistics.mostProductiveDay(tasks, 2015));
+      this.set('mpDay2016', 
+        statistics.mostProductiveDay(tasks, 2016));
+       this.set('mpDay2017', 
+        statistics.mostProductiveDay(tasks, 2017));
     });
   },
   actions: { 

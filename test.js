@@ -3,5 +3,5 @@ var startDate = new Date(2016, 0, 1),
 console.log('end date: ', endDate.toString());
 
 for (var iDate = new Date(startDate); iDate < endDate; iDate.setDate(iDate.getDate() + 1)) {
-  console.log(iDate.toString());
+  console.log(iDate.toDateString());
 }
