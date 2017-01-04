@@ -3,6 +3,7 @@ App.TasksStatisticsController = Ember.ObjectController.extend({
   mpMonth2015: null,
   mpMonth2016: null,
   mpMonth2017: null,
+  mpDay2015: null,
   init(){
     this.store.findAll('task').then((tasks) => {
       this.set('tasks', tasks);
@@ -14,6 +15,8 @@ App.TasksStatisticsController = Ember.ObjectController.extend({
         statistics.mostProductiveMonth(tasks, 2016));
       this.set('mpMonth2017', 
         statistics.mostProductiveMonth(tasks, 2017));
+      this.set('mpDay2015', 
+        statistics.mostProductiveDay(tasks, 2015));
     });
   },
   actions: { 

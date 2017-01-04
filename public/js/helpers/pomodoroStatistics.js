@@ -296,3 +296,31 @@ PomodoroStatistics.prototype.mostProductiveMonth = function(tasks, year){
   }
   return {month: months[biggerIndex], hours: `${(bigger.length/2)} hours`};
 }
+
+/* 
+ * Returns the most productive day in the format
+ * {day: DateObject, hours: "12 hours"}
+*/
+PomodoroStatistics.prototype.mostProductiveDay = function(tasks, year){
+  var pomodoros = this.getPomodoros(`01/01/${year}`, `31/12/${year}`, tasks),
+      days = [],
+      startDate = new Date(transformDate(`01/01/${year}`))
+      endDate = new Date(transformDate(`31/12/${year}`)),
+      result = [];
+  for (var iDate = new Date(startDate); iDate < endDate; iDate.setDate(iDate.getDate() + 1)) {
+    result = [];
+    for(var pomodoro of pomodoros){
+      if(pomodoro.date.getTime() === iDate.getTime()){
+        result.push(pomodoro);
+      }
+    }
+    days.push(result);
+  }
+  var bigger = [];
+  for(var day of days){
+    if(day.length > bigger.length){
+      bigger = day;
+    }
+  }
+  return {day: bigger[0].date.toString(), hours: `${(bigger.length/2)} hours`};
+}
