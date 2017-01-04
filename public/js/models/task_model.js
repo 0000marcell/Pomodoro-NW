@@ -81,7 +81,7 @@ App.Task = DS.Model.extend(Ember.Validations.Mixin, {
     this.set('formated_last_active', this.formatDate('last_active'));
   },
   formatDate: function(unformatedDate){
-    var arr = this.get('creation_date').split('|'),
+    var arr = this.get(unformatedDate).split('|'),
         date = arr[0];
     return arr[0]+' '+arr[1]+'h'+arr[2]+'m';
   }
