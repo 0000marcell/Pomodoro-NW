@@ -19,7 +19,6 @@ App.Task = DS.Model.extend(Ember.Validations.Mixin, {
   },
   durations: ['55:00','1:00', '50:00','45:00'
                ,'40:00','35:00','30:00','25:00','20:00'],
-
   setTotalTime: function(){
     this.set('totalTime', this.calculateTotalTime());   
   },

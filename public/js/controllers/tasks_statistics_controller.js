@@ -1,4 +1,5 @@
 App.TasksStatisticsController = Ember.ObjectController.extend({
+  years: ['2016', '2017'],
   tasks: null,
   mpMonth2015: null,
   mpMonth2016: null,
