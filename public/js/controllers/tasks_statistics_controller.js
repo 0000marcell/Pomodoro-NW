@@ -6,12 +6,12 @@ App.TasksStatisticsController = Ember.ObjectController.extend({
   mpMonth2017: null,
   mpDay2015: null,
   init(){
-    let currentDate = new Date().getFullYear(),
-        diff = currentDate - statistics.firstPomodoro(tasks) + 1,
-        years = Array.from(new Array(diff), (x,i) => i + currentDate);
-    this.set('years', years);
     this.store.findAll('task').then((tasks) => {
-      this.set('tasks', tasks);
+      let currentDate = new Date().getFullYear(),
+        first = statistics.firstPomodoro(tasks),
+        diff = currentDate - first + 1,
+        years = Array.from(new Array(diff), (x,i) => i + first);
+      this.set('years', years);
       statistics.getStatistics(tasks, 7); 
       statistics.loadD3Calendar(tasks);
       this.set('mpMonth2015', 
