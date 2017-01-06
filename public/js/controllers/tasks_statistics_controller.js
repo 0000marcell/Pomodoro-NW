@@ -1,11 +1,15 @@
 App.TasksStatisticsController = Ember.ObjectController.extend({
-  years: ['2016', '2017'],
+  years: [],
   tasks: null,
   mpMonth2015: null,
   mpMonth2016: null,
   mpMonth2017: null,
   mpDay2015: null,
   init(){
+    let currentDate = new Date().getFullYear(),
+        diff = currentDate - statistics.firstPomodoro(tasks) + 1,
+        years = Array.from(new Array(diff), (x,i) => i + currentDate);
+    this.set('years', years);
     this.store.findAll('task').then((tasks) => {
       this.set('tasks', tasks);
       statistics.getStatistics(tasks, 7); 

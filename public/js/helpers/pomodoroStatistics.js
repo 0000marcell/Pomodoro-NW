@@ -324,3 +324,20 @@ PomodoroStatistics.prototype.mostProductiveDay = function(tasks, year){
   }
   return {day: bigger[0].date.toDateString(), hours: `${(bigger.length/2)} hours`};
 }
+
+/* 
+ * get the first pomodoro
+*/
+PomodoroStatistics.prototype.firstPomodoro = function(tasks){
+  tasks.forEach(function(task){
+    let pomodoros = tasks.get('pomodoros'),
+        firstPomodoro = new Date().getFullYear();
+    for(let pomodoro of pomodoros){
+      if(pomodoro.date < firstPomodoro){
+        firstPomodoro = pomodoro.date; 
+      }
+    }
+  });
+  return firstPomodoro;
+}
+
