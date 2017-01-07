@@ -48,7 +48,7 @@
 {{view App.TasksStatisticsView contextBinding="App.Task"}}
 <div class='container'>
   <div class="row">
-    <select>
+    <select id="my-select" {{action 'selectYear' on='change'}}>
       {{#each year in years}}
         <option value={{year}}>{{year}}</option>
       {{/each}}

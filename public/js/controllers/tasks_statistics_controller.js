@@ -34,6 +34,15 @@ App.TasksStatisticsController = Ember.ObjectController.extend({
       this.store.find('task').then(function(tasks){
         statistics.getStatistics(tasks, period);
       });
+    },
+    selectYearStart(){
+      let selected = $("#year-start option:selected").text();
+    },
+    selectMonthStart(){
+    },
+    selectYearEnd(){
+    },
+    selectMonthEnd(){
     }
     // Statistics logic is in helpers/pomodoroStatistics.js
   }
