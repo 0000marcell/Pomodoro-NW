@@ -48,32 +48,37 @@
 {{view App.TasksStatisticsView contextBinding="App.Task"}}
 <div class='container'>
   <div class="row">
-    <select id="year-start" {{action 'selectYearStart' on='change'}}>
-      {{#each year in years}}
-        <option value={{year}}>{{year}}</option>
-      {{/each}}
-    </select>
-    <select id="month-start" {{action 'selectMonthStart' on='change'}}>
-      {{#each month in months}}
-        <option value={{month}}>{{month}}</option>
-      {{/each}}
-    </select>
-    <select id="year-end" {{action 'selectYearEnd' on='change'}}>
-      {{#each year in years}}
-        <option value={{year}}>{{year}}</option>
-      {{/each}}
-    </select>
-    <select id="month-end" {{action 'selectMonthEnd' on='change'}}>
-      {{#each month in months}}
-        <option value={{month}}>{{month}}</option>
-      {{/each}}
-    </select>
-    <select id="task-select" {{action 'selectTask' on='change'}}>
-      {{#each task in tasks}}
-        <option value="{{task.name}}">{{task.name}}</option>
-      {{/each}}
-    </select>
-    <!--
+    {{view Ember.Select
+        content=years
+        optionValuePath="content"
+        optionLabelPath="content"
+        prompt="Start date"
+        selectionBinding=yearStart}}
+    {{view Ember.Select
+        content=months
+        optionValuePath="content"
+        optionLabelPath="content"
+        prompt="Start month"
+        selectionBinding=monthStart}}
+    {{view Ember.Select
+        content=years
+        optionValuePath="content"
+        optionLabelPath="content"
+        prompt="Year end"
+        selectionBinding=yearEnd}}
+    {{view Ember.Select
+        content=months
+        optionValuePath="content"
+        optionLabelPath="content"
+        prompt="Month end"
+        selectionBinding=monthEnd}}
+    {{view Ember.Select
+        content=tasks
+        optionValuePath="content.id"
+        optionLabelPath="content.name"
+        prompt="Select a task"
+        selectionBinding=selectedTask}}
+     <!--
       <button type="button" {{action "setPeriod" 7}}>Last Week</button> 
       <button type="button" {{action "setPeriod" 30}}>Last Month</button> 
       <button type="button" {{action "setPeriod" 365}}>Last Year</button> 

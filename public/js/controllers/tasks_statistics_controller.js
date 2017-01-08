@@ -1,4 +1,9 @@
 App.TasksStatisticsController = Ember.ObjectController.extend({
+  selectedContentType: null,
+  selectDate: [
+          {label: "None", value: "none"},
+        {label: "Today", value: "today"},
+        {label: "Last 7 days", value: "7days"}],
   years: [],
   months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
   tasks: null,
@@ -9,6 +14,8 @@ App.TasksStatisticsController = Ember.ObjectController.extend({
   init(){
     this.store.findAll('task').then((tasks) => {
       this.set('tasks', tasks);
+      this.get('tasks')
+        .pushObject({id: 'all', name: 'all'});
       let currentDate = new Date().getFullYear(),
         first = statistics.firstPomodoro(tasks),
         diff = currentDate - first + 1,
@@ -38,28 +45,12 @@ App.TasksStatisticsController = Ember.ObjectController.extend({
       });
     },
     calculateStatistics(){
-      debugger; 
-    },
-    selectYearStart(){
-      this.set('yearStart', 
-        $("#year-start option:selected").text());
-    },
-    selectMonthStart(){
-      this.set('monthStart', 
-        $("#month-start option:selected").text());
-    },
-    selectYearEnd(){
-      this.set('yearEnd', 
-        $("#year-end option:selected").text());
-    },
-    selectMonthEnd(){
-      this.set('monthEnd', 
-        $("#month-end option:selected").text());
-    },
-    selectTask(){
+      let yearStart = this.get('yearStart'),
+          yearEnd =   this.get('yearEnd'),
+          monthStart = this.get('monthStart'),
+          monthEnd =  this.get('monthEnd'),
+          selectedTask = this.get('selectedTask');
       debugger;
-      this.set('selectedTask',
-          $('#task-select option:selected').val()); 
     }
     // Statistics logic is in helpers/pomodoroStatistics.js
   }
