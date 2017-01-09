@@ -1,21 +1,27 @@
 App.TasksStatisticsController = Ember.ObjectController.extend({
+  tasks: [],
+  yearStart: null,
+  yearEnd: null,
+  isAdmin: true,
   selectedContentType: null,
-  selectDate: [
-          {label: "None", value: "none"},
+  selectDate: [{label: "None", value: "none"},
         {label: "Today", value: "today"},
         {label: "Last 7 days", value: "7days"}],
   years: [],
   months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-  tasks: null,
+  tasksList:  [],
   mpMonth2015: null,
   mpMonth2016: null,
   mpMonth2017: null,
   mpDay2015: null,
   init(){
+    var arr = [];
     this.store.findAll('task').then((tasks) => {
       this.set('tasks', tasks);
-      this.get('tasks')
-        .pushObject({id: 'all', name: 'all'});
+      arr = tasks.slice(0);
+      this.set('tasksList', arr);
+      this.get('tasksList')
+        .unshiftObject({id: 'all', name: 'all'});
       let currentDate = new Date().getFullYear(),
         first = statistics.firstPomodoro(tasks),
         diff = currentDate - first + 1,
@@ -51,6 +57,7 @@ App.TasksStatisticsController = Ember.ObjectController.extend({
           monthEnd =  this.get('monthEnd'),
           selectedTask = this.get('selectedTask');
       debugger;
+      let result = statistics.getTask(selectedTask.id, this.get('tasks'));
     }
     // Statistics logic is in helpers/pomodoroStatistics.js
   }

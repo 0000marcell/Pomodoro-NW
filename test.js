@@ -1,6 +1,9 @@
-let currentDate = new Date().getFullYear()
-let number = 2015;
-let diff = currentDate - number + 1;
-console.log('diff: ', diff);
-let arr = Array.from(new Array(diff), (x,i) => i + number);
-console.log('arr: ', arr);
+let arr = [1, 2, 3, 4, 5];
+let newArr = [];
+arr.forEach(function(value){
+  newArr.push(value);
+  if(value === 3){
+    break;
+  }
+});
+console.log('new Arr: ', newArr);
