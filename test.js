@@ -1,9 +1,3 @@
-let arr = [1, 2, 3, 4, 5];
-let newArr = [];
-arr.forEach(function(value){
-  newArr.push(value);
-  if(value === 3){
-    break;
-  }
-});
-console.log('new Arr: ', newArr);
+let date = new Date('2016', '2', 0);
+console.log('date: ', date);
+console.log('date: ', date.getDate());

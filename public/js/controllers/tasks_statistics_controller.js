@@ -8,7 +8,18 @@ App.TasksStatisticsController = Ember.ObjectController.extend({
         {label: "Today", value: "today"},
         {label: "Last 7 days", value: "7days"}],
   years: [],
-  months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+  months: [{label: '1', value: 'January'}, 
+           {label: '2', value: 'February'}, 
+           {label: '3', value: 'March'}, 
+           {label: '4', value: 'April'}, 
+           {label: '5', value: 'May'}, 
+           {label: '6', value: 'June'}, 
+           {label: '7', value: 'July'}, 
+           {label: '8', value: 'August'}, 
+           {label: '9', value: 'September'}, 
+           {label: '10', value:'October'}, 
+           {label: '11', value: 'November'}, 
+           {label: '12', value: 'December'}],
   tasksList:  [],
   mpMonth2015: null,
   mpMonth2016: null,
@@ -55,10 +66,17 @@ App.TasksStatisticsController = Ember.ObjectController.extend({
           yearEnd =   this.get('yearEnd'),
           monthStart = this.get('monthStart'),
           monthEnd =  this.get('monthEnd'),
-          selectedTask = this.get('selectedTask');
-      debugger;
-      let result = statistics.getTask(selectedTask.id, this.get('tasks'));
+          selectedTask = this.get('selectedTask'),
+          selectedTasks;
+      if(selectedTask.id !== 'all'){
+        selectedTasks = statistics.getTask(selectedTask.id, this.get('tasks'));
+      }else{
+        selectedTasks = this.get('tasks'); 
+      }
+      let startYearString = `01/${monthStart.label}/${yearStart}`,
+          endYearString = `${statistics.lastDayMonth(monthEnd.label, yearEnd)}/${monthEnd.label}/${yearEnd}`;
+          resultPomodoros = statistics.getPomodoros(startYearString, endYearString, selectedTasks);
     }
-    // Statistics logic is in helpers/pomodoroStatistics.js
+
   }
 });

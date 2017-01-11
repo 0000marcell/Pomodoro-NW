@@ -236,18 +236,18 @@ PomodoroStatistics.prototype.includeTaskTime = function(time, name){
 }
 
 /*
- * Get the specific task from the list of tasks
+ * Get pomodoros from a task in a specific date range
+ * returns
+ * [{taskName: 'editing', date: "27/12/2016, hour: "17:9:38"}]
 */
-PomodoroStatistics.prototype.getTask = function(taskName, tasks){
-  debugger;
+PomodoroStatistics.prototype.getTask = function(startDate, endDate, taskId, tasks){
   let resultTask;
-  for(let task of tasks){
-    if(task.get('id') === taskName){
+  tasks.forEach((task) => {
+    if(task.get('id') === taskId){
       resultTask = task;
-      break;
     }
-  }
-  return task;
+  });
+  return resultTask;
 }
 
 /*
@@ -356,5 +356,9 @@ PomodoroStatistics.prototype.firstPomodoro = function(tasks){
     }
   });
   return firstPomodoro.getFullYear();
+}
+
+PomodoroStatistics.prototype.lastDayMonth= function(month, year){
+  return new Date(year, month, 0).getDate().toString();
 }
 

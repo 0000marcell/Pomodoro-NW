@@ -56,8 +56,8 @@
         selectionBinding=yearStart}}
     {{view Ember.Select
         content=months
-        optionValuePath="content"
-        optionLabelPath="content"
+        optionValuePath="content.label"
+        optionLabelPath="content.value"
         prompt="Start month"
         selectionBinding=monthStart}}
     {{view Ember.Select
@@ -68,8 +68,8 @@
         selectionBinding=yearEnd}}
     {{view Ember.Select
         content=months
-        optionValuePath="content"
-        optionLabelPath="content"
+        optionValuePath="content.label"
+        optionLabelPath="content.value"
         prompt="Month end"
         selectionBinding=monthEnd}}
     {{view Ember.Select
