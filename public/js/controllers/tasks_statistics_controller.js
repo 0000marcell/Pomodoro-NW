@@ -26,20 +26,24 @@ App.TasksStatisticsController = Ember.ObjectController.extend({
   mpMonth2017: null,
   mpDay2015: null,
   init(){
-    var arr = [];
+    let arr = [],
+        allTask = {id: 'all', name: 'all'};
     this.store.findAll('task').then((tasks) => {
       this.set('tasks', tasks);
       arr = tasks.slice(0);
       this.set('tasksList', arr);
       this.get('tasksList')
-        .unshiftObject({id: 'all', name: 'all'});
+        .unshiftObject(allTask);
+      this.set('selectedTask', allTask);
       let currentDate = new Date().getFullYear(),
         first = statistics.firstPomodoro(tasks),
         diff = currentDate - first + 1,
         years = Array.from(new Array(diff), (x,i) => i + first);
       this.set('years', years);
       this.set('yearStart', years[0]);
-      this.set('monthStart', this.get('months').obje);
+      this.set('monthStart', this.get('months').objectAt(0));
+      this.set('yearEnd', years[years.length - 1]);
+      this.set('monthEnd', this.get('months').objectAt(this.get('months.length') - 1));
       statistics.getStatistics(tasks, 7); 
       statistics.loadD3Calendar(tasks);
       this.set('mpMonth2015', 
@@ -64,15 +68,20 @@ App.TasksStatisticsController = Ember.ObjectController.extend({
       });
     },
     calculateStatistics(){
-      debugger;
+      let selectedTasks = [];
       if(this.get('selectedTask.id') !== 'all'){
-        selectedTasks = statistics.getTask(this.get('selectedTask.id'), this.get('tasks'));
+        selectedTasks = [statistics.getTask(this.get('selectedTask.id'), this.get('tasks'))];
       }else{
         selectedTasks = this.get('tasks'); 
       }
-      let startYearString = `01/${monthStart.label}/${yearStart}`,
-          endYearString = `${statistics.lastDayMonth(monthEnd.label, yearEnd)}/${monthEnd.label}/${yearEnd}`;
+      console.log('selectedTasks: ', selectedTasks);
+      let lastDayMonth = statistics.lastDayMonth(this.get('monthEnd.label'), this.get('yearEnd')),
+          startYearString = `01/${this.get('monthStart.label')}/${this.get('yearStart')}`,
+          endYearString = `${lastDayMonth}/${this.get('monthEnd.label')}/${this.get('yearEnd')}`;
+          console.log('startYearString: ', startYearString);
+          console.log('endYearString: ', endYearString);
           resultPomodoros = statistics.getPomodoros(startYearString, endYearString, selectedTasks);
+          debugger;
     }
   }
 });

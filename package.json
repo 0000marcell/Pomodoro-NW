@@ -1,6 +1,9 @@
 {
   "name": "grunt-webkit-test",
   "version": "0.1.0",
+  "scripts": {
+    "build": "grunt; nw-sdk"
+  },
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-contrib-jade": "^0.14.1",

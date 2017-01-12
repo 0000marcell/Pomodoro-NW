@@ -29,6 +29,14 @@ PomodoroStatistics.prototype.getStatistics = function(tasks, period){
   this.createJsonStatistics(tasks);
 };
 
+PomodoroStatistics.prototype.setPeriod = function(){
+    this.date = new Date(), this.lastDate = new Date();
+      this.lastDate.setDate(this.lastDate.getDate() - this.period); 
+        var startPeriod = this.lastDate.getDate()+"/"+(this.lastDate.getMonth()+1)+"/"+this.lastDate.getFullYear(),
+                endPeriod = this.date.getDate()+"/"+(this.date.getMonth()+1)+"/"+this.date.getFullYear();
+          $('#selected-period').html("<h6>period:"+startPeriod+" "+endPeriod+"</h6>");
+};
+
 PomodoroStatistics.prototype.loadD3Calendar = function(tasks){
   var width = 960,
       height = 136,
@@ -221,18 +229,9 @@ PomodoroStatistics.prototype.isInRange = function(){
   }
 };
 
-PomodoroStatistics.prototype.setPeriod = function(){
-  this.date = new Date(), this.lastDate = new Date();
-  this.lastDate.setDate(this.lastDate.getDate() - this.period); 
-  var startPeriod = this.lastDate.getDate()+"/"+(this.lastDate.getMonth()+1)+"/"+this.lastDate.getFullYear(),
-    endPeriod = this.date.getDate()+"/"+(this.date.getMonth()+1)+"/"+this.date.getFullYear();
-  $('#selected-period').html("<h6>period:"+startPeriod+" "+endPeriod+"</h6>");
-};
-
 PomodoroStatistics.prototype.includeTaskTime = function(time, name){
   $('#total-time-tasks').append('<p>'+name+": "
                                 +time.toHHMMSS()+'</p>');
-
 }
 
 /*
@@ -250,10 +249,14 @@ PomodoroStatistics.prototype.getTask = function(taskId, tasks){
   return result;
 }
 
-/*
+/**
  * Return all pomodoros on a given period in the format
  * [{taskName: 'editing', date: "27/12/2016, hour: "17:9:38"}]
- * date format: '27/12/2016'
+ * @method getPomodoros
+ * @param {String} startDate (e.g: '27/12/2016')
+ * @param {String} endDate (e.g: '01/10/2017')
+ * @param {Array} tasks array of task objects
+ * @return {Array} array with all the pomodoros  
 */
 PomodoroStatistics.prototype.getPomodoros = function(startDate, endDate, tasks){
   var selectedPomodoros = [];
@@ -261,17 +264,7 @@ PomodoroStatistics.prototype.getPomodoros = function(startDate, endDate, tasks){
   var endDate = new Date(transformDate(endDate));
   var result = [];
   tasks.forEach((task) => {
-    var date, hour, temp;
-    for(var pomodoro of task.get('pomodoros')){
-      var json = {taskName: task.get('name'), date: ""};
-      temp = pomodoro.date.split('|'); 
-      date = temp[0], hour = temp[1];
-      date = new Date(transformDate(date));
-      if(date >= startDate && date <= endDate){
-        json.date = date;
-        result.push(json);
-      }
-    }
+    result.push(this.getPomodorosDateRange(startDate, endDate, task));
   }); 
   return result;
 }
@@ -362,16 +355,21 @@ PomodoroStatistics.prototype.lastDayMonth= function(month, year){
   return new Date(year, month, 0).getDate().toString();
 }
 
-/*
+/**
  * Get all pomodoros from a task in a specific date range
+ * @method getPomodorosDateRange
+ * @param {Date Object} startDate
+ * @param {Date Object} endDate
+ * @param {Task Object} task
+ * @return {Task Object} returns a task object with only the pomodoros on the range
 */
 PomodoroStatistics.prototype.getPomodorosDateRange = function(startDate, endDate, task){
-  debugger;
-  task.get('pomodoros').forEach((pomodoro, index, task) => {
-    let date = pomodoro.date.split('|')[0],
-        date = new Date(transformDate(date));
-    if(date <= startDate || date >= endDate){
-      tasks.removeAt(index);
+  let pomodoroDate;
+  task.get('pomodoros').forEach((pomodoro, index) => {
+    pomodoroDate = pomodoro.date.split('|')[0];
+    pomodoroDate = new Date(transformDate(pomodoroDate));
+    if(pomodoroDate <= startDate || pomodoroDate >= endDate){
+      task.get('pomodoros').removeAt(index);
     }
   });
   return task;
