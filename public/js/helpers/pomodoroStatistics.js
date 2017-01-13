@@ -256,7 +256,7 @@ PomodoroStatistics.prototype.getTask = function(taskId, tasks){
  * @param {String} startDate (e.g: '27/12/2016')
  * @param {String} endDate (e.g: '01/10/2017')
  * @param {Array} tasks array of task objects
- * @return {Array} array with all the pomodoros  
+ * @return {Array} array with the tasks and the filtered pomodoros
 */
 PomodoroStatistics.prototype.getPomodoros = function(startDate, endDate, tasks){
   var selectedPomodoros = [];
@@ -280,7 +280,7 @@ function transformDate(date){
  * {month: 'January', hours: '216 hours'}
 */
 PomodoroStatistics.prototype.mostProductiveMonth = function(tasks, year){
-  var pomodoros = this.getPomodoros(`01/01/${year}`, `31/12/${year}`, tasks),
+  var pomodoros = this.flatPomodoros(this.getPomodoros(`01/01/${year}`, `31/12/${year}`, tasks)),
       monthsPomodoros = [],
       months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   for (var i = 1; i <= 12; i++) {
@@ -288,7 +288,7 @@ PomodoroStatistics.prototype.mostProductiveMonth = function(tasks, year){
     var end = new Date(year, i, 0); // last day of the month
     var result = [];
     for(var pomodoro of pomodoros){
-      if(pomodoro.date >= start && pomodoro.date <= end){
+      if(pomodoro >= start && pomodoro <= end){
         result.push(pomodoro);
       }
     }
@@ -310,7 +310,7 @@ PomodoroStatistics.prototype.mostProductiveMonth = function(tasks, year){
  * {day: DateObject, hours: "12 hours"}
 */
 PomodoroStatistics.prototype.mostProductiveDay = function(tasks, year){
-  var pomodoros = this.getPomodoros(`01/01/${year}`, `31/12/${year}`, tasks),
+  var pomodoros = this.flatPomodoros(this.getPomodoros(`01/01/${year}`, `31/12/${year}`, tasks)),
       days = [],
       startDate = new Date(transformDate(`01/01/${year}`))
       endDate = new Date(transformDate(`31/12/${year}`)),
@@ -318,7 +318,7 @@ PomodoroStatistics.prototype.mostProductiveDay = function(tasks, year){
   for (var iDate = new Date(startDate); iDate < endDate; iDate.setDate(iDate.getDate() + 1)) {
     result = [];
     for(var pomodoro of pomodoros){
-      if(pomodoro.date.getTime() === iDate.getTime()){
+      if(pomodoro.getTime() === iDate.getTime()){
         result.push(pomodoro);
       }
     }
@@ -330,7 +330,7 @@ PomodoroStatistics.prototype.mostProductiveDay = function(tasks, year){
       bigger = day;
     }
   }
-  return {day: bigger[0].date.toDateString(), hours: `${(bigger.length/2)} hours`};
+  return {day: bigger[0].toDateString(), hours: `${(bigger.length/2)} hours`};
 }
 
 /* 
@@ -361,16 +361,37 @@ PomodoroStatistics.prototype.lastDayMonth= function(month, year){
  * @param {Date Object} startDate
  * @param {Date Object} endDate
  * @param {Task Object} task
- * @return {Task Object} returns a task object with only the pomodoros on the range
+ * @return {Task Object} returns a task object with only the pomodoros on the range, 
+ * the pomodoro dates are also converted to js date objects
 */
 PomodoroStatistics.prototype.getPomodorosDateRange = function(startDate, endDate, task){
   let pomodoroDate;
+  let resultTask = {id: task.get('id'), 
+    name: task.get('name'),
+    creation_date: task.get('creation_date'), 
+    last_active: task.get('last_active'),
+    duration: "25:00",
+    pomodoros: []};
   task.get('pomodoros').forEach((pomodoro, index) => {
     pomodoroDate = pomodoro.date.split('|')[0];
     pomodoroDate = new Date(transformDate(pomodoroDate));
     if(pomodoroDate <= startDate || pomodoroDate >= endDate){
-      task.get('pomodoros').removeAt(index);
+    }else{
+      resultTask.pomodoros.push(pomodoroDate);
     }
   });
-  return task;
+  return resultTask;
+}
+
+/**
+ * @method flatPomodoros
+ * @param {array} tasks, array os tasks with object dates as pomodoros
+ * @returns {array} return array of pomodoros of all the tasks
+ */
+PomodoroStatistics.prototype.flatPomodoros= function(tasks){
+  let result = [];
+  for(let __task of tasks){
+    result = result.concat(__task.pomodoros); 
+  }
+  return result;
 }
