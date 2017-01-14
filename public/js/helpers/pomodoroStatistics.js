@@ -11,6 +11,13 @@
 function PomodoroStatistics(){
 }
 
+/**
+ * initialize pomodoroDate, lastDate
+ * jsonStatistics, totalTime, taskDuration, 
+ * taskName, taskObj, task, taskTime, period
+ * D3DatesJSON, d3Date
+ * @method initialize
+ */
 PomodoroStatistics.prototype.initialize = function(){
   this.pomodoroDate, this.lastDate,
   this.jsonStatistics = { 'label': ['Total'],
@@ -21,6 +28,13 @@ PomodoroStatistics.prototype.initialize = function(){
   this.D3datesJSON, this.d3Date;
 }
 
+/**
+ * runs initialize, sets this.period to the param period
+ * empty $('#total-time-tasks')
+ * @method getStatistics
+ * @param {object} tasks, array with all the tasks
+ * @param {String} period, number of days for the period 
+ */
 PomodoroStatistics.prototype.getStatistics = function(tasks, period){
   this.initialize();
   this.period = period;
@@ -29,6 +43,11 @@ PomodoroStatistics.prototype.getStatistics = function(tasks, period){
   this.createJsonStatistics(tasks);
 };
 
+/**
+ * sets the $('selected-period'), 
+ * that is shown on the statistis page
+ * @method setPeriod
+ */
 PomodoroStatistics.prototype.setPeriod = function(){
     this.date = new Date(), this.lastDate = new Date();
       this.lastDate.setDate(this.lastDate.getDate() - this.period); 
@@ -139,19 +158,15 @@ PomodoroStatistics.prototype.D3includeDate = function(){
   if(!found)
     _this.D3datesJSON.push(_this.D3JSON);
 }
-/*
+
+/**
  Loop through every task calculating all the statistics
- task.get('pomodoros') 
+ @method createJsonStatistics
+ @param tasks
 */
 PomodoroStatistics.prototype.createJsonStatistics = function(tasks){
-  _this = this;
-  tasks.forEach(function(task){
-    _this.task = task;
-    if(_this.abortIfPomodorosEmpty())
-      return;
-    _this.getTaskTotalTime();
-    if(typeof _this.taskTime === 'undefined' ||
-       _this.taskTime.toString() == 0)
+  tasks.forEach((task) => {
+    if(!task.pomodoros.length)
       return;
     _this.createTaskObj();
     _this.includeTaskTime(_this.taskTime.toString(),
@@ -191,7 +206,11 @@ PomodoroStatistics.prototype.includeTotalTimeObj = function(){
   this.jsonStatistics.values.pushObject(taskObj);
 }
 
-PomodoroStatistics.prototype.getTaskTotalTime = function(){
+/**
+ * gets the task duration and sets to taskDuration
+ * sets taskTime duration in hours
+ * @method getTaskTotalTime
+PomodoroStatistics.prototype.getTaskTotalTime = function(task){
   this.taskDuration = parseInt(this.task.get('duration')); 
   this.taskTime = 0;
   for(var i = 0; i < this.task.get('pomodoros').length; i++){
@@ -200,13 +219,11 @@ PomodoroStatistics.prototype.getTaskTotalTime = function(){
       this.taskTime += 60 * this.taskDuration;
   };
 }
+*/
 
-PomodoroStatistics.prototype.abortIfPomodorosEmpty = function(){
-  if(!this.task.get('pomodoros').length)
-    return true;
-  return false;
-}
-
+/**
+ * @method createTaskObj
+ */
 PomodoroStatistics.prototype.createTaskObj = function(){
   this.name = this.task.get("name").substring(0, 5);
   this.jsonStatistics.label.push(this.task.get("name"));
@@ -219,6 +236,12 @@ PomodoroStatistics.prototype.includeTaskObjInJsonStats = function(){
   this.jsonStatistics.values.pushObject(this.taskObj);
 }
 
+/**
+ * get the date from the pomodoro
+ * converts it in to a date object verify if 
+ * the taskDate is greation than the lastDate(filtered date)
+ * and returns true or false
+ * @method isInRange
 PomodoroStatistics.prototype.isInRange = function(){
   var taskArray = this.pomodoroDate.split('|')[0].split('/'),
       taskDate = new Date(taskArray[2],(taskArray[1] - 1), taskArray[0]);
@@ -228,6 +251,7 @@ PomodoroStatistics.prototype.isInRange = function(){
     return false
   }
 };
+*/
 
 PomodoroStatistics.prototype.includeTaskTime = function(time, name){
   $('#total-time-tasks').append('<p>'+name+": "

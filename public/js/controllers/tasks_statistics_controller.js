@@ -74,14 +74,11 @@ App.TasksStatisticsController = Ember.ObjectController.extend({
       }else{
         selectedTasks = this.get('tasks'); 
       }
-      console.log('selectedTasks: ', selectedTasks);
+      debugger;
       let lastDayMonth = statistics.lastDayMonth(this.get('monthEnd.label'), this.get('yearEnd')),
           startYearString = `01/${this.get('monthStart.label')}/${this.get('yearStart')}`,
           endYearString = `${lastDayMonth}/${this.get('monthEnd.label')}/${this.get('yearEnd')}`;
-          console.log('startYearString: ', startYearString);
-          console.log('endYearString: ', endYearString);
           resultPomodoros = statistics.getPomodoros(startYearString, endYearString, selectedTasks);
-          debugger;
     }
   }
 });
