@@ -49,8 +49,8 @@ PomodoroStatistics.prototype.getStatistics = function(tasks, period){
  * @method setPeriod
  */
 PomodoroStatistics.prototype.setPeriod = function(){
-    this.date = new Date(), this.lastDate = new Date();
-      this.lastDate.setDate(this.lastDate.getDate() - this.period); 
+  this.date = new Date(), this.lastDate = new Date();
+  this.lastDate.setDate(this.lastDate.getDate() - this.period); 
         var startPeriod = this.lastDate.getDate()+"/"+(this.lastDate.getMonth()+1)+"/"+this.lastDate.getFullYear(),
                 endPeriod = this.date.getDate()+"/"+(this.date.getMonth()+1)+"/"+this.date.getFullYear();
           $('#selected-period').html("<h6>period:"+startPeriod+" "+endPeriod+"</h6>");
@@ -180,11 +180,24 @@ PomodoroStatistics.prototype.createJsonStatistics = function(tasks){
   this.loadStatistics();
 };
 
+/**
+ * load the jsonStatistics obj the format is:
+ * var json = {  'label': ['label A', 'label B', 'label C', 'label D'],  
+ *         'values': [{'label': 'date A','values': [20]}}
+ * @method loadStatistics
+ */
 PomodoroStatistics.prototype.loadStatistics = function(){
   $('#infovis').empty();
   init(this.jsonStatistics);
 }
 
+/**
+ *
+ * go through each task on the jsonStatistics object
+ * and calculate the percentage
+ * pushes the result to jsonStatistics.values array
+ * @method calculateTasksPercentage
+ */
 PomodoroStatistics.prototype.calculateTasksPercentage = function(){
   for(var i = 0; i < this.jsonStatistics.values.length; i++){
     this.taskTime = this.jsonStatistics.values[i].values[0];
@@ -201,6 +214,10 @@ PomodoroStatistics.prototype.calculateTasksPercentage = function(){
   };
 }
 
+/**
+ * includes the total time on the jsonStatistics
+ * @method includeTotalTimeObj
+*/
 PomodoroStatistics.prototype.includeTotalTimeObj = function(){
   var taskObj = { 'label': 'Total', 'values':[this.totalTime]};
   this.jsonStatistics.values.pushObject(taskObj);
@@ -222,6 +239,7 @@ PomodoroStatistics.prototype.getTaskTotalTime = function(task){
 */
 
 /**
+ * create the taskobject used 
  * @method createTaskObj
  */
 PomodoroStatistics.prototype.createTaskObj = function(){
@@ -230,6 +248,11 @@ PomodoroStatistics.prototype.createTaskObj = function(){
   this.taskObj = { 'label': this.task.get("name"), 'values':[]};
 };
 
+/**
+ * includes the task time on the taskObj and
+ * the taskObj on the jsonStatistics
+ * @method includeTaskObjInJsonStats
+ */
 PomodoroStatistics.prototype.includeTaskObjInJsonStats = function(){
   this.totalTime += parseInt(this.taskTime);
   this.taskObj.values.push(this.taskTime);
@@ -253,6 +276,12 @@ PomodoroStatistics.prototype.isInRange = function(){
 };
 */
 
+/**
+ * Include the total task time on the view
+ * @method includeTaskTime
+ * @param {String} time, total time of the task 
+ * @param {String} name, name of the task
+*/
 PomodoroStatistics.prototype.includeTaskTime = function(time, name){
   $('#total-time-tasks').append('<p>'+name+": "
                                 +time.toHHMMSS()+'</p>');
