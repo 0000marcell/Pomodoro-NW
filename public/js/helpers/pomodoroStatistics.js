@@ -12,48 +12,15 @@ function PomodoroStatistics(){
 }
 
 /**
- * initialize pomodoroDate, lastDate
- * jsonStatistics, totalTime, taskDuration, 
- * taskName, taskObj, task, taskTime, period
- * D3DatesJSON, d3Date
- * @method initialize
- */
-PomodoroStatistics.prototype.initialize = function(){
-  this.pomodoroDate, this.lastDate,
-  this.jsonStatistics = { 'label': ['Total'],
-                'values': []
-            };
-  this.totalTime = 0, this.taskDuration, this.taskName,
-  this.taskObj, this.task, this.taskTime, this.period;
-  this.D3datesJSON, this.d3Date;
-}
-
-/**
  * runs initialize, sets this.period to the param period
  * empty $('#total-time-tasks')
  * @method getStatistics
  * @param {object} tasks, array with all the tasks
  * @param {String} period, number of days for the period 
  */
-PomodoroStatistics.prototype.getStatistics = function(tasks, period){
-  this.initialize();
-  this.period = period;
+PomodoroStatistics.prototype.getStatistics = function(tasks){
   $('#total-time-tasks').empty(); 
-  this.setPeriod();
   this.createJsonStatistics(tasks);
-};
-
-/**
- * sets the $('selected-period'), 
- * that is shown on the statistis page
- * @method setPeriod
- */
-PomodoroStatistics.prototype.setPeriod = function(){
-  this.date = new Date(), this.lastDate = new Date();
-  this.lastDate.setDate(this.lastDate.getDate() - this.period); 
-        var startPeriod = this.lastDate.getDate()+"/"+(this.lastDate.getMonth()+1)+"/"+this.lastDate.getFullYear(),
-                endPeriod = this.date.getDate()+"/"+(this.date.getMonth()+1)+"/"+this.date.getFullYear();
-          $('#selected-period').html("<h6>period:"+startPeriod+" "+endPeriod+"</h6>");
 };
 
 PomodoroStatistics.prototype.loadD3Calendar = function(tasks){
@@ -165,15 +132,17 @@ PomodoroStatistics.prototype.D3includeDate = function(){
  @param tasks
 */
 PomodoroStatistics.prototype.createJsonStatistics = function(tasks){
+  let jsonStatistics = { label: [], values: []};
   tasks.forEach((task) => {
     if(!task.pomodoros.length)
       return;
-    _this.createTaskObj();
-    _this.includeTaskTime(_this.taskTime.toString(),
-                          _this.name);
-    _this.includeTaskObjInJsonStats();
+    jsonStatistics.label.push(task.name);
+    jsonStatistics.values.push({label: task.name, values: []});
+    this.includeTaskTime(this.taskTime.toString(),
+                          this.name);
+    this.includeTaskObjInJsonStats();
   }); 
-  this.includeTaskTime(_this.totalTime.toString(), 
+  this.includeTaskTime(this.totalTime.toString(), 
                         'Total');
   this.includeTotalTimeObj();
   this.calculateTasksPercentage();
@@ -242,8 +211,7 @@ PomodoroStatistics.prototype.getTaskTotalTime = function(task){
  * create the taskobject used 
  * @method createTaskObj
  */
-PomodoroStatistics.prototype.createTaskObj = function(){
-  this.name = this.task.get("name").substring(0, 5);
+PomodoroStatistics.prototype.createTaskObj = function(task){
   this.jsonStatistics.label.push(this.task.get("name"));
   this.taskObj = { 'label': this.task.get("name"), 'values':[]};
 };
@@ -304,7 +272,10 @@ PomodoroStatistics.prototype.getTask = function(taskId, tasks){
 
 /**
  * Return all pomodoros on a given period in the format
- * [{taskName: 'editing', date: "27/12/2016, hour: "17:9:38"}]
+ * the creation_date and last_active are strings, pomodoros are
+ * date objects
+ * [{id: 'id', name: 'name', creation_date: 'creation_date', 
+ * last_active: 'last_active', duration: '25:00', pomodoros: []}];
  * @method getPomodoros
  * @param {String} startDate (e.g: '27/12/2016')
  * @param {String} endDate (e.g: '01/10/2017')
