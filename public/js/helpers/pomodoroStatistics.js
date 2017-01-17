@@ -7,6 +7,28 @@
   last_active: "09/11/2015|17|49|2",
   duration: "25:00",
   pomodoros: [{date:"23/02/2015|16|2|57"}]}]
+
+  methods:
+  getStatistics, empties #total-time-tasks, runs createJsonStatistics
+  loadD3Calendar, creates the d3 calendar
+  D3includeDate, ?
+  createJsonStatistics, loop throught every tasks calculating 
+                        the jsonStatistics to be show on the jit graphic
+  loadStatistics, load json statistics uses the this.jsonStatistics object
+  calculateTasksPercentage, calculate the tasks percentage
+  includeTotalTimeObj, includes the total time on the taskObj, this obj is later
+                       used to load the list of tasks and all the times
+  createTaskObj, create the taskObject and jsonStatistics object used in the jit graphic and the 
+                 list of tasks 
+  includeTaskObjInJsonStats, includes the task time on the taskObj and the taskObj on the jsonStatistics
+  includeTaskTime, includes the total taskTime on the view
+  getTask, returns a task based on the id
+  getPomodoros, return all tasks with pomodoros filtered in a date range
+  transformDate, transform date string in a date object  
+  mostProductiveMonth, returns the most productive month
+  mostProductiveDay, 
+  firstPomodoro, gets the first pomodoro ever made 
+  lastDayMonth, gets the last day of the month
 */
 function PomodoroStatistics(){
 }
@@ -23,6 +45,11 @@ PomodoroStatistics.prototype.getStatistics = function(tasks){
   this.createJsonStatistics(tasks);
 };
 
+/**
+ * create a d3 calendar
+ * @method loadD3Calendar
+ * @param {object} tasks
+ */
 PomodoroStatistics.prototype.loadD3Calendar = function(tasks){
   var width = 960,
       height = 136,
@@ -113,6 +140,10 @@ PomodoroStatistics.prototype.loadD3Calendar = function(tasks){
   d3.select(self.frameElement).style("height", "2910px");  
 };
 
+/**
+ * ?
+ * @method D3includeDate
+ */
 PomodoroStatistics.prototype.D3includeDate = function(){
   var found = 0;
   for (var i = 0; i < _this.D3datesJSON.length; i++) {
@@ -138,8 +169,7 @@ PomodoroStatistics.prototype.createJsonStatistics = function(tasks){
       return;
     jsonStatistics.label.push(task.name);
     jsonStatistics.values.push({label: task.name, values: []});
-    this.includeTaskTime(this.taskTime.toString(),
-                          this.name);
+    this.includeTaskTime(task);
     this.includeTaskObjInJsonStats();
   }); 
   this.includeTaskTime(this.totalTime.toString(), 
@@ -250,15 +280,18 @@ PomodoroStatistics.prototype.isInRange = function(){
  * @param {String} time, total time of the task 
  * @param {String} name, name of the task
 */
-PomodoroStatistics.prototype.includeTaskTime = function(time, name){
+PomodoroStatistics.prototype.includeTaskTime = function(task){
+  (task.pomodoros.length * 30)/60
   $('#total-time-tasks').append('<p>'+name+": "
                                 +time.toHHMMSS()+'</p>');
 }
 
-/*
- * Get pomodoros from a task in a specific date range
- * returns
- * [{taskName: 'editing', date: "27/12/2016, hour: "17:9:38"}]
+/**
+ * returns a task based on the id
+ * @method getTask
+ * @param {String} taskId
+ * @param {Object} tasks
+ * @returns {obj} 
 */
 PomodoroStatistics.prototype.getTask = function(taskId, tasks){
   let result;
@@ -293,14 +326,22 @@ PomodoroStatistics.prototype.getPomodoros = function(startDate, endDate, tasks){
   return result;
 }
 
+/**
+ * transform date string in a object
+ * @function transformDate
+ */
 function transformDate(date){
-  "27/01/2015" > "01/27/2015" 
+  //"27/01/2015" > "01/27/2015" 
   var oldDate = date.split('/');
   var newDate = [oldDate[1], oldDate[0], oldDate[2]].join('/');
   return newDate;
 }
-/*
- * returns a object 
+
+/**
+ * @method mostProductiveMonth 
+ * @param {Object} tasks
+ * @param {String} year
+ * @returns {Object} 
  * {month: 'January', hours: '216 hours'}
 */
 PomodoroStatistics.prototype.mostProductiveMonth = function(tasks, year){
@@ -329,7 +370,11 @@ PomodoroStatistics.prototype.mostProductiveMonth = function(tasks, year){
   return {month: months[biggerIndex], hours: `${(bigger.length/2)} hours`};
 }
 
-/* 
+/**
+ * @method MostProductiveDay
+ * @param {Object} tasks
+ * @param {String} year
+ * @returns {Object} 
  * Returns the most productive day in the format
  * {day: DateObject, hours: "12 hours"}
 */
@@ -357,7 +402,11 @@ PomodoroStatistics.prototype.mostProductiveDay = function(tasks, year){
   return {day: bigger[0].toDateString(), hours: `${(bigger.length/2)} hours`};
 }
 
-/* 
+/**
+ * get the first pomodoro ever made
+ * @method firstPomodoro
+ * @param tasks
+ * @returns {Stirng} date.fullYear()
  * get the first pomodoro
 */
 PomodoroStatistics.prototype.firstPomodoro = function(tasks){
@@ -375,6 +424,12 @@ PomodoroStatistics.prototype.firstPomodoro = function(tasks){
   return firstPomodoro.getFullYear();
 }
 
+/**
+ * gets the last day of the month
+ * @method lastDayMonth 
+ * @param {String} month
+ * @param {String} year
+ */
 PomodoroStatistics.prototype.lastDayMonth= function(month, year){
   return new Date(year, month, 0).getDate().toString();
 }
