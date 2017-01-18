@@ -16,11 +16,11 @@
                         the jsonStatistics to be show on the jit graphic
   loadStatistics, load json statistics uses the this.jsonStatistics object
   calculateTasksPercentage, calculate the tasks percentage
-  includeTotalTimeObj, includes the total time on the taskObj, this obj is later
+  REMOVED includeTotalTimeObj, includes the total time on the taskObj, this obj is later
                        used to load the list of tasks and all the times
   createTaskObj, create the taskObject and jsonStatistics object used in the jit graphic and the 
                  list of tasks 
-  includeTaskObjInJsonStats, includes the task time on the taskObj and the taskObj on the jsonStatistics
+  REMOVED includeTaskObjInJsonStats, includes the task time on the taskObj and the taskObj on the jsonStatistics
   includeTaskTime, includes the total taskTime on the view
   getTask, returns a task based on the id
   getPomodoros, return all tasks with pomodoros filtered in a date range
@@ -29,6 +29,8 @@
   mostProductiveDay, 
   firstPomodoro, gets the first pomodoro ever made 
   lastDayMonth, gets the last day of the month
+  getPomodorosDateRange, get all pomodoros from a task in a specific date range
+  flatPomodoros, returns a array with only the pomodoros of the tasks
 */
 function PomodoroStatistics(){
 }
@@ -163,21 +165,31 @@ PomodoroStatistics.prototype.D3includeDate = function(){
  @param tasks
 */
 PomodoroStatistics.prototype.createJsonStatistics = function(tasks){
-  let jsonStatistics = { label: [], values: []};
-  tasks.forEach((task) => {
+  let jsonStatistics = tasks.forEach((obj, item) => {
     if(!task.pomodoros.length)
       return;
-    jsonStatistics.label.push(task.name);
-    jsonStatistics.values.push({label: task.name, values: []});
-    this.includeTaskTime(task);
-    this.includeTaskObjInJsonStats();
-  }); 
-  this.includeTaskTime(this.totalTime.toString(), 
-                        'Total');
-  this.includeTotalTimeObj();
-  this.calculateTasksPercentage();
-  this.loadStatistics();
+    let totalTime = this.calculateTaskTotalTime(task);
+    obj.label.push(task.name);
+    obj.values.push({label: task.name, values: [totalTime]});
+    this.includeTaskTime(totalTime, task.name);
+  }, { label: [], values: [] });
+  let tasksTotalTime = jsonStatistics.values.reduce((prev, next) => {
+    return prev + next.values[0];
+  });
+  this.includeTaskTime(tasksTotalTime, task.name);
+  jsonStatistics = this.calculateTasksPercentage(jsonStatistics);
+  this.loadStatistics(jsonStatistics);
 };
+
+/**
+ * @method calculateTaskTotalTime
+ * @param {Object} tasks
+ * @return {Number} total time 
+*/
+PomodoroStatistics.prototype.calculateTaskTotalTime = function(tasks){
+  let result;
+  return result;
+}
 
 /**
  * load the jsonStatistics obj the format is:
@@ -191,8 +203,7 @@ PomodoroStatistics.prototype.loadStatistics = function(){
 }
 
 /**
- *
- * go through each task on the jsonStatistics object
+ * Go through each task on the jsonStatistics object
  * and calculate the percentage
  * pushes the result to jsonStatistics.values array
  * @method calculateTasksPercentage
@@ -216,11 +227,11 @@ PomodoroStatistics.prototype.calculateTasksPercentage = function(){
 /**
  * includes the total time on the jsonStatistics
  * @method includeTotalTimeObj
-*/
 PomodoroStatistics.prototype.includeTotalTimeObj = function(){
   var taskObj = { 'label': 'Total', 'values':[this.totalTime]};
   this.jsonStatistics.values.pushObject(taskObj);
 }
+*/
 
 /**
  * gets the task duration and sets to taskDuration
@@ -250,12 +261,12 @@ PomodoroStatistics.prototype.createTaskObj = function(task){
  * includes the task time on the taskObj and
  * the taskObj on the jsonStatistics
  * @method includeTaskObjInJsonStats
- */
 PomodoroStatistics.prototype.includeTaskObjInJsonStats = function(){
   this.totalTime += parseInt(this.taskTime);
   this.taskObj.values.push(this.taskTime);
   this.jsonStatistics.values.pushObject(this.taskObj);
 }
+*/
 
 /**
  * get the date from the pomodoro
@@ -285,6 +296,7 @@ PomodoroStatistics.prototype.includeTaskTime = function(task){
   $('#total-time-tasks').append('<p>'+name+": "
                                 +time.toHHMMSS()+'</p>');
 }
+
 
 /**
  * returns a task based on the id
@@ -463,6 +475,7 @@ PomodoroStatistics.prototype.getPomodorosDateRange = function(startDate, endDate
 }
 
 /**
+ * returns a rray with only the pomodoros of the tasks
  * @method flatPomodoros
  * @param {array} tasks, array os tasks with object dates as pomodoros
  * @returns {array} return array of pomodoros of all the tasks
