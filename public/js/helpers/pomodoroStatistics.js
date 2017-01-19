@@ -16,11 +16,8 @@
                         the jsonStatistics to be show on the jit graphic
   loadStatistics, load json statistics uses the this.jsonStatistics object
   calculateTasksPercentage, calculate the tasks percentage
-  REMOVED includeTotalTimeObj, includes the total time on the taskObj, this obj is later
-                       used to load the list of tasks and all the times
   createTaskObj, create the taskObject and jsonStatistics object used in the jit graphic and the 
                  list of tasks 
-  REMOVED includeTaskObjInJsonStats, includes the task time on the taskObj and the taskObj on the jsonStatistics
   includeTaskTime, includes the total taskTime on the view
   getTask, returns a task based on the id
   getPomodoros, return all tasks with pomodoros filtered in a date range
@@ -176,8 +173,9 @@ PomodoroStatistics.prototype.createJsonStatistics = function(tasks){
   let tasksTotalTime = jsonStatistics.values.reduce((prev, next) => {
     return prev + next.values[0];
   });
-  this.includeTaskTime(tasksTotalTime, task.name);
+  this.includeTaskTime(tasksTotalTime, 'Total');
   jsonStatistics = this.calculateTasksPercentage(jsonStatistics);
+  debugger;
   this.loadStatistics(jsonStatistics);
 };
 
@@ -187,8 +185,7 @@ PomodoroStatistics.prototype.createJsonStatistics = function(tasks){
  * @return {Number} total time 
 */
 PomodoroStatistics.prototype.calculateTaskTotalTime = function(tasks){
-  let result;
-  return result;
+  return Math.floor((tasks.pomodoros.length * 30)/ 60);
 }
 
 /**
@@ -208,20 +205,12 @@ PomodoroStatistics.prototype.loadStatistics = function(){
  * pushes the result to jsonStatistics.values array
  * @method calculateTasksPercentage
  */
-PomodoroStatistics.prototype.calculateTasksPercentage = function(){
-  for(var i = 0; i < this.jsonStatistics.values.length; i++){
-    this.taskTime = this.jsonStatistics.values[i].values[0];
-    this.jsonStatistics.values[i].values = []; 
-    if(i > 0){
-      for (var c = 0; c < i; c++) {
-        this.jsonStatistics.values[i].values.push(0);  
-      };
-    }
-    var percentage = Math.round(100/(this.totalTime/this.taskTime));
-    if(!percentage)
-      percentage = 0
-    this.jsonStatistics.values[i].values.push(percentage);
-  };
+PomodoroStatistics.prototype.calculateTasksPercentage = function(jsonStatistics, totalTime){
+  jsonStatistics.values = jsonStatistics.values.reduce((arr, item) => {
+    let taskTotalTime = item.values[0],
+        percentage = Math.round(100/(totalTime/taskTotalTime));
+    return arr.push({label: item.name, values: [percentage]});
+  }, []);  
 }
 
 /**
@@ -291,10 +280,9 @@ PomodoroStatistics.prototype.isInRange = function(){
  * @param {String} time, total time of the task 
  * @param {String} name, name of the task
 */
-PomodoroStatistics.prototype.includeTaskTime = function(task){
-  (task.pomodoros.length * 30)/60
-  $('#total-time-tasks').append('<p>'+name+": "
-                                +time.toHHMMSS()+'</p>');
+PomodoroStatistics.prototype.includeTaskTime = function(time, taskName){
+  $('#total-time-tasks')
+    .append(`<p>${taskName}: ${time}h</p>`)
 }
 
 
