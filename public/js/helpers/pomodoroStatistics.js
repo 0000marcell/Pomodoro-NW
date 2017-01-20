@@ -9,19 +9,18 @@
   pomodoros: [{date:"23/02/2015|16|2|57"}]}]
 
   methods:
-  getStatistics, empties #total-time-tasks, runs createJsonStatistics
+  loadStatistics, empties #total-time-tasks, runs createJsonStatistics
   loadD3Calendar, creates the d3 calendar
   D3includeDate, ?
   createJsonStatistics, loop throught every tasks calculating 
                         the jsonStatistics to be show on the jit graphic
-  loadStatistics, load json statistics uses the this.jsonStatistics object
   calculateTasksPercentage, calculate the tasks percentage
   createTaskObj, create the taskObject and jsonStatistics object used in the jit graphic and the 
                  list of tasks 
   includeTaskTime, includes the total taskTime on the view
   getTask, returns a task based on the id
   getPomodoros, return all tasks with pomodoros filtered in a date range
-  transformDate, transform date string in a date object  
+  transformDate, transform date string
   mostProductiveMonth, returns the most productive month
   mostProductiveDay, 
   firstPomodoro, gets the first pomodoro ever made 
@@ -33,19 +32,7 @@ function PomodoroStatistics(){
 }
 
 /**
- * runs initialize, sets this.period to the param period
- * empty $('#total-time-tasks')
- * @method getStatistics
- * @param {object} tasks, array with all the tasks
- * @param {String} period, number of days for the period 
- */
-PomodoroStatistics.prototype.getStatistics = function(tasks){
-  $('#total-time-tasks').empty(); 
-  this.createJsonStatistics(tasks);
-};
-
-/**
- * create a d3 calendar
+ * create a D3 calendar
  * @method loadD3Calendar
  * @param {object} tasks
  */
@@ -97,9 +84,9 @@ PomodoroStatistics.prototype.loadD3Calendar = function(tasks){
   var _this = this;
   this.D3datesJSON = [];
   tasks.forEach(function(task){
-    for(var i = 0; i < task.get('pomodoros').length; i++){
+    for(var i = 0; i < task.pomodoros.length; i++){
       _this.D3JSON = {"Date": "", "Pomodoros": 1};
-      _this.D3JSON.Date = task.get('pomodoros')[i].date.split("|")[0];
+      _this.D3JSON.Date = transformDateToString(task.pomodoros[i]);
       (!_this.D3datesJSON.length) ? _this.D3datesJSON.push(_this.D3JSON) :
                            _this.D3includeDate();
     }
@@ -177,7 +164,7 @@ PomodoroStatistics.prototype.createJsonStatistics = function(tasks){
   }, 0);
   this.includeTaskTime(tasksTotalTime, 'Total');
   jsonStatistics.values = this.calculateTasksPercentage(jsonStatistics, tasksTotalTime);
-  this.loadStatistics(jsonStatistics);
+  return jsonStatistics;
 };
 
 /**
@@ -195,8 +182,13 @@ PomodoroStatistics.prototype.calculateTaskTotalTime = function(tasks){
  *         'values': [{'label': 'date A','values': [20]}}
  * @method loadStatistics
  */
-PomodoroStatistics.prototype.loadStatistics = function(jsonStatistics){
+PomodoroStatistics.prototype.loadStatistics = function(tasks){
+  $('#total-time-tasks').empty(); 
   $('#infovis').empty();
+  let jsonStatistics = this.createJsonStatistics(tasks);
+  let graphicSizeH = jsonStatistics.values.length * 86;
+  $('#infovis').css('width', graphicSizeH);
+  $('#center-container').css('width', graphicSizeH);
   init(jsonStatistics);
 }
 
@@ -333,7 +325,8 @@ PomodoroStatistics.prototype.getPomodoros = function(tasks, startDate, endDate){
 }
 
 /**
- * transform date string in a object
+ * transform date string
+ * "27/01/2015" > "01/27/2015" 
  * @function transformDate
  */
 function transformDate(date){
@@ -342,6 +335,23 @@ function transformDate(date){
   var newDate = [oldDate[1], oldDate[0], oldDate[2]].join('/');
   return newDate;
 }
+
+/**
+ * transform date object in an string format:
+ * '27/01/2017'
+ * @method transformDateToString
+ * @param {Object} Date object
+ * @returns {String}
+ */
+function transformDateToString(date){
+  var mm = date.getMonth() + 1; // getMonth() is zero-based
+  var dd = date.getDate();
+  return [(dd > 9 ? '' : '0') + dd,
+          (mm > 9 ? '' : '0') + mm,
+          this.getFullYear()].join('/');
+}
+
+
 
 /**
  * @method mostProductiveMonth 

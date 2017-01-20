@@ -1,9 +1,2 @@
-function test(param1, param2){
-  if(param1){
-    console.log('param1');
-  }else{
-    console.log('no param1');
-  }
-};
-
-test();
+let date = new Date('11/27/2016');
+console.log('date: ', date.toString());

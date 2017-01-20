@@ -1,16 +1,23 @@
+.jit-graphics {
+  padding: 10px;
+  overflow: auto;
+  width: 600px;
+  border: 1px solid #c8c8c8;
+}
+
 #right-container {
   display: none;
 }
 
 #center-container {
-  background-color:#1a1a1a;
+  background-color:#fff;
   height: 350px;
-  width:3600px;
+  width: 600px;
 }
 
 #infovis {
   height: 350px;
-  width:3600px;
+  width: 600px;
 }
 
 #id-list {

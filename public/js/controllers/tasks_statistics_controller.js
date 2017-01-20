@@ -44,8 +44,8 @@ App.TasksStatisticsController = Ember.ObjectController.extend({
       this.set('monthStart', this.get('months').objectAt(0));
       this.set('yearEnd', years[years.length - 1]);
       this.set('monthEnd', this.get('months').objectAt(this.get('months.length') - 1));
-      statistics.getStatistics(statistics.getPomodoros(tasks));
-      //statistics.loadD3Calendar(tasks);
+      statistics.loadStatistics(statistics.getPomodoros(tasks));
+      statistics.loadD3Calendar(tasks);
       this.set('mpMonth2015', 
         statistics.mostProductiveMonth(tasks, 2015));
       this.set('mpMonth2016', 
@@ -72,7 +72,7 @@ App.TasksStatisticsController = Ember.ObjectController.extend({
           startYearString = `01/${this.get('monthStart.label')}/${this.get('yearStart')}`,
           endYearString = `${lastDayMonth}/${this.get('monthEnd.label')}/${this.get('yearEnd')}`;
           resultPomodoros = statistics.getPomodoros(selectedTasks, startYearString, endYearString);
-      statistics.getStatistics(resultPomodoros);
+      statistics.loadStatistics(resultPomodoros);
     }
   }
 });
