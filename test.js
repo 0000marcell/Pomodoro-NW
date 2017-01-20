@@ -1,6 +1,9 @@
-let arr = [];
-let arr2 = [1, 2, 3];
-let arr3 = [4, 5, 6];
-arr = arr.concat(arr2);
-arr = arr.concat(arr3);
-console.log('arr: ', arr);
+function test(param1, param2){
+  if(param1){
+    console.log('param1');
+  }else{
+    console.log('no param1');
+  }
+};
+
+test();

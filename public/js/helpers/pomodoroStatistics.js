@@ -41,6 +41,7 @@ function PomodoroStatistics(){
  */
 PomodoroStatistics.prototype.getStatistics = function(tasks){
   $('#total-time-tasks').empty(); 
+  let tasks = this.getPomodoros(tasks);
   this.createJsonStatistics(tasks);
 };
 
@@ -315,11 +316,16 @@ PomodoroStatistics.prototype.getTask = function(taskId, tasks){
  * @param {Array} tasks array of task objects
  * @return {Array} array with the tasks and the filtered pomodoros
 */
-PomodoroStatistics.prototype.getPomodoros = function(startDate, endDate, tasks){
-  var selectedPomodoros = [];
-  var startDate = new Date(transformDate(startDate));
-  var endDate = new Date(transformDate(endDate));
-  var result = [];
+PomodoroStatistics.prototype.getPomodoros = function(tasks, startDate, endDate){
+  let selectedPomodoros = [];
+  if(startDate){
+    let startDate = new Date(transformDate(startDate)),
+        endDate   = new Date(transformDate(endDate));
+  }else{
+    let startDate = new Date(transformDate(`01/01/${this.firstPomodoro(tasks)}`)),
+        endDate   = new Date();
+  }
+  let result = [];
   tasks.forEach((task) => {
     result.push(this.getPomodorosDateRange(startDate, endDate, task));
   }); 
@@ -345,7 +351,7 @@ function transformDate(date){
  * {month: 'January', hours: '216 hours'}
 */
 PomodoroStatistics.prototype.mostProductiveMonth = function(tasks, year){
-  var pomodoros = this.flatPomodoros(this.getPomodoros(`01/01/${year}`, `31/12/${year}`, tasks)),
+  var pomodoros = this.flatPomodoros(this.getPomodoros(tasks, `01/01/${year}`, `31/12/${year}`)),
       monthsPomodoros = [],
       months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   for (var i = 1; i <= 12; i++) {
@@ -379,7 +385,7 @@ PomodoroStatistics.prototype.mostProductiveMonth = function(tasks, year){
  * {day: DateObject, hours: "12 hours"}
 */
 PomodoroStatistics.prototype.mostProductiveDay = function(tasks, year){
-  var pomodoros = this.flatPomodoros(this.getPomodoros(`01/01/${year}`, `31/12/${year}`, tasks)),
+  var pomodoros = this.flatPomodoros(this.getPomodoros(tasks, `01/01/${year}`, `31/12/${year}`)),
       days = [],
       startDate = new Date(transformDate(`01/01/${year}`))
       endDate = new Date(transformDate(`31/12/${year}`)),
@@ -403,7 +409,7 @@ PomodoroStatistics.prototype.mostProductiveDay = function(tasks, year){
 }
 
 /**
- * get the first pomodoro ever made
+ * get the year of the first pomodoro ever made
  * @method firstPomodoro
  * @param tasks
  * @returns {Stirng} date.fullYear()
