@@ -41,7 +41,6 @@ function PomodoroStatistics(){
  */
 PomodoroStatistics.prototype.getStatistics = function(tasks){
   $('#total-time-tasks').empty(); 
-  let tasks = this.getPomodoros(tasks);
   this.createJsonStatistics(tasks);
 };
 
@@ -163,20 +162,21 @@ PomodoroStatistics.prototype.D3includeDate = function(){
  @param tasks
 */
 PomodoroStatistics.prototype.createJsonStatistics = function(tasks){
-  let jsonStatistics = tasks.forEach((obj, item) => {
+  let jsonStatistics = tasks.reduce((obj, task) => {
     if(!task.pomodoros.length)
-      return;
+      return obj;
     let totalTime = this.calculateTaskTotalTime(task);
     obj.label.push(task.name);
-    obj.values.push({label: task.name, values: [totalTime]});
+    obj.values
+      .push({ label: task.name, values: [totalTime] });
     this.includeTaskTime(totalTime, task.name);
+    return obj;
   }, { label: [], values: [] });
   let tasksTotalTime = jsonStatistics.values.reduce((prev, next) => {
     return prev + next.values[0];
-  });
+  }, 0);
   this.includeTaskTime(tasksTotalTime, 'Total');
-  jsonStatistics = this.calculateTasksPercentage(jsonStatistics);
-  debugger;
+  jsonStatistics.values = this.calculateTasksPercentage(jsonStatistics, tasksTotalTime);
   this.loadStatistics(jsonStatistics);
 };
 
@@ -195,9 +195,9 @@ PomodoroStatistics.prototype.calculateTaskTotalTime = function(tasks){
  *         'values': [{'label': 'date A','values': [20]}}
  * @method loadStatistics
  */
-PomodoroStatistics.prototype.loadStatistics = function(){
+PomodoroStatistics.prototype.loadStatistics = function(jsonStatistics){
   $('#infovis').empty();
-  init(this.jsonStatistics);
+  init(jsonStatistics);
 }
 
 /**
@@ -207,10 +207,11 @@ PomodoroStatistics.prototype.loadStatistics = function(){
  * @method calculateTasksPercentage
  */
 PomodoroStatistics.prototype.calculateTasksPercentage = function(jsonStatistics, totalTime){
-  jsonStatistics.values = jsonStatistics.values.reduce((arr, item) => {
+  return jsonStatistics.values.reduce((arr, item) => {
     let taskTotalTime = item.values[0],
-        percentage = Math.round(100/(totalTime/taskTotalTime));
-    return arr.push({label: item.name, values: [percentage]});
+        percentage = Math.floor(100/(totalTime/taskTotalTime));
+    arr.push({label: item.label, values: [percentage]});
+    return arr;
   }, []);  
 }
 
@@ -317,13 +318,12 @@ PomodoroStatistics.prototype.getTask = function(taskId, tasks){
  * @return {Array} array with the tasks and the filtered pomodoros
 */
 PomodoroStatistics.prototype.getPomodoros = function(tasks, startDate, endDate){
-  let selectedPomodoros = [];
   if(startDate){
-    let startDate = new Date(transformDate(startDate)),
-        endDate   = new Date(transformDate(endDate));
+    startDate = new Date(transformDate(startDate));
+    endDate = new Date(transformDate(endDate));
   }else{
-    let startDate = new Date(transformDate(`01/01/${this.firstPomodoro(tasks)}`)),
-        endDate   = new Date();
+    startDate = new Date(transformDate(`01/01/${this.firstPomodoro(tasks)}`));
+    endDate = new Date();
   }
   let result = [];
   tasks.forEach((task) => {
