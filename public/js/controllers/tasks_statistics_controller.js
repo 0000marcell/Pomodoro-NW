@@ -44,7 +44,8 @@ App.TasksStatisticsController = Ember.ObjectController.extend({
       this.set('monthStart', this.get('months').objectAt(0));
       this.set('yearEnd', years[years.length - 1]);
       this.set('monthEnd', this.get('months').objectAt(this.get('months.length') - 1));
-      statistics.loadStatistics(statistics.getPomodoros(tasks));
+      //statistics.loadStatistics(statistics.getPomodoros(tasks));
+      statistics.init(tasks).loadBarChart();
       statistics.loadD3Calendar(tasks);
       this.set('mpMonth2015', 
         statistics.mostProductiveMonth(tasks, 2015));

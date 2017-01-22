@@ -5,5 +5,3 @@ jQuery(document).ready(function($) {
   '  <div id="ember-testing"></div>' +
   '</div>'); 
 });
-
-

@@ -9,6 +9,7 @@
   pomodoros: [{date:"23/02/2015|16|2|57"}]}]
 
   methods:
+  init sets this.tasks object
   loadStatistics, empties #total-time-tasks, runs createJsonStatistics
   loadD3Calendar, creates the d3 calendar
   D3includeDate, ?
@@ -29,6 +30,31 @@
   flatPomodoros, returns a array with only the pomodoros of the tasks
 */
 function PomodoroStatistics(){
+}
+
+/**
+ * initialize the tasks property
+ * @method init
+ * @param {Object} tasks
+*/
+PomodoroStatistics.prototype.init = function(tasks){
+  this.tasks = tasks;
+  return this;
+}
+
+/**
+ * load the jsonStatistics on the bar chart, obj format is:
+ * var json = {  'label': ['label A', 'label B', 'label C', 'label D'],  
+ *         'values': [{'label': 'date A','values': [20]}}
+ * @method loadStatistics
+ */
+PomodoroStatistics.prototype.loadBarChart = function(){
+  $('#total-time-tasks').empty(); 
+  $('#infovis').empty();
+  this.createJsonStatistics()
+      .calculateCanvasSize()
+      .calculateTasksPercentage();
+  init(this.jsonStatistics);
 }
 
 /**
@@ -148,8 +174,8 @@ PomodoroStatistics.prototype.D3includeDate = function(){
  @method createJsonStatistics
  @param tasks
 */
-PomodoroStatistics.prototype.createJsonStatistics = function(tasks){
-  let jsonStatistics = tasks.reduce((obj, task) => {
+PomodoroStatistics.prototype.createJsonStatistics = function(){
+  this.jsonStatistics = this.tasks.reduce((obj, task) => {
     if(!task.pomodoros.length)
       return obj;
     let totalTime = this.calculateTaskTotalTime(task);
@@ -159,7 +185,8 @@ PomodoroStatistics.prototype.createJsonStatistics = function(tasks){
     this.includeTaskTime(totalTime, task.name);
     return obj;
   }, { label: [], values: [] });
-  let tasksTotalTime = jsonStatistics.values.reduce((prev, next) => {
+  return this;
+  let tasksTotalTime = this.jsonStatistics.values.reduce((prev, next) => {
     return prev + next.values[0];
   }, 0);
   this.includeTaskTime(tasksTotalTime, 'Total');
@@ -177,34 +204,23 @@ PomodoroStatistics.prototype.calculateTaskTotalTime = function(tasks){
 }
 
 /**
- * load the jsonStatistics obj the format is:
- * var json = {  'label': ['label A', 'label B', 'label C', 'label D'],  
- *         'values': [{'label': 'date A','values': [20]}}
- * @method loadStatistics
- */
-PomodoroStatistics.prototype.loadStatistics = function(tasks){
-  $('#total-time-tasks').empty(); 
-  $('#infovis').empty();
-  let jsonStatistics = this.createJsonStatistics(tasks);
-  let graphicSizeH = jsonStatistics.values.length * 86;
-  $('#infovis').css('width', graphicSizeH);
-  $('#center-container').css('width', graphicSizeH);
-  init(jsonStatistics);
-}
-
-/**
  * Go through each task on the jsonStatistics object
  * and calculate the percentage
  * pushes the result to jsonStatistics.values array
  * @method calculateTasksPercentage
  */
-PomodoroStatistics.prototype.calculateTasksPercentage = function(jsonStatistics, totalTime){
-  return jsonStatistics.values.reduce((arr, item) => {
+PomodoroStatistics.prototype.calculateTasksPercentage = function(){
+  let totalTime = this.jsonStatistics.values.reduce((prev, next) => {
+    return prev + next.values[0];
+  }, 0);
+  this.includeTaskTime(totalTime, 'Total');
+  this.jsonStatistics.values = this.jsonStatistics.values.reduce((arr, item) => {
     let taskTotalTime = item.values[0],
         percentage = Math.floor(100/(totalTime/taskTotalTime));
     arr.push({label: item.label, values: [percentage]});
     return arr;
   }, []);  
+  return this;
 }
 
 /**
@@ -490,4 +506,15 @@ PomodoroStatistics.prototype.flatPomodoros= function(tasks){
     result = result.concat(__task.pomodoros); 
   }
   return result;
+}
+
+/**
+ * Calculate the width of the bar chart canvas
+* @method calculateCanvasSize
+*/
+PomodoroStatistics.prototype.calculateCanvasSize = function(){
+  let graphicSizeH = this.jsonStatistics.values.length * 86;
+  $('#infovis').css('width', graphicSizeH);
+  $('#center-container').css('width', graphicSizeH);
+  return this;
 }
