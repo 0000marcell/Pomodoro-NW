@@ -57,13 +57,13 @@ function init(json){
         type: labelType, //Native or HTML
         size: 13,
         family: 'Arial',
-        color: 'black'
+        color: 'white'
       },
       //add tooltips
       Tips: {
         enable: false,
         onShow: function(tip, elem) {
-          tip.innerHTML = "<b style='color: black;'>" + elem.name + "   " + elem.value + "</b>: ";
+          tip.innerHTML = "<b style='color: white;'>" + elem.name + "   " + elem.value + "</b>: ";
         }
       }
     });

@@ -20,7 +20,7 @@
                  list of tasks 
   includeTaskTime, includes the total taskTime on the view
   getTask, returns a task based on the id
-  getPomodoros, return all tasks with pomodoros filtered in a date range
+  filterPomodoros, return all tasks with pomodoros filtered in a date range
   transformDate, transform date string
   mostProductiveMonth, returns the most productive month
   mostProductiveDay, 
@@ -51,10 +51,12 @@ PomodoroStatistics.prototype.init = function(tasks){
 PomodoroStatistics.prototype.loadBarChart = function(){
   $('#total-time-tasks').empty(); 
   $('#infovis').empty();
-  this.createJsonStatistics()
+  this.filterPomodoros()
+      .createJsonStatistics()
       .calculateCanvasSize()
       .calculateTasksPercentage();
   init(this.jsonStatistics);
+  return this;
 }
 
 /**
@@ -62,7 +64,7 @@ PomodoroStatistics.prototype.loadBarChart = function(){
  * @method loadD3Calendar
  * @param {object} tasks
  */
-PomodoroStatistics.prototype.loadD3Calendar = function(tasks){
+PomodoroStatistics.prototype.loadD3Calendar = function(){
   var width = 960,
       height = 136,
       cellSize = 17;
@@ -107,19 +109,18 @@ PomodoroStatistics.prototype.loadD3Calendar = function(tasks){
     .enter().append("path")
     .attr("class", "month")
     .attr("d", monthPath);
-  var _this = this;
   this.D3datesJSON = [];
-  tasks.forEach(function(task){
+  this.tasks.forEach((task) => {
     for(var i = 0; i < task.pomodoros.length; i++){
-      _this.D3JSON = {"Date": "", "Pomodoros": 1};
-      _this.D3JSON.Date = transformDateToString(task.pomodoros[i]);
-      (!_this.D3datesJSON.length) ? _this.D3datesJSON.push(_this.D3JSON) :
-                           _this.D3includeDate();
+      this.D3JSON = {"Date": "", "Pomodoros": 1};
+      this.D3JSON.Date = transformDateToString(task.pomodoros[i]);
+      (!this.D3datesJSON.length) ? this.D3datesJSON.push(this.D3JSON) :
+                           this.D3includeDate();
     }
   });
 
-  d3.json("data.json", function(error, json) {
-    json = _this.D3datesJSON;
+  d3.json("data.json", (error, json) => {
+    json = this.D3datesJSON;
     if (error) throw error;
 
     var data = d3.nest()
@@ -158,15 +159,15 @@ PomodoroStatistics.prototype.loadD3Calendar = function(tasks){
  */
 PomodoroStatistics.prototype.D3includeDate = function(){
   var found = 0;
-  for (var i = 0; i < _this.D3datesJSON.length; i++) {
-    if(_this.D3JSON.Date == _this.D3datesJSON[i].Date){
-      _this.D3datesJSON[i].Pomodoros++;
+  for (var i = 0; i < this.D3datesJSON.length; i++) {
+    if(this.D3JSON.Date == this.D3datesJSON[i].Date){
+      this.D3datesJSON[i].Pomodoros++;
       found = 1;
       break;
     } 
   }
   if(!found)
-    _this.D3datesJSON.push(_this.D3JSON);
+    this.D3datesJSON.push(this.D3JSON);
 }
 
 /**
@@ -319,25 +320,26 @@ PomodoroStatistics.prototype.getTask = function(taskId, tasks){
  * date objects
  * [{id: 'id', name: 'name', creation_date: 'creation_date', 
  * last_active: 'last_active', duration: '25:00', pomodoros: []}];
- * @method getPomodoros
+ * @method filterPomodoros
  * @param {String} startDate (e.g: '27/12/2016')
  * @param {String} endDate (e.g: '01/10/2017')
  * @param {Array} tasks array of task objects
  * @return {Array} array with the tasks and the filtered pomodoros
 */
-PomodoroStatistics.prototype.getPomodoros = function(tasks, startDate, endDate){
+PomodoroStatistics.prototype.filterPomodoros = function(startDate, endDate){
   if(startDate){
     startDate = new Date(transformDate(startDate));
     endDate = new Date(transformDate(endDate));
   }else{
-    startDate = new Date(transformDate(`01/01/${this.firstPomodoro(tasks)}`));
+    startDate = new Date(transformDate(`01/01/${this.firstPomodoro(this.tasks)}`));
     endDate = new Date();
   }
   let result = [];
-  tasks.forEach((task) => {
+  this.tasks.forEach((task) => {
     result.push(this.getPomodorosDateRange(startDate, endDate, task));
   }); 
-  return result;
+  this.tasks = result;
+  return this;
 }
 
 /**
@@ -364,7 +366,7 @@ function transformDateToString(date){
   var dd = date.getDate();
   return [(dd > 9 ? '' : '0') + dd,
           (mm > 9 ? '' : '0') + mm,
-          this.getFullYear()].join('/');
+          date.getFullYear()].join('/');
 }
 
 
@@ -376,8 +378,8 @@ function transformDateToString(date){
  * @returns {Object} 
  * {month: 'January', hours: '216 hours'}
 */
-PomodoroStatistics.prototype.mostProductiveMonth = function(tasks, year){
-  var pomodoros = this.flatPomodoros(this.getPomodoros(tasks, `01/01/${year}`, `31/12/${year}`)),
+PomodoroStatistics.prototype.mostProductiveMonth = function(year){
+  var pomodoros = this.flatPomodoros(this.filterPomodoros(`01/01/${year}`, `31/12/${year}`)),
       monthsPomodoros = [],
       months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   for (var i = 1; i <= 12; i++) {
@@ -410,8 +412,8 @@ PomodoroStatistics.prototype.mostProductiveMonth = function(tasks, year){
  * Returns the most productive day in the format
  * {day: DateObject, hours: "12 hours"}
 */
-PomodoroStatistics.prototype.mostProductiveDay = function(tasks, year){
-  var pomodoros = this.flatPomodoros(this.getPomodoros(tasks, `01/01/${year}`, `31/12/${year}`)),
+PomodoroStatistics.prototype.mostProductiveDay = function(year){
+  var pomodoros = this.flatPomodoros(this.filterPomodoros(`01/01/${year}`, `31/12/${year}`)),
       days = [],
       startDate = new Date(transformDate(`01/01/${year}`))
       endDate = new Date(transformDate(`31/12/${year}`)),
