@@ -110,7 +110,7 @@ PomodoroStatistics.prototype.loadD3Calendar = function(){
     .attr("class", "month")
     .attr("d", monthPath);
   this.D3datesJSON = [];
-  this.tasks.forEach((task) => {
+  this.filteredTasks.forEach((task) => {
     for(var i = 0; i < task.pomodoros.length; i++){
       this.D3JSON = {"Date": "", "Pomodoros": 1};
       this.D3JSON.Date = transformDateToString(task.pomodoros[i]);
@@ -176,7 +176,7 @@ PomodoroStatistics.prototype.D3includeDate = function(){
  @param tasks
 */
 PomodoroStatistics.prototype.createJsonStatistics = function(){
-  this.jsonStatistics = this.tasks.reduce((obj, task) => {
+  this.jsonStatistics = this.filteredTasks.reduce((obj, task) => {
     if(!task.pomodoros.length)
       return obj;
     let totalTime = this.calculateTaskTotalTime(task);
@@ -338,7 +338,7 @@ PomodoroStatistics.prototype.filterPomodoros = function(startDate, endDate){
   this.tasks.forEach((task) => {
     result.push(this.getPomodorosDateRange(startDate, endDate, task));
   }); 
-  this.tasks = result;
+  this.filteredTasks = result;
   return this;
 }
 
@@ -413,7 +413,7 @@ PomodoroStatistics.prototype.mostProductiveMonth = function(year){
  * {day: DateObject, hours: "12 hours"}
 */
 PomodoroStatistics.prototype.mostProductiveDay = function(year){
-  var pomodoros = this.flatPomodoros(this.filterPomodoros(`01/01/${year}`, `31/12/${year}`)),
+  let pomodoros = this.filterPomodoros(`01/01/${year}`, `31/12/${year}`).flatPomodoros();
       days = [],
       startDate = new Date(transformDate(`01/01/${year}`))
       endDate = new Date(transformDate(`31/12/${year}`)),
@@ -502,9 +502,9 @@ PomodoroStatistics.prototype.getPomodorosDateRange = function(startDate, endDate
  * @param {array} tasks, array os tasks with object dates as pomodoros
  * @returns {array} return array of pomodoros of all the tasks
  */
-PomodoroStatistics.prototype.flatPomodoros= function(tasks){
+PomodoroStatistics.prototype.flatPomodoros= function(){
   let result = [];
-  for(let __task of tasks){
+  for(let __task of this.filteredTasks){
     result = result.concat(__task.pomodoros); 
   }
   return result;
