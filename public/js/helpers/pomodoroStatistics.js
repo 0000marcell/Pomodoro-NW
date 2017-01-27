@@ -51,8 +51,7 @@ PomodoroStatistics.prototype.init = function(tasks){
 PomodoroStatistics.prototype.loadBarChart = function(){
   $('#total-time-tasks').empty(); 
   $('#infovis').empty();
-  this.filterPomodoros()
-      .createJsonStatistics()
+  this.createJsonStatistics()
       .calculateCanvasSize()
       .calculateTasksPercentage();
   init(this.jsonStatistics);
@@ -298,20 +297,21 @@ PomodoroStatistics.prototype.includeTaskTime = function(time, taskName){
 
 
 /**
- * returns a task based on the id
- * @method getTask
+ * filter tasks by id
+ * @method filterTasks 
  * @param {String} taskId
  * @param {Object} tasks
  * @returns {obj} 
 */
-PomodoroStatistics.prototype.getTask = function(taskId, tasks){
+PomodoroStatistics.prototype.getTask = function(taskId){
   let result;
-  tasks.forEach((task) => {
+  this.tasks.forEach((task) => {
     if(task.get('id') === taskId){
       result = task;
     }
   });
-  return result;
+  this.filteredTasks = [result];
+  return this;
 }
 
 /**
