@@ -38,6 +38,7 @@ function PomodoroStatistics(){
  * @param {Object} tasks
 */
 PomodoroStatistics.prototype.init = function(tasks){
+  this.filteredTasks = tasks;
   this.tasks = tasks;
   return this;
 }
@@ -303,14 +304,14 @@ PomodoroStatistics.prototype.includeTaskTime = function(time, taskName){
  * @param {Object} tasks
  * @returns {obj} 
 */
-PomodoroStatistics.prototype.getTask = function(taskId){
-  let result;
+PomodoroStatistics.prototype.filterTasks = function(tasksId){
+  let result = [];
   this.tasks.forEach((task) => {
-    if(task.get('id') === taskId){
-      result = task;
+    if(tasksId.include(task.get('id'))){
+      result.push(task);
     }
   });
-  this.filteredTasks = [result];
+  this.filteredTasks = result;
   return this;
 }
 
@@ -335,7 +336,7 @@ PomodoroStatistics.prototype.filterPomodoros = function(startDate, endDate){
     endDate = new Date();
   }
   let result = [];
-  this.tasks.forEach((task) => {
+  this.filteredTasks.forEach((task) => {
     result.push(this.getPomodorosDateRange(startDate, endDate, task));
   }); 
   this.filteredTasks = result;
@@ -520,3 +521,11 @@ PomodoroStatistics.prototype.calculateCanvasSize = function(){
   $('#center-container').css('width', graphicSizeH);
   return this;
 }
+
+/**
+ * reset the filteredTasks property
+ * @method resetFilter
+*/
+PomodoroStatistics.prototype.resetFilter = function(){
+  this.filteredTasks = this.tasks;
+};
