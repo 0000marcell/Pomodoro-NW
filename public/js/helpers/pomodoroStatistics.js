@@ -380,7 +380,9 @@ function transformDateToString(date){
  * {month: 'January', hours: '216 hours'}
 */
 PomodoroStatistics.prototype.mostProductiveMonth = function(year){
-  var pomodoros = this.flatPomodoros(this.filterPomodoros(`01/01/${year}`, `31/12/${year}`)),
+  var pomodoros = this.resetFilter()
+                      .filterPomodoros(`01/01/${year}`, `31/12/${year}`)
+                      .flatPomodoros(),
       monthsPomodoros = [],
       months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   for (var i = 1; i <= 12; i++) {
@@ -414,7 +416,9 @@ PomodoroStatistics.prototype.mostProductiveMonth = function(year){
  * {day: DateObject, hours: "12 hours"}
 */
 PomodoroStatistics.prototype.mostProductiveDay = function(year){
-  let pomodoros = this.filterPomodoros(`01/01/${year}`, `31/12/${year}`).flatPomodoros();
+  let pomodoros = this.resetFilter()
+                      .filterPomodoros(`01/01/${year}`, `31/12/${year}`)
+                      .flatPomodoros();
       days = [],
       startDate = new Date(transformDate(`01/01/${year}`))
       endDate = new Date(transformDate(`31/12/${year}`)),
@@ -528,4 +532,5 @@ PomodoroStatistics.prototype.calculateCanvasSize = function(){
 */
 PomodoroStatistics.prototype.resetFilter = function(){
   this.filteredTasks = this.tasks;
+  return this;
 };

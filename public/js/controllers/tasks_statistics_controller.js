@@ -72,8 +72,8 @@ App.TasksStatisticsController = Ember.ObjectController.extend({
       }
       let lastDayMonth = statistics.lastDayMonth(this.get('monthEnd.label'), this.get('yearEnd')),
           startYearString = `01/${this.get('monthStart.label')}/${this.get('yearStart')}`,
-          endYearString = `${lastDayMonth}/${this.get('monthEnd.label')}/${this.get('yearEnd')}`,
-      statistics.filterTasks([this.get('selectedTask.id']))
+          endYearString = `${lastDayMonth}/${this.get('monthEnd.label')}/${this.get('yearEnd')}`;
+      statistics.filterTasks([this.get('selectedTask.id')])
                 .filterPomodoros(startYearString, endYearString)
                 .loadBarChart()
                 .loadD3Calendar();
