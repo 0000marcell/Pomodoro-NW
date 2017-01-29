@@ -45,7 +45,8 @@ App.TasksStatisticsController = Ember.ObjectController.extend({
       this.set('yearEnd', years[years.length - 1]);
       this.set('monthEnd', this.get('months').objectAt(this.get('months.length') - 1));
       //statistics.loadStatistics(statistics.getPomodoros(tasks));
-      statistics.init(tasks).filterPomodoros()
+      statistics.init(tasks).filterTasks(["0"])
+                            .filterPomodoros()
                             .loadBarChart()
                             .loadD3Calendar();
       this.set('mpMonth2015', 
@@ -64,16 +65,13 @@ App.TasksStatisticsController = Ember.ObjectController.extend({
   },
   actions: { 
     calculateStatistics(){
-      let selectedTasks = [];
-      if(this.get('selectedTask.id') !== 'all'){
-        selectedTasks = [statistics.getTask(this.get('selectedTask.id'), this.get('tasks'))];
-      }else{
-        selectedTasks = this.get('tasks'); 
-      }
+      let selectedIds = (this.get('selectedTask.id') !== 'all') ? [this.get('selectedTask.id')] :
+                                                                  [];
       let lastDayMonth = statistics.lastDayMonth(this.get('monthEnd.label'), this.get('yearEnd')),
           startYearString = `01/${this.get('monthStart.label')}/${this.get('yearStart')}`,
           endYearString = `${lastDayMonth}/${this.get('monthEnd.label')}/${this.get('yearEnd')}`;
-      statistics.filterTasks([this.get('selectedTask.id')])
+      statistics.resetFilter() 
+                .filterTasks(selectedIds)
                 .filterPomodoros(startYearString, endYearString)
                 .loadBarChart()
                 .loadD3Calendar();

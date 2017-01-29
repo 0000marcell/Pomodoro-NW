@@ -65,6 +65,8 @@ PomodoroStatistics.prototype.loadBarChart = function(){
  * @param {object} tasks
  */
 PomodoroStatistics.prototype.loadD3Calendar = function(){
+  $('.graph').empty(); 
+
   var width = 960,
       height = 136,
       cellSize = 17;
@@ -306,8 +308,10 @@ PomodoroStatistics.prototype.includeTaskTime = function(time, taskName){
 */
 PomodoroStatistics.prototype.filterTasks = function(tasksId){
   let result = [];
+  if(!tasksId.length)
+    return this;
   this.tasks.forEach((task) => {
-    if(tasksId.include(task.get('id'))){
+    if(tasksId.includes(task.get('id'))){
       result.push(task);
     }
   });
