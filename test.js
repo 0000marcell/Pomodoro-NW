@@ -1,5 +1,11 @@
-let arr = ['marcell', 'monteiro']
+let obj = { 
+  get(){
+    console.log('get!!!');
+  } 
+};
 
-if(arr.includes('monteiro')){
-  console.log('array contains monteiro');
+if(obj.hasOwnProperty('get')){
+  console.log('has property!');
+}else{
+  console.log('dont have property');
 }

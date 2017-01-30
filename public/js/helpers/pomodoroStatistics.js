@@ -24,7 +24,8 @@
   transformDate, transform date string
   mostProductiveMonth, returns the most productive month
   mostProductiveDay, 
-  firstPomodoro, gets the first pomodoro ever made 
+  firstPomodoro, get the first pomodoro made on the filteredTasks 
+  lastPomodoro, get the last pomodoro made on the filteredTasks
   lastDayMonth, gets the last day of the month
   getPomodorosDateRange, get all pomodoros from a task in a specific date range
   flatPomodoros, returns a array with only the pomodoros of the tasks
@@ -80,7 +81,8 @@ PomodoroStatistics.prototype.loadD3Calendar = function(){
                                           return "q" + d + "-5"; }));
 
   var svg = d3.select(".graph").selectAll("svg")
-    .data(d3.range(2015, 2018))
+    .data(d3.range(this.firstPomodoro().getFullYear(), 
+          parseInt(this.lastPomodoro().getFullYear()) + 1))
     .enter().append("svg")
     .attr("width", width)
     .attr("height", height)
@@ -308,6 +310,7 @@ PomodoroStatistics.prototype.includeTaskTime = function(time, taskName){
 */
 PomodoroStatistics.prototype.filterTasks = function(tasksId){
   let result = [];
+  tasksId = tasksId || [];
   if(!tasksId.length)
     return this;
   this.tasks.forEach((task) => {
@@ -336,7 +339,7 @@ PomodoroStatistics.prototype.filterPomodoros = function(startDate, endDate){
     startDate = new Date(transformDate(startDate));
     endDate = new Date(transformDate(endDate));
   }else{
-    startDate = new Date(transformDate(`01/01/${this.firstPomodoro(this.tasks)}`));
+    startDate = new Date(transformDate(`01/01/${this.firstPomodoro().getFullYear()}`));
     endDate = new Date();
   }
   let result = [];
@@ -446,26 +449,41 @@ PomodoroStatistics.prototype.mostProductiveDay = function(year){
 }
 
 /**
- * get the year of the first pomodoro ever made
+ * get the date first pomodoro ever made on the filteredTasks
  * @method firstPomodoro
- * @param tasks
- * @returns {Stirng} date.fullYear()
+ * @returns {Object} date
  * get the first pomodoro
 */
-PomodoroStatistics.prototype.firstPomodoro = function(tasks){
-  let firstPomodoro = new Date(),
-      date, pomodoros;
-  tasks.forEach(function(task){
-    pomodoros = task.get('pomodoros');
+PomodoroStatistics.prototype.firstPomodoro = function(){
+  let firstPomodoro = new Date(), 
+      pomodoros, date;
+  this.filteredTasks.forEach(function(task){
+    pomodoros = (task['get']) ? task.get('pomodoros') : 
+                                               task.pomodoros;
     for(let pomodoro of pomodoros){
-      date = new Date(transformDate(pomodoro.date.split('|')[0]));
-      if(date < firstPomodoro){
-        firstPomodoro = date; 
-      }
+      date = (task['get']) ? new Date(transformDate(pomodoro.date.split('|')[0])) :
+                             pomodoro;
+      firstPomodoro = (date < firstPomodoro) ? date : firstPomodoro; 
     }
   });
-  return firstPomodoro.getFullYear();
+  return firstPomodoro;
 }
+
+/**
+ * get the last pomodoro made on the filteredTasks
+* @method lastPomodoro
+* @return {Object} returns the last pomodoro ever made
+*/
+PomodoroStatistics.prototype.lastPomodoro = function(){
+  let lastPomodoro;
+  this.filteredTasks.forEach(function(task){
+    for(let pomodoro of task.pomodoros){
+      lastPomodoro = (pomodoro < lastPomodoro) ? pomodoro : lastPomodoro; 
+    }
+  });
+  return lastPomodoro;
+}
+
 
 /**
  * gets the last day of the month
