@@ -475,10 +475,15 @@ PomodoroStatistics.prototype.firstPomodoro = function(){
 * @return {Object} returns the last pomodoro ever made
 */
 PomodoroStatistics.prototype.lastPomodoro = function(){
-  let lastPomodoro;
+  let lastPomodoro = new Date(1900, 2, 2), 
+      pomodoros, date;
   this.filteredTasks.forEach(function(task){
-    for(let pomodoro of task.pomodoros){
-      lastPomodoro = (pomodoro < lastPomodoro) ? pomodoro : lastPomodoro; 
+    pomodoros = (task['get']) ? task.get('pomodoros') : 
+                                               task.pomodoros;
+    for(let pomodoro of pomodoros){
+      date = (task['get']) ? new Date(transformDate(pomodoro.date.split('|')[0])) :
+                             pomodoro;
+      lastPomodoro = (date > lastPomodoro) ? date : lastPomodoro; 
     }
   });
   return lastPomodoro;
