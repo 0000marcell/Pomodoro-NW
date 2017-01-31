@@ -48,6 +48,12 @@
 {{view App.TasksStatisticsView contextBinding="App.Task"}}
 <div class='container'>
   <div class="row">
+    {{todayPomodoros}}
+    {{#each task in todayPomodoros}}
+      {{task.name}}
+    {{/each}}
+  </div>
+  <div class="row">
     {{view Ember.Select
         content=years
         optionValuePath="content"
@@ -88,11 +94,6 @@
     <div class="nine columns">
       <div class="graph">
       </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="five columns">
-      <h6>Statistics</h6>
     </div>
   </div>
   <div class="row">

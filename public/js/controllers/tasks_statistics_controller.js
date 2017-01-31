@@ -21,6 +21,7 @@ App.TasksStatisticsController = Ember.ObjectController.extend({
            {label: '11', value: 'November'}, 
            {label: '12', value: 'December'}],
   tasksList:  [],
+  todayPomodoros: [],
   mpMonth2015: null,
   mpMonth2016: null,
   mpMonth2017: null,
@@ -58,8 +59,10 @@ App.TasksStatisticsController = Ember.ObjectController.extend({
         statistics.mostProductiveDay(2015));
       this.set('mpDay2016', 
         statistics.mostProductiveDay(2016));
-       this.set('mpDay2017', 
+      this.set('mpDay2017', 
         statistics.mostProductiveDay(2017));
+      let todayPomodoros = statistics.resetFilter().todayPomodoros();
+      this.set('todayPomodoros', todayPomodoros);
     });
   },
   actions: { 

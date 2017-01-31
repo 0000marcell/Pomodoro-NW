@@ -520,10 +520,9 @@ PomodoroStatistics.prototype.getPomodorosDateRange = function(startDate, endDate
   task.get('pomodoros').forEach((pomodoro, index) => {
     pomodoroDate = pomodoro.date.split('|')[0];
     pomodoroDate = new Date(transformDate(pomodoroDate));
-    if(pomodoroDate <= startDate || pomodoroDate >= endDate){
-    }else{
+    if(pomodoroDate >= startDate && pomodoroDate <= endDate){
       resultTask.pomodoros.push(pomodoroDate);
-    }
+    }  
   });
   return resultTask;
 }
@@ -561,3 +560,21 @@ PomodoroStatistics.prototype.resetFilter = function(){
   this.filteredTasks = this.tasks;
   return this;
 };
+
+/**
+ * returns a array of all the pomodoros done today
+ * @method todayPomodoros
+ * return {Array} array with the name of all the tasks and the amount of time
+ * [{taskName: 'pomodoro-nw', time: 6}]
+ */
+PomodoroStatistics.prototype.todayPomodoros = function(){
+  let date = transformDateToString(new Date());
+  this.filterPomodoros(date, date);
+  let result = [];
+  this.filteredTasks.forEach((task) => {
+    if(task.pomodoros.length){
+      result.pushObject({taskName: task.name, time: task.pomodoros.length * 30/60})
+    }
+  });
+  return result;
+}
