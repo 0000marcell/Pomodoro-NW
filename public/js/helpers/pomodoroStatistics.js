@@ -573,7 +573,7 @@ PomodoroStatistics.prototype.todayPomodoros = function(){
   let result = [];
   this.filteredTasks.forEach((task) => {
     if(task.pomodoros.length){
-      result.pushObject({taskName: task.name, time: task.pomodoros.length * 30/60})
+      result.pushObject({name: task.name, time: task.pomodoros.length * 30/60})
     }
   });
   return result;
