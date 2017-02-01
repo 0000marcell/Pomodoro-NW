@@ -570,11 +570,34 @@ PomodoroStatistics.prototype.resetFilter = function(){
 PomodoroStatistics.prototype.todayPomodoros = function(){
   let date = transformDateToString(new Date());
   this.filterPomodoros(date, date);
-  let result = [];
+  let result = [], time = 0, total = 0;
   this.filteredTasks.forEach((task) => {
     if(task.pomodoros.length){
-      result.pushObject({name: task.name, time: task.pomodoros.length * 30/60})
+      time = task.pomodoros.length * 30/60;
+      total += time;
+      result.pushObject({name: task.name, time: time})
     }
   });
+  result.pushObject({name: 'total', time: total});
+  return result;
+}
+
+/**
+ * return the hours worked this week
+* @method weekPomodoroH
+* @return {String} total hours of the week so far
+*/
+PomodoroStatistics.prototype.weekPomodoroH = function(){
+  let date = transformDateToString(new Date());
+  this.filterPomodoros(date, date);
+  let result = [], time = 0, total = 0;
+  this.filteredTasks.forEach((task) => {
+    if(task.pomodoros.length){
+      time = task.pomodoros.length * 30/60;
+      total += time;
+      result.pushObject({name: task.name, time: time})
+    }
+  });
+  result.pushObject({name: 'total', time: total});
   return result;
 }

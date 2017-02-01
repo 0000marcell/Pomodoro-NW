@@ -2,10 +2,16 @@
 {{view App.TasksStatisticsView contextBinding="App.Task"}}
 <div class='container'>
   <div class="row">
-    <h3>Today: {{todayTotal}}</h3>
-    <h3>This weak: {{weekTotal}}</h3>
+    <div class="three columns">
+      <h6>Today: {{todayTotal}}</h6>
+    </div>
+    <div class="three columns">
+      <h6>This weak: {{weekTotal}}</h6>
+    </div>
+  </div>
+  <div class="row">
     <h6>Today tasks:</h6>
-    <ul>
+    <ul class='today-tasks-list'>
       {{#each task in todayPomodoros}}
         <li>{{task.name}}: {{task.time}}</li>
       {{/each}}
