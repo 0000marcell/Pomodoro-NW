@@ -63,11 +63,10 @@ App.TasksStatisticsController = Ember.ObjectController.extend({
         statistics.mostProductiveDay(2017));
       let todayPomodoros = statistics.resetFilter().todayPomodoros();
       this.set('todayPomodoros', todayPomodoros);
-      debugger;
       this.set('todayTotal', 
           `${this.get('todayPomodoros').filterBy('name', 'total')[0].time}h`);
       this.set('weekTotal', 
-          `${statistics.resetFilter().weekPomodoroH()}h`);
+          `${statistics.resetFilter().weekPomodoroH().filterBy('name', 'total')[0].time}h`);
     });
   },
   actions: { 

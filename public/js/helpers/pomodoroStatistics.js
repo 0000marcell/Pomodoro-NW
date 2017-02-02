@@ -588,8 +588,8 @@ PomodoroStatistics.prototype.todayPomodoros = function(){
 * @return {String} total hours of the week so far
 */
 PomodoroStatistics.prototype.weekPomodoroH = function(){
-  let date = transformDateToString(new Date());
-  this.filterPomodoros(date, date);
+  this.filterPomodoros(transformDateToString(getMonday()), 
+                       transformDateToString(getSunday()));
   let result = [], time = 0, total = 0;
   this.filteredTasks.forEach((task) => {
     if(task.pomodoros.length){
@@ -602,9 +602,12 @@ PomodoroStatistics.prototype.weekPomodoroH = function(){
   return result;
 }
 
-function getMonday(d) {
-  d = new Date(d);
-  var day = d.getDay(),
-  diff = d.getDate() - day + (day == 0 ? -6:1);
-  return new Date(d.setDate(diff));
+function getMonday() {
+  let curr = new Date;
+  return new Date(curr.setDate(curr.getDate() - curr.getDay()+1));
+}
+
+function getSunday(){
+  let curr = new Date;
+  return new Date(curr.setDate(curr.getDate() - curr.getDay()+7));
 }

@@ -1,8 +1,6 @@
-function getMonday(d) {
-  d = new Date(d);
-  var day = d.getDay(),
-  diff = d.getDate() - day + (day == 0 ? -6:1);
-  return new Date(d.setDate(diff));
-}
+var curr = new Date;
+var firstday = new Date(curr.setDate(curr.getDate() - curr.getDay()+1));
+var lastday = new Date(curr.setDate(curr.getDate() - curr.getDay()+7));
 
-let day = getMonday(new Date());
+console.log('firstday: ', firstday);
+console.log('lastday: ', lastday);
