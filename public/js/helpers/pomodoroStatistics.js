@@ -601,3 +601,10 @@ PomodoroStatistics.prototype.weekPomodoroH = function(){
   result.pushObject({name: 'total', time: total});
   return result;
 }
+
+function getMonday(d) {
+  d = new Date(d);
+  var day = d.getDay(),
+  diff = d.getDate() - day + (day == 0 ? -6:1);
+  return new Date(d.setDate(diff));
+}
