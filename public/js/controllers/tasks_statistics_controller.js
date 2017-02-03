@@ -27,7 +27,12 @@ App.TasksStatisticsController = Ember.ObjectController.extend({
   mpMonth2016: null,
   mpMonth2017: null,
   mpDay2015: null,
+  model: null,
+  changeModel: function() {
+    console.log('model changed controller!');
+  }.property('model'),
   init(){
+    debugger;
     let arr = [],
         allTask = {id: 'all', name: 'all'};
     this.store.findAll('task').then((tasks) => {

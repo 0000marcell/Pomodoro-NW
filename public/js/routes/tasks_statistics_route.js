@@ -1,6 +1,10 @@
 App.TasksStatisticsRoute = Ember.Route.extend({
-  didTransition(){
-    console.log('did transition!');
+  model(){
+    return this.store.findAll('task');
+  },
+  setupController: function(controller, model) {
+    console.log('controller model!');
+    controller.set('model', model);
   }
 });
 
