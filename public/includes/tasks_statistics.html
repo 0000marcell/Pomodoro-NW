@@ -10,9 +10,17 @@
     </div>
   </div>
   <div class="row">
-    <h6>Today tasks:</h6>
+    <h6 class='today-tasks-title'>Today tasks:</h6>
     <ul class='today-tasks-list'>
       {{#each task in todayPomodoros}}
+        <li>{{task.name}}: {{task.time}}</li>
+      {{/each}}
+    </ul>
+  </div>
+  <div class="row">
+    <h6 class='today-tasks-title' >Week tasks:</h6>
+    <ul class='today-tasks-list'>
+      {{#each task in weekPomodoros}}
         <li>{{task.name}}: {{task.time}}</li>
       {{/each}}
     </ul>

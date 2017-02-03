@@ -22,6 +22,7 @@ App.TasksStatisticsController = Ember.ObjectController.extend({
            {label: '12', value: 'December'}],
   tasksList:  [],
   todayPomodoros: [],
+  weekPomodoros: [],
   mpMonth2015: null,
   mpMonth2016: null,
   mpMonth2017: null,
@@ -65,8 +66,10 @@ App.TasksStatisticsController = Ember.ObjectController.extend({
       this.set('todayPomodoros', todayPomodoros);
       this.set('todayTotal', 
           `${this.get('todayPomodoros').filterBy('name', 'total')[0].time}h`);
+      let weekPomodoros = statistics.resetFilter().weekPomodoroH();
+      this.set('weekPomodoros', weekPomodoros);
       this.set('weekTotal', 
-          `${statistics.resetFilter().weekPomodoroH().filterBy('name', 'total')[0].time}h`);
+          `${weekPomodoros.filterBy('name', 'total')[0].time}h`);
     });
   },
   actions: { 

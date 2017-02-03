@@ -107,11 +107,16 @@ a {
 .RdYlGn .q4-5{fill:rgb(41, 81, 27)}
 .RdYlGn .q5-5{fill:rgb(10, 42, 4)}
 
-.today-tasks-list ul{
+.today-tasks-list{
+  display: inline-block !important;
   list-style-type: none;
 }
 
 .today-tasks-list li{
   display: inline-block;
   margin-left: 10px;
+}
+
+.today-tasks-title{
+  display: inline-block;
 }
