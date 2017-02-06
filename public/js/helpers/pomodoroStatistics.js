@@ -603,11 +603,13 @@ PomodoroStatistics.prototype.weekPomodoroH = function(){
 }
 
 function getMonday() {
-  let curr = new Date;
-  return new Date(curr.setDate(curr.getDate() - curr.getDay()+1));
+  let curr = new Date,
+      sun = (curr.getDay() === 0) ? 7 : 0; // correction for sundays
+  return new Date(curr.setDate(curr.getDate() - curr.getDay()+1 - sun));
 }
 
 function getSunday(){
-  let curr = new Date;
-  return new Date(curr.setDate(curr.getDate() - curr.getDay()+7));
+  let curr = new Date,
+      sun = (curr.getDay() === 0) ? 7 : 0; // correction for sundays
+  return new Date(curr.setDate(curr.getDate() - curr.getDay()+7 - sun));
 }
