@@ -602,6 +602,25 @@ PomodoroStatistics.prototype.weekPomodoroH = function(){
   return result;
 }
 
+/**
+ * return the average of pomodoros a day
+* @method pomAverage
+* @return {String} total hours of the week so far
+*/
+PomodoroStatistics.prototype.pomAverage = function(){
+  // amount of days between two dates
+  let result = [], time = 0, total = 0, n = 0;
+  this.filteredTasks.forEach((task) => {
+    if(task.pomodoros.length){
+      time = task.pomodoros.length * 30/60;
+      total += time;
+      result.pushObject({name: task.name, time: time})
+    }
+  });
+  result.pushObject({name: 'total', time: total});
+  return result;
+}
+
 function getMonday() {
   let curr = new Date,
       sun = (curr.getDay() === 0) ? 7 : 0; // correction for sundays

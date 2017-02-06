@@ -36,6 +36,7 @@ App.TasksStatisticsController = Ember.ObjectController.extend({
     this.store.findAll('task').then((tasks) => {
       statistics.init(tasks)
         .filterPomodoros();
+      this.set('pomAverage', `${statistics.pomAverage()} h`);
       this.set('tasks', tasks);
       arr = tasks.slice(0);
       this.set('tasksList', arr);
