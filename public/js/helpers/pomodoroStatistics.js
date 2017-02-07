@@ -608,16 +608,20 @@ PomodoroStatistics.prototype.weekPomodoroH = function(){
 * @return {String} total hours of the week so far
 */
 PomodoroStatistics.prototype.pomAverage = function(){
+  debugger;
   // amount of days between two dates
-  let result = [], time = 0, total = 0, n = 0;
+  let result = 0, time = 0, total = 0, n = 0;
   this.filteredTasks.forEach((task) => {
     if(task.pomodoros.length){
       time = task.pomodoros.length * 30/60;
       total += time;
-      result.pushObject({name: task.name, time: time})
     }
   });
-  result.pushObject({name: 'total', time: total});
+  let oneDay = 24*60*60*1000,
+      firstDate = this.firstPomodoro(),
+      secondDate = this.lastPomodoro(),
+      diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
+  result = Math.round(total/diffDays);
   return result;
 }
 
