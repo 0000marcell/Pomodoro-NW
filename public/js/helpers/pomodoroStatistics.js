@@ -608,7 +608,6 @@ PomodoroStatistics.prototype.weekPomodoroH = function(){
 * @return {String} total hours of the week so far
 */
 PomodoroStatistics.prototype.pomAverage = function(){
-  debugger;
   // amount of days between two dates
   let result = 0, time = 0, total = 0, n = 0;
   this.filteredTasks.forEach((task) => {

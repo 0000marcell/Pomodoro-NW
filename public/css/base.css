@@ -108,12 +108,13 @@ a {
 .RdYlGn .q5-5{fill:rgb(10, 42, 4)}
 
 .today-tasks-list{
-  display: inline-block !important;
   list-style-type: none;
+  border: 1px solid #c8c8c8;
+  height: 200px;
+  overflow: scroll;
 }
 
 .today-tasks-list li{
-  display: inline-block;
   margin-left: 10px;
 }
 
