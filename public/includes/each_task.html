@@ -1,9 +1,9 @@
 {{#each task in model}}
   <tr {{bind-attr id=task.htmlID}}>
     <td> 
-      {{input type="checkbox" on="change" id=task.id checked=id action='selectTask'}}
-      {{!-- 
-        <input type="checkbox" on="change" id=task.id {{action "selectTask" task.id}}>
+      <input type="checkbox" on="change" {{bind-attr id=task.id}} {{action "selectTask" task.id}}>
+      {{!--
+        {{input type="checkbox" on="change" ((bind-attr id=task.id)) ((action "selectTask" task.id))}}
       --}}
     </td>
       <td class="name"><a {{action "show" task}}>{{task.name}}</a></td>
