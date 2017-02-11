@@ -1,17 +1,14 @@
 <!DOCTYPE html><html><title>Pomodoro</title><link rel="stylesheet" href="css/styles.css"><script>src="node_modules/nw-dev/lib/dev.js"</script><body><!-- include includes/test.html--><script type="text/x-handlebars"><div class="container"><div class="row"> <div class="four columns u-pull-left"><button id="button-main" type="button" class="button-primary" {{action "main" }}><i class="fa fa-chevron-left fa-2x"></i></button></div><div class="four columns u-pull-right"><button id="button-statistics" type="button" {{action "statistics" }}><i class="fa fa-bar-chart fa-2x"></i></button></div><div class="four columns u-pull-right"><button id="button-config" type="button" class="button-primary" {{action "config" }}><i class="fa fa-cog fa-2x"></i></button>   </div></div></div>{{outlet}}<div id="clock-container"><div class="container"><div class="row"><div class="one-third column"><div id="task-name"></div></div><div class="one-third column"><div id="task-status"></div></div><div class="one-third column u-pull-right"><button id="button-show-hide-tasks" type="button" class="button-primary " {{action 'showHideTasks' }}>Show/Hide</button></div></div><div class="row"><div class="twelve columns centered"><div class="ten columns"><div class="clock"></div><div class="message"></div></div><div class="two columns u-pull-right"><div class="pomodoro-counter"><p>Streak</p><h3 id="streak">0</h3></div></div></div></div><div class="row"><div class="eleven columns centered">  
 <button id="start-clock" {{action 'startClock'}}><i class="fa fa-play fa-2x"></i></button>
-<button {{action 'stopClock'}}><i class="fa fa-stop fa-2x"></i></button></div></div></div></div></script><script type="text/x-handlebars" data-template-name="tasks/index"><div id="tasks"><div class="container"><div class="row"><div class="nine columns"><div class="scrollable"><table id="tasks_table"><thead><tr><th>Activate         </th><th>Name </th><th>Pomodoros     </th><th>Duration</th><th><div class="wrap"><button id="button-new" class="button-primary" {{action "new"}}><i class="fa fa-plus fa-3x"></i></button></div></th><tbody>{{#each task in model}}
-  <tr {{bind-attr id=task.htmlID}}>
-    <td> 
-      {{!-- 
-        <input type="checkbox" on="change" {{bind-attr id=task.id}} {{action "selectTask" task.id}}>
-      --}}
-      {{input type="checkbox" on="change" ((bind-attr id=task.id)) ((action "selectTask" task.id))}}
-    </td>
-      <td class="name"><a {{action "show" task}}>{{task.name}}</a></td>
-      <td class="pomodoros">{{task.pomodoros.length}}</td>
-      <td class="duration">{{task.duration}}</td>
-      <td class="action-buttons"><button type="button" class="btn btn-default edit-button" {{action "edit" task}}>Edit</button>
+<button {{action 'stopClock'}}><i class="fa fa-stop fa-2x"></i></button></div></div></div></div></script><script type="text/x-handlebars" data-template-name="tasks/index"><div id="tasks"><div class="container"><div class="row"><div class="nine columns"><div class="scrollable"><table id="tasks_table"><thead><tr><th>Selection</th><th>Name </th><th>Pomodoros     </th><th><div class="wrap"><button id="button-new" class="button-icon" {{action "new"}}><i class="fa fa-plus fa-3x"></i></button></div></th><tbody>{{#each task in model}}
+  <tr class="task-list-row" {{bind-attr id=task.htmlID}}>
+    <td class="select-hover"></td>
+    <td class="name"><a {{action "show" task}}>{{task.name}}</a></td>
+    <td class="pomodoros">{{task.pomodoros.length}}</td>
+    <td class="action-buttons">
+      <button type="button" class="button-icon" {{action "edit" task}}>
+        <i class="fa fa-edit fa-3x"></i>
+      </button>
     </td>
   </tr>
 {{/each}}

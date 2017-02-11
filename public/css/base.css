@@ -54,6 +54,7 @@ input, select {
 }
 
 table {
+  width: 490px;
   margin-top:-10px; 
   overflow: scroll;
 }
@@ -121,3 +122,20 @@ a {
 .today-tasks-title{
   display: inline-block;
 }
+
+.task-list-row:hover .select-hover {
+  color: #fff;
+  background-color: #c8c8c8;    
+}
+
+
+.button-icon{
+  border-color: #fff;
+  background-color: #fff;
+  color: #33c3f0;
+}
+
+.button-icon:hover {
+  border: none !important;
+}
+

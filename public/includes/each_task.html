@@ -1,15 +1,12 @@
 {{#each task in model}}
-  <tr {{bind-attr id=task.htmlID}}>
-    <td> 
-      <input type="checkbox" on="change" {{bind-attr id=task.id}} {{action "selectTask" task.id}}>
-      {{!--
-        {{input type="checkbox" on="change" ((bind-attr id=task.id)) ((action "selectTask" task.id))}}
-      --}}
-    </td>
-      <td class="name"><a {{action "show" task}}>{{task.name}}</a></td>
-      <td class="pomodoros">{{task.pomodoros.length}}</td>
-      <td class="duration">{{task.duration}}</td>
-      <td class="action-buttons"><button type="button" class="btn btn-default edit-button" {{action "edit" task}}>Edit</button>
+  <tr class="task-list-row" {{bind-attr id=task.htmlID}}>
+    <td class="select-hover"></td>
+    <td class="name"><a {{action "show" task}}>{{task.name}}</a></td>
+    <td class="pomodoros">{{task.pomodoros.length}}</td>
+    <td class="action-buttons">
+      <button type="button" class="button-icon" {{action "edit" task}}>
+        <i class="fa fa-edit fa-3x"></i>
+      </button>
     </td>
   </tr>
 {{/each}}

@@ -7,13 +7,12 @@ script(type='text/x-handlebars', data-template-name='tasks/index')
             table#tasks_table
               thead
                 tr
-                  th Activate         
+                  th Selection
                   th Name 
                   th Pomodoros     
-                  th Duration
                   th
                     .wrap
-                      <button id="button-new" class="button-primary" {{action "new"}}><i class="fa fa-plus fa-3x"></i></button>
+                      <button id="button-new" class="button-icon" {{action "new"}}><i class="fa fa-plus fa-3x"></i></button>
                   tbody
                     include each_task.html
 
