@@ -9,8 +9,8 @@
     "icon": "public/PomodoroG.png",
     "toolbar": true,
     "frame": true,
-    "resizable": false,
-    "width": 615,
+    "resizable": true,
+    "width": 495,
     "height": 590,
     "position": "center"
   },

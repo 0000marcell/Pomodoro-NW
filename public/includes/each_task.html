@@ -1,6 +1,5 @@
 {{#each task in model}}
   <tr class="task-list-row" {{bind-attr id=task.htmlID}}>
-    <td class="select-hover"></td>
     <td class="name"><a {{action "show" task}}>{{task.name}}</a></td>
     <td class="pomodoros">{{task.pomodoros.length}}</td>
     <td class="action-buttons">

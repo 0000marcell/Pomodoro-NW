@@ -37,7 +37,7 @@ html, body {
 
 .scrollable {
   height:300px;
-  width: 550px;
+  width: 425px;
   overflow:auto;
 }
 
@@ -54,7 +54,7 @@ input, select {
 }
 
 table {
-  width: 490px;
+  width: 425px;
   margin-top:-10px; 
   overflow: scroll;
 }
@@ -123,9 +123,13 @@ a {
   display: inline-block;
 }
 
-.task-list-row:hover .select-hover {
-  color: #fff;
-  background-color: #c8c8c8;    
+.task-list-row {
+  border: 2px solid #fff;
+}
+
+.task-list-row:hover {
+  border: 2px solid #33c3f0;
+  border-color: #33c3f0;
 }
 
 
@@ -137,5 +141,9 @@ a {
 
 .button-icon:hover {
   border: none !important;
+}
+
+th:first-child, td:first-child {
+  padding-left: 20px;  
 }
 
