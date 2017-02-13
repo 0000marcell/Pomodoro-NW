@@ -147,3 +147,7 @@ th:first-child, td:first-child {
   padding-left: 20px;  
 }
 
+.options-list li{
+  display: inline-block;
+  margin-left: 2rem;
+}

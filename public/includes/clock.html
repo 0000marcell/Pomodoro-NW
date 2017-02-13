@@ -1,0 +1,40 @@
+<script type="text/x-handlebars">
+  <div class="container">
+    <i {{action "main"}} 
+       class="fa fa-chevron-left fa-2x"></i>
+    <div class="u-pull-right">
+      <ul class="options-list">
+        <li>
+          <i {{action "statistics"}}
+            class="fa fa-bar-chart fa-2x"></i>
+        </li>
+        <li>
+          <i {{action "config"}} 
+            class="fa fa-cog fa-2x"></i>
+        </li>
+      </ul>
+    </div>
+    {{outlet}}
+    <div id="clock-container">
+      <div id="task-name"></div>
+      <div id="task-status"></div>
+      <button id="button-show-hide-tasks" 
+        type="button" class="button-primary " 
+        {{action 'showHideTasks' }}>Show/Hide
+      </button>
+      <div class='clock'></div>
+      <div class='message'></div>
+      <div class="pomodoro-counter">
+        <p>Streak</p>
+        <h3 id='streak'>0</h3>
+      </div>
+      <button id="start-clock" 
+        {{action 'startClock'}}>
+        <i class="fa fa-play fa-2x"></i>
+      </button>
+      <button {{action 'stopClock'}}>
+        <i class="fa fa-stop fa-2x"></i>
+      </button>
+    </div>
+  </div>
+</script>
