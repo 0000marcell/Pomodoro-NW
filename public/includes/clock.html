@@ -1,18 +1,26 @@
 <script type="text/x-handlebars">
   <div class="container">
-    <i {{action "main"}} 
-       class="fa fa-chevron-left fa-2x"></i>
-    <div class="u-pull-right">
-      <ul class="options-list">
-        <li>
-          <i {{action "statistics"}}
-            class="fa fa-bar-chart fa-2x"></i>
-        </li>
-        <li>
-          <i {{action "config"}} 
-            class="fa fa-cog fa-2x"></i>
-        </li>
-      </ul>
+    <div class="row">
+      <i {{action "main"}} 
+         class="fa fa-chevron-left fa-2x"></i>
+      <div class="u-pull-right">
+        <ul class="options-list">
+          <li>
+            <i {{action "statistics"}}
+              class="fa fa-bar-chart fa-2x"></i>
+          </li>
+          <li>
+            <i {{action "config"}} 
+              class="fa fa-cog fa-2x"></i>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="u-pull-right">
+        <i {{action "new"}} 
+              class="fa fa-plus fa-2x"></i>
+      </div>
     </div>
     {{outlet}}
     <div id="clock-container">

@@ -167,3 +167,8 @@ i:hover {
   max-width: 210px;
   padding: 10px;
 }
+
+.row{
+  border: 1px solid #c8c8c8;
+  max-height: 30px;
+}
