@@ -39,41 +39,20 @@
   </div>
 </script>
 <script type='text/x-handlebars' data-template-name="tasks/index">
-  <div id="tasks">
-    <div class="scrollable">
-      <table id="tasks-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Pomodoros</th>
-            <th>
-              <div class=".wrap">
-                <button id="button-new" 
-                  class="button-icon" 
-                  {{action "new"}}><i class="fa fa-plus fa-3x"></i>
-                </button>
-              </div>
-            </th>
-          </tr>
-        </thead>
-        <tr>
-          <tbody>
-            {{#each task in model}}
-              <tr class="task-list-row" {{bind-attr id=task.htmlID}}>
-                <td class="name"><a {{action "show" task}}>{{task.name}}</a></td>
-                <td class="pomodoros">{{task.pomodoros.length}}</td>
-                <td class="action-buttons">
-                  <button type="button" class="button-icon" {{action "edit" task}}>
-                    <i class="fa fa-edit fa-3x"></i>
-                  </button>
-                </td>
-              </tr>
-            {{/each}}
-          </tbody>
-        </tr>
-      </table>
+<div class="scrollable">
+  {{#each task in model}}
+    <div class="row">
+      <div class="four columns">
+        <h6>{{task.name}}</h6>
+      </div>
+      <div class="four columns">
+        <span>{{task.pomodoros.length}}</span>
+        <i {{action "edit" task}} 
+          class="fa fa-edit fa-3x u-pull-right"></i>
+      </div>
     </div>
-  </div>
+  {{/each}}
+</div>
 </script>
 <script type="text/x-handlebars" data-template-name="tasks/show">
   <div class="container">

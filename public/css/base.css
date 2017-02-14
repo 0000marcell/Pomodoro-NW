@@ -36,6 +36,7 @@ html, body {
 }
 
 .scrollable {
+  border: 1px solid #c8c8c8;
   height:300px;
   width: 425px;
   overflow:auto;
@@ -150,4 +151,15 @@ th:first-child, td:first-child {
 .options-list li{
   display: inline-block;
   margin-left: 2rem;
+}
+
+i:hover {
+  color: #33C3F0; 
+  cursor: pointer;
+}
+
+.column{
+  display: inline-block;
+  max-width: 220px;
+  padding: 10px;
 }
