@@ -124,8 +124,12 @@ a {
   display: inline-block;
 }
 
+.task-list-controls{
+  padding-top: 20px;
+}
+
 .task-list-row {
-  border: 2px solid #fff;
+  border-bottom: 1px solid #c8c8c8;
 }
 
 .task-list-row:hover {
@@ -160,6 +164,6 @@ i:hover {
 
 .column{
   display: inline-block;
-  max-width: 220px;
+  max-width: 210px;
   padding: 10px;
 }

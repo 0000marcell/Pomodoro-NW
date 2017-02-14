@@ -41,14 +41,14 @@
 <script type='text/x-handlebars' data-template-name="tasks/index">
 <div class="scrollable">
   {{#each task in model}}
-    <div class="row">
-      <div class="four columns">
-        <h6>{{task.name}}</h6>
+    <div class="row task-list-row">
+      <div class="column">
+        <p>{{task.name}}</p>
       </div>
-      <div class="four columns">
+      <div class="column task-list-controls">
         <span>{{task.pomodoros.length}}</span>
         <i {{action "edit" task}} 
-          class="fa fa-edit fa-3x u-pull-right"></i>
+          class="fa fa-ellipsis-h fa-2x u-pull-right"></i>
       </div>
     </div>
   {{/each}}
