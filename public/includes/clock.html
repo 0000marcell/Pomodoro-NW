@@ -1,9 +1,12 @@
 <script type="text/x-handlebars">
-  <div class="container">
-    <div class="row">
-      <i {{action "main"}} 
-         class="fa fa-chevron-left fa-2x"></i>
-      <div class="u-pull-right">
+  <div class='container'>
+    <!-- Options -->
+    <div class='row'>
+      <div class='one column'>
+        <i {{action "main"}} 
+          class="fa fa-chevron-left fa-2x"></i>
+      </div>
+      <div class='three columns u-pull-right'>
         <ul class="options-list">
           <li>
             <i {{action "statistics"}}
@@ -16,33 +19,79 @@
         </ul>
       </div>
     </div>
-    <div class="row">
-      <div class="u-pull-right">
+
+    <!-- Add -->
+    <div class='row'>
+      <div class='one column u-pull-right'>
         <i {{action "new"}} 
-              class="fa fa-plus fa-2x"></i>
+          class="fa fa-plus fa-2x"></i>
       </div>
     </div>
-    {{outlet}}
-    <div id="clock-container">
-      <div id="task-name"></div>
-      <div id="task-status"></div>
-      <button id="button-show-hide-tasks" 
-        type="button" class="button-primary " 
-        {{action 'showHideTasks' }}>Show/Hide
-      </button>
-      <div class='clock'></div>
-      <div class='message'></div>
-      <div class="pomodoro-counter">
-        <p>Streak</p>
-        <h3 id='streak'>0</h3>
+
+    <!-- Tasks List -->
+    <div class='row scrollable'>
+      <div class='twelve columns'>
+        {{#each task in model}}
+          <div class='row'>
+            <div class='six columns'>
+              <p>{{task.name}}</p>
+            </div>
+            <div class='six columns'>
+              <span>{{task.pomodoros.length}}</span>
+              <i {{action "edit" task}} 
+                class="fa fa-ellipsis-h fa-2x u-pull-right"></i>
+            </div>
+          </div>
+        {{/each}}
       </div>
-      <button id="start-clock" 
-        {{action 'startClock'}}>
-        <i class="fa fa-play fa-2x"></i>
-      </button>
-      <button {{action 'stopClock'}}>
-        <i class="fa fa-stop fa-2x"></i>
-      </button>
+    </div>
+
+    <!-- Show/Hide -->
+    <div class='row'>
+      <div class="three columns">
+        <div id="task-name"></div>
+      </div>
+      <div class="three columns">
+        <div id="task-status"></div>
+      </div>
+      <div class='one column u-pull-right'>
+        <i {{action "showHideTasks" task}} 
+           class="fa fa-arrow-up fa-2x u-pull-right"></i>
+      </div>
+    </div>
+
+    <!-- Clock -->
+    <div class='row'>
+      <div class="nine columns">
+        <div class='clock u-pull-right'>
+        </div>
+      </div>
+      <div class="two columns u-pull-right">
+        <div class="pomodoro-counter">
+          <p>Streak</p>
+          <h3 id='streak'>0</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- Clock Control -->
+    <div class='row'>
+      <div class="twelve columns">
+        <div class='clock-controlls u-pull-center'>
+          <ul class="options-list">
+            <li>
+             <i {{action 'startClock'}}
+              class="fa fa-play fa-2x"></i>
+            </li>
+            <li>
+              <i {{action 'stopClock'}} 
+              class="fa fa-stop fa-2x"></i>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
+    {{outlet}}
+  <div class='message'></div>
 </script>

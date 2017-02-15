@@ -7,6 +7,7 @@ html, body {
 }
 
 .pomodoro-counter{
+  text-align: center;
   color: #FFF !important;
   background-color: #33C3F0;
   height: 100px;
@@ -36,9 +37,9 @@ html, body {
 }
 
 .scrollable {
+  padding: 15px;
   border: 1px solid #c8c8c8;
   height:300px;
-  width: 425px;
   overflow:auto;
 }
 
@@ -157,18 +158,51 @@ th:first-child, td:first-child {
   margin-left: 2rem;
 }
 
+ul{
+  margin-bottom: 0;
+}
+
+li{
+  margin-bottom: 0;
+}
+
 i:hover {
   color: #33C3F0; 
   cursor: pointer;
 }
 
-.column{
-  display: inline-block;
-  max-width: 210px;
-  padding: 10px;
+.u-pull-center{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.container{
+  /* border: 1px solid red;*/
 }
 
 .row{
-  border: 1px solid #c8c8c8;
-  max-height: 30px;
+  min-height: 20px;
+  /* border: 1px solid #c8c8c8;*/
+}
+
+.columns {
+  min-height: 20px;
+  /* border: 1px solid blue;*/
+}
+
+.column {
+  min-height: 20px;
+  /* border: 1px solid blue;*/
+}
+
+.clock{
+  padding-top: 20px;
+  max-width: 300px;
+}
+
+.clock-controlls{
+  padding: 10px;
+  /* border: 1px solid yellow;*/
+  max-width: 150px;
 }
