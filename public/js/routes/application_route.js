@@ -36,10 +36,21 @@ App.ApplicationRoute = Ember.Route.extend({
     }, 
 
     showHideTasks: function(){
-      $('#tasks').toggle('slow/400/fast');
-      var height = (this.taskVisibility) ? 325 : 625;
-      this.taskVisibility = (height == 625) ? true : false;
-      appWindow.resize(630, height);
+      $('.scrollable').toggle('slow/400/fast');
+      $('.options-row').toggle('slow/400/fast');
+      $('.add-row').toggle('slow/400/fast');
+      var height = (this.taskVisibility) ? 235 : 650;
+      this.taskVisibility = (height == 650) ? true : false;
+      if(this.taskVisibility){
+        $('#showHide')
+          .removeClass('fa-arrow-down')
+          .addClass('fa-arrow-up')
+      }else{
+        $('#showHide')
+          .removeClass('fa-arrow-up')
+          .addClass('fa-arrow-down')
+      }
+      appWindow.resize(465, height);
     },
     
     resizeWindow: function(width, height){
@@ -76,7 +87,7 @@ App.ApplicationRoute = Ember.Route.extend({
        _this.transitionTo('index');
       });
     },
-    selectTask: function(id, event){
+    selectTask: function(id){
       pomodoroClock.stop();
       intervalCount = 0;
       pause = false;

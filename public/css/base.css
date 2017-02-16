@@ -202,3 +202,8 @@ i:hover {
   /* border: 1px solid yellow;*/
   max-width: 150px;
 }
+
+.task-name:hover {
+  color: #33c3f0;
+  cursor: pointer;
+}

@@ -1,12 +1,12 @@
 <!DOCTYPE html><html><title>Pomodoro</title><link rel="stylesheet" href="css/styles.css"><script>src="node_modules/nw-dev/lib/dev.js"</script><body><!-- include includes/test.html--><script type="text/x-handlebars">
   <div class='container'>
     <!-- Options -->
-    <div class='row'>
+    <div class='row options-row'>
       <div class='one column'>
         <i {{action "main"}} 
           class="fa fa-chevron-left fa-2x"></i>
       </div>
-      <div class='three columns u-pull-right'>
+      <div class='four columns u-pull-right'>
         <ul class="options-list">
           <li>
             <i {{action "statistics"}}
@@ -21,9 +21,9 @@
     </div>
 
     <!-- Add -->
-    <div class='row'>
+    <div class='row add-row'>
       <div class='one column u-pull-right'>
-        <i {{action "new"}} 
+        <i id="showHide" {{action "new"}} 
           class="fa fa-plus fa-2x"></i>
       </div>
     </div>
@@ -34,7 +34,8 @@
         {{#each task in model}}
           <div class='row'>
             <div class='six columns'>
-              <p>{{task.name}}</p>
+              <p {{action "selectTask" task.id}}
+                 class='task-name'>{{task.name}}</p>
             </div>
             <div class='six columns'>
               <span>{{task.pomodoros.length}}</span>
@@ -48,14 +49,18 @@
 
     <!-- Show/Hide -->
     <div class='row'>
-      <div class="three columns">
-        <div id="task-name"></div>
+      <div class="five columns">
+        <div id="task-name">
+          <h4>No Task Selected!</h4>
+        </div>
       </div>
       <div class="three columns">
-        <div id="task-status"></div>
+        <div id="task-status">
+          <h4 class="clock-paused animated infinite flash">[Paused]</h4>
+        </div>
       </div>
       <div class='one column u-pull-right'>
-        <i {{action "showHideTasks" task}} 
+        <i {{action "showHideTasks"}} 
            class="fa fa-arrow-up fa-2x u-pull-right"></i>
       </div>
     </div>
@@ -76,8 +81,8 @@
 
     <!-- Clock Control -->
     <div class='row'>
-      <div class="twelve columns">
-        <div class='clock-controlls u-pull-center'>
+      <div class="seven columns">
+        <div class='clock-controlls u-pull-right'>
           <ul class="options-list">
             <li>
              <i {{action 'startClock'}}
