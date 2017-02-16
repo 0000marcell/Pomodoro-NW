@@ -31,11 +31,6 @@ html, body {
   margin: 0 auto;
 }
 
-.clock{
- width: 80%;
- margin: 0 auto; 
-}
-
 .scrollable {
   padding: 15px;
   border: 1px solid #c8c8c8;
@@ -178,11 +173,12 @@ i:hover {
 }
 
 .container{
+  width: 90%;
   /* border: 1px solid red;*/
 }
 
 .row{
-  min-height: 20px;
+  margin-top: 10px; 
   /* border: 1px solid #c8c8c8;*/
 }
 
@@ -197,7 +193,7 @@ i:hover {
 }
 
 .clock{
-  padding-top: 20px;
+  margin: 0 auto; 
   max-width: 300px;
 }
 
