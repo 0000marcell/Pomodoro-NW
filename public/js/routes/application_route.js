@@ -42,11 +42,11 @@ App.ApplicationRoute = Ember.Route.extend({
       var height = (this.taskVisibility) ? 235 : 650;
       this.taskVisibility = (height == 650) ? true : false;
       if(this.taskVisibility){
-        $('#showHide')
+        $('.show-hide i')
           .removeClass('fa-arrow-down')
           .addClass('fa-arrow-up')
       }else{
-        $('#showHide')
+        $('.show-hide i')
           .removeClass('fa-arrow-up')
           .addClass('fa-arrow-down')
       }
