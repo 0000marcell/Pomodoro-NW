@@ -1,7 +1,6 @@
 App.TasksNewRoute = Ember.Route.extend({
   model: function() {
-    newTask = this.store.createRecord('task'); 
-    return newTask;
+    return this.store.createRecord('task'); 
   },
   isNew: true,
   renderTemplate: function(controller, model) {

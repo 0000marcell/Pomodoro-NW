@@ -1,4 +1,4 @@
-App.TasksIndexController = Ember.ArrayController.extend({
+App.IndexController = Ember.ArrayController.extend({
   needs: ['tasks'],
   sortProperties: ['name']
 });

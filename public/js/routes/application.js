@@ -8,10 +8,10 @@ App.ApplicationRoute = Ember.Route.extend({
       this.taskVisibility = true; 
     },
     new: function() {
-      this.transitionTo('tasks.new');
+      this.transitionTo('new');
     },
     edit: function(task) {
-      this.transitionTo('tasks.edit', task);
+      this.transitionTo('edit', task);
     },
     show: function(task){
       task.setTotalTime();
@@ -32,7 +32,7 @@ App.ApplicationRoute = Ember.Route.extend({
 
     statistics: function(){
       $('#clock-container').hide('slow/400/fast');
-      this.transitionTo('tasks.statistics');
+      this.transitionTo('statistics');
     }, 
 
     showHideTasks: function(){
@@ -59,7 +59,7 @@ App.ApplicationRoute = Ember.Route.extend({
     main: function(){
      $('#clock-container').show('slow/400/fast');
       appWindow.resize(615, 600);
-     this.transitionTo('tasks');  
+     this.transitionTo('main');  
     },
     config: function(){
       this.transitionTo('config');
