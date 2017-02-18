@@ -7,7 +7,6 @@ App.Task = DS.Model.extend(Ember.Validations.Mixin, {
   pomodoros: DS.attr('array'),
   duration: DS.attr('string'),
   totalTime: DS.attr('string'),
-  
   htmlID: function() {
     return 'task' + this.get('id');
   }.property('id'),
@@ -101,7 +100,5 @@ App.resetFixtures = function() {
     }
   });
 };
-
-
 
 App.resetFixtures();

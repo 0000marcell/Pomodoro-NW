@@ -1,16 +1,12 @@
 App.ApplicationRoute = Ember.Route.extend({
   // render the template!
-  renderTemplate: function() {
-    this.render('main');
+  afterModel(){
+    this.transitionTo('main');
   },
-  taskVisibility: true, 
   model: function() {
-    return this.store.find('task');
+    return this.store.findAll('task');
   },
   actions: {
-    didTransition: function() {
-      this.taskVisibility = true; 
-    },
     new: function() {
       this.transitionTo('new');
     },
@@ -22,41 +18,10 @@ App.ApplicationRoute = Ember.Route.extend({
       task.formatDates();
       this.transitionTo('tasks.show', task);
     },
-    // Save and transition to /tasks/:task_id only if validation passes.
-    save: function(task) {
-      var _this = this;
-      task.validate().then(function() {
-        task.save();
-        task.set('creation_date', 
-                  new Date().getDateString());
-        task.saveOnFile();
-        _this.transitionTo('index');
-      });
-    },
-
     statistics: function(){
       $('#clock-container').hide('slow/400/fast');
       this.transitionTo('statistics');
     }, 
-
-    showHideTasks: function(){
-      $('.scrollable').toggle('slow/400/fast');
-      $('.options-row').toggle('slow/400/fast');
-      $('.add-row').toggle('slow/400/fast');
-      var height = (this.taskVisibility) ? 235 : 650;
-      this.taskVisibility = (height == 650) ? true : false;
-      if(this.taskVisibility){
-        $('.show-hide i')
-          .removeClass('fa-arrow-down')
-          .addClass('fa-arrow-up')
-      }else{
-        $('.show-hide i')
-          .removeClass('fa-arrow-up')
-          .addClass('fa-arrow-down')
-      }
-      appWindow.resize(465, height);
-    },
-    
     resizeWindow: function(width, height){
       win.width = width, win.height = height;  
     },
@@ -76,37 +41,6 @@ App.ApplicationRoute = Ember.Route.extend({
         task.save().then(function(){
           task.saveOnFile();
         });
-      });
-    },
-    // Roll back and transition to /tasks/:task_id.
-    cancel: function(task) {
-      task.rollback();
-      this.transitionTo('index');
-    },
-    // Delete specified task.
-    delete: function(task) {
-      var _this = this;
-      task.destroyRecord().then(function(){
-       task.saveOnFile();
-       _this.transitionTo('index');
-      });
-    },
-    selectTask: function(id){
-      pomodoroClock.stop();
-      intervalCount = 0;
-      pause = false;
-      restart = false;
-      $('#streak').html(intervalCount);
-      currentSelected = id;
-      var currentSelectedDuration;
-      var _this = this;
-      this.store.find('task', id).then(function(task){
-       currentSelectedDuration = task.get('duration');
-       task.set('last_active', new Date().getDateString());
-       pomodoroTime = parseInt(currentSelectedDuration) * 60;
-       pomodoroClock.reset(pomodoroTime);
-       $('#task-name').html("<h4>"+task.get('name')+"</h4>");
-       clockState.pause();
       });
     }
   }
