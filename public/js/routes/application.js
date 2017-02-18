@@ -1,4 +1,8 @@
 App.ApplicationRoute = Ember.Route.extend({
+  // render the template!
+  renderTemplate: function() {
+    this.render('main');
+  },
   taskVisibility: true, 
   model: function() {
     return this.store.find('task');

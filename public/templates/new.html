@@ -1,8 +1,8 @@
-<script type="text/x-handlebars" data-template-name="edit">
+<script type="text/x-handlebars" data-template-name="new">
   <div class="container">
     <div class="row">
       <div class="eleven columns">
-        <h3>{{#if isNew}}New{{else}}Edit{{/if}} Task</h3>
+        <h3>New Task</h3>
         {{#form-for controller id="form-task" wrapper="skeleton"}}
           {{#input name}}
             {{label-field name text="Task"}}
@@ -20,12 +20,7 @@
             }}
           {{/input}}
           <button type="submit" {{action "save" model}}>Save</button>
-          {{#if isNew}}
           <button type="button" {{action "delete" model}}>Cancel</button>
-          {{else}}
-          <button type="button" {{action "cancel" model}}>Cancel</button>
-          <button type="button" {{action "delete" model}}>Delete</button>
-          {{/if}}
         {{/form-for}}
       </div>
     </div>

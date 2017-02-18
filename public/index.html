@@ -1,4 +1,8 @@
-<!DOCTYPE html><html><title>Pomodoro</title><link rel="stylesheet" href="css/styles.css"><script>src="node_modules/nw-dev/lib/dev.js"</script><body><!-- include includes/test.html--><script type="text/x-handlebars">
+<!DOCTYPE html><html><title>Pomodoro</title><link rel="stylesheet" href="css/styles.css"><script>src="node_modules/nw-dev/lib/dev.js"</script><body><!-- include templates/test.html--><script type="text/x-handlebars">
+  {{outlet}}
+</script>
+
+<script type="text/x-handlebars" data-template-name="main">
   <div class='container'>
     <!-- Options -->
     <div class='row options-row'>
@@ -100,71 +104,20 @@
     {{outlet}}
   <div class='message'></div>
 </script>
-<script type='text/x-handlebars' data-template-name="tasks/index">
-</script>
-<script type="text/x-handlebars" data-template-name="tasks/show">
+<script type="text/x-handlebars" data-template-name="config">
   <div class="container">
     <div class="row">
       <div class="eleven columns">
-        <h3>{{name}}</h3>
+        <h6>Configuration</h6>
       </div>
     </div>
     <div class="row">
-      <div class="eleven columns">
-        <h6>Pomodoros: {{pomodoros.length}} </h6>
-      </div>
-    </div>
-    <div class="row">
-      <div class="eleven columns">
-        <h6>Total Time: {{totalTime}}</h6>
-      </div>
-    </div>
-    <div class="row">
-      <div class="eleven columns">
-        <h6>Creation Date: {{formated_creation_date}}</h6>
-      </div>
-    </div>
-    <div class="row">
-      <div class="eleven columns">
-        <h6>Last Active: {{formated_last_active}}</h6>
-      </div>
+      <p>Using aws: {{usingAws}}</p>
+      <p>Files Path: {{filesPath}}</p>
     </div>
   </div>
 </script>
-
-<script type="text/x-handlebars" data-template-name="tasks/edit">
-  <div class="container">
-    <div class="row">
-      <div class="eleven columns">
-        <h3>{{#if isNew}}New{{else}}Edit{{/if}} Task</h3>
-        {{#form-for controller id="form-task" wrapper="skeleton"}}
-          {{#input name}}
-            {{label-field name text="Task"}}
-            {{input-field name class="form-control" autofocus="false"}}
-            {{#if view.showError}}
-              {{error-field name}}
-            {{/if}}
-          {{/input}}
-          {{#input duration}}
-            {{label-field duration text="Duration"}}
-            {{input-field duration as='select'
-                collection="durations"
-                value="duration"
-                class="form-control"
-            }}
-          {{/input}}
-          <button type="submit" {{action "save" model}}>Save</button>
-          {{#if isNew}}
-          <button type="button" {{action "delete" model}}>Cancel</button>
-          {{else}}
-          <button type="button" {{action "cancel" model}}>Cancel</button>
-          <button type="button" {{action "delete" model}}>Delete</button>
-          {{/if}}
-        {{/form-for}}
-      </div>
-    </div>
-  </div>
-</script><script type='text/x-handlebars' data-template-name="tasks/statistics">
+<script type='text/x-handlebars' data-template-name="statistics">
   {{view App.TasksStatisticsView contextBinding="App.Task"}}
   <div class='container'>
     <div class="row">
@@ -259,17 +212,61 @@
     </div>
    </div>
  </script>
-<script type="text/x-handlebars" data-template-name="config">
+<script type="text/x-handlebars" data-template-name="new">
   <div class="container">
     <div class="row">
       <div class="eleven columns">
-        <h6>Configuration</h6>
+        <h3>New Task</h3>
+        {{#form-for controller id="form-task" wrapper="skeleton"}}
+          {{#input name}}
+            {{label-field name text="Task"}}
+            {{input-field name class="form-control" autofocus="false"}}
+            {{#if view.showError}}
+              {{error-field name}}
+            {{/if}}
+          {{/input}}
+          {{#input duration}}
+            {{label-field duration text="Duration"}}
+            {{input-field duration as='select'
+                collection="durations"
+                value="duration"
+                class="form-control"
+            }}
+          {{/input}}
+          <button type="submit" {{action "save" model}}>Save</button>
+          <button type="button" {{action "delete" model}}>Cancel</button>
+        {{/form-for}}
       </div>
-    </div>
-    <div class="row">
-      <p>Using aws: {{usingAws}}</p>
-      <p>Files Path: {{filesPath}}</p>
     </div>
   </div>
 </script>
-<!-- Libs--><script src="js/libs/jquery-1.10.2.js"></script><script src="js/helpers/string.js"></script><script src="js/helpers/date.js"></script><script src="js/helpers/JSONIO.js"></script><script src="js/helpers/pomodoroStatistics.js"></script><script src="js/helpers/windowFunctions.js"></script><script src="js/libs/d3.min.js"></script><script src="js/libs/jit.js"></script><script src="js/helpers/bar-chart.js"></script><script src="js/libs/flipclock.js"></script><script src="js/libs/handlebars-1.1.2.js"></script><script src="js/libs/ember-1.7.0.js"></script><script src="js/libs/ember-data.js"></script><script src="js/libs/ember-validations.js"></script><script src="js/libs/ember-easyForm.js"></script><!-- script(src='js/helpers/format-currency.js')--><script src="js/libs/aws-sdk.min.js"></script><!-- Helpers--><script src="js/helpers/clock_helper.js"></script><script src="js/helpers/aws_helper.js"></script><script src="js/helpers/clockState.js"></script><script src="js/helpers/pomodoroclock.js"></script><script src="js/app.js"></script><script src="js/views/ember_easyform.js"></script><script src="js/routes/router.js"></script><script src="js/models/arraytransform_helper.js"></script><script src="js/models/task_model.js"></script><script src="js/routes/application_route.js"></script><script src="js/routes/tasks_statistics_route.js"></script><script src="js/routes/task_route.js"></script><script src="js/routes/tasks_index_route.js"></script><!--script(src='js/controllers/task_index_controller.js')--><script src="js/controllers/tasks_statistics_controller.js"></script><script src="js/routes/tasks_edit_route.js"></script><script src="js/routes/tasks_new_route.js"></script><script src="js/views/index_view.js"></script><script src="js/views/tasks_statistics_view.js"></script><!-- Controllers--><script src="js/controllers/application_controller.js"></script><script src="js/controllers/config_controller.js"></script><!-- - Coment the lines below if you don't want the tests--><!-- script(src='js/libs/qunit-1.12.0.js')--><!-- script(src='tests/ember-qunit.js')--><!-- script(src='tests/tests.js')--></body></html>
+<script type="text/x-handlebars" data-template-name="edit">
+  <div class="container">
+    <div class="row">
+      <div class="eleven columns">
+        <h3>Edit Task</h3>
+        {{#form-for controller id="form-task" wrapper="skeleton"}}
+          {{#input name}}
+            {{label-field name text="Task"}}
+            {{input-field name class="form-control" autofocus="false"}}
+            {{#if view.showError}}
+              {{error-field name}}
+            {{/if}}
+          {{/input}}
+          {{#input duration}}
+            {{label-field duration text="Duration"}}
+            {{input-field duration as='select'
+                collection="durations"
+                value="duration"
+                class="form-control"
+            }}
+          {{/input}}
+          <button type="submit" {{action "save" model}}>Save</button>
+          <button type="button" {{action "cancel" model}}>Cancel</button>
+          <button type="button" {{action "delete" model}}>Delete</button>
+        {{/form-for}}
+      </div>
+    </div>
+  </div>
+</script>
+<!-- Libs--><script src="js/libs/jquery-1.10.2.js"></script><script src="js/helpers/string.js"></script><script src="js/helpers/date.js"></script><script src="js/helpers/JSONIO.js"></script><script src="js/helpers/pomodoroStatistics.js"></script><script src="js/helpers/windowFunctions.js"></script><script src="js/libs/d3.min.js"></script><script src="js/libs/jit.js"></script><script src="js/helpers/bar-chart.js"></script><script src="js/libs/flipclock.js"></script><script src="js/libs/handlebars-1.1.2.js"></script><script src="js/libs/ember-1.7.0.js"></script><script src="js/libs/ember-data.js"></script><script src="js/libs/ember-validations.js"></script><script src="js/libs/ember-easyForm.js"></script><!-- script(src='js/helpers/format-currency.js')--><script src="js/libs/aws-sdk.min.js"></script><!-- Helpers--><script src="js/helpers/clock_helper.js"></script><script src="js/helpers/aws_helper.js"></script><script src="js/helpers/clockState.js"></script><script src="js/helpers/pomodoroclock.js"></script><script src="js/app.js"></script><script src="js/views/ember_easyform.js"></script><!--Models--><script src="js/models/arraytransform_helper.js"></script><script src="js/models/task.js"></script><!-- Routes--><script src="js/routes/router.js"></script><script src="js/routes/application.js"></script><script src="js/routes/main.js"></script><script src="js/routes/statistics.js"></script><script src="js/routes/config.js"></script><script src="js/routes/new.js"></script><script src="js/routes/edit.js"></script><!-- Controllers--><script src="js/controllers/application.js"></script><script src="js/controllers/main.js"></script><script src="js/controllers/statistics.js"></script><script src="js/controllers/config.js"></script><script src="js/controllers/new.js"></script><script src="js/controllers/edit.js"></script><!-- - Coment the lines below if you don't want the tests--><!-- script(src='js/libs/qunit-1.12.0.js')--><!-- script(src='tests/ember-qunit.js')--><!-- script(src='tests/tests.js')--></body></html>

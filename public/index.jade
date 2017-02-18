@@ -1,13 +1,14 @@
 doctype html
 html
-  include includes/head.jade
+  include templates/head.jade
   script src="node_modules/nw-dev/lib/dev.js"
   body
     //- comment test.html if you don't want the tests
-    // include includes/test.html
-    include includes/app.html
-    include includes/main.html
-    include includes/config.html
-    include includes/statistics.html
-    include includes/statistics.html
-    include includes/foot.jade
+    // include templates/test.html
+    include templates/application.html
+    include templates/main.html
+    include templates/config.html
+    include templates/statistics.html
+    include templates/new.html
+    include templates/edit.html
+    include templates/foot.jade
