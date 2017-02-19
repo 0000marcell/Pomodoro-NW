@@ -19,15 +19,13 @@ App.ApplicationRoute = Ember.Route.extend({
       this.transitionTo('tasks.show', task);
     },
     statistics: function(){
-      $('#clock-container').hide('slow/400/fast');
       this.transitionTo('statistics');
     }, 
     resizeWindow: function(width, height){
       win.width = width, win.height = height;  
     },
     main: function(){
-     $('#clock-container').show('slow/400/fast');
-      appWindow.resize(615, 600);
+     appWindow.resize(615, 600);
      this.transitionTo('main');  
     },
     config: function(){

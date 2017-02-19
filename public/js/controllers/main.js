@@ -1,9 +1,6 @@
 App.MainController = Ember.ArrayController.extend({
   taskVisibility: true, 
   actions: {
-    didTransition: function() {
-      this.taskVisibility = true; 
-    },
     selectTask: function(id){
       pomodoroClock.stop();
       intervalCount = 0;

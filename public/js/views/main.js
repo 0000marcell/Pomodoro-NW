@@ -1,6 +1,6 @@
-App.IndexView = Ember.View.extend({
+App.MainView = Ember.View.extend({
   didInsertElement: function(){
-    this.controller.transitionToRoute('tasks');
+    console.log('mainView');
     clock = $('.clock').FlipClock({
       clockFace: 'MinuteCounter',
       autoStart: false,
