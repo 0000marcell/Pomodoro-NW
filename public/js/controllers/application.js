@@ -1,6 +1,6 @@
 App.ApplicationController = Ember.ObjectController.extend({
   actions: {
-    startClock: function() {
+    startClock() {
       if(currentSelected != -1){
         clockState.activate();
         pomodoroClock.start();
@@ -8,7 +8,7 @@ App.ApplicationController = Ember.ObjectController.extend({
         alert("first select a task in the list :D");
       }
     },
-    stopClock: function() {
+    stopClock() {
       pomodoroClock.stop();
     }
   }
