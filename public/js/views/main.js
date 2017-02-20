@@ -1,4 +1,5 @@
 App.MainView = Ember.View.extend({
+  templateName: 'main',
   didInsertElement: function(){
     console.log('mainView');
     clock = $('.clock').FlipClock({
