@@ -1,4 +1,25 @@
 <script type="text/x-handlebars">
-  {{outlet}}
+  <div class='container'>
+    <!-- Options -->
+    <div class='row options-row'>
+      <div class='one column'>
+        <i {{action "main"}} 
+          class="fa fa-chevron-left fa-2x"></i>
+      </div>
+      <div class='four columns u-pull-right'>
+        <ul class="options-list">
+          <li>
+            <i {{action "statistics"}}
+              class="fa fa-bar-chart fa-2x"></i>
+          </li>
+          <li>
+            <i {{action "config"}} 
+              class="fa fa-cog fa-2x"></i>
+          </li>
+        </ul>
+      </div>
+    </div>
+    {{outlet}}
+  </div>
 </script>
 

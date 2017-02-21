@@ -1,6 +1,17 @@
 App.MainController = Ember.ArrayController.extend({
   taskVisibility: true, 
   actions: {
+    startClock() {
+      if(currentSelected != -1){
+        clockState.activate();
+        pomodoroClock.start();
+      }else{
+        alert("first select a task in the list :D");
+      }
+    },
+    stopClock() {
+      pomodoroClock.stop();
+    },
     selectTask: function(id){
       pomodoroClock.stop();
       intervalCount = 0;

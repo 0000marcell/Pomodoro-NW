@@ -68,9 +68,9 @@ PomodoroStatistics.prototype.loadBarChart = function(){
 PomodoroStatistics.prototype.loadD3Calendar = function(){
   $('.graph').empty(); 
 
-  var width = 960,
-      height = 136,
-      cellSize = 17;
+  var width = 460,
+      height = 66,
+      cellSize = 8;
 
   var percent = d3.format(".1%"),
     format = d3.time.format("%d/%m/%Y");

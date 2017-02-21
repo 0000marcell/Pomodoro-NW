@@ -1,102 +1,79 @@
 <script type="text/x-handlebars" data-template-name="main">
-  <div class='container'>
-    <!-- Options -->
-    <div class='row options-row'>
-      <div class='one column'>
-        <i {{action "main"}} 
-          class="fa fa-chevron-left fa-2x"></i>
+  <!-- Add -->
+  <div class='row add-row'>
+    <div class='one column u-pull-right'>
+      <i {{action "new"}} 
+        class="fa fa-plus fa-2x"></i>
+    </div>
+  </div>
+
+  <!-- Tasks List -->
+  <div class='row scrollable'>
+    <div class='twelve columns'>
+      {{#each task in model}}
+        <div class='row'>
+          <div class='six columns'>
+            <p {{action "selectTask" task.id}}
+               class='task-name'>{{task.name}}</p>
+          </div>
+          <div class='six columns'>
+            <span>{{task.pomodoros.length}}</span>
+            <i {{action "edit" task}} 
+              class="fa fa-ellipsis-h fa-2x u-pull-right"></i>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+
+  <!-- Show/Hide -->
+  <div class='row'>
+    <div class="five columns">
+      <div id="task-name">
+        <h4>No Task Selected!</h4>
       </div>
-      <div class='four columns u-pull-right'>
+    </div>
+    <div class="three columns">
+      <div id="task-status">
+        <h4 class="clock-paused animated infinite flash">[Paused]</h4>
+      </div>
+    </div>
+    <div class='show-hide one column u-pull-right'>
+      <i {{action "showHideTasks"}} 
+         class="fa fa-arrow-up fa-2x u-pull-right"></i>
+    </div>
+  </div>
+
+  <!-- Clock -->
+  <div class='row'>
+    <div class="ten columns">
+      <div class='clock'>
+      </div>
+    </div>
+    <div class="two columns u-pull-right">
+      <div class="pomodoro-counter">
+        <p>Streak</p>
+        <h3 id='streak'>0</h3>
+      </div>
+    </div>
+  </div>
+
+  <!-- Clock Control -->
+  <div class='row'>
+    <div class="seven columns">
+      <div class='clock-controlls u-pull-right'>
         <ul class="options-list">
           <li>
-            <i {{action "statistics"}}
-              class="fa fa-bar-chart fa-2x"></i>
+           <i {{action 'startClock'}}
+            class="fa fa-play fa-2x"></i>
           </li>
           <li>
-            <i {{action "config"}} 
-              class="fa fa-cog fa-2x"></i>
+            <i {{action 'stopClock'}} 
+            class="fa fa-stop fa-2x"></i>
           </li>
         </ul>
       </div>
     </div>
-
-    <!-- Add -->
-    <div class='row add-row'>
-      <div class='one column u-pull-right'>
-        <i {{action "new"}} 
-          class="fa fa-plus fa-2x"></i>
-      </div>
-    </div>
-
-    <!-- Tasks List -->
-    <div class='row scrollable'>
-      <div class='twelve columns'>
-        {{#each task in model}}
-          <div class='row'>
-            <div class='six columns'>
-              <p {{action "selectTask" task.id}}
-                 class='task-name'>{{task.name}}</p>
-            </div>
-            <div class='six columns'>
-              <span>{{task.pomodoros.length}}</span>
-              <i {{action "edit" task}} 
-                class="fa fa-ellipsis-h fa-2x u-pull-right"></i>
-            </div>
-          </div>
-        {{/each}}
-      </div>
-    </div>
-
-    <!-- Show/Hide -->
-    <div class='row'>
-      <div class="five columns">
-        <div id="task-name">
-          <h4>No Task Selected!</h4>
-        </div>
-      </div>
-      <div class="three columns">
-        <div id="task-status">
-          <h4 class="clock-paused animated infinite flash">[Paused]</h4>
-        </div>
-      </div>
-      <div class='show-hide one column u-pull-right'>
-        <i {{action "showHideTasks"}} 
-           class="fa fa-arrow-up fa-2x u-pull-right"></i>
-      </div>
-    </div>
-
-    <!-- Clock -->
-    <div class='row'>
-      <div class="ten columns">
-        <div class='clock'>
-        </div>
-      </div>
-      <div class="two columns u-pull-right">
-        <div class="pomodoro-counter">
-          <p>Streak</p>
-          <h3 id='streak'>0</h3>
-        </div>
-      </div>
-    </div>
-
-    <!-- Clock Control -->
-    <div class='row'>
-      <div class="seven columns">
-        <div class='clock-controlls u-pull-right'>
-          <ul class="options-list">
-            <li>
-             <i {{action 'startClock'}}
-              class="fa fa-play fa-2x"></i>
-            </li>
-            <li>
-              <i {{action 'stopClock'}} 
-              class="fa fa-stop fa-2x"></i>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
   </div>
-    {{outlet}}
   <div class='message'></div>
 </script>

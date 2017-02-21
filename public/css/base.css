@@ -70,8 +70,8 @@ a {
 }
 
 .graph {
-  margin-left: -80px !important;
-  font: 10px sans-serif;
+  width: 450px;
+  margin-left: -35px;
   shape-rendering: crispEdges;
 }
 

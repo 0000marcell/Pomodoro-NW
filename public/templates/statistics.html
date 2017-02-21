@@ -1,95 +1,95 @@
 <script type='text/x-handlebars' data-template-name="statistics">
-  {{view App.TasksStatisticsView contextBinding="App.Task"}}
-  <div class='container'>
-    <div class="row">
-      <div class="four columns">
-        <h6>Today: {{todayTotal}}</h6>
-        <h6 class='today-tasks-title' >Week tasks:</h6>
-        <ul class='today-tasks-list'>
-          {{#each task in weekPomodoros}}
-            <li>{{task.name}}: {{task.time}}</li>
-          {{/each}}
-        </ul>
-      </div>
-      <div class="four columns">
-        <h6>This weak: {{weekTotal}}</h6>
-        <h6 class='today-tasks-title'>Today tasks:</h6>
-        <ul class='today-tasks-list'>
-          {{#each task in todayPomodoros}}
-            <li>{{task.name}}: {{task.time}}</li>
-          {{/each}}
-        </ul>
-      </div>
+  {{!-- 
+    {{view App.TasksStatisticsView contextBinding="App.Task"}}
+  --}}
+  <div class="row">
+    <div class="six columns">
+      <h6>Today: {{todayTotal}}</h6>
+      <h6 class='today-tasks-title' >Week tasks:</h6>
+      <ul class='today-tasks-list'>
+        {{#each task in weekPomodoros}}
+          <li>{{task.name}}: {{task.time}}</li>
+        {{/each}}
+      </ul>
     </div>
-    <div class="row">
-      <h6>Average: {{pomAverage}}</h6>
+    <div class="six columns">
+      <h6>This weak: {{weekTotal}}</h6>
+      <h6 class='today-tasks-title'>Today tasks:</h6>
+      <ul class='today-tasks-list'>
+        {{#each task in todayPomodoros}}
+          <li>{{task.name}}: {{task.time}}</li>
+        {{/each}}
+      </ul>
     </div>
-    <div class="row">
-      {{view Ember.Select
-          content=years
-          optionValuePath="content"
-          optionLabelPath="content"
-          selectionBinding=yearStart}}
-      {{view Ember.Select
-          content=months
-          optionValuePath="content.label"
-          optionLabelPath="content.value"
-          prompt="Start month"
-          selectionBinding=monthStart}}
-      {{view Ember.Select
-          content=years
-          optionValuePath="content"
-          optionLabelPath="content"
-          prompt="Year end"
-          selectionBinding=yearEnd}}
-      {{view Ember.Select
-          content=months
-          optionValuePath="content.label"
-          optionLabelPath="content.value"
-          prompt="Month end"
-          selectionBinding=monthEnd}}
-      {{view Ember.Select
-          content=tasksList
-          optionValuePath="content.id"
-          optionLabelPath="content.name"
-          prompt="Select a task"
-          selectionBinding=selectedTask}}
-       <!--
-        <button type="button" {{action "setPeriod" 7}}>Last Week</button> 
-        <button type="button" {{action "setPeriod" 30}}>Last Month</button> 
-        <button type="button" {{action "setPeriod" 365}}>Last Year</button> 
-      -->
-    </div>
-    <button type="button" {{action "calculateStatistics"}}>Show Statistics</button> 
-    <div class="row">
-      <div class="nine columns">
-        <div class="graph">
+  </div>
+  <div class="row">
+    <h6>Average: {{pomAverage}}</h6>
+  </div>
+  <div class="row">
+    {{view Ember.Select
+        content=years
+        optionValuePath="content"
+        optionLabelPath="content"
+        selectionBinding=yearStart}}
+    {{view Ember.Select
+        content=months
+        optionValuePath="content.label"
+        optionLabelPath="content.value"
+        prompt="Start month"
+        selectionBinding=monthStart}}
+    {{view Ember.Select
+        content=years
+        optionValuePath="content"
+        optionLabelPath="content"
+        prompt="Year end"
+        selectionBinding=yearEnd}}
+    {{view Ember.Select
+        content=months
+        optionValuePath="content.label"
+        optionLabelPath="content.value"
+        prompt="Month end"
+        selectionBinding=monthEnd}}
+    {{view Ember.Select
+        content=tasksList
+        optionValuePath="content.id"
+        optionLabelPath="content.name"
+        prompt="Select a task"
+        selectionBinding=selectedTask}}
+     <!--
+      <button type="button" {{action "setPeriod" 7}}>Last Week</button> 
+      <button type="button" {{action "setPeriod" 30}}>Last Month</button> 
+      <button type="button" {{action "setPeriod" 365}}>Last Year</button> 
+    -->
+  </div>
+  <button type="button" {{action "calculateStatistics"}}>Show Statistics</button> 
+  <div class="graph">
+  </div>
+  <div class="row">
+    <div class="twelve columns">
+      <div class="row">
+        <div class="three columns">
+          <div id="total-time-tasks">
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="three columns">
-        <div id="total-time-tasks">
-        </div>
-      </div>
-      <div class="nine columns">
-        <div class='jit-graphics'>
-          <div id="center-container">
-            <div id="infovis">
-            </div>
-            <div id='log'>
+        <div class="nine columns">
+          <div class='jit-graphics'>
+            <div id="center-container">
+              <div id="infovis">
+              </div>
+              <div id='log'>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="row">
-      <p>most productive month 2015: {{mpMonth2015.month}}   {{mpMonth2015.hours}}<p>
-      <p>most productive day 2015: {{mpDay2015.day}}   {{mpDay2015.hours}}</p>
-      <p>most productive month 2016: {{mpMonth2016.month}}   {{mpMonth2016.hours}}</p>
-      <p>most productive day 2016: {{mpDay2016.day}}   {{mpDay2016.hours}}</p>
-      <p> most productive month 2017: {{mpMonth2017.month}}   {{mpMonth2017.hours}}</p>
-      <p> most productive day 2017: {{mpDay2017.day}}   {{mpDay2017.hours}}</p>
-    </div>
-   </div>
+  </div>
+  <div class="row">
+    <p>most productive month 2015: {{mpMonth2015.month}}   {{mpMonth2015.hours}}<p>
+    <p>most productive day 2015: {{mpDay2015.day}}   {{mpDay2015.hours}}</p>
+    <p>most productive month 2016: {{mpMonth2016.month}}   {{mpMonth2016.hours}}</p>
+    <p>most productive day 2016: {{mpDay2016.day}}   {{mpDay2016.hours}}</p>
+    <p> most productive month 2017: {{mpMonth2017.month}}   {{mpMonth2017.hours}}</p>
+    <p> most productive day 2017: {{mpDay2017.day}}   {{mpDay2017.hours}}</p>
+  </div>
  </script>
