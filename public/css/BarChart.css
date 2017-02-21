@@ -1,8 +1,9 @@
 .jit-graphics {
-  padding: 10px;
+  margin-top: 10px;
+  margin-left: -15px;
+  padding-bottom: 10px;
   overflow: auto;
-  width: 600px;
-  border: 1px solid #c8c8c8;
+  width: 425px;
 }
 
 #right-container {

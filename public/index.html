@@ -181,33 +181,26 @@
   <button type="button" {{action "calculateStatistics"}}>Show Statistics</button> 
   <div class="graph">
   </div>
-  <div class="row">
-    <div class="twelve columns">
-      <div class="row">
-        <div class="three columns">
-          <div id="total-time-tasks">
-          </div>
-        </div>
-        <div class="nine columns">
-          <div class='jit-graphics'>
-            <div id="center-container">
-              <div id="infovis">
-              </div>
-              <div id='log'>
-              </div>
-            </div>
-          </div>
-        </div>
+  <div id="total-time-tasks">
+  </div>
+  <div class='jit-graphics'>
+    <div id="center-container">
+      <div id="infovis">
+      </div>
+      <div id='log'>
       </div>
     </div>
   </div>
   <div class="row">
-    <p>most productive month 2015: {{mpMonth2015.month}}   {{mpMonth2015.hours}}<p>
-    <p>most productive day 2015: {{mpDay2015.day}}   {{mpDay2015.hours}}</p>
-    <p>most productive month 2016: {{mpMonth2016.month}}   {{mpMonth2016.hours}}</p>
-    <p>most productive day 2016: {{mpDay2016.day}}   {{mpDay2016.hours}}</p>
-    <p> most productive month 2017: {{mpMonth2017.month}}   {{mpMonth2017.hours}}</p>
-    <p> most productive day 2017: {{mpDay2017.day}}   {{mpDay2017.hours}}</p>
+    <div class="twelve columns most-productive">
+      <b>Most Productive:</b>
+      <p>month(2015): {{mpMonth2015.month}}   {{mpMonth2015.hours}}<p>
+      <p>day(2015): {{mpDay2015.day}}   {{mpDay2015.hours}}</p>
+      <p>month(2016): {{mpMonth2016.month}}   {{mpMonth2016.hours}}</p>
+      <p>day(2016): {{mpDay2016.day}}   {{mpDay2016.hours}}</p>
+      <p>month(2017): {{mpMonth2017.month}}   {{mpMonth2017.hours}}</p>
+      <p>dat(2017): {{mpDay2017.day}}   {{mpDay2017.hours}}</p>
+    </div>
   </div>
  </script>
 <script type="text/x-handlebars" data-template-name="new">

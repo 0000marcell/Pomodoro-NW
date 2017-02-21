@@ -91,11 +91,15 @@ a {
 }
 
 #total-time-tasks{
-  margin-left: -50px;
-  overflow: auto;
-  height: 350px;
-  width: 200px;
-  border: 1px solid #c8c8c8;
+  overflow: scroll;
+  margin-left: -16px;
+  height: 120px;
+  width: 425px;
+  border: 1px solid #c8c8c8; 
+}
+
+#total-time-tasks p{
+  margin-bottom: 0rem;  
 }
 
 .RdYlGn .q0-5{fill:rgb(234, 234, 234)}
@@ -173,6 +177,7 @@ i:hover {
 }
 
 .container{
+  overflow-x: hidden;
   width: 90%;
   /* border: 1px solid red;*/
 }
@@ -206,4 +211,12 @@ i:hover {
 .task-name:hover {
   color: #33c3f0;
   cursor: pointer;
+}
+
+.most-productive {
+  padding-bottom: 20px;
+}
+
+.most-productive p {
+  margin-bottom: 0rem;
 }
