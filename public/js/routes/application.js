@@ -25,7 +25,6 @@ App.ApplicationRoute = Ember.Route.extend({
       win.width = width, win.height = height;  
     },
     main: function(){
-     appWindow.resize(615, 600);
      this.transitionTo('main');  
     },
     config: function(){
