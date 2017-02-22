@@ -1,34 +1,31 @@
 App.EditRoute = Ember.Route.extend({
-  model: function(params) {
+  model(params) {
     return this.store.find('task', params.task_id);
   },
-  deactivate: function() {
-    var model = this.modelFor('tasks.edit');
+  deactivate() {
+    let model = this.modelFor('tasks.edit');
     if (model && model.get('isDirty') && !model.get('isSaving')) {
       model.rollback();
     }
   },
   actions: {
     save(task) {
-      var _this = this;
-      task.validate().then(function() {
+      task.validate().then(() => {
         task.save();
         task.set('creation_date', 
                   new Date().getDateString());
         task.saveOnFile();
-        _this.transitionTo('main');
+        this.transitionTo('main');
       });
     },
-    cancel: function(task) {
+    cancel(task) {
       task.rollback();
       this.transitionTo('index');
     },
-    // Delete specified task.
-    delete: function(task) {
-      var _this = this;
-      task.destroyRecord().then(function(){
-       task.saveOnFile();
-       _this.transitionTo('index');
+    delete(task) {
+      task.destroyRecord().then(() => {
+        task.saveOnFile();
+        this.transitionTo('index');
       });
     }
   }

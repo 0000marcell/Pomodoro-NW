@@ -16,8 +16,6 @@ App.Task = DS.Model.extend(Ember.Validations.Mixin, {
       presence: true
     }
   },
-  durations: ['55:00','1:00', '50:00','45:00'
-               ,'40:00','35:00','30:00','25:00','20:00'],
   setTotalTime: function(){
     this.set('totalTime', this.calculateTotalTime());   
   },
@@ -29,43 +27,41 @@ App.Task = DS.Model.extend(Ember.Validations.Mixin, {
         min = totalTimeInMin % 60;
     return hours+'h'+min+'m'
   },
-  saveOnFile: function(){
+  saveOnFile(){
     this.generateJSON();
-    
   },
-  generateJSON: function(){
+  generateJSON(){
     var json = {tasks : []},
-    _this = this;
     i = 0;
-    this.store.find('task').then(function(tasks){
-      tasks.forEach(function(task){
-        _this.createPomodoroArrayIfUnd(task);
-        json.tasks.push(
-                   _this.createJsonString(task, i++));
+    this.store.find('task').then((tasks) => {
+      tasks.forEach((task) => {
+        this.createPomodoroArrayIfUnd(task);
+        json.tasks
+          .push(this.createJsonString(task, i++));
       });
-    }).then(function(){
+    }).then(() => {
       var content = JSON.stringify(json);
       jsonio.save(content);
       if(awsUseStorage){
-        _this.uploadToAWS(content);
+        this.uploadToAWS(content);
       }
     });
   },
-  uploadToAWS: function(content){
+  uploadToAWS(content){
     var params = {Key: 'data.json', Body: content};
-    bucket.upload(params, function (error, data) {
+    bucket.upload(params, (error, data) => {
       if(error){
         alert("File sync failed "+error);
       }
     });
   },
-  createPomodoroArrayIfUnd: function(task){
+  createPomodoroArrayIfUnd(task){
    if(task.get("pomodoros") == undefined){
     var pomodoroArray = []; 
     task.set('pomodoros', pomodoroArray);
    }
   },
-  createJsonString: function(task, index){
+  createJsonString(task, index){
     var tmp = {id: index,
         name: task.get("name"),
         creation_date: task.get('creation_date'),
@@ -74,11 +70,11 @@ App.Task = DS.Model.extend(Ember.Validations.Mixin, {
         pomodoros: task.get("pomodoros")};
     return tmp
   },
-  formatDates: function(){
+  formatDates(){
     this.set('formated_creation_date', this.formatDate('creation_date'));
     this.set('formated_last_active', this.formatDate('last_active'));
   },
-  formatDate: function(unformatedDate){
+  formatDate(unformatedDate){
     var arr = this.get(unformatedDate).split('|'),
         date = arr[0];
     return arr[0]+' '+arr[1]+'h'+arr[2]+'m';
