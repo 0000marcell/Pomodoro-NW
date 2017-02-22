@@ -204,30 +204,21 @@
   </div>
  </script>
 <script type="text/x-handlebars" data-template-name="new">
-  <div class="container">
-    <div class="row">
-      <div class="eleven columns">
-        <h6>New Task</h6>
-        {{#form-for controller id="form-task"}}
-          {{#input name}}
-            {{label-field name text="Task"}}
-            {{input-field name class="form-control" autofocus="false"}}
-            {{#if view.showError}}
-              {{error-field name}}
-            {{/if}}
-          {{/input}}
-          {{#input duration}}
-            {{label-field duration text="Duration"}}
-            {{input-field duration as='select'
-                collection="durations"
-                value="duration"
-                class="form-control"
-            }}
-          {{/input}}
-          <button type="submit" {{action "save" model}}>Save</button>
-          <button type="button" {{action "delete" model}}>Cancel</button>
-        {{/form-for}}
-      </div>
+  <div class="row edit-view">
+    <div class="twelve columns">
+      <h6>New Task</h6>
+      {{#form-for controller id="form-task"}}
+        {{#input name}}
+          {{label-field name text="Task"}}
+          {{input-field name class="form-control" autofocus="false"}}
+          {{#if view.showError}}
+            {{error-field name}}
+          {{/if}}
+        {{/input}}
+        <button type="submit" {{action "save" model}}>Save</button>
+        <button type="button" {{action "cancel" model}}>Cancel</button>
+        <button type="button" {{action "delete" model}}>Delete</button>
+      {{/form-for}}
     </div>
   </div>
 </script>
