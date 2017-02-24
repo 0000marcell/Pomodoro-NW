@@ -157,6 +157,10 @@ th:first-child, td:first-child {
   margin-left: 2rem;
 }
 
+.options-list{
+  margin-left: 12px;
+}
+
 ul{
   margin-bottom: 0;
 }
@@ -227,4 +231,8 @@ i:hover {
 
 .config-view{
   margin-top: 80px;
+}
+
+.options-row{
+  margin-bottom: 30px;
 }

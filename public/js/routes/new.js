@@ -1,19 +1,14 @@
 App.NewRoute = Ember.Route.extend({
   model: function() {
-    return this.store.createRecord('task'); 
-  },
-  deactivate: function() {
-    var model = this.modelFor('tasks.new');
-    if (model && model.get('isNew') && !model.get('isSaving')) {
-      model.destroyRecord();
-    }
+    return {name: null}; 
   },
   actions: {
-    save(task) {
-      if(!task.get('name')){
+    save(model) {
+      if(!model.name){
         console.log('the name of the task cant be blank');
         return;
       }
+      let task = this.store.createRecord('task', model);
       task.validate().then(() => {
         task.save();
         task.set('creation_date', 
@@ -22,15 +17,8 @@ App.NewRoute = Ember.Route.extend({
         this.transitionTo('main');
       });
     },
-    cancel(task) {
-      task.rollback();
+    cancel() {
       this.transitionTo('main');
-    },
-    delete(task) {
-      task.destroyRecord().then(() => {
-        task.saveOnFile();
-        this.transitionTo('main');
-      });
     }
   }
 });

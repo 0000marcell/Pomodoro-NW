@@ -2,6 +2,15 @@
   <div class="row edit-view">
     <div class="twelve columns">
       <h6>Edit Task</h6>
+      <label>Name</label>
+      {{input class="u-full-width"type="text" value=name}}
+      <div class="row">
+        <div class="twelve columns">
+          <button type="submit" {{action "save" model}}>Save</button>
+          <button type="button" {{action "delete" model}}>Delete</button>
+        </div>
+      </div>
+      {{!--
       {{#form-for controller id="form-task"}}
         {{#input name}}
           {{label-field name text="Task"}}
@@ -14,6 +23,7 @@
         <button type="button" {{action "cancel" model}}>Cancel</button>
         <button type="button" {{action "delete" model}}>Delete</button>
       {{/form-for}}
+      --}}
     </div>
   </div>
 </script>
