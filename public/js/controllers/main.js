@@ -34,8 +34,8 @@ App.MainController = Ember.ArrayController.extend({
       $('.scrollable').toggle('slow/400/fast');
       $('.options-row').toggle('slow/400/fast');
       $('.add-row').toggle('slow/400/fast');
-      var height = (this.taskVisibility) ? 235 : 650;
-      this.taskVisibility = (height == 650) ? true : false;
+      var height = (this.taskVisibility) ? 245 : 675;
+      this.taskVisibility = (height == 675) ? true : false;
       if(this.taskVisibility){
         $('.show-hide i')
           .removeClass('fa-arrow-down')
@@ -45,7 +45,7 @@ App.MainController = Ember.ArrayController.extend({
           .removeClass('fa-arrow-up')
           .addClass('fa-arrow-down')
       }
-      appWindow.resize(465, height);
+      appWindow.resize(500, height);
     }
   }
 });
