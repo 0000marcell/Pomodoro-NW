@@ -14,16 +14,16 @@ test("/", function() {
 
 test('Go back to the main page!', function() {
   visit('/');
-  click('#button-main');
+  click('#test-main-button');
   andThen(function() {
-    equal(currentRouteName(), 'tasks.index');
+    equal(currentRouteName(), 'main');
   });
 });
 
 // Config button 
 test('Go to the config page!', function() {
   visit('/');
-  click('#button-config');
+  click('#test-config-button');
   andThen(function() {
     equal(currentRouteName(), 'config');
   });
@@ -32,9 +32,9 @@ test('Go to the config page!', function() {
 //Statistics Button
 test('Go to the statistics page!', function() {
   visit('/');
-  click('#button-statistics');
+  click('#test-statistics-button');
   andThen(function() {
-    equal(currentRouteName(), 'tasks.statistics');
+    equal(currentRouteName(), 'statistics');
   });
 });
 
@@ -42,6 +42,6 @@ test('Go to the statistics page!', function() {
 test('Iteration through tasks', function(assert) {
   visit('/');
   andThen(function(){
-    assert.ok(find('tbody tr').length >= 1, "taks_index didn't load properly");
+    assert.ok(find('.scrollable .row').length > 1, "tasks table didn't load properly");
   }); 
 });
