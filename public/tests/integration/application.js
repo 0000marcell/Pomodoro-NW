@@ -37,11 +37,3 @@ test('Go to the statistics page!', function() {
     equal(currentRouteName(), 'statistics');
   });
 });
-
-// Tasks Table
-test('Iteration through tasks', function(assert) {
-  visit('/');
-  andThen(function(){
-    assert.ok(find('.scrollable .row').length > 1, "tasks table didn't load properly");
-  }); 
-});
