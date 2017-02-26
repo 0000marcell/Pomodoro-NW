@@ -6,7 +6,7 @@ App.MainController = Ember.ArrayController.extend({
         clockState.activate();
         pomodoroClock.start();
       }else{
-        alert("first select a task in the list :D");
+        $('#task-name h4')[0].innerText = "First select a task!";
       }
     },
     stopClock() {
