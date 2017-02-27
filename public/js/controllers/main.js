@@ -1,12 +1,14 @@
 App.MainController = Ember.ArrayController.extend({
+  selectedTaskMsg: 'No task selected!',
   taskVisibility: true, 
   actions: {
     startClock() {
-      if(currentSelected != -1){
+      if(this.get('selectedTask') && 
+        clockState.currentState !== 'active'){
         clockState.activate();
         pomodoroClock.start();
       }else{
-        $('#task-name h4')[0].innerText = "First select a task!";
+        this.set('selectedTaskMsg', 'First select a task!')
       }
     },
     stopClock() {
@@ -19,14 +21,12 @@ App.MainController = Ember.ArrayController.extend({
       restart = false;
       $('#streak').html(intervalCount);
       currentSelected = id;
-      var currentSelectedDuration;
-      var _this = this;
-      this.store.find('task', id).then(function(task){
-       currentSelectedDuration = task.get('duration');
+      this.store.find('task', id).then((task) => {
        task.set('last_active', new Date().getDateString());
-       pomodoroTime = parseInt(currentSelectedDuration) * 60;
+       pomodoroTime = parseInt(task.get('duration')) * 60;
        pomodoroClock.reset(pomodoroTime);
-       $('#task-name').html("<h4>"+task.get('name')+"</h4>");
+       this.set('selectedTask', task);
+       this.set('selectedTaskMsg', task.get('name'));
        clockState.pause();
       });
     },
@@ -46,6 +46,13 @@ App.MainController = Ember.ArrayController.extend({
           .addClass('fa-arrow-down')
       }
       appWindow.resize(500, height);
+    },
+    savePomodoro(){
+      task.get('pomodoros')
+        .pushObject({ "date": new Date().getDateString()});
+      task.save().then(() => {
+        task.saveOnFile();
+      });
     }
   }
 });
