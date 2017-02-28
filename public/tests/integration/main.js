@@ -26,3 +26,16 @@ test('Dont start the clock if no task is selected', function(assert){
     });
   });
 });
+
+test('start the clock if a task is selected', function(assert){
+  visit('/');
+  andThen(() => {
+    click($('.task-name').first());
+    andThen(() => {
+      click('#test-clock-start'); 
+      andThen(() => {
+        assert.equal($('#task-status').text().trim(), '[Active]');
+      });    
+    });
+  }); 
+});

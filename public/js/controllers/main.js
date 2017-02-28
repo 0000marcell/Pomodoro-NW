@@ -1,6 +1,38 @@
-App.MainController = Ember.ArrayController.extend({
+App.MainController = Ember.ObjectController.extend({
   selectedTaskMsg: 'No task selected!',
   taskVisibility: true, 
+  stopClock(){
+    if(pause == true){
+      clockState.pause();
+      return;
+    }
+    if(restart == true){
+      pomodoroClock.reset(pomodoroTime);
+      pomodoroClock.start();
+      clockState.reactivate();
+      restart = false;
+      return;
+    }
+    intervalCount++;
+    $('#streak').html(intervalCount);
+    clockState.interval();
+    ((intervalCount % 3) == 0) ? longInterval() : 
+    shortInterval();
+  },
+  longInterval(){
+    win.focus();
+    this.savePomodoro();
+    restart = true;
+    pomodoroClock.reset(longIntervalTime);
+    pomodoroClock.start();
+  },
+  shortInterval(){
+    win.focus();
+    this.savePomodoro();
+    restart = true;
+    pomodoroClock.reset(shortIntervalTime);
+    pomodoroClock.start();
+  },
   actions: {
     startClock() {
       if(this.get('selectedTask') && 
