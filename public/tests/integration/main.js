@@ -33,8 +33,34 @@ test('start the clock if a task is selected', function(assert){
     click($('.task-name').first());
     andThen(() => {
       click('#test-clock-start'); 
+      let time = $('.flip').text();
       andThen(() => {
         assert.equal($('#task-status').text().trim(), '[Active]');
+        assert.notEqual($('.flip').text(), time);
+      });    
+    });
+  }); 
+});
+
+test('can stop the clock after starting it', function(assert){
+  visit('/');
+  andThen(() => {
+    debugger;
+    clock.timer.on('start', () => {
+      alert('the clock started');
+    });
+    click($('.task-name').first());
+    andThen(() => {
+      click('#test-clock-start'); 
+      //let time = $('.flip').text();
+      andThen(() => {
+        assert.equal($('#task-status').text().trim(), '[Active]');
+        //assert.notEqual($('.flip').text(), time);
+        click('#test-clock-stop');
+        time = $('.flip').text();
+        andThen(() => {
+           assert.equal(time, $('.flip').text());
+        });
       });    
     });
   }); 
