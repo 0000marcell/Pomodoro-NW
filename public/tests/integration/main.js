@@ -27,40 +27,23 @@ test('Dont start the clock if no task is selected', function(assert){
   });
 });
 
-test('start the clock if a task is selected', function(assert){
+test('start/stop the clock if a task is selected', function(assert){
   visit('/');
   andThen(() => {
     click($('.task-name').first());
     andThen(() => {
       click('#test-clock-start'); 
-      let time = $('.flip').text();
       andThen(() => {
         assert.equal($('#task-status').text().trim(), '[Active]');
-        assert.notEqual($('.flip').text(), time);
-      });    
-    });
-  }); 
-});
-
-test('can stop the clock after starting it', function(assert){
-  visit('/');
-  andThen(() => {
-    debugger;
-    clock.timer.on('start', () => {
-      alert('the clock started');
-    });
-    click($('.task-name').first());
-    andThen(() => {
-      click('#test-clock-start'); 
-      //let time = $('.flip').text();
-      andThen(() => {
-        assert.equal($('#task-status').text().trim(), '[Active]');
-        //assert.notEqual($('.flip').text(), time);
-        click('#test-clock-stop');
-        time = $('.flip').text();
-        andThen(() => {
-           assert.equal(time, $('.flip').text());
-        });
+        Ember.run.later(this, () => {
+          assert.equal(1497, clock.time.time);
+          click('#test-clock-stop');
+          andThen(() => {
+            Ember.run.later(this, () => {
+              assert.equal(1497, clock.time.time);
+            }, 1000);
+          });
+        }, 1000);
       });    
     });
   }); 
