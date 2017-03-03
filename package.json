@@ -2,8 +2,8 @@
   "name": "grunt-webkit-test",
   "version": "0.1.0",
   "scripts": {
-    "build": "grunt; nw-sdk",
-    "test": "?"
+    "build": "node compile.js",
+    "test": "node compile.js test"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
