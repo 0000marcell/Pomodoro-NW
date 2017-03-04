@@ -445,7 +445,6 @@ PomodoroStatistics.prototype.mostProductiveDay = function(year){
       bigger = day;
     }
   }
-  debugger;
   if(bigger.length){
     return {day: bigger[0].toDateString(), hours: `${(bigger.length/2)} hours`};
   }else{
