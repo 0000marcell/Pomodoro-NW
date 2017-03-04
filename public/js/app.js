@@ -1,28 +1,37 @@
-var path = require('path');
-var os = require('os');
-var __homedir = os.homedir();
-var awsUseStorage = false;
-var pomodoroFilesPath = `${__homedir}/pomodoro-files`;
-var generalConfigPath = `${pomodoroFilesPath}/config.json`;
-var mainDataPath = `${pomodoroFilesPath}/data.json`;
-
+let path = require('path'),
+    os = require('os'),
+    __homedir = os.homedir(),
+    awsUseStorage = false,
+    devMode = true,
+    pomodoroFilesPath;
+// Dont forget to put devMod to false if you plan to compile 
+// for production
+if(devMode){
+  pomodoroFilesPath = './pomodoro-files';
+}else{
+  pomodoroFilesPath = `${__homedir}/pomodoro-files`;
+}
+let generalConfigPath = `${pomodoroFilesPath}/config.json`,
+    mainDataPath = `${pomodoroFilesPath}/data.json`;
 if(!fs.existsSync(pomodoroFilesPath)){
   try{
     fs.mkdirSync(pomodoroFilesPath);
   }catch(err){
-    alert(`error trying to create folder: ${err}`)
+    console.log(`error trying to create folder: ${err}`)
   }
-  var defaultConfig = {accessKeyId: null, 
+  let defaultConfig = {accessKeyId: null, 
       secretAccessKey: null, region: null, 
       mainDataPath: mainDataPath};
   fs.writeFileSync(generalConfigPath, 
       JSON.stringify(defaultConfig));
   fs.createReadStream('data.json').pipe(fs.createWriteStream(mainDataPath));
 }
+
+let config;
 try{
-  var config = JSON.parse(fs.readFileSync(generalConfigPath));
+  config = JSON.parse(fs.readFileSync(generalConfigPath));
 }catch(err){
-  alert(`error trying to read config file ${err}`);
+  console.log(`error trying to read config file ${err}`);
 }
 
 if (config.accessKeyId) {
@@ -33,10 +42,10 @@ if (config.accessKeyId) {
 
 if(awsUseStorage){
   AWS.config.update({accessKeyId: config.accessKeyId, secretAccessKey: config.secretAccessKey, region: config.region});
-  var bucket = new AWS.S3({params: {Bucket: 'pomodorog'}});
+  let bucket = new AWS.S3({params: {Bucket: 'pomodorog'}});
 }
 
-var appClock, intervalCount = 0,
+let appClock, intervalCount = 0,
     pomodoroTime = 25 * 60, restart = false,
     shortIntervalTime = 5 * 60, longIntervalTime = 10 * 60,
     pause = false, pomodoroClock,

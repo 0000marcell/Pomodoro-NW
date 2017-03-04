@@ -86,15 +86,17 @@ App.resetFixtures = function() {
   App.Task.FIXTURES = $.map(jsonio.read(), 
                     function(el) { return el; }); 
   var params = {Key: 'data.json'};
-  bucket.getObject(params, function(error, data) {
-    if (error) {
-      alert("File sync failed : "+error);
-    } else {
-      var attachment = data.Body.toString();
-      App.Task.FIXTURES = $.map(JSON.parse(attachment), 
-                    function(el) { return el; }); 
-    }
-  });
+  if(awsUseStorage){
+    bucket.getObject(params, function(error, data) {
+      if (error) {
+        alert("File sync failed : "+error);
+      } else {
+        var attachment = data.Body.toString();
+        App.Task.FIXTURES = $.map(JSON.parse(attachment), 
+                      function(el) { return el; }); 
+      }
+    });
+  }
 };
 
 App.resetFixtures();
