@@ -1,4 +1,4 @@
-App.Task = DS.Model.extend(Ember.Validations.Mixin, {
+App.Task = DS.Model.extend({
   name: DS.attr('string'),
   creation_date: DS.attr('string'),
   formated_creation_date: DS.attr('string'),
@@ -10,12 +10,6 @@ App.Task = DS.Model.extend(Ember.Validations.Mixin, {
   htmlID: function() {
     return 'task' + this.get('id');
   }.property('id'),
-
-  validations: {
-    name: {
-      presence: true
-    }
-  },
   setTotalTime: function(){
     this.set('totalTime', this.calculateTotalTime());   
   },
