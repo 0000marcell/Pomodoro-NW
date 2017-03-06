@@ -1,2 +1,38 @@
-remove jade 
+controllers:
+all the wiring between the model and the view goes in
+the controller
+controllers:
+application
+config
+edit
+main
+new
+statistics
+
+routes:
+all data is loaded in the routes, no actions reside on the route
+
+views:
+views are just used to call a function that loads something
+on the controller, using the didInsertElement rook
+
+model: has some functions related to the data, saving loading etc 
+
+the helper has some helper objects, some list transformations are made 
+using those 
+
+helpers:
+aws_helper.js, not used anywhere  
+bar-chart.js, part of the logic to build the bar chart 
+clock_helper.js, only used in tha main, i can remove this with some modifications
+clockState.js, put the blinking mensages based on the state of the clock
+move this logic to a controller or ember.object representing the clock
+date.js, just one function that transforms the date in to a string
+move
+JSONIO.js, responsible to read and write in the json file
+pomodoroclock.js, 
+
+
+
+
 
