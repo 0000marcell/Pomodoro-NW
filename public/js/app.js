@@ -50,7 +50,7 @@ let appClock, intervalCount = 0,
     shortIntervalTime = 5 * 60, longIntervalTime = 10 * 60,
     pause = false, pomodoroClock,
     jsonio = new JSONIO(), statistics = new PomodoroStatistics(), 
-    appWindow = new WindowFunctions(), clockState = new ClockState(),
+    appWindow = new WindowFunctions(), clock = App.Clock.create();,
     newTask;
 
 App = Ember.Application.create({

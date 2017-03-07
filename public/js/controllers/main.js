@@ -3,21 +3,21 @@ App.MainController = Ember.ObjectController.extend({
   taskVisibility: true, 
   stopClock(){
     if(pause == true){
-      clockState.pause();
+      clock.pause();
       return;
     }
     if(restart == true){
       pomodoroClock.reset(pomodoroTime);
       pomodoroClock.start();
-      clockState.reactivate();
+      clock.reactivate();
       restart = false;
       return;
     }
     intervalCount++;
     $('#streak').html(intervalCount);
-    clockState.interval();
-    ((intervalCount % 3) == 0) ? longInterval() : 
-    shortInterval();
+    clock.interval();
+    ((intervalCount % 3) == 0) ? this.longInterval() : 
+    this.shortInterval();
   },
   longInterval(){
     win.focus();
@@ -36,8 +36,8 @@ App.MainController = Ember.ObjectController.extend({
   actions: {
     startClock() {
       if(this.get('selectedTask') && 
-        clockState.currentState !== 'active'){
-        clockState.activate();
+        clock.get('currentState') !== 'active'){
+        clock.activate();
         pomodoroClock.start();
       }else{
         this.set('selectedTaskMsg', 'First select a task!')
@@ -59,7 +59,7 @@ App.MainController = Ember.ObjectController.extend({
        pomodoroClock.reset(pomodoroTime);
        this.set('selectedTask', task);
        this.set('selectedTaskMsg', task.get('name'));
-       clockState.pause();
+       clock.pause();
       });
     },
     showHideTasks: function(){
@@ -85,6 +85,9 @@ App.MainController = Ember.ObjectController.extend({
       task.save().then(() => {
         task.saveOnFile();
       });
+    },
+    edit(task) {
+      this.transitionTo('edit', task);
     }
   }
 });

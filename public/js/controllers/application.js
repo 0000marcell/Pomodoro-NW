@@ -3,9 +3,6 @@ App.ApplicationController = Ember.ObjectController.extend({
     new() {
       this.transitionTo('new');
     },
-    edit(task) {
-      this.transitionTo('edit', task);
-    },
     show(task){
       task.setTotalTime();
       task.formatDates();
