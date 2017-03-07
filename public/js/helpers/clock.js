@@ -1,6 +1,12 @@
 App.Clock = Ember.Object.extend({
-  currentState: null,
-  previousState: null,
+  initialize(){
+    clock.setCountdown(true);
+    clock.setTime(pomodoroTime);
+  },
+  stop(){
+    this.set('pause', true);
+    clock.stop();
+  },
   activate(){
     if(this.get('previousState') == 'interval'){
       this.interval();

@@ -35,7 +35,7 @@ App.Task = DS.Model.extend({
       });
     }).then(() => {
       var content = JSON.stringify(json);
-      jsonio.save(content);
+      fileIO.save(content);
       if(awsUseStorage){
         this.uploadToAWS(content);
       }
@@ -76,8 +76,8 @@ App.Task = DS.Model.extend({
 });
 
 App.resetFixtures = function() {
-  jsonio.setFile(mainDataPath);
-  App.Task.FIXTURES = $.map(jsonio.read(), 
+  fileIO.set('file', mainDataPath);
+  App.Task.FIXTURES = $.map(fileIO.read(), 
                     function(el) { return el; }); 
   var params = {Key: 'data.json'};
   if(awsUseStorage){
