@@ -7,8 +7,8 @@ App.MainController = Ember.ObjectController.extend({
       return;
     }
     if(restart == true){
-      pomodoroClock.reset(pomodoroTime);
-      pomodoroClock.start();
+      clock.reset(pomodoroTime);
+      clock.start();
       clock.reactivate();
       restart = false;
       return;
@@ -23,31 +23,31 @@ App.MainController = Ember.ObjectController.extend({
     win.focus();
     this.savePomodoro();
     restart = true;
-    pomodoroClock.reset(longIntervalTime);
-    pomodoroClock.start();
+    clock.reset(longIntervalTime);
+    clock.start();
   },
   shortInterval(){
     win.focus();
     this.savePomodoro();
     restart = true;
-    pomodoroClock.reset(shortIntervalTime);
-    pomodoroClock.start();
+    clock.reset(shortIntervalTime);
+    clock.start();
   },
   actions: {
     startClock() {
       if(this.get('selectedTask') && 
         clock.get('currentState') !== 'active'){
         clock.activate();
-        pomodoroClock.start();
+        clock.start();
       }else{
         this.set('selectedTaskMsg', 'First select a task!')
       }
     },
     stopClock() {
-      pomodoroClock.stop();
+      clock.stop();
     },
     selectTask: function(id){
-      pomodoroClock.stop();
+      clock.stop();
       intervalCount = 0;
       pause = false;
       restart = false;
@@ -56,7 +56,7 @@ App.MainController = Ember.ObjectController.extend({
       this.store.find('task', id).then((task) => {
        task.set('last_active', new Date().getDateString());
        pomodoroTime = parseInt(task.get('duration')) * 60;
-       pomodoroClock.reset(pomodoroTime);
+       clock.reset(pomodoroTime);
        this.set('selectedTask', task);
        this.set('selectedTaskMsg', task.get('name'));
        clock.pause();
