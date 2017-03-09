@@ -227,5 +227,299 @@ App.Statistics = Ember.Object.extend({
   includeTaskTime(){
     $('#total-time-tasks')
       .append(`<p>${taskName}: ${time}h</p>`)
+  },
+  /**
+   * filter tasks by id
+   * @method filterTasks 
+   * @param {String} taskId
+   * @param {Object} tasks
+   * @returns {obj} 
+  */
+  filterTasks(){
+    let result = [];
+    tasksId = tasksId || [];
+    if(!tasksId.length)
+      return this;
+    this.tasks.forEach((task) => {
+      if(tasksId.includes(task.get('id'))){
+        result.push(task);
+      }
+    });
+    this.filteredTasks = result;
+    return this;
+  },
+  /**
+   * Return all pomodoros on a given period in the format
+   * the creation_date and last_active are strings, pomodoros are
+   * date objects
+   * [{id: 'id', name: 'name', creation_date: 'creation_date', 
+   * last_active: 'last_active', duration: '25:00', pomodoros: []}];
+   * @method filterPomodoros
+   * @param {String} startDate (e.g: '27/12/2016')
+   * @param {String} endDate (e.g: '01/10/2017')
+   * @param {Array} tasks array of task objects
+   * @return {Array} array with the tasks and the filtered pomodoros
+  */
+  filterPomodoros(){
+    if(startDate){
+      startDate = new Date(transformDate(startDate));
+      endDate = new Date(transformDate(endDate));
+    }else{
+      startDate = new Date(transformDate(`01/01/${this.firstPomodoro().getFullYear()}`));
+      endDate = new Date();
+    }
+    let result = [];
+    this.filteredTasks.forEach((task) => {
+      result.push(this.getPomodorosDateRange(startDate, endDate, task));
+    }); 
+    this.filteredTasks = result;
+    return this;
+  },
+  /**
+   * @method mostProductiveMonth 
+   * @param {Object} tasks
+   * @param {String} year
+   * @returns {Object} 
+   * {month: 'January', hours: '216 hours'}
+  */
+  mostProductiveMonth(year){
+    var pomodoros = this.resetFilter()
+                      .filterPomodoros(`01/01/${year}`, `31/12/${year}`)
+                      .flatPomodoros(),
+      monthsPomodoros = [],
+      months = ['January', 'February', 'March', 'April', 'May', 'June', 
+        'July', 'August', 'September', 'October', 'November', 'December'];
+    for (var i = 1; i <= 12; i++) {
+      var start = new Date(year, i-1, 1);
+      var end = new Date(year, i, 0); // last day of the month
+      var result = [];
+      for(var pomodoro of pomodoros){
+        if(pomodoro >= start && pomodoro <= end){
+          result.push(pomodoro);
+        }
+      }
+      monthsPomodoros.push(result);
+    }
+    var bigger = [], biggerIndex = 0, i = 0;
+    for(var month of monthsPomodoros){
+      if(month.length > bigger.length){
+        bigger = month;
+        biggerIndex = i;
+      }
+      i++;
+    }
+    return {month: months[biggerIndex], hours: `${(bigger.length/2)} hours`};
+  },
+
+  /**
+   * @method MostProductiveDay
+   * @param {Object} tasks
+   * @param {String} year
+   * @returns {Object} 
+   * Returns the most productive day in the format
+   * {day: DateObject, hours: "12 hours"}
+  */
+  mostProductiveDay(year){
+    let pomodoros = this.resetFilter()
+                      .filterPomodoros(`01/01/${year}`, `31/12/${year}`)
+                      .flatPomodoros();
+      days = [],
+      startDate = new Date(transformDate(`01/01/${year}`))
+      endDate = new Date(transformDate(`31/12/${year}`)),
+      result = [];
+    for (var iDate = new Date(startDate); iDate < endDate; iDate.setDate(iDate.getDate() + 1)) {
+      result = [];
+      for(var pomodoro of pomodoros){
+        if(pomodoro.getTime() === iDate.getTime()){
+          result.push(pomodoro);
+        }
+      }
+      days.push(result);
+    }
+    var bigger = [];
+    for(var day of days){
+      if(day.length > bigger.length){
+        bigger = day;
+      }
+    }
+    if(bigger.length){
+      return {day: bigger[0].toDateString(), hours: `${(bigger.length/2)} hours`};
+    }else{
+      return {day: null, hours: null};
+    }
+  },
+
+  /**
+   * get the date first pomodoro ever made on the filteredTasks
+   * @method firstPomodoro
+   * @returns {Object} date
+   * get the first pomodoro
+  */
+  firstPomodoro(){
+    let firstPomodoro = new Date(), 
+      pomodoros, date;
+    this.filteredTasks.forEach(function(task){
+      pomodoros = (task['get']) ? task.get('pomodoros') : 
+                                                 task.pomodoros;
+      for(let pomodoro of pomodoros){
+        date = (task['get']) ? new Date(transformDate(pomodoro.date.split('|')[0])) :
+                               pomodoro;
+        firstPomodoro = (date < firstPomodoro) ? date : firstPomodoro; 
+      }
+    });
+    return firstPomodoro;
+  },
+
+  /**
+  * get the last pomodoro made on the filteredTasks
+  * @method lastPomodoro
+  * @return {Object} returns the last pomodoro ever made
+  */
+  lastPomodoro(){
+    let lastPomodoro = new Date(1900, 2, 2), 
+      pomodoros, date;
+    this.filteredTasks.forEach(function(task){
+      pomodoros = (task['get']) ? task.get('pomodoros') : 
+                                                 task.pomodoros;
+      for(let pomodoro of pomodoros){
+        date = (task['get']) ? new Date(transformDate(pomodoro.date.split('|')[0])) :
+                               pomodoro;
+        lastPomodoro = (date > lastPomodoro) ? date : lastPomodoro; 
+      }
+    });
+    return lastPomodoro;
+  },
+
+  /**
+   * gets the last day of the month
+   * @method lastDayMonth 
+   * @param {String} month
+   * @param {String} year
+   */
+  lastDayMonth(){
+    return new Date(year, month, 0).getDate().toString();
+  },
+
+  /**
+   * Get all pomodoros from a task in a specific date range
+   * @method getPomodorosDateRange
+   * @param {Date Object} startDate
+   * @param {Date Object} endDate
+   * @param {Task Object} task
+   * @return {Task Object} returns a task object with only the pomodoros on the range, 
+   * the pomodoro dates are also converted to js date objects
+  */
+  getPomodorosDateRange(startDate, endDate, task){
+    let pomodoroDate;
+    let resultTask = {id: task.get('id'), 
+      name: task.get('name'),
+      creation_date: task.get('creation_date'), 
+      last_active: task.get('last_active'),
+      duration: "25:00",
+      pomodoros: []};
+    task.get('pomodoros').forEach((pomodoro, index) => {
+      pomodoroDate = pomodoro.date.split('|')[0];
+      pomodoroDate = new Date(transformDate(pomodoroDate));
+      if(pomodoroDate >= startDate && pomodoroDate <= endDate){
+        resultTask.pomodoros.push(pomodoroDate);
+      }  
+    });
+    return resultTask; 
+  },
+
+  /**
+   * returns a rray with only the pomodoros of the tasks
+   * @method flatPomodoros
+   * @param {array} tasks, array os tasks with object dates as pomodoros
+   * @returns {array} return array of pomodoros of all the tasks
+   */
+  flatPomodoros(){
+    let result = [];
+    for(let __task of this.filteredTasks){
+      result = result.concat(__task.pomodoros); 
+    }
+    return result;  
+  },
+
+  /**
+  * Calculate the width of the bar chart canvas
+  * @method calculateCanvasSize
+  */
+  calculateCanvasSize(){
+    let graphicSizeH = this.jsonStatistics.values.length * 86;
+    $('#infovis').css('width', graphicSizeH);
+    $('#center-container').css('width', graphicSizeH);
+    return this;
+  },
+
+  /**
+   * reset the filteredTasks property
+   * @method resetFilter
+  */
+  resetFilter(){
+    this.filteredTasks = this.tasks;
+    return this;
+  },
+
+  /**
+   * returns a array of all the pomodoros done today
+   * @method todayPomodoros
+   * return {Array} array with the name of all the tasks and the amount of time
+   * [{taskName: 'pomodoro-nw', time: 6}]
+   */
+  todayPomodoros(){
+    let date = transformDateToString(new Date());
+    this.filterPomodoros(date, date);
+    let result = [], time = 0, total = 0;
+    this.filteredTasks.forEach((task) => {
+      if(task.pomodoros.length){
+        time = task.pomodoros.length * 30/60;
+        total += time;
+        result.pushObject({name: task.name, time: time})
+      }
+    });
+    result.pushObject({name: 'total', time: total});
+    return result;
+  },
+
+  /**
+  * return the hours worked this week
+  * @method weekPomodoroH
+  * @return {String} total hours of the week so far
+  */
+  weekPomodoroH(){
+    this.filterPomodoros(transformDateToString(getMonday()), 
+                       transformDateToString(getSunday()));
+    let result = [], time = 0, total = 0;
+    this.filteredTasks.forEach((task) => {
+      if(task.pomodoros.length){
+        time = task.pomodoros.length * 30/60;
+        total += time;
+        result.pushObject({name: task.name, time: time})
+      }
+    });
+    result.pushObject({name: 'total', time: total});
+    return result;
+  },
+  /**
+   * return the average of pomodoros a day
+  * @method pomAverage
+  * @return {String} total hours of the week so far
+  */
+  pomAverage(){
+    // amount of days between two dates
+    let result = 0, time = 0, total = 0, n = 0;
+    this.filteredTasks.forEach((task) => {
+      if(task.pomodoros.length){
+        time = task.pomodoros.length * 30/60;
+        total += time;
+      }
+    });
+    let oneDay = 24*60*60*1000,
+        firstDate = this.firstPomodoro(),
+        secondDate = this.lastPomodoro(),
+        diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
+    result = Math.round(total/diffDays);
+    return result;
   }
 });
