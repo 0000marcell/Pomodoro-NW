@@ -54,7 +54,7 @@ App.MainController = Ember.ObjectController.extend({
       $('#streak').html(intervalCount);
       currentSelected = id;
       this.store.find('task', id).then((task) => {
-       task.set('last_active', new Date().getDateString());
+       task.set('last_active', utils.getDateString( new Date());
        pomodoroTime = parseInt(task.get('duration')) * 60;
        clock.reset(pomodoroTime);
        this.set('selectedTask', task);
@@ -81,7 +81,7 @@ App.MainController = Ember.ObjectController.extend({
     },
     savePomodoro(){
       task.get('pomodoros')
-        .pushObject({ "date": new Date().getDateString()});
+        .pushObject({ "date": utils.getDateString(new Date())});
       task.save().then(() => {
         task.saveOnFile();
       });

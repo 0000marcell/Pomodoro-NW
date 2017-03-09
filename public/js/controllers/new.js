@@ -8,7 +8,7 @@ App.NewController = Ember.ObjectController.extend({
       let task = this.store.createRecord('task', model);
       task.save();
       task.set('creation_date', 
-                new Date().getDateString());
+                utils.getDateString(new Date()));
       task.saveOnFile(task);
       this.transitionTo('main');
     },
