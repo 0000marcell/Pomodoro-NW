@@ -523,3 +523,5 @@ App.Statistics = Ember.Object.extend({
     return result;
   }
 });
+
+const statistics = App.Statistics.create();

@@ -1,22 +1,17 @@
 <html><head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Pomodoro-NW</title>
+    <title>Pomodoro-NW Tests</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/app.css">
   </head>
   <body>
-    <!-- <script src="../node_modules/nw-dev/lib/dev.js"></script> -->
+    <!-- <script src="node_modules/nw-dev/lib/dev.js"></script> -->
     <!-- Libs-->
     <script src="js/libs/jquery-1.10.2.js"></script>
-    <script src="js/helpers/date.js"></script>
-    <script src="js/helpers/JSONIO.js"></script>
-    <script src="js/helpers/pomodoroStatistics.js"></script>
-    <script src="js/helpers/windowFunctions.js"></script>
     <script src="js/libs/d3.min.js"></script>
     <script src="js/libs/jit.js"></script>
-    <script src="js/helpers/bar-chart.js"></script>
     <script src="js/libs/flipclock.js"></script>
     <script src="js/libs/handlebars-1.1.2.js"></script>
     <script src="js/libs/ember-1.7.0.js"></script>
@@ -24,11 +19,11 @@
     <!-- script(src='js/helpers/format-currency.js')-->
     <script src="js/libs/aws-sdk.min.js"></script>
     <!-- Helpers-->
-    <script src="js/helpers/clock_helper.js"></script>
-    <script src="js/helpers/aws_helper.js"></script>
-    <script src="js/helpers/clockState.js"></script>
-    <script src="js/helpers/pomodoroclock.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/helpers/bar-chart.js"></script>
+    <script src="js/helpers/clock.js"></script>
+    <script src="js/helpers/utils.js"></script>
+    <script src="js/helpers/file-io.js"></script>
     <!--Views-->
     <script src="js/views/main.js"></script>
     <script src="js/views/statistics.js"></script>
@@ -50,6 +45,19 @@
     <script src="js/controllers/config.js"></script>
     <script src="js/controllers/new.js"></script>
     <script src="js/controllers/edit.js"></script>
+    <!-- Tests -->
+    <script src="js/libs/qunit-1.12.0.js"></script>
+    <script src="tests/ember-qunit.js"></script>
+    <script src="tests/tests.js"></script>
+    <script src="tests/runner.js"></script>
+    <!-- Integration tests
+    <script src="tests/integration/application.js"></script>
+    <script src="tests/integration/main.js"></script>
+    <script src="tests/integration/config.js"></script>
+    <script src="tests/integration/statistics.js"></script>
+    -->
+    <!-- Unit -->
+    <script src="tests/unit/model/statistics.js"></script>
     <div id="ember-app"><script type="text/x-handlebars">
   <div class='container'>
     <!-- Options -->
@@ -300,7 +308,9 @@
   </div>
  </script>
 </div>
-  
+    <div id="pomodoroG-tests"></div>
+    <div id="ember-testing"></div>  
+    <p id="load-test">testing</p>
   
 
 

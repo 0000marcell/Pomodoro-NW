@@ -1,9 +1,14 @@
 let path = require('path'),
+    fs = require('fs'),
     os = require('os'),
     __homedir = os.homedir(),
     awsUseStorage = false,
     devMode = true,
     pomodoroFilesPath;
+
+
+const gui = require('nw.gui'),
+      win = gui.Window.get();
 // Dont forget to put devMod to false if you plan to compile 
 // for production
 if(devMode){
@@ -45,17 +50,14 @@ if(awsUseStorage){
   let bucket = new AWS.S3({params: {Bucket: 'pomodorog'}});
 }
 
-let appClock, intervalCount = 0,
-    pomodoroTime = 25 * 60, restart = false,
-    shortIntervalTime = 5 * 60, longIntervalTime = 10 * 60,
-    pause = false,
-    fileIO = App.FileIO.create(), statistics = new PomodoroStatistics(), 
-    appWindow = new WindowFunctions(), clock = App.Clock.create();,
-    newTask;
-
 App = Ember.Application.create({
   LOG_TRANSITIONS: true
 });
+
+let intervalCount = 0,
+    pomodoroTime = 25 * 60, restart = false,
+    shortIntervalTime = 5 * 60, longIntervalTime = 10 * 60,
+    pause = false;
 
 App.ApplicationAdapter = DS.FixtureAdapter.extend({
   namespace: 'Pomodoro-Grunt-Node'

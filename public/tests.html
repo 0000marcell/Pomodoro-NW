@@ -10,13 +10,8 @@
     <!-- <script src="node_modules/nw-dev/lib/dev.js"></script> -->
     <!-- Libs-->
     <script src="js/libs/jquery-1.10.2.js"></script>
-    <script src="js/helpers/utils.js"></script>
-    <script src="js/helpers/file-io.js"></script>
-    <script src="js/helpers/pomodoroStatistics.js"></script>
-    <script src="js/helpers/windowFunctions.js"></script>
     <script src="js/libs/d3.min.js"></script>
     <script src="js/libs/jit.js"></script>
-    <script src="js/helpers/bar-chart.js"></script>
     <script src="js/libs/flipclock.js"></script>
     <script src="js/libs/handlebars-1.1.2.js"></script>
     <script src="js/libs/ember-1.7.0.js"></script>
@@ -24,8 +19,11 @@
     <!-- script(src='js/helpers/format-currency.js')-->
     <script src="js/libs/aws-sdk.min.js"></script>
     <!-- Helpers-->
-    <script src="js/helpers/clock.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/helpers/bar-chart.js"></script>
+    <script src="js/helpers/clock.js"></script>
+    <script src="js/helpers/utils.js"></script>
+    <script src="js/helpers/file-io.js"></script>
     <!--Views-->
     <script src="js/views/main.js"></script>
     <script src="js/views/statistics.js"></script>
@@ -52,10 +50,14 @@
     <script src="tests/ember-qunit.js"></script>
     <script src="tests/tests.js"></script>
     <script src="tests/runner.js"></script>
+    <!-- Integration tests
     <script src="tests/integration/application.js"></script>
     <script src="tests/integration/main.js"></script>
     <script src="tests/integration/config.js"></script>
     <script src="tests/integration/statistics.js"></script>
+    -->
+    <!-- Unit -->
+    <script src="tests/unit/model/statistics.js"></script>
     <div id="ember-app"><script type="text/x-handlebars">
   <div class='container'>
     <!-- Options -->

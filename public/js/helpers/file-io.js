@@ -1,5 +1,3 @@
-var fs = require("fs");
-
 App.FileIO = Ember.Object.extend({
   read(){
     let content;
@@ -26,3 +24,5 @@ App.FileIO = Ember.Object.extend({
     alert('file was copy!');	
   }
 });
+
+const fileIO = App.FileIO.create();

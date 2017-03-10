@@ -41,3 +41,5 @@ App.Utils = Ember.ObjectController.extend({
             date.getFullYear()].join('/');
   }
 });
+
+const utils = App.Utils.create();

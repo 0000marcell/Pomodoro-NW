@@ -54,7 +54,7 @@ App.MainController = Ember.ObjectController.extend({
       $('#streak').html(intervalCount);
       currentSelected = id;
       this.store.find('task', id).then((task) => {
-       task.set('last_active', utils.getDateString( new Date());
+       task.set('last_active', utils.getDateString( new Date()));
        pomodoroTime = parseInt(task.get('duration')) * 60;
        clock.reset(pomodoroTime);
        this.set('selectedTask', task);
@@ -77,7 +77,8 @@ App.MainController = Ember.ObjectController.extend({
           .removeClass('fa-arrow-up')
           .addClass('fa-arrow-down')
       }
-      appWindow.resize(500, height);
+      win.width = 500;
+      win.height = height;
     },
     savePomodoro(){
       task.get('pomodoros')

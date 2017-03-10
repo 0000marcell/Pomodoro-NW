@@ -36,3 +36,5 @@ App.Clock = Ember.Object.extend({
     this.set('currentState', 'interval');
   }
 });
+
+const clock = App.Clock.create();
