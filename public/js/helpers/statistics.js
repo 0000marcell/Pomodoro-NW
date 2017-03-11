@@ -37,7 +37,7 @@ App.Statistics = Ember.Object.extend({
    * @method init
    * @param {Object} tasks
   */
-  initialize(){
+  init(tasks){
     this.filteredTasks = tasks;
     this.tasks = tasks;
     return this;
@@ -63,6 +63,7 @@ App.Statistics = Ember.Object.extend({
    * @method loadD3Calendar
    * @param {object} tasks
    */
+  /*
   loadD3Calendar(){
     $('.graph').empty(); 
 
@@ -120,7 +121,7 @@ App.Statistics = Ember.Object.extend({
                              this.D3includeDate();
       }
     });
-
+    
     d3.json("data.json", (error, json) => {
       json = this.D3datesJSON;
       if (error) throw error;
@@ -132,13 +133,14 @@ App.Statistics = Ember.Object.extend({
         .map(json);
       rect.filter(function(d) { return d in data; })
         .attr("class", function(d) {  
-                                      return "day " + color(data[d]); })
+                        return "day " + color(data[d]); })
         .select("title")
         .text(function(d) { return d + ": " + percent(data[d]); });
       rect.on('click', function(d){ 
 									      alert(data[d]);
 										 });
   },
+  */
   /**
    * ?
    * @method D3includeDate
