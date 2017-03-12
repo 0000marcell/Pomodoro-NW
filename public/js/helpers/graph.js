@@ -97,6 +97,22 @@ App.Graph = Ember.Object.extend({
 										 });
   },
   */
+  /**
+   * ?
+   * @method D3includeDate
+   */
+  D3includeDate(){
+    var found = 0;
+    for (var i = 0; i < this.D3datesJSON.length; i++) {
+      if(this.D3JSON.Date == this.D3datesJSON[i].Date){
+        this.D3datesJSON[i].Pomodoros++;
+        found = 1;
+        break;
+      } 
+    }
+    if(!found)
+      this.D3datesJSON.push(this.D3JSON);
+  },
 });
 
 const graph = App.Graph.create();

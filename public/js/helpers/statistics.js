@@ -11,7 +11,6 @@
   methods:
   init sets this.tasks object
   loadStatistics, empties #total-time-tasks, runs createJsonStatistics
-  loadD3Calendar, creates the d3 calendar
   D3includeDate, ?
   createJsonStatistics, loop throught every tasks calculating 
                         the jsonStatistics to be show on the jit graphic
@@ -42,29 +41,10 @@ App.Statistics = Ember.Object.extend({
     this.tasks = tasks;
     return this;
   },
-
   
-  /**
-   * ?
-   * @method D3includeDate
-   */
-  D3includeDate(){
-    var found = 0;
-    for (var i = 0; i < this.D3datesJSON.length; i++) {
-      if(this.D3JSON.Date == this.D3datesJSON[i].Date){
-        this.D3datesJSON[i].Pomodoros++;
-        found = 1;
-        break;
-      } 
-    }
-    if(!found)
-      this.D3datesJSON.push(this.D3JSON);
-  },
-
   /**
    Loop through every task calculating all the statistics
    @method createJsonStatistics
-   @param tasks
   */
   createJsonStatistics(){
     this.jsonStatistics = this.filteredTasks.reduce((obj, task) => {
@@ -92,7 +72,7 @@ App.Statistics = Ember.Object.extend({
    * @return {Number} total time 
   */
   calculateTaskTotalTime(tasks){
-    return Math.floor((tasks.pomodoros.length * 30)/ 60);
+    return Math.floor((tasks.get('pomodoros').length * 30)/ 60);
   },
 
   /**
@@ -129,7 +109,7 @@ App.Statistics = Ember.Object.extend({
    * @param {String} time, total time of the task 
    * @param {String} name, name of the task
   */
-  includeTaskTime(){
+  includeTaskTime(taskName, time){
     $('#total-time-tasks')
       .append(`<p>${taskName}: ${time}h</p>`)
   },
