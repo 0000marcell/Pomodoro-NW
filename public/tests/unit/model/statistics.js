@@ -25,3 +25,10 @@ test('return the total time spend in a task', function(assert){
       result = statistics.calculateTaskTotalTime(tasks[0]);
   assert.equal(result, 5);
 });
+
+test('include task time', function(assert){
+  statistics.includeTaskTime('task 01', '5 h'); 
+  statistics.includeTaskTime('task 02', '15 h');
+  assert.equal(statistics.tasksTotalTime[0].taskName, 'task 01');
+  assert.equal(statistics.tasksTotalTime[1].taskName, 'task 02');
+});

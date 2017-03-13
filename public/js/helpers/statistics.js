@@ -39,6 +39,7 @@ App.Statistics = Ember.Object.extend({
   init(tasks){
     this.filteredTasks = tasks;
     this.tasks = tasks;
+    this.tasksTotalTime = [];
     return this;
   },
   
@@ -110,8 +111,11 @@ App.Statistics = Ember.Object.extend({
    * @param {String} name, name of the task
   */
   includeTaskTime(taskName, time){
+    this.tasksTotalTime.push({taskName: taskName, totalTime: time});
+    /*
     $('#total-time-tasks')
       .append(`<p>${taskName}: ${time}h</p>`)
+    */
   },
   /**
    * filter tasks by id
