@@ -8,6 +8,7 @@ let param = process.argv[2],
     outFile = `${baseDir}/index.html`
 
 let nwConfig = JSON.parse(fs.readFileSync('./public/package.json'));
+
 if(param =='test'){
   baseFile = `${baseDir}/tests.html`
   nwConfig.window.width = 1200, nwConfig.window.height = 650;
