@@ -47,18 +47,18 @@ App.Statistics = Ember.Object.extend({
    Loop through every task calculating all the statistics
    @method createJsonStatistics
   */
-  createJsonStatistics(){
-    this.jsonStatistics = this.filteredTasks.reduce((obj, task) => {
-      if(!task.pomodoros.length)
+  createJsonStatistics(tasks){
+    let jsonStatistics = tasks.reduce((obj, task) => {
+      if(!task.get('pomodoros').length)
         return obj;
       let totalTime = this.calculateTaskTotalTime(task);
-      obj.label.push(task.name);
+      obj.label.push(task.get('name'));
       obj.values
-        .push({ label: task.name, values: [totalTime] });
-      this.includeTaskTime(totalTime, task.name);
+        .push({ label: task.get('name'), values: [totalTime] });
+      this.includeTaskTime(totalTime, task.get('name'));
       return obj;
     }, { label: [], values: [] });
-    return this;
+    return jsonStatistics;
     let tasksTotalTime = this.jsonStatistics.values.reduce((prev, next) => {
       return prev + next.values[0];
     }, 0);
