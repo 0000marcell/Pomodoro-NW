@@ -71,31 +71,24 @@ App.Statistics = Ember.Object.extend({
   },
 
   /**
+   *
    * Go through each task on the jsonStatistics object
    * and calculate the percentage
    * pushes the result to jsonStatistics.values array
    * @method calculateTasksPercentage
    */
-  calculateTasksPercentage(){
-    let totalTime = this.jsonStatistics.values.reduce((prev, next) => {
+  calculateTasksPercentage(jsonStatistics){
+    let totalTime = jsonStatistics.values.reduce((prev, next) => {
       return prev + next.values[0];
     }, 0);
     this.includeTaskTime(totalTime, 'Total');
-    this.jsonStatistics.values = this.jsonStatistics.values.reduce((arr, item) => {
+    jsonStatistics.values = jsonStatistics.values.reduce((arr, item) => {
       let taskTotalTime = item.values[0],
           percentage = Math.floor(100/(totalTime/taskTotalTime));
       arr.push({label: item.label, values: [percentage]});
       return arr;
     }, []);  
-    return this;
-  },
-  /**
-   * create the taskobject used 
-   * @method createTaskObj
-   */
-  createTaskObj(){
-    this.jsonStatistics.label.push(this.task.get("name"));
-    this.taskObj = { 'label': this.task.get("name"), 'values':[]};
+    return jsonStatistics;
   },
 
   /**
@@ -112,24 +105,19 @@ App.Statistics = Ember.Object.extend({
     */
   },
   /**
-   * filter tasks by id
+   * filter tasks by id using a array
    * @method filterTasks 
-   * @param {String} taskId
-   * @param {Object} tasks
+   * @param {objcest task} tasks
+   * @param {Array} array of ids
    * @returns {obj} 
   */
-  filterTasks(){
+  filterTasks(tasks, arr){
     let result = [];
-    tasksId = tasksId || [];
-    if(!tasksId.length)
-      return this;
-    this.tasks.forEach((task) => {
-      if(tasksId.includes(task.get('id'))){
-        result.push(task);
-      }
-    });
-    this.filteredTasks = result;
-    return this;
+    for(let val of arr){
+      result.push(tasks
+          .filterBy('id', val));
+    }
+    return result;
   },
   /**
    * Return all pomodoros on a given period in the format
