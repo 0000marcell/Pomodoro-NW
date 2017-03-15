@@ -1,5 +1,10 @@
 moduleForModel('task', 'Task Model');
 
+App.TaskObject = Ember.Object.extend({
+  name: null,
+  pomodoros: []
+});
+
 function createTasks(_this, taskN, pomN){
   pomN = pomN + 1 || 11;
   taskN = taskN || 10;
@@ -10,11 +15,9 @@ function createTasks(_this, taskN, pomN){
     pomodoros.push({date: `0${i}/12/2016|21|9|38`}); 
   }
   for (let i = 0; i < taskN; i++) {
-    console.log(`looping ${i}`);
-    arr.push(_this.subject({ name: `Task ${i}`, 
+    arr.push(App.TaskObject.create({ name: `Task ${i}`, 
       pomodoros: pomodoros})); 
   }
-  debugger;
   return arr;
 }
 
@@ -42,15 +45,15 @@ test('include task time', function(assert){
 
 test('create json statistics for the jit graph', function(assert){
   let json = {  
-        'label': ['Task 1', 'Task 2'],  
+        'label': ['Task 0', 'Task 1'],  
         'values': [
           {  
-            'label': 'Task 1',  
-            'values': [50]  
+            'label': 'Task 0',  
+            'values': [5]  
           },   
           {  
-            'label': 'Task 2',  
-            'values': [50]  
+            'label': 'Task 1',  
+            'values': [5]  
           } 
         ]
       },

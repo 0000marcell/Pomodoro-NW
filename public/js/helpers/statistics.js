@@ -59,12 +59,6 @@ App.Statistics = Ember.Object.extend({
       return obj;
     }, { label: [], values: [] });
     return jsonStatistics;
-    let tasksTotalTime = this.jsonStatistics.values.reduce((prev, next) => {
-      return prev + next.values[0];
-    }, 0);
-    this.includeTaskTime(tasksTotalTime, 'Total');
-    jsonStatistics.values = this.calculateTasksPercentage(jsonStatistics, tasksTotalTime);
-    return jsonStatistics;
   },
 
   /**
