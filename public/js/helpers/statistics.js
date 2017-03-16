@@ -131,7 +131,7 @@ App.Statistics = Ember.Object.extend({
    * @param {Array} tasks array of task objects
    * @return {Array} array with the tasks and the filtered pomodoros
   */
-  filterPomodoros(){
+  filterPomodoros(tasks, startDate, endDate){
     if(startDate){
       startDate = new Date(utils.transformDate(startDate));
       endDate = new Date(utils.transformDate(endDate));
@@ -140,11 +140,11 @@ App.Statistics = Ember.Object.extend({
       endDate = new Date();
     }
     let result = [];
-    this.filteredTasks.forEach((task) => {
+    tasks.forEach((task) => {
       result.push(this.getPomodorosDateRange(startDate, endDate, task));
     }); 
-    this.filteredTasks = result;
-    return this;
+    tasks = result;
+    return tasks;
   },
   /**
    * @method mostProductiveMonth 

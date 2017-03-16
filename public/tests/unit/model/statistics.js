@@ -90,3 +90,6 @@ test('#filterTasks filter tasks with id 1', function(assert){
   assert.equal(result[1].get('name'), 'Task 2');
   assert.equal(result[2].get('name'), 'Task 4');
 });
+
+test('#filterPomodoros', function(assert){
+});
