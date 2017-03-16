@@ -84,6 +84,9 @@ test('#calculateTasksPercentage', function(assert){
 
 test('#filterTasks filter tasks with id 1', function(assert){
   let tasks = createTasks(this, 10, 10);
-  let result = statistics.filterTasks([2, 3, 5]);
-  debugger;
+  let result = statistics.filterTasks(tasks, [2, 3, 5]);
+  assert.equal(result.length, 3);
+  assert.equal(result[0].get('name'), 'Task 1');
+  assert.equal(result[1].get('name'), 'Task 2');
+  assert.equal(result[2].get('name'), 'Task 4');
 });

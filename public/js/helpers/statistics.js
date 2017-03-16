@@ -115,7 +115,7 @@ App.Statistics = Ember.Object.extend({
     let result = [];
     for(let val of arr){
       result.push(tasks
-          .filterBy('id', val));
+          .filterBy('id', val)[0]);
     }
     return result;
   },
