@@ -1,4 +1,7 @@
 App.Utils = Ember.ObjectController.extend({
+  /**
+   * returns a string in the format expected by json
+   */
   getDateString(date){
     var S = date.getSeconds(),
       M = date.getMinutes(), H = date.getHours(),
@@ -12,14 +15,12 @@ App.Utils = Ember.ObjectController.extend({
     }
     return dd+'/'+mm+'/'+yyyy+'|'+H+'|'+M+'|'+S;
   },
-  getMonday() {
-    let curr = new Date,
-        sun = (curr.getDay() === 0) ? 7 : 0; // correction for sundays
+  getMonday(curr) {
+    let sun = (curr.getDay() === 0) ? 7 : 0; // correction for sundays
     return new Date(curr.setDate(curr.getDate() - curr.getDay()+1 - sun));
   },
-  getSunday(){
-    let curr = new Date,
-        sun = (curr.getDay() === 0) ? 7 : 0; // correction for sundays
+  getSunday(curr){
+    let sun = (curr.getDay() === 0) ? 7 : 0; // correction for sundays
     return new Date(curr.setDate(curr.getDate() - curr.getDay()+7 - sun));
   },
   /**
