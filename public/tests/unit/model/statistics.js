@@ -91,5 +91,19 @@ test('#filterTasks filter tasks with id 1', function(assert){
   assert.equal(result[2].get('name'), 'Task 4');
 });
 
-test('#filterPomodoros', function(assert){
+test('#firstPomodoro', function(assert){
+  let tasks = createTasks(this, 10, 10),
+      result = statistics.firstPomodoro(tasks);
+  assert.equal(result.getDate(), 1);
+});
+
+
+test('#getPomodorosDateRange', function(assert){
+  let tasks = createTasks(this, 1, 10),
+      startDate = new Date(2016, 11, 4),
+      endDate = new Date(2016, 11, 7),
+      result = statistics.getPomodorosDateRange(tasks[0], 
+        startDate, endDate);
+  assert.equal(result.pomodoros[0].getDate(), 4);
+  assert.equal(result.pomodoros[3].getDate(), 7);
 });

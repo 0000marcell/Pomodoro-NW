@@ -226,10 +226,10 @@ App.Statistics = Ember.Object.extend({
    * @returns {Object} date
    * get the first pomodoro
   */
-  firstPomodoro(){
+  firstPomodoro(tasks){
     let firstPomodoro = new Date(), 
       pomodoros, date;
-    this.filteredTasks.forEach(function(task){
+    tasks.forEach(function(task){
       pomodoros = (task['get']) ? task.get('pomodoros') : 
                                                  task.pomodoros;
       for(let pomodoro of pomodoros){
@@ -280,7 +280,7 @@ App.Statistics = Ember.Object.extend({
    * @return {Task Object} returns a task object with only the pomodoros on the range, 
    * the pomodoro dates are also converted to js date objects
   */
-  getPomodorosDateRange(startDate, endDate, task){
+  getPomodorosDateRange(task, startDate, endDate){
     let pomodoroDate;
     let resultTask = {id: task.get('id'), 
       name: task.get('name'),
