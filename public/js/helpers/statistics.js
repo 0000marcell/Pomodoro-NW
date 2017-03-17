@@ -141,10 +141,9 @@ App.Statistics = Ember.Object.extend({
     }
     let result = [];
     tasks.forEach((task) => {
-      result.push(this.getPomodorosDateRange(startDate, endDate, task));
+      result.push(this.getPomodorosDateRange(task, startDate, endDate));
     }); 
-    tasks = result;
-    return tasks;
+    return result;
   },
   /**
    * @method mostProductiveMonth 

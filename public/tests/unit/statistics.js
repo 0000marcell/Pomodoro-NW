@@ -107,3 +107,12 @@ test('#getPomodorosDateRange', function(assert){
   assert.equal(result.pomodoros[0].getDate(), 4);
   assert.equal(result.pomodoros[3].getDate(), 7);
 });
+
+test('#filterPomodoros', function(assert){
+  let tasks = createTasks(this, 2, 10),
+      startDate = '04/12/2016',
+      endDate = '07/12/2016';
+  let result = statistics.filterPomodoros(tasks, startDate, endDate);
+  assert.equal(result[0].pomodoros[0].getDate(), 4);
+  assert.equal(result[1].pomodoros[3].getDate(), 7);
+});
