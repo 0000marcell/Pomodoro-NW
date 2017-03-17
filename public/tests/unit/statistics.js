@@ -1,4 +1,4 @@
-moduleForModel('task', 'Task Model');
+module('Unit: Statistics');
 
 let jsonStatistics = {  
   'label': ['Task 0', 'Task 1'],  
