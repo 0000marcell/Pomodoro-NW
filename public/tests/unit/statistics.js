@@ -116,3 +116,10 @@ test('#filterPomodoros', function(assert){
   assert.equal(result[0].pomodoros[0].getDate(), 4);
   assert.equal(result[1].pomodoros[3].getDate(), 7);
 });
+
+test('#mostProductiveMonth', function(assert){
+  let tasks = createTasks(this, 2, 10),
+      result = statistics.mostProductiveMonth(tasks, 2016); 
+  assert.equal(result.month, 'December');
+  assert.equal(result.hours, '10 hours');
+});

@@ -152,10 +152,9 @@ App.Statistics = Ember.Object.extend({
    * @returns {Object} 
    * {month: 'January', hours: '216 hours'}
   */
-  mostProductiveMonth(year){
-    var pomodoros = this.resetFilter()
-                      .filterPomodoros(`01/01/${year}`, `31/12/${year}`)
-                      .flatPomodoros(),
+  mostProductiveMonth(tasks, year){
+    let pomodoros = this.filterPomodoros(tasks, 
+        `01/01/${year}`, `31/12/${year}`);
       monthsPomodoros = [],
       months = ['January', 'February', 'March', 'April', 'May', 'June', 
         'July', 'August', 'September', 'October', 'November', 'December'];
