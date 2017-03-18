@@ -173,45 +173,6 @@ App.Statistics = Ember.Object.extend({
   },
 
   /**
-   * @method MostProductiveDay
-   * @param {Object} tasks
-   * @param {String} year
-   * @returns {Object} 
-   * Returns the most productive day in the format
-   * {day: DateObject, hours: "12 hours"}
-  */
-  mostProductiveDay(tasks, year){
-    let tasksFilter = this.filterPomodoros(tasks, `01/01/${year}`, `31/12/${year}`),
-        days = [],
-        startDate = new Date(utils.transformDate(`01/01/${year}`))
-        endDate = new Date(utils.transformDate(`31/12/${year}`)),
-        result = [];
-    for (var iDate = new Date(startDate); iDate < endDate; iDate.setDate(iDate.getDate() + 1)) {
-      result = [];
-      for(var task of tasksFilter){
-        for(var pomodoro of task.pomodoros){
-          console.log('pomodoro: ', pomodoro);
-          if(pomodoro.getTime() === iDate.getTime()){
-            result.push(pomodoro);
-          }  
-        }
-      }
-      days.push(result);
-    }
-    var bigger = [];
-    for(var day of days){
-      if(day.length > bigger.length){
-        bigger = day;
-      }
-    }
-    if(bigger.length){
-      return {day: bigger[0].toDateString(), hours: `${(bigger.length/2)} hours`};
-    }else{
-      return {day: null, hours: null};
-    }
-  },
-
-  /**
    * get the date first pomodoro ever made on the filteredTasks
    * @method firstPomodoro
    * @returns {Object} date

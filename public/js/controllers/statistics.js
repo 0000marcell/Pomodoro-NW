@@ -26,10 +26,6 @@ App.StatisticsController = Ember.ObjectController.extend({
   tasksList:  [],
   todayPomodoros: [],
   weekPomodoros: [],
-  mpMonth2015: null,
-  mpMonth2016: null,
-  mpMonth2017: null,
-  mpDay2015: null,
   load(){
     let arr = [],
         allTask = {id: 'all', name: 'all'};
@@ -60,12 +56,6 @@ App.StatisticsController = Ember.ObjectController.extend({
         statistics.mostProductiveMonth(2016));
       this.set('mpMonth2017', 
         statistics.mostProductiveMonth(2017));
-      this.set('mpDay2015', 
-        statistics.mostProductiveDay(2015));
-      this.set('mpDay2016', 
-        statistics.mostProductiveDay(2016));
-      this.set('mpDay2017', 
-        statistics.mostProductiveDay(2017));
       let todayPomodoros = statistics.resetFilter().todayPomodoros();
       this.set('todayPomodoros', todayPomodoros);
       this.set('todayTotal', 
