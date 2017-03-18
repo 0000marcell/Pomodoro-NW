@@ -27,22 +27,9 @@
   lastPomodoro, get the last pomodoro made on the filteredTasks
   lastDayMonth, gets the last day of the month
   getPomodorosDateRange, get all pomodoros from a task in a specific date range
-  flatPomodoros, returns a array with only the pomodoros of the tasks
 */
 App.Statistics = Ember.Object.extend({
-
-  /**
-   * initialize the tasks property
-   * @method init
-   * @param {Object} tasks
-  */
-  init(tasks){
-    this.filteredTasks = tasks;
-    this.tasks = tasks;
-    this.tasksTotalTime = [];
-    return this;
-  },
-  
+  tasksTotalTime: [],
   /**
    Loop through every task calculating all the statistics
    @method createJsonStatistics
@@ -98,11 +85,8 @@ App.Statistics = Ember.Object.extend({
    * @param {String} name, name of the task
   */
   includeTaskTime(taskName, time){
-    this.tasksTotalTime.push({taskName: taskName, totalTime: time});
-    /*
-    $('#total-time-tasks')
-      .append(`<p>${taskName}: ${time}h</p>`)
-    */
+    this.get('tasksTotalTime')
+      .pushObject({taskName: taskName, totalTime: time});
   },
   /**
    * filter tasks by id using a array
@@ -198,15 +182,12 @@ App.Statistics = Ember.Object.extend({
   * @method lastPomodoro
   * @return {Object} returns the last pomodoro ever made
   */
-  lastPomodoro(){
+  lastPomodoro(tasks){
     let lastPomodoro = new Date(1900, 2, 2), 
       pomodoros, date;
-    this.filteredTasks.forEach(function(task){
-      pomodoros = (task['get']) ? task.get('pomodoros') : 
-                                                 task.pomodoros;
-      for(let pomodoro of pomodoros){
-        date = (task['get']) ? new Date(utils.transformDate(pomodoro.date.split('|')[0])) :
-                               pomodoro;
+    tasks.forEach((task) => {
+      for(let pomodoro of task.get('pomodoros')){
+        date = new Date(utils.transformDate(pomodoro.date.split('|')[0]))         
         lastPomodoro = (date > lastPomodoro) ? date : lastPomodoro; 
       }
     });
@@ -219,7 +200,7 @@ App.Statistics = Ember.Object.extend({
    * @param {String} month
    * @param {String} year
    */
-  lastDayMonth(){
+  lastDayMonth(month, year){
     return new Date(year, month, 0).getDate().toString();
   },
 
@@ -251,20 +232,6 @@ App.Statistics = Ember.Object.extend({
   },
 
   /**
-   * returns a rray with only the pomodoros of the tasks
-   * @method flatPomodoros
-   * @param {array} tasks, array os tasks with object dates as pomodoros
-   * @returns {array} return array of pomodoros of all the tasks
-   */
-  flatPomodoros(){
-    let result = [];
-    for(let __task of this.filteredTasks){
-      result = result.concat(__task.pomodoros); 
-    }
-    return result;  
-  },
-
-  /**
   * Calculate the width of the bar chart canvas
   * @method calculateCanvasSize
   */
@@ -276,23 +243,14 @@ App.Statistics = Ember.Object.extend({
   },
 
   /**
-   * reset the filteredTasks property
-   * @method resetFilter
-  */
-  resetFilter(){
-    this.filteredTasks = this.tasks;
-    return this;
-  },
-
-  /**
    * returns a array of all the pomodoros done today
    * @method todayPomodoros
    * return {Array} array with the name of all the tasks and the amount of time
    * [{taskName: 'pomodoro-nw', time: 6}]
    */
-  todayPomodoros(){
+  todayPomodoros(tasks){
     let date = utils.transformDateToString(new Date());
-    this.filterPomodoros(date, date);
+    let tasksFiltered = this.filterPomodoros(tasks, date, date);
     let result = [], time = 0, total = 0;
     this.filteredTasks.forEach((task) => {
       if(task.pomodoros.length){

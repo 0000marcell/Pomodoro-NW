@@ -19,7 +19,7 @@ App.TaskObject = Ember.Object.extend({
   pomodoros: []
 });
 
-function createTasks(_this, taskN, pomN){
+function createTasks(taskN, pomN){
   pomN = pomN + 1 || 11;
   taskN = taskN || 10;
   let arr = [],
@@ -35,15 +35,8 @@ function createTasks(_this, taskN, pomN){
   return arr;
 }
 
-test('#init load the tasks in the statistics object', function(assert){
-  let tasks = createTasks(this);
-  statistics.init(tasks);
-  assert.equal(statistics.filteredTasks[0].get('name'), 'Task 0');
-  assert.equal(statistics.tasks[0].get('name'), 'Task 0');
-});
-
 test('#calculateTasksTotalTime return the total time spend in a task', function(assert){
-  let tasks = createTasks(this),
+  let tasks = createTasks(),
       result = statistics.calculateTaskTotalTime(tasks[0]);
   assert.equal(result, 5);
 });
@@ -58,7 +51,7 @@ test('#includeTaskTime include task time', function(assert){
 });
 
 test('#createJsonStatistics for the jit graph', function(assert){
-  let tasks = createTasks(this, 2, 10),
+  let tasks = createTasks(2, 10),
      result = statistics.createJsonStatistics(tasks);
   assert.deepEqual(result, jsonStatistics);
 });
@@ -83,7 +76,7 @@ test('#calculateTasksPercentage', function(assert){
 });
 
 test('#filterTasks filter tasks with id 1', function(assert){
-  let tasks = createTasks(this, 10, 10);
+  let tasks = createTasks(10, 10);
   let result = statistics.filterTasks(tasks, [2, 3, 5]);
   assert.equal(result.length, 3);
   assert.equal(result[0].get('name'), 'Task 1');
@@ -92,14 +85,19 @@ test('#filterTasks filter tasks with id 1', function(assert){
 });
 
 test('#firstPomodoro', function(assert){
-  let tasks = createTasks(this, 10, 10),
+  let tasks = createTasks(10, 10),
       result = statistics.firstPomodoro(tasks);
   assert.equal(result.getDate(), 1);
 });
 
+test('#lastPomodoro', function(assert){
+  let tasks = createTasks(10, 10),
+      result = statistics.lastPomodoro(tasks);
+  assert.equal(result.getDate(), 10);
+});
 
 test('#getPomodorosDateRange', function(assert){
-  let tasks = createTasks(this, 1, 10),
+  let tasks = createTasks(1, 10),
       startDate = new Date(2016, 11, 4),
       endDate = new Date(2016, 11, 7),
       result = statistics.getPomodorosDateRange(tasks[0], 
@@ -109,7 +107,7 @@ test('#getPomodorosDateRange', function(assert){
 });
 
 test('#filterPomodoros', function(assert){
-  let tasks = createTasks(this, 2, 10),
+  let tasks = createTasks(2, 10),
       startDate = '04/12/2016',
       endDate = '07/12/2016';
   let result = statistics.filterPomodoros(tasks, startDate, endDate);
@@ -118,14 +116,18 @@ test('#filterPomodoros', function(assert){
 });
 
 test('#mostProductiveMonth', function(assert){
-  let tasks = createTasks(this, 2, 10),
+  let tasks = createTasks(2, 10),
       result = statistics.mostProductiveMonth(tasks, 2016); 
   assert.equal(result.month, 'December');
   assert.equal(result.size, 20);
 });
 
-test('#mostProductiveDay', function(assert){
-  let tasks = createTasks(this, 2, 10),
-      resutl = statistics.mostProductiveDay(tasks, 2016); 
-  debugger;
+test('#lastDayMonth', function(assert){
+  let result = statistics.lastDayMonth(2, 2016);  
+  assert.equal(result, '29');
+});
+
+test('#todayPomodoros', function(assert){
+  let tasks = createTasks(2, 10);
+  let result = statistics.todayPomodoros(tasks); 
 });
