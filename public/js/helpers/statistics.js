@@ -153,31 +153,23 @@ App.Statistics = Ember.Object.extend({
    * {month: 'January', hours: '216 hours'}
   */
   mostProductiveMonth(tasks, year){
-    let pomodoros = this.filterPomodoros(tasks, 
-        `01/01/${year}`, `31/12/${year}`);
-      monthsPomodoros = [],
-      months = ['January', 'February', 'March', 'April', 'May', 'June', 
-        'July', 'August', 'September', 'October', 'November', 'December'];
-    for (var i = 1; i <= 12; i++) {
-      var start = new Date(year, i-1, 1);
-      var end = new Date(year, i, 0); // last day of the month
-      var result = [];
-      for(var pomodoro of pomodoros){
-        if(pomodoro >= start && pomodoro <= end){
-          result.push(pomodoro);
+    let biggest = {month: null, size: 0},
+          months = ['January', 'February', 'March', 'April', 'May', 'June', 
+           'July', 'August', 'September', 'October', 'November', 'December']; 
+    for (let i = 1; i <= 12; i++) {
+      let tasksFilter = this.filterPomodoros(tasks, 
+        `01/${i}/${year}`, `${new Date(year, i, 0).getDate()}/${i}/${year}`); 
+      let total = 0;
+      for(let task of tasksFilter){
+        if(typeof(task.pomodoros.length) === 'number'){
+          total += task.pomodoros.length 
         }
       }
-      monthsPomodoros.push(result);
-    }
-    var bigger = [], biggerIndex = 0, i = 0;
-    for(var month of monthsPomodoros){
-      if(month.length > bigger.length){
-        bigger = month;
-        biggerIndex = i;
+      if(biggest.size < total){
+        biggest = {month: months[i-1], size: total};
       }
-      i++;
     }
-    return {month: months[biggerIndex], hours: `${(bigger.length/2)} hours`};
+    return biggest;
   },
 
   /**
@@ -188,19 +180,20 @@ App.Statistics = Ember.Object.extend({
    * Returns the most productive day in the format
    * {day: DateObject, hours: "12 hours"}
   */
-  mostProductiveDay(year){
-    let pomodoros = this.resetFilter()
-                      .filterPomodoros(`01/01/${year}`, `31/12/${year}`)
-                      .flatPomodoros();
-      days = [],
-      startDate = new Date(utils.transformDate(`01/01/${year}`))
-      endDate = new Date(utils.transformDate(`31/12/${year}`)),
-      result = [];
+  mostProductiveDay(tasks, year){
+    let tasksFilter = this.filterPomodoros(tasks, `01/01/${year}`, `31/12/${year}`),
+        days = [],
+        startDate = new Date(utils.transformDate(`01/01/${year}`))
+        endDate = new Date(utils.transformDate(`31/12/${year}`)),
+        result = [];
     for (var iDate = new Date(startDate); iDate < endDate; iDate.setDate(iDate.getDate() + 1)) {
       result = [];
-      for(var pomodoro of pomodoros){
-        if(pomodoro.getTime() === iDate.getTime()){
-          result.push(pomodoro);
+      for(var task of tasksFilter){
+        for(var pomodoro of task.pomodoros){
+          console.log('pomodoro: ', pomodoro);
+          if(pomodoro.getTime() === iDate.getTime()){
+            result.push(pomodoro);
+          }  
         }
       }
       days.push(result);

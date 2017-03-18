@@ -121,5 +121,11 @@ test('#mostProductiveMonth', function(assert){
   let tasks = createTasks(this, 2, 10),
       result = statistics.mostProductiveMonth(tasks, 2016); 
   assert.equal(result.month, 'December');
-  assert.equal(result.hours, '10 hours');
+  assert.equal(result.size, 20);
+});
+
+test('#mostProductiveDay', function(assert){
+  let tasks = createTasks(this, 2, 10),
+      resutl = statistics.mostProductiveDay(tasks, 2016); 
+  debugger;
 });

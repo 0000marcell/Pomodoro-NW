@@ -6,6 +6,10 @@ html, body {
   background-color:#fff;
 }
 
+#ember-testing-container{
+  visibility: hidden;
+}
+
 .pomodoro-counter{
   text-align: center;
   color: #FFF !important;
