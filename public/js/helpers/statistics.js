@@ -268,11 +268,11 @@ App.Statistics = Ember.Object.extend({
   * @method weekPomodoroH
   * @return {String} total hours of the week so far
   */
-  weekPomodoroH(){
-    this.filterPomodoros(utils.transformDateToString(utils.getMonday(new Date())), 
+  weekPomodoroH(tasks){
+    let tasksFiltered = this.filterPomodoros(tasks, utils.transformDateToString(utils.getMonday(new Date())), 
                        utils.transformDateToString(utils.getSunday()));
     let result = [], time = 0, total = 0;
-    this.filteredTasks.forEach((task) => {
+    tasksFiltered.forEach((task) => {
       if(task.pomodoros.length){
         time = task.pomodoros.length * 30/60;
         total += time;

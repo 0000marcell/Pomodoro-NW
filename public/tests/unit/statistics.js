@@ -127,10 +127,10 @@ test('#lastDayMonth', function(assert){
   assert.equal(result, '29');
 });
 
-test('#todayPomodoros', function(assert){
+tasksDate(){
   let tasks = [],
       pomodoros = [],
-      thisDate = utils.transformDateToString(new Date);
+      thisDate = utils.transformDateToString(new Date());
   for (let i = 1; i < 10; i++) {
     pomodoros.push({date: `${thisDate}|21|9|38`}); 
   }
@@ -138,7 +138,21 @@ test('#todayPomodoros', function(assert){
     tasks.push(App.TaskObject.create({ id: i+1, name: `Task ${i}`, 
       pomodoros: pomodoros})); 
   }
+  return tasks;
+}
+
+test('#todayPomodoros', function(assert){
+  let tasks = todayPomodoros();
   let result = statistics.todayPomodoros(tasks); 
   assert
     .equal(result.filterBy('name', 'total').objectAt(0).time, 45);
 });
+
+test('#weekPomodoroH', function(assert){
+  let tasks = todayPomodoros();
+  let result = statistics.todayPomodoros(tasks); 
+  assert
+    .equal(result.filterBy('name', 'total').objectAt(0).time, 45);
+});
+
+
