@@ -249,10 +249,10 @@ App.Statistics = Ember.Object.extend({
    * [{taskName: 'pomodoro-nw', time: 6}]
    */
   todayPomodoros(tasks){
-    let date = utils.transformDateToString(new Date());
-    let tasksFiltered = this.filterPomodoros(tasks, date, date);
-    let result = [], time = 0, total = 0;
-    this.filteredTasks.forEach((task) => {
+    let date = utils.transformDateToString(new Date()),
+        tasksFiltered = this.filterPomodoros(tasks, date, date),
+        result = [], time = 0, total = 0;
+    tasksFiltered.forEach((task) => {
       if(task.pomodoros.length){
         time = task.pomodoros.length * 30/60;
         total += time;
