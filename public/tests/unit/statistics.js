@@ -127,14 +127,23 @@ test('#lastDayMonth', function(assert){
   assert.equal(result, '29');
 });
 
-tasksDate(){
+function tasksDate(taskN, pomN, onlyToday = false){
+  pomN = pomN + 1 || 11;
+  taskN = taskN || 10;
   let tasks = [],
       pomodoros = [],
-      thisDate = utils.transformDateToString(new Date());
-  for (let i = 1; i < 10; i++) {
-    pomodoros.push({date: `${thisDate}|21|9|38`}); 
+      date = new Date(),
+      monday = utils.getMonday(date).getDate(),
+      dateS;
+  for (let i = 1; i < pomN; i++) {
+    if(onlyToday){
+      dateS = utils.transformDateToString(date); 
+    }else{
+      dateS = utils.transformDateToString(date.setDate(monday + i));
+    }
+    pomodoros.push({date: `${dateS}|21|9|38`}); 
   }
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < taskN; i++) {
     tasks.push(App.TaskObject.create({ id: i+1, name: `Task ${i}`, 
       pomodoros: pomodoros})); 
   }
@@ -142,17 +151,15 @@ tasksDate(){
 }
 
 test('#todayPomodoros', function(assert){
-  let tasks = todayPomodoros();
+  let tasks = tasksDate(10, 2, true);
   let result = statistics.todayPomodoros(tasks); 
   assert
-    .equal(result.filterBy('name', 'total').objectAt(0).time, 45);
+    .equal(result.filterBy('name', 'total').objectAt(0).time, 10);
 });
 
 test('#weekPomodoroH', function(assert){
-  let tasks = todayPomodoros();
-  let result = statistics.todayPomodoros(tasks); 
+  let tasks = tasksDate(10, 2);
+  let result = statistics.weekPomodoroH(tasks); 
   assert
-    .equal(result.filterBy('name', 'total').objectAt(0).time, 45);
+    .equal(result.filterBy('name', 'total').objectAt(0).time, 10);
 });
-
-
