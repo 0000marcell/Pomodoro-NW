@@ -139,7 +139,8 @@ function tasksDate(taskN, pomN, onlyToday = false){
     if(onlyToday){
       dateS = utils.transformDateToString(date); 
     }else{
-      dateS = utils.transformDateToString(date.setDate(monday + i));
+      date.setDate(monday + i);
+      dateS = utils.transformDateToString(date);
     }
     pomodoros.push({date: `${dateS}|21|9|38`}); 
   }
