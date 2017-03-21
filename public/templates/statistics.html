@@ -3,26 +3,27 @@
     {{view App.TasksStatisticsView contextBinding="App.Task"}}
   --}}
   <div class="row">
-    <div class="six columns">
+    <div id="test-today-tasks" 
+         class="six columns">
       <h6>Today: {{todayTotal}}</h6>
       <h6 class='today-tasks-title' >Week tasks:</h6>
-      <ul class='today-tasks-list'>
+      <ul id="test-week-list"class='today-tasks-list'>
         {{#each task in weekPomodoros}}
           <li>{{task.name}}: {{task.time}}</li>
         {{/each}}
       </ul>
     </div>
-    <div class="six columns">
-      <h6>This weak: {{weekTotal}}</h6>
+    <div id="test-week-tasks" class="six columns">
+      <h6>This week: {{weekTotal}}</h6>
       <h6 class='today-tasks-title'>Today tasks:</h6>
-      <ul class='today-tasks-list'>
+      <ul id="test-today-list" class='today-tasks-list'>
         {{#each task in todayPomodoros}}
           <li>{{task.name}}: {{task.time}}</li>
         {{/each}}
       </ul>
     </div>
   </div>
-  <div class="row">
+  <div id="test-pom-average" class="row">
     <h6>Average: {{pomAverage}}</h6>
   </div>
   <div class="row">
