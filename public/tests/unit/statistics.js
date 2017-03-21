@@ -133,7 +133,7 @@ function tasksDate(taskN, pomN, onlyToday = false){
   let tasks = [],
       pomodoros = [],
       date = new Date(),
-      monday = utils.getMonday(date).getDate(),
+      monday = utils.getMonday(new Date()).getDate(),
       dateS;
   for (let i = 1; i < pomN; i++) {
     if(onlyToday){
@@ -163,4 +163,10 @@ test('#weekPomodoroH', function(assert){
   let result = statistics.weekPomodoroH(tasks); 
   assert
     .equal(result.filterBy('name', 'total').objectAt(0).time, 10);
+});
+
+test('#pomAverage', function(assert){
+  let tasks = tasksDate(10, 2),
+      result = statistics.pomAverage(tasks); 
+  assert.equal(result, 10);
 });

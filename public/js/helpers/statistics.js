@@ -287,18 +287,18 @@ App.Statistics = Ember.Object.extend({
   * @method pomAverage
   * @return {String} total hours of the week so far
   */
-  pomAverage(){
+  pomAverage(tasks){
     // amount of days between two dates
     let result = 0, time = 0, total = 0, n = 0;
-    this.filteredTasks.forEach((task) => {
+    tasks.forEach((task) => {
       if(task.pomodoros.length){
         time = task.pomodoros.length * 30/60;
         total += time;
       }
     });
     let oneDay = 24*60*60*1000,
-        firstDate = this.firstPomodoro(),
-        secondDate = this.lastPomodoro(),
+        firstDate = this.firstPomodoro(tasks),
+        secondDate = this.lastPomodoro(tasks),
         diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
     result = Math.round(total/diffDays);
     return result;
