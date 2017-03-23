@@ -5,12 +5,16 @@ App.Graph = Ember.Object.extend({
    *         'values': [{'label': 'date A','values': [20]}}
    * @method loadStatistics
    */
-  loadBarChart(){
+  loadBarChart(tasks){
+    /*
     $('#total-time-tasks').empty(); 
     $('#infovis').empty();
-    this.createJsonStatistics()
+    */
+    let jsonStatistics = statistics.createJsonStatistics();
+    let canvasWH = this.calculateCanvasSize(jsonStatistics);
+    .createJsonStatistics()
         .calculateCanvasSize()
-        .calculateTasksPercentage();
+    statistics.calculateTasksPercentage();
     init(this.jsonStatistics);
     return this;
   },
@@ -113,6 +117,18 @@ App.Graph = Ember.Object.extend({
     if(!found)
       this.D3datesJSON.push(this.D3JSON);
   },
+  /**
+  * Calculate the width of the bar chart canvas
+  * @method calculateCanvasSize
+  */
+  calculateCanvasSize(jsonStatistics){
+    let graphicSizeH = jsonStatistics.values.length * 86;
+    /*
+    $('#infovis').css('width', graphicSizeH);
+    $('#center-container').css('width', graphicSizeH);
+    */
+    return graphicSizeH;
+  }
 });
 
 const graph = App.Graph.create();
