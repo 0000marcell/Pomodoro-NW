@@ -19,8 +19,7 @@ App.Graph = Ember.Object.extend({
    * @method loadD3Calendar
    * @param {object} tasks
    */
-  /*
-  loadD3Calendar(){
+  loadD3Calendar(tasks){
     $('.graph').empty(); 
 
     var width = 460,
@@ -36,8 +35,8 @@ App.Graph = Ember.Object.extend({
                                           return "q" + d + "-5"; }));
 
     var svg = d3.select(".graph").selectAll("svg")
-      .data(d3.range(this.firstPomodoro().getFullYear(), 
-          parseInt(this.lastPomodoro().getFullYear()) + 1))
+      .data(d3.range(statistics.firstPomodoro(tasks).getFullYear(), 
+          parseInt(statistics.lastPomodoro(tasks).getFullYear()) + 1))
       .enter().append("svg")
       .attr("width", width)
       .attr("height", height)
@@ -96,7 +95,6 @@ App.Graph = Ember.Object.extend({
 									      alert(data[d]);
 										 });
   },
-  */
   /**
    * ?
    * @method D3includeDate
