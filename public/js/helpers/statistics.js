@@ -9,8 +9,6 @@
   pomodoros: [{date:"23/02/2015|16|2|57"}]}]
 
   methods:
-  init sets this.tasks object
-  loadStatistics, empties #total-time-tasks, runs createJsonStatistics
   D3includeDate, ?
   createJsonStatistics, loop throught every tasks calculating 
                         the jsonStatistics to be show on the jit graphic

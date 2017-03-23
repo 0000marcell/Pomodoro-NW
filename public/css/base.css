@@ -7,7 +7,7 @@ html, body {
 }
 
 #ember-testing-container{
-  visibility: visible;
+  visibility: hidden;
 }
 
 .pomodoro-counter{

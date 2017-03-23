@@ -1,13 +1,13 @@
 test("can access statistics page", function() {
-  visit("statistics");
+  visit('/');
+  click('#test-statistics-button');
   andThen(function() {
-    debugger;
     equal(currentURL(), "/statistics");
   });
 });
 
 test('can see all the tests done week/day', function(assert){
-  visit("/statistics"); 
+  click('#test-statistics-button');
   andThen(() => {
     assert.equal($('#test-today-tasks h6')[0].text(),
       10);
