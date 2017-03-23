@@ -6,17 +6,13 @@ App.Graph = Ember.Object.extend({
    * @method loadStatistics
    */
   loadBarChart(tasks){
-    /*
     $('#total-time-tasks').empty(); 
     $('#infovis').empty();
-    */
-    let jsonStatistics = statistics.createJsonStatistics();
-    let canvasWH = this.calculateCanvasSize(jsonStatistics);
-    .createJsonStatistics()
-        .calculateCanvasSize()
-    statistics.calculateTasksPercentage();
-    init(this.jsonStatistics);
-    return this;
+    let jsonStatistics = statistics.createJsonStatistics(tasks),
+        canvasSize = this.calculateCanvasSize(jsonStatistics);
+    $('#infovis').css('width', canvasSize);
+    $('#center-container').css('width', canvasSize);
+    init(statistics.calculateTasksPercentage());
   },
   /**
    * create a D3 calendar
@@ -123,10 +119,6 @@ App.Graph = Ember.Object.extend({
   */
   calculateCanvasSize(jsonStatistics){
     let graphicSizeH = jsonStatistics.values.length * 86;
-    /*
-    $('#infovis').css('width', graphicSizeH);
-    $('#center-container').css('width', graphicSizeH);
-    */
     return graphicSizeH;
   }
 });
