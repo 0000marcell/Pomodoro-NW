@@ -27,13 +27,14 @@ App.Graph = Ember.Object.extend({
         cellSize = 8;
 
     var percent = d3.format(".1%"),
-      format = d3.time.format("%d/%m/%Y");
+        format = d3.time.format("%d/%m/%Y");
 
     var color = d3.scale.quantize()
       .domain([0, 5])
       .range(d3.range(6).map(function(d) {
-                                          return "q" + d + "-5"; }));
-
+        return "q" + d + "-5"; 
+      }));
+    
     var svg = d3.select(".graph").selectAll("svg")
       .data(d3.range(statistics.firstPomodoro(tasks).getFullYear(), 
           parseInt(statistics.lastPomodoro(tasks).getFullYear()) + 1))
@@ -48,7 +49,6 @@ App.Graph = Ember.Object.extend({
         .attr("transform", "translate(-6," + cellSize * 3.5 + ")rotate(-90)")
         .style("text-anchor", "middle")
         .text(function(d) { return d; });
-
     var rect = svg.selectAll(".day")
         .data(function(d) { return d3.time.days(new Date(d, 0, 1), new Date(d + 1, 0, 1)); })
       .enter().append("rect")
@@ -58,7 +58,6 @@ App.Graph = Ember.Object.extend({
         .attr("x", function(d) { return d3.time.weekOfYear(d) * cellSize; })
         .attr("y", function(d) { return d.getDay() * cellSize; })
         .datum(format);
-
     rect.append("title")
       .text(function(d) { return d; });
 
@@ -67,16 +66,15 @@ App.Graph = Ember.Object.extend({
       .enter().append("path")
       .attr("class", "month")
       .attr("d", monthPath);
-    this.D3datesJSON = [];
-    this.filteredTasks.forEach((task) => {
+    let d3datesJSON = [];
+    tasks.forEach((task) => {
       for(var i = 0; i < task.pomodoros.length; i++){
-        this.D3JSON = {"Date": "", "Pomodoros": 1};
-        this.D3JSON.Date = utils.transformDateToString(task.pomodoros[i]);
-        (!this.D3datesJSON.length) ? this.D3datesJSON.push(this.D3JSON) :
-                             this.D3includeDate();
+        let d3JSON = {"Date": "", "Pomodoros": 1};
+        d3JSON.Date = utils.transformDateToString(task.pomodoros[i]);
+        (!d3datesJSON.length) ? d3datesJSON.push(d3JSON) :
+                             this.d3includeDate(d3datesJSON, d3JSON);
       }
     });
-    
     d3.json("data.json", (error, json) => {
       json = this.D3datesJSON;
       if (error) throw error;
@@ -84,32 +82,32 @@ App.Graph = Ember.Object.extend({
       var data = d3.nest()
         .key(function(d) { return d.Date; })
         .rollup(function(d) {
-          return d[0].Pomodoros;  })
-        .map(json);
+          return d[0].Pomodoros; }).map(json);
       rect.filter(function(d) { return d in data; })
-        .attr("class", function(d) {  
-                        return "day " + color(data[d]); })
-        .select("title")
-        .text(function(d) { return d + ": " + percent(data[d]); });
+          .attr("class", function(d) {  
+            return "day " + color(data[d]); })
+          .select("title")
+          .text(function(d) { return d + ": " + percent(data[d]); });
       rect.on('click', function(d){ 
-									      alert(data[d]);
-										 });
+		    alert(data[d]);
+			});
+    });
   },
   /**
    * ?
-   * @method D3includeDate
+   * @method d3includeDate
    */
-  D3includeDate(){
+  d3includeDate(d3datesJSON, d3JSON){
     var found = 0;
-    for (var i = 0; i < this.D3datesJSON.length; i++) {
-      if(this.D3JSON.Date == this.D3datesJSON[i].Date){
+    for (var i = 0; i < d3datesJSON.length; i++) {
+      if(d3JSON.Date == d3datesJSON[i].Date){
         this.D3datesJSON[i].Pomodoros++;
         found = 1;
         break;
       } 
     }
     if(!found)
-      this.D3datesJSON.push(this.D3JSON);
+      d3datesJSON.push(d3JSON);
   },
   /**
   * Calculate the width of the bar chart canvas
