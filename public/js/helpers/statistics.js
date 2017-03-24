@@ -26,6 +26,15 @@
   lastDayMonth, gets the last day of the month
   getPomodorosDateRange, get all pomodoros from a task in a specific date range
 */
+App.TaskObject = Ember.Object.extend({
+  id: null, 
+  name: null, 
+  creation_date: null, 
+  last_active: null,
+  duration: null,
+  pomodoros: []
+});
+
 App.Statistics = Ember.Object.extend({
   tasksTotalTime: [],
   /**
@@ -143,8 +152,8 @@ App.Statistics = Ember.Object.extend({
         `01/${i}/${year}`, `${new Date(year, i, 0).getDate()}/${i}/${year}`); 
       let total = 0;
       for(let task of tasksFilter){
-        if(typeof(task.pomodoros.length) === 'number'){
-          total += task.pomodoros.length 
+        if(typeof(task.get('pomodoros').length) === 'number'){
+          total += task.get('pomodoros').length 
         }
       }
       if(biggest.size < total){
@@ -165,7 +174,7 @@ App.Statistics = Ember.Object.extend({
       pomodoros, date;
     tasks.forEach(function(task){
       pomodoros = (task['get']) ? task.get('pomodoros') : 
-                                                 task.pomodoros;
+                                                 task.get('pomodoros');
       for(let pomodoro of pomodoros){
         date = (task['get']) ? new Date(utils.transformDate(pomodoro.date.split('|')[0])) :
                                pomodoro;
@@ -213,17 +222,19 @@ App.Statistics = Ember.Object.extend({
   */
   getPomodorosDateRange(task, startDate, endDate){
     let pomodoroDate;
-    let resultTask = {id: task.get('id'), 
+    let resultTask = App.TaskObject.create({ 
+      id: task.get('id'), 
       name: task.get('name'),
       creation_date: task.get('creation_date'), 
       last_active: task.get('last_active'),
       duration: "25:00",
-      pomodoros: []};
+      pomodoros: []
+    })
     task.get('pomodoros').forEach((pomodoro, index) => {
       pomodoroDate = pomodoro.date.split('|')[0];
       pomodoroDate = new Date(utils.transformDate(pomodoroDate));
       if(pomodoroDate >= startDate && pomodoroDate <= endDate){
-        resultTask.pomodoros.push(pomodoroDate);
+        resultTask.get('pomodoros').pushObject(pomodoroDate);
       }  
     });
     return resultTask; 
@@ -251,8 +262,8 @@ App.Statistics = Ember.Object.extend({
         tasksFiltered = this.filterPomodoros(tasks, date, date),
         result = [], time = 0, total = 0;
     tasksFiltered.forEach((task) => {
-      if(task.pomodoros.length){
-        time = task.pomodoros.length * 30/60;
+      if(task.get('pomodoros').length){
+        time = task.get('pomodoros').length * 30/60;
         total += time;
         result.pushObject({name: task.name, time: time})
       }
@@ -271,8 +282,8 @@ App.Statistics = Ember.Object.extend({
                        utils.transformDateToString(utils.getSunday(new Date())));
     let result = [], time = 0, total = 0;
     tasksFiltered.forEach((task) => {
-      if(task.pomodoros.length){
-        time = task.pomodoros.length * 30/60;
+      if(task.get('pomodoros').length){
+        time = task.get('pomodoros').length * 30/60;
         total += time;
         result.pushObject({name: task.name, time: time})
       }
@@ -289,8 +300,8 @@ App.Statistics = Ember.Object.extend({
     // amount of days between two dates
     let result = 0, time = 0, total = 0, n = 0;
     tasks.forEach((task) => {
-      if(task.pomodoros.length){
-        time = task.pomodoros.length * 30/60;
+      if(task.get('pomodoros').length){
+        time = task.get('pomodoros').length * 30/60;
         total += time;
       }
     });

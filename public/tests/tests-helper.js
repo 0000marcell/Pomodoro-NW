@@ -1,8 +1,3 @@
-App.TaskObject = Ember.Object.extend({
-  name: null,
-  pomodoros: []
-});
-
 function createTasks(taskN, pomN){
   pomN = pomN + 1 || 11;
   taskN = taskN || 10;
