@@ -12,7 +12,7 @@ App.Graph = Ember.Object.extend({
         canvasSize = this.calculateCanvasSize(jsonStatistics);
     $('#infovis').css('width', canvasSize);
     $('#center-container').css('width', canvasSize);
-    init(statistics.calculateTasksPercentage());
+    init(statistics.calculateTasksPercentage(jsonStatistics));
   },
   /**
    * create a D3 calendar
