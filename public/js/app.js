@@ -4,6 +4,7 @@ let path = require('path'),
     __homedir = os.homedir(),
     awsUseStorage = false,
     devMode = true,
+    environment = 'test',
     pomodoroFilesPath;
 
 
