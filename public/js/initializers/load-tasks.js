@@ -6,7 +6,6 @@ App.resetFixtures = function() {
     App.Task.FIXTURES = $.map(fileIO.read(), 
                     function(el) { return el; }); 
   }
-  debugger;
   if(awsUseStorage){
     bucket.getObject({Key: 'data.json'}, function(error, data) {
       if (error) {
