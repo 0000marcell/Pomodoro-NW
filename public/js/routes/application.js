@@ -1,10 +1,10 @@
 App.ApplicationRoute = Ember.Route.extend({
-  model() {
-    debugger;
+  beforeModel(){
     if(environment === 'test'){
-      let tasks = createTasks(10, 10);
-      this.store
-          .pushPayLoad(JSON.parse(JSON.stringify(tasks)));
+      let tasks = JSON.parse(JSON.stringify(createTasks(10, 10)));
+      tasks.forEach((task) => {
+        this.store.push('task', task); 
+      });
     }else{
       if(awsUseStorage){
         bucket.getObject({Key: 'data.json'}, (error, data) => {
@@ -19,12 +19,10 @@ App.ApplicationRoute = Ember.Route.extend({
         });
       }
     }
-    this.store.push('tasks', {
-        id: 1,
-        title: "Fewer Moving Parts",
-        artist: "David Bazan",
-        songCount: 10
-        
+  },
+  model() {
+    this.store.findAll('task').then((task) => {
+      debugger; 
     });
     return this.store.findAll('task');
   },

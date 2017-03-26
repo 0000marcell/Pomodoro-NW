@@ -60,6 +60,6 @@ let intervalCount = 0,
     shortIntervalTime = 5 * 60, longIntervalTime = 10 * 60,
     pause = false;
 
-App.ApplicationAdapter = DS.FixtureAdapter.extend({
-  namespace: 'Pomodoro-Grunt-Node'
-});  
+//App.ApplicationAdapter = DS.FixtureAdapter.extend({
+  //namespace: 'Pomodoro-Grunt-Node'
+//});  
