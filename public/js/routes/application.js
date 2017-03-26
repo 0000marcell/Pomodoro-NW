@@ -21,10 +21,7 @@ App.ApplicationRoute = Ember.Route.extend({
     }
   },
   model() {
-    this.store.findAll('task').then((task) => {
-      debugger; 
-    });
-    return this.store.findAll('task');
+    return this.store.all('task');
   },
   afterModel(){
     this.transitionTo('main');
