@@ -160,6 +160,7 @@ App.Statistics = Ember.Object.extend({
         biggest = {month: months[i-1], size: total};
       }
     }
+    debugger;
     return biggest;
   },
 
