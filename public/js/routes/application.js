@@ -11,10 +11,10 @@ App.ApplicationRoute = Ember.Route.extend({
           if (error) {
             alert("File sync failed : "+error);
           } else {
-            this.store
-              .pushPayLoad(JSON.parse(data.Body.toString()));
-            //App.Task.FIXTURES = $.map(JSON.parse(attachment), 
-                          //function(el) { return el; }); 
+            let obj = JSON.parse(data.Body.toString());
+            obj.tasks.forEach((task) => {
+              this.store.push('task', task);       
+            });
           }
         });
       }

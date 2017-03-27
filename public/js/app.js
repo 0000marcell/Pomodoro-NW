@@ -46,9 +46,10 @@ if (config.accessKeyId) {
   awsUseStorage = false;
 }
 
+let bucket;
 if(awsUseStorage){
   AWS.config.update({accessKeyId: config.accessKeyId, secretAccessKey: config.secretAccessKey, region: config.region});
-  let bucket = new AWS.S3({params: {Bucket: 'pomodorog'}});
+  bucket = new AWS.S3({params: {Bucket: 'pomodorog'}});
 }
 
 App = Ember.Application.create({
