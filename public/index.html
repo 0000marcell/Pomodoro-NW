@@ -223,7 +223,7 @@
          class="six columns">
       <h6>Today: {{todayTotal}}</h6>
       <h6 class='today-tasks-title' >Week tasks:</h6>
-      <ul id="test-week-list"class='today-tasks-list'>
+      <ul id="test-week-list" class='today-tasks-list'>
         {{#each task in weekPomodoros}}
           <li>{{task.name}}: {{task.time}}</li>
         {{/each}}
@@ -281,8 +281,11 @@
   <button type="button" {{action "calculateStatistics"}}>Show Statistics</button> 
   <div class="graph">
   </div>
-  <div id="total-time-tasks">
-  </div>
+  <ul id="total-time-tasks" class='today-tasks-list'>
+    {{#each task in tasksTotalTime}}
+      <li>{{task.name}}: {{task.time}}</li>
+    {{/each}}
+  </ul>
   <div class='jit-graphics'>
     <div id="center-container">
       <div id="infovis">

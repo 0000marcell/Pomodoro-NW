@@ -6,7 +6,6 @@ App.Graph = Ember.Object.extend({
    * @method loadStatistics
    */
   loadBarChart(tasks){
-    $('#total-time-tasks').empty(); 
     $('#infovis').empty();
     let jsonStatistics = statistics.createJsonStatistics(tasks),
         canvasSize = this.calculateCanvasSize(jsonStatistics);

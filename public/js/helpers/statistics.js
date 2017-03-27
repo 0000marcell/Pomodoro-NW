@@ -49,7 +49,7 @@ App.Statistics = Ember.Object.extend({
       obj.label.push(task.get('name'));
       obj.values
         .push({ label: task.get('name'), values: [totalTime] });
-      this.includeTaskTime(totalTime, task.get('name'));
+      this.includeTaskTime(task.get('name'), totalTime);
       return obj;
     }, { label: [], values: [] });
     return jsonStatistics;
@@ -75,7 +75,7 @@ App.Statistics = Ember.Object.extend({
     let totalTime = jsonStatistics.values.reduce((prev, next) => {
       return prev + next.values[0];
     }, 0);
-    this.includeTaskTime(totalTime, 'Total');
+    this.includeTaskTime('Total', totalTime);
     jsonStatistics.values = jsonStatistics.values.reduce((arr, item) => {
       let taskTotalTime = item.values[0],
           percentage = Math.floor(100/(totalTime/taskTotalTime));
@@ -93,7 +93,7 @@ App.Statistics = Ember.Object.extend({
   */
   includeTaskTime(taskName, time){
     this.get('tasksTotalTime')
-      .pushObject({taskName: taskName, totalTime: time});
+      .pushObject({name: taskName, time: time});
   },
   /**
    * filter tasks by id using a array
