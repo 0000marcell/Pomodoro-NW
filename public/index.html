@@ -1,16 +1,15 @@
 <html><head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Pomodoro-NW</title>
+    <title>Pomodoro-NW Tests</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/app.css">
   </head>
   <body>
-    <!-- <script src="../node_modules/nw-dev/lib/dev.js"></script> -->
+    <!-- <script src="node_modules/nw-dev/lib/dev.js"></script> -->
     <!-- Libs-->
     <script src="js/libs/jquery-1.10.2.js"></script>
-    
     <script src="js/libs/d3.min.js"></script>
     <script src="js/libs/jit.js"></script>
     <script src="js/libs/flipclock.js"></script>
@@ -50,8 +49,23 @@
     <script src="js/controllers/edit.js"></script>
     <!-- Initializers --> 
     <script src="tests/tests-helper.js"></script>
-    <!--
     <script src="js/initializers/load-tasks.js"></script>
+    <!-- Tests -->
+    <script src="js/libs/qunit-1.12.0.js"></script>
+    <script src="tests/ember-qunit.js"></script>
+    <script src="tests/tests.js"></script>
+    <script src="tests/runner.js"></script>
+    <!-- Integration tests 
+    <script src="tests/acceptance/application.js"></script>
+    <script src="tests/acceptance/main.js"></script>
+    <script src="tests/acceptance/config.js"></script>
+    <script src="tests/acceptance/statistics.js"></script>
+    -->
+    <!-- Unit -->
+    <script src="tests/unit/statistics.js"></script>
+    <!--
+    <script src="tests/unit/utils.js"></script> 
+    <script src="tests/unit/graph.js"></script>
     -->
     <div id="ember-app"><script type="text/x-handlebars">
   <div class='container'>
@@ -283,7 +297,7 @@
   </div>
   <ul id="total-time-tasks" class='today-tasks-list'>
     {{#each task in tasksTotalTime}}
-      <li>{{task.name}}: {{task.time}}</li>
+      <li>{{task.name}}: {{task.time}}h</li>
     {{/each}}
   </ul>
   <div class='jit-graphics'>
@@ -297,17 +311,16 @@
   <div class="row">
     <div class="twelve columns most-productive">
       <b>Most Productive:</b>
-      <p>month(2015): {{mpMonth2015.month}}   {{mpMonth2015.hours}}<p>
-      <p>day(2015): {{mpDay2015.day}}   {{mpDay2015.hours}}</p>
-      <p>month(2016): {{mpMonth2016.month}}   {{mpMonth2016.hours}}</p>
-      <p>day(2016): {{mpDay2016.day}}   {{mpDay2016.hours}}</p>
-      <p>month(2017): {{mpMonth2017.month}}   {{mpMonth2017.hours}}</p>
-      <p>dat(2017): {{mpDay2017.day}}   {{mpDay2017.hours}}</p>
+      <p>month(2015): {{mpMonth2015.month}}   {{mpMonth2015.size}}h<p>
+      <p>month(2016): {{mpMonth2016.month}}   {{mpMonth2016.size}}h</p>
+      <p>month(2017): {{mpMonth2017.month}}   {{mpMonth2017.size}}</p>
     </div>
   </div>
  </script>
 </div>
-  
+    <div id="pomodoroG-tests"></div>
+    <div id="ember-testing"></div>  
+    <p id="load-test">testing</p>
   
 
 

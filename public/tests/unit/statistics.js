@@ -23,8 +23,8 @@ test('#calculateTasksTotalTime return the total time spend in a task', function(
 test('#includeTaskTime include task time', function(assert){
   statistics.includeTaskTime('task 01', '5 h'); 
   statistics.includeTaskTime('task 02', '15 h');
-  assert.equal(statistics.tasksTotalTime[0].taskName, 'task 01');
-  assert.equal(statistics.tasksTotalTime[1].taskName, 'task 02');
+  assert.equal(statistics.get('tasksTotalTime')[0].name, 'task 01');
+  assert.equal(statistics.get('tasksTotalTime')[1].name, 'task 02');
 });
 
 test('#createJsonStatistics for the jit graph', function(assert){
