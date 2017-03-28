@@ -12,6 +12,7 @@ const months = [{label: '1', value: 'January'},
              {label: '12', value: 'December'}];
 
 App.StatisticsController = Ember.ObjectController.extend({
+  mpMonths: [],
   tasks: [],
   isAdmin: true,
   selectDate: [{label: "None", value: "none"},
@@ -46,12 +47,11 @@ App.StatisticsController = Ember.ObjectController.extend({
       statistics.loadBarChart()
                 .loadD3Calendar();
       */
-    this.set('mpMonth2015', 
-      statistics.mostProductiveMonth(tasks, 2015));
-    this.set('mpMonth2016', 
-      statistics.mostProductiveMonth(tasks, 2016));
-    this.set('mpMonth2017', 
-      statistics.mostProductiveMonth(tasks, 2017));
+    for(let year of years){
+      let obj = statistics.mostProductiveMonth(tasks, year);
+      obj['year'] = year;
+      this.get('mpMonths').pushObject(obj);
+    }
     let todayPomodoros = statistics.todayPomodoros(tasks);
     this.set('todayPomodoros', todayPomodoros);
     this.set('todayTotal', 

@@ -80,10 +80,10 @@
   </div>
   <div class="row">
     <div class="twelve columns most-productive">
-      <b>Most Productive:</b>
-      <p>month(2015): {{mpMonth2015.month}}   {{mpMonth2015.size}}h<p>
-      <p>month(2016): {{mpMonth2016.month}}   {{mpMonth2016.size}}h</p>
-      <p>month(2017): {{mpMonth2017.month}}   {{mpMonth2017.size}}</p>
+      <b>Most Productive Months:</b>
+      {{#each mp in mpMonths}}
+        <p>month({{mp.year}}): {{mp.month}}   {{mp.size}}h<p>
+      {{/each}}    
     </div>
   </div>
  </script>
