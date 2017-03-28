@@ -1,7 +1,7 @@
 App.ApplicationRoute = Ember.Route.extend({
   beforeModel(){
     if(environment === 'test'){
-      let tasks = JSON.parse(JSON.stringify(createTasks(10, 10)));
+      let tasks = JSON.parse(JSON.stringify(tasksDate(10, 10)));
       tasks.forEach((task) => {
         this.store.push('task', task); 
       });
