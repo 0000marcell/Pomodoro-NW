@@ -43,10 +43,6 @@ App.StatisticsController = Ember.ObjectController.extend({
     this.set('monthStart', this.get('months').objectAt(0));
     this.set('yearEnd', years[years.length - 1]);
     this.set('monthEnd', this.get('months').objectAt(this.get('months.length') - 1));
-      /*
-      statistics.loadBarChart()
-                .loadD3Calendar();
-      */
     for(let year of years){
       let obj = statistics.mostProductiveMonth(tasks, year);
       obj['year'] = year;
@@ -77,11 +73,8 @@ App.StatisticsController = Ember.ObjectController.extend({
       tasks = statistics.filterPomodoros(tasks, startYearString, endYearString);
       this.set('tasksTotalTime', 
           statistics.get('tasksTotalTime'));
-      graph.loadBarChart(tasks)
-      /*
-      .loadBarChart()
-      .loadD3Calendar();
-      */
+      graph.loadBarChart(tasks);
+      graph.loadD3Calendar(tasks);
     }
   }
 });

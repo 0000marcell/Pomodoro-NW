@@ -176,8 +176,16 @@ App.Statistics = Ember.Object.extend({
       pomodoros = (task['get']) ? task.get('pomodoros') : 
                                                  task.get('pomodoros');
       for(let pomodoro of pomodoros){
+        /*
         date = (task['get']) ? new Date(utils.transformDate(pomodoro.date.split('|')[0])) :
                                pomodoro;
+        */
+        if(typeof(pomodoro.date) === 'object'){
+          date = pomodoro.date;
+        }else{
+          date = 
+            new Date(utils.transformDate(pomodoro.date.split('|')[0]));
+        }
         firstPomodoro = (date < firstPomodoro) ? date : firstPomodoro; 
       }
     });
@@ -234,7 +242,7 @@ App.Statistics = Ember.Object.extend({
       pomodoroDate = pomodoro.date.split('|')[0];
       pomodoroDate = new Date(utils.transformDate(pomodoroDate));
       if(pomodoroDate >= startDate && pomodoroDate <= endDate){
-        resultTask.get('pomodoros').pushObject(pomodoroDate);
+        resultTask.get('pomodoros').pushObject({date: pomodoroDate});
       }  
     });
     return resultTask; 
