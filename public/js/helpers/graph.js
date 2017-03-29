@@ -1,3 +1,15 @@
+function pathMonth(t0) {
+  var t1 = new Date(t0.getFullYear(), t0.getMonth() + 1, 0),
+      d0 = t0.getDay(), w0 = d3.timeWeek.count(d3.timeYear(t0), t0),
+      d1 = t1.getDay(), w1 = d3.timeWeek.count(d3.timeYear(t1), t1);
+  return "M" + (w0 + 1) * cellSize + "," + d0 * cellSize
+         + "H" + w0 * cellSize + "V" + 7 * cellSize
+         + "H" + w1 * cellSize + "V" + (d1 + 1) * cellSize
+         + "H" + (w1 + 1) * cellSize + "V" + 0
+         + "H" + (w0 + 1) * cellSize + "Z";
+}
+
+
 App.Graph = Ember.Object.extend({
   /**
    * load the jsonStatistics on the bar chart, obj format is:
@@ -63,7 +75,7 @@ App.Graph = Ember.Object.extend({
       .data(function(d) { return d3.time.months(new Date(d, 0, 1), new Date(d + 1, 0, 1)); })
       .enter().append("path")
       .attr("class", "month")
-      .attr("d", monthPath);
+      .attr("d", pathMonth);
     let d3datesJSON = [];
     tasks.forEach((task) => {
       for(var i = 0; i < task.pomodoros.length; i++){

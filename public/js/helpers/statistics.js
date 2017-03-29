@@ -202,7 +202,12 @@ App.Statistics = Ember.Object.extend({
       pomodoros, date;
     tasks.forEach((task) => {
       for(let pomodoro of task.get('pomodoros')){
-        date = new Date(utils.transformDate(pomodoro.date.split('|')[0]))         
+        if(typeof(pomodoro.date) === 'object'){
+          date = pomodoro.date; 
+        }else{
+          date = 
+            new Date(utils.transformDate(pomodoro.date.split('|')[0]))
+        }
         lastPomodoro = (date > lastPomodoro) ? date : lastPomodoro; 
       }
     });

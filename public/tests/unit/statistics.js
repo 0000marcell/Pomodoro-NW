@@ -82,6 +82,15 @@ test('#lastPomodoro', function(assert){
   assert.equal(result.getDate(), 10);
 });
 
+test('#lastPomodoro also works after filter', function(assert){
+  let tasks = createTasks(2, 10),
+      startDate = '04/12/2016',
+      endDate = '07/12/2016';
+  let filteredTasks = statistics.filterPomodoros(tasks, startDate, endDate),
+      result = statistics.lastPomodoro(filteredTasks);
+  assert.equal(result.getDate(), 7);
+});
+
 test('#getPomodorosDateRange', function(assert){
   let tasks = createTasks(1, 10),
       startDate = new Date(2016, 11, 4),
