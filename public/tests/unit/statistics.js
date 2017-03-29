@@ -71,10 +71,9 @@ test('#firstPomodoro also works after a filter', function(assert){
   let tasks = createTasks(2, 10),
       startDate = '04/12/2016',
       endDate = '07/12/2016';
-  debugger;
   let filteredTasks = statistics.filterPomodoros(tasks, startDate, endDate),
       result = statistics.firstPomodoro(filteredTasks);
-  assert.equal(result.getDate(), 1);
+  assert.equal(result.getDate(), 4);
 });
 
 test('#lastPomodoro', function(assert){
@@ -89,8 +88,8 @@ test('#getPomodorosDateRange', function(assert){
       endDate = new Date(2016, 11, 7),
       result = statistics.getPomodorosDateRange(tasks[0], 
         startDate, endDate);
-  assert.equal(result.pomodoros[0].getDate(), 4);
-  assert.equal(result.pomodoros[3].getDate(), 7);
+  assert.equal(result.pomodoros[0].date.getDate(), 4);
+  assert.equal(result.pomodoros[3].date.getDate(), 7);
 });
 
 test('#filterPomodoros', function(assert){
@@ -98,8 +97,8 @@ test('#filterPomodoros', function(assert){
       startDate = '04/12/2016',
       endDate = '07/12/2016';
   let result = statistics.filterPomodoros(tasks, startDate, endDate);
-  assert.equal(result[0].pomodoros[0].getDate(), 4);
-  assert.equal(result[1].pomodoros[3].getDate(), 7);
+  assert.equal(result[0].pomodoros[0].date.getDate(), 4);
+  assert.equal(result[1].pomodoros[3].date.getDate(), 7);
 });
 
 test('#mostProductiveMonth', function(assert){
