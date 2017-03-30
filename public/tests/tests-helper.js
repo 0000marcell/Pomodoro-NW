@@ -5,7 +5,7 @@ function createTasks(taskN, pomN){
       pomodoros = [];
         
   for (let i = 1; i < pomN; i++) {
-    pomodoros.push({date: `0${i}/12/2016|21|9|38`}); 
+    pomodoros.push({date: new Date(new Date().getFullYear(), 0, i)); 
   }
 
   for (let i = 0; i < taskN; i++) {
@@ -24,13 +24,10 @@ function tasksDate(taskN, pomN, onlyToday = false){
       monday = utils.getMonday(new Date()).getDate(),
       dateS;
   for (let i = 1; i < pomN; i++) {
-    if(onlyToday){
-      dateS = utils.transformDateToString(date); 
-    }else{
+    if(!onlyToday){
       date.setDate(monday + i);
-      dateS = utils.transformDateToString(date);
     }
-    pomodoros.push({date: `${dateS}|21|9|38`}); 
+    pomodoros.push({date: date}); 
   }
   for (let i = 0; i < taskN; i++) {
     tasks.push(App.TaskObject.create({ id: i+1, name: `Task ${i}`, 

@@ -15,7 +15,7 @@ let jsonStatistics = {
 };
 
 test('#calculateTasksTotalTime return the total time spend in a task', function(assert){
-  let tasks = createTasks(),
+  let tasks = createTasks(10, 10),
       result = statistics.calculateTaskTotalTime(tasks[0]);
   assert.equal(result, 5);
 });
