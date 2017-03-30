@@ -1,14 +1,17 @@
-function pathMonth(t0) {
-  var t1 = new Date(t0.getFullYear(), t0.getMonth() + 1, 0),
-      d0 = t0.getDay(), w0 = d3.timeWeek.count(d3.timeYear(t0), t0),
-      d1 = t1.getDay(), w1 = d3.timeWeek.count(d3.timeYear(t1), t1);
-  return "M" + (w0 + 1) * cellSize + "," + d0 * cellSize
-         + "H" + w0 * cellSize + "V" + 7 * cellSize
-         + "H" + w1 * cellSize + "V" + (d1 + 1) * cellSize
-         + "H" + (w1 + 1) * cellSize + "V" + 0
-         + "H" + (w0 + 1) * cellSize + "Z";
-}
+var width = 460,
+    height = 66,
+    cellSize = 8;
 
+function monthPath(t0) {
+  var t1 = new Date(t0.getFullYear(), t0.getMonth() + 1, 0),
+      d0 = t0.getDay(), w0 = d3.time.weekOfYear(t0),
+      d1 = t1.getDay(), w1 = d3.time.weekOfYear(t1);
+  return "M" + (w0 + 1) * cellSize + "," + d0 * cellSize
+      + "H" + w0 * cellSize + "V" + 7 * cellSize
+      + "H" + w1 * cellSize + "V" + (d1 + 1) * cellSize
+      + "H" + (w1 + 1) * cellSize + "V" + 0
+      + "H" + (w0 + 1) * cellSize + "Z";
+}
 
 App.Graph = Ember.Object.extend({
   /**
@@ -32,10 +35,6 @@ App.Graph = Ember.Object.extend({
    */
   loadD3Calendar(tasks){
     $('.graph').empty(); 
-
-    var width = 460,
-        height = 66,
-        cellSize = 8;
 
     var percent = d3.format(".1%"),
         format = d3.time.format("%d/%m/%Y");
@@ -75,18 +74,10 @@ App.Graph = Ember.Object.extend({
       .data(function(d) { return d3.time.months(new Date(d, 0, 1), new Date(d + 1, 0, 1)); })
       .enter().append("path")
       .attr("class", "month")
-      .attr("d", pathMonth);
-    let d3datesJSON = [];
-    tasks.forEach((task) => {
-      for(var i = 0; i < task.pomodoros.length; i++){
-        let d3JSON = {"Date": "", "Pomodoros": 1};
-        d3JSON.Date = utils.transformDateToString(task.pomodoros[i]);
-        (!d3datesJSON.length) ? d3datesJSON.push(d3JSON) :
-                             this.d3includeDate(d3datesJSON, d3JSON);
-      }
-    });
+      .attr("d", monthPath);
+    
     d3.json("data.json", (error, json) => {
-      json = this.D3datesJSON;
+      json = this.d3CreateDates(tasks);
       if (error) throw error;
 
       var data = d3.nest()
@@ -102,16 +93,43 @@ App.Graph = Ember.Object.extend({
 		    alert(data[d]);
 			});
     });
+    d3.select(self.frameElement).style("height", "2910px");
   },
   /**
-   * ?
+   * Creates the object needed 
+   * to load the dates in the calendar
+   * @method d3
+   * @param tasks {object}
+   * @return obj
+   */
+  d3CreateDates(tasks){
+    let d3datesJSON = [];
+    tasks.forEach((task) => {
+      for(var i = 0; i < task.pomodoros.length; i++){
+        let d3JSON = {"Date": "", "Pomodoros": 1};
+        d3JSON.Date = utils.transformDateToString(task.pomodoros[i].date);
+        if(!d3datesJSON.length){
+          d3datesJSON.push(d3JSON);
+        }else{
+          this.d3includeDate(d3datesJSON, d3JSON);
+        }
+      }
+    });
+    return d3datesJSON;
+  },
+  /**
+   * raise the number os pomodoros
+   * of a specific day if the dated
+   * passed is already in the d3datesJSON object
+   * if the date was not found, include the date 
+   * in the d3datesJSON object
    * @method d3includeDate
    */
   d3includeDate(d3datesJSON, d3JSON){
     var found = 0;
     for (var i = 0; i < d3datesJSON.length; i++) {
       if(d3JSON.Date == d3datesJSON[i].Date){
-        this.D3datesJSON[i].Pomodoros++;
+        d3datesJSON[i].Pomodoros++;
         found = 1;
         break;
       } 

@@ -1,5 +1,7 @@
-let date = new Date();
+let obj = [];
+includeValue(obj, 'marcell');
+console.log('obj: ', obj);
 
-if(typeof(date) === 'object'){
-  console.log('ok!');
+function includeValue(obj, value){
+  obj.push(value);
 }
