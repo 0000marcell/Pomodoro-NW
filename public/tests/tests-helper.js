@@ -5,7 +5,7 @@ function createTasks(taskN, pomN){
       pomodoros = [];
         
   for (let i = 1; i < pomN; i++) {
-    pomodoros.push({date: new Date(new Date().getFullYear(), 0, i)); 
+    pomodoros.push({date: new Date(new Date().getFullYear(), 0, i)}); 
   }
 
   for (let i = 0; i < taskN; i++) {

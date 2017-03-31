@@ -18,7 +18,6 @@
   includeTaskTime, includes the total taskTime on the view
   getTask, returns a task based on the id
   filterPomodoros, return all tasks with pomodoros filtered in a date range
-  transformDate, transform date string
   mostProductiveMonth, returns the most productive month
   mostProductiveDay, 
   firstPomodoro, get the first pomodoro made on the filteredTasks 
@@ -171,22 +170,11 @@ App.Statistics = Ember.Object.extend({
   */
   firstPomodoro(tasks){
     let firstPomodoro = new Date(), 
-      pomodoros, date;
+      pomodoros;
     tasks.forEach(function(task){
-      pomodoros = (task['get']) ? task.get('pomodoros') : 
-                                                 task.get('pomodoros');
+      pomodoros = task.get('pomodoros');
       for(let pomodoro of pomodoros){
-        /*
-        date = (task['get']) ? new Date(utils.transformDate(pomodoro.date.split('|')[0])) :
-                               pomodoro;
-        */
-        if(typeof(pomodoro.date) === 'object'){
-          date = pomodoro.date;
-        }else{
-          date = 
-            new Date(utils.transformDate(pomodoro.date.split('|')[0]));
-        }
-        firstPomodoro = (date < firstPomodoro) ? date : firstPomodoro; 
+        firstPomodoro = (pomodoro.date < firstPomodoro) ? pomodoro.date : firstPomodoro; 
       }
     });
     return firstPomodoro;
@@ -234,7 +222,6 @@ App.Statistics = Ember.Object.extend({
    * the pomodoro dates are also converted to js date objects
   */
   getPomodorosDateRange(task, startDate, endDate){
-    let pomodoroDate;
     let resultTask = App.TaskObject.create({ 
       id: task.get('id'), 
       name: task.get('name'),
@@ -244,10 +231,8 @@ App.Statistics = Ember.Object.extend({
       pomodoros: []
     })
     task.get('pomodoros').forEach((pomodoro, index) => {
-      pomodoroDate = pomodoro.date.split('|')[0];
-      pomodoroDate = new Date(utils.transformDate(pomodoroDate));
-      if(pomodoroDate >= startDate && pomodoroDate <= endDate){
-        resultTask.get('pomodoros').pushObject({date: pomodoroDate});
+      if(pomodoro.date >= startDate && pomodoro.date <= endDate){
+        resultTask.get('pomodoros').pushObject({date: pomodoro.date});
       }  
     });
     return resultTask; 
