@@ -218,9 +218,12 @@ App.Statistics = Ember.Object.extend({
       last_active: task.get('last_active'),
       duration: "25:00",
       pomodoros: []
-    })
+    });
+    let date;
     task.get('pomodoros').forEach((pomodoro, index) => {
-      if(pomodoro.date >= startDate && pomodoro.date <= endDate){
+      date = new Date(pomodoro.date.getFullYear(), pomodoro.date.getMonth(), 
+        pomodoro.date.getDate());
+      if(date >= startDate && date <= endDate){
         resultTask.get('pomodoros').pushObject({date: pomodoro.date});
       }  
     });
