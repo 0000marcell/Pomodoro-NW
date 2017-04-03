@@ -78,15 +78,15 @@ test('#firstPomodoro also works after a filter', function(assert){
 });
 
 test('#lastPomodoro', function(assert){
-  let tasks = createTasks(10, 10),
+  let tasks = createTasks(2, 5),
       result = statistics.lastPomodoro(tasks);
-  assert.equal(result.getDate(), 10);
+  assert.equal(result.getDate(), 5);
 });
 
 test('#lastPomodoro also works after filter', function(assert){
   let tasks = createTasks(2, 10),
-      startDate = `04/01/${new Date().getFullYear()}`,
-      endDate = `07/01/${new Date().getFullYear()}`;
+      startDate = `04/01/${new Date().getFullYear() - 1}`,
+      endDate = `07/01/${new Date().getFullYear() - 1}`;
   let filteredTasks = statistics.filterPomodoros(tasks, startDate, endDate),
       result = statistics.lastPomodoro(filteredTasks);
   assert.equal(result.getDate(), 7);
@@ -94,8 +94,8 @@ test('#lastPomodoro also works after filter', function(assert){
 
 test('#getPomodorosDateRange', function(assert){
   let tasks = createTasks(1, 10),
-      startDate = new Date(new Date().getFullYear(), 0, 4),
-      endDate = new Date(new Date().getFullYear(), 0, 7),
+      startDate = new Date(new Date().getFullYear() - 1, 0, 4),
+      endDate = new Date(new Date().getFullYear() - 1, 0, 7),
       result = statistics.getPomodorosDateRange(tasks[0], 
         startDate, endDate);
   assert.equal(result.pomodoros[0].date.getDate(), 4);
@@ -104,8 +104,8 @@ test('#getPomodorosDateRange', function(assert){
 
 test('#filterPomodoros', function(assert){
   let tasks = createTasks(2, 10),
-      startDate = `04/01/${new Date().getFullYear()}`,
-      endDate = `07/01/${new Date().getFullYear()}`;
+      startDate = `04/01/${new Date().getFullYear() - 1}`,
+      endDate = `07/01/${new Date().getFullYear() - 1}`;
   let result = statistics.filterPomodoros(tasks, startDate, endDate);
   assert.equal(result[0].pomodoros[0].date.getDate(), 4);
   assert.equal(result[1].pomodoros[3].date.getDate(), 7);
@@ -113,7 +113,7 @@ test('#filterPomodoros', function(assert){
 
 test('#mostProductiveMonth', function(assert){
   let tasks = createTasks(2, 10),
-      result = statistics.mostProductiveMonth(tasks, 2017); 
+      result = statistics.mostProductiveMonth(tasks, 2016); 
   assert.equal(result.month, 'January');
   assert.equal(result.size, 20);
 });
@@ -138,7 +138,7 @@ test('#weekPomodoroH', function(assert){
 });
 
 test('#pomAverage', function(assert){
-  let tasks = tasksDate(10, 2),
+  let tasks = createTasks(2, 2),
       result = statistics.pomAverage(tasks); 
-  assert.equal(result, 10);
+  assert.equal(result, 2);
 });
