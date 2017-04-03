@@ -20,13 +20,14 @@ function tasksDate(taskN, pomN, onlyToday = false){
   taskN = taskN || 10;
   let tasks = [],
       pomodoros = [],
-      date = new Date(),
-      monday = utils.getMonday(new Date()).getDate(),
-      dateS;
+      date = null,
+      monday = utils.getMonday(new Date()).getDate();
   for (let i = 1; i < pomN; i++) {
+    date = new Date();
     if(!onlyToday){
       date.setDate(monday + i);
-    }
+      date.setMonth(utils.getMonday(new Date()).getMonth());
+    }    
     pomodoros.push({date: date}); 
   }
   for (let i = 0; i < taskN; i++) {
