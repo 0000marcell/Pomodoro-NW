@@ -3,6 +3,9 @@ App.ApplicationRoute = Ember.Route.extend({
     if(environment === 'test'){
       let tasks = JSON.parse(JSON.stringify(tasksDate(10, 10)));
       tasks.forEach((task) => {
+        task.pomodoros = task.pomodoros.map((pomodoro) => {
+          return {date: new Date(pomodoro.date)}; 
+        });
         this.store.push('task', task); 
       });
     }else{
