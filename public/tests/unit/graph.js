@@ -10,5 +10,14 @@ test('#calculateCanvasSize', function(assert){
 test('#d3CreateDates', function(assert){
   let tasks = createTasks(10, 10),
       result = graph.d3CreateDates(tasks);
-  debugger;
+  assert.equal(result.length, 10);
+  assert.equal(result[0].Pomodoros, 10);
+});
+
+test('d3includeDate#', function(assert){
+  let json = {"Date": new Date(), "Pomodoros": 1},
+      arr = [json];
+  graph.d3includeDate(arr, json); 
+  graph.d3includeDate(arr, json);
+  assert.equal(arr[0].Pomodoros, 3);
 });
