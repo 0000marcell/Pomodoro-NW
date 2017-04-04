@@ -70,8 +70,8 @@ test('#firstPomodoro', function(assert){
 test('#firstPomodoro also works after a filter', function(assert){
   // create tasks starts january first 
   let tasks = createTasks(2, 10),
-      startDate = `03/01/${new Date().getFullYear()}`,
-      endDate = `07/01/${new Date().getFullYear()}`;
+      startDate = `03/01/${new Date().getFullYear() - 1}`,
+      endDate = `07/01/${new Date().getFullYear() - 1}`;
   let filteredTasks = statistics.filterPomodoros(tasks, startDate, endDate),
       result = statistics.firstPomodoro(filteredTasks);
   assert.equal(result.getDate(), 3);
