@@ -4,7 +4,7 @@ let path = require('path'),
     __homedir = os.homedir(),
     awsUseStorage = false,
     devMode = true,
-    environment = 'test',
+    environment = 'development',
     pomodoroFilesPath;
 
 
@@ -56,8 +56,7 @@ App = Ember.Application.create({
   LOG_TRANSITIONS: true
 });
 
-let intervalCount = 0,
-    pomodoroTime = 25 * 60, restart = false,
+let pomodoroTime = 10, restart = false,
     shortIntervalTime = 5 * 60, longIntervalTime = 10 * 60,
     pause = false;
 

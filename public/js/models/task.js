@@ -7,6 +7,16 @@ App.Task = DS.Model.extend({
   pomodoros: DS.attr('array'),
   duration: DS.attr('string'),
   totalTime: DS.attr('string'),
+  saveOnFile(){
+    let tasks = this.store.all('task');
+    tasks = tasks.toArray().map((task, index) => {
+      let json = task.toJSON(); 
+      json['id'] = index + 1;
+      return json;
+    });
+    fileIO.save(`{"tasks": ${JSON.stringify(tasks)}}`,
+        mainDataPath);
+  },
   htmlID: function() {
     return 'task' + this.get('id');
   }.property('id'),
@@ -21,26 +31,6 @@ App.Task = DS.Model.extend({
         min = totalTimeInMin % 60;
     return hours+'h'+min+'m'
   },
-  saveOnFile(){
-    this.generateJSON();
-  },
-  generateJSON(){
-    var json = {tasks : []},
-    i = 0;
-    this.store.find('task').then((tasks) => {
-      tasks.forEach((task) => {
-        this.createPomodoroArrayIfUnd(task);
-        json.tasks
-          .push(this.createJsonString(task, i++));
-      });
-    }).then(() => {
-      var content = JSON.stringify(json);
-      fileIO.save(content);
-      if(awsUseStorage){
-        this.uploadToAWS(content);
-      }
-    });
-  },
   uploadToAWS(content){
     var params = {Key: 'data.json', Body: content};
     bucket.upload(params, (error, data) => {
@@ -48,21 +38,6 @@ App.Task = DS.Model.extend({
         alert("File sync failed "+error);
       }
     });
-  },
-  createPomodoroArrayIfUnd(task){
-   if(task.get("pomodoros") == undefined){
-    var pomodoroArray = []; 
-    task.set('pomodoros', pomodoroArray);
-   }
-  },
-  createJsonString(task, index){
-    var tmp = {id: index,
-        name: task.get("name"),
-        creation_date: task.get('creation_date'),
-        last_active: task.get('last_active'),
-        duration: task.get("duration"),
-        pomodoros: task.get("pomodoros")};
-    return tmp
   },
   formatDates(){
     this.set('formated_creation_date', this.formatDate('creation_date'));

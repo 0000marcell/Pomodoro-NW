@@ -6,7 +6,7 @@ App.MainView = Ember.View.extend({
       clockFace: 'MinuteCounter',
       autoStart: false,
       callbacks: {
-        stop: controller.stopClock
+        stop: controller.stopClock.bind(controller)
       }
     }); 
     clock.set('flipClock', flipClock);

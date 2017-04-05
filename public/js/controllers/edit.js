@@ -5,14 +5,13 @@ App.EditController = Ember.ObjectController.extend({
         console.log('the name of the task cant be blank');
         return;
       }
-      task.save();
-      task.saveOnFile();
-      this.transitionTo('main');
+      fileIO.saveTasks(this.store.all('task'));
+      this.transitionToRoute('main');
     },
     delete(task) {
       task.destroyRecord().then(() => {
-        task.saveOnFile();
-        this.transitionTo('main');
+        fileIO.saveTasks(this.store.all('task'));
+        this.transitionToRoute('main');
       });
     }
   }

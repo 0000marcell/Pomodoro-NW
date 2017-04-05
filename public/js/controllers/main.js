@@ -1,65 +1,55 @@
 App.MainController = Ember.ObjectController.extend({
+  intervalCount: 0,
   selectedTaskMsg: 'No task selected!',
   taskVisibility: true, 
+  /** saves the new pomodoro when
+   * the clock reaches zero
+  */
   stopClock(){
-    if(pause == true){
-      clock.pause();
+    /* 
+     * verifies if the clock was stoped because it reached zero
+     * or because the user stoped it
+    */
+    if(clock.get('state') !== 'active'){
       return;
-    }
-    if(restart == true){
-      clock.reset(pomodoroTime);
-      clock.start();
-      clock.reactivate();
-      restart = false;
-      return;
-    }
-    intervalCount++;
-    $('#streak').html(intervalCount);
-    clock.interval();
-    ((intervalCount % 3) == 0) ? this.longInterval() : 
-    this.shortInterval();
-  },
-  longInterval(){
+    }  
+    this.set('intervalCount', 
+      this.get('intervalCount') + 1);
+    this.savePomodoro(this.get('selectedTask'));
     win.focus();
-    this.savePomodoro();
-    restart = true;
+    let interval = ((this.get('intervalCount') % 3) == 0) ? 10 * 60 : 
+                                                            5 * 60;
     clock.reset(longIntervalTime);
-    clock.start();
+    clock.activate();
   },
-  shortInterval(){
-    win.focus();
-    this.savePomodoro();
-    restart = true;
-    clock.reset(shortIntervalTime);
-    clock.start();
+  savePomodoro(task){
+    task.get('pomodoros')
+      .pushObject({ "date": new Date()});
+    fileIO.saveTasks(this.store.all('task'));
   },
   actions: {
     startClock() {
-      if(this.get('selectedTask') && 
-        clock.get('currentState') !== 'active'){
-        clock.activate();
-        clock.start();
+      if(this.get('selectedTask') && clock.get('state') === 'active'){
+        alert('you need to pause the clock if you want to select another task!');
       }else{
-        this.set('selectedTaskMsg', 'First select a task!')
+        if(this.get('selectedTask') && 
+          clock.get('state') === 'paused'){
+          clock.activate();
+        }else{
+          this.set('selectedTaskMsg', 'First select a task!')
+        }
       }
     },
     stopClock() {
-      clock.stop();
+      clock.pause();
     },
     selectTask: function(id){
-      clock.stop();
-      intervalCount = 0;
-      pause = false;
-      restart = false;
-      $('#streak').html(intervalCount);
-      currentSelected = id;
+      clock.reset(pomodoroTime);
       this.store.find('task', id).then((task) => {
-       task.set('last_active', utils.getDateString( new Date()));
-       pomodoroTime = parseInt(task.get('duration')) * 60;
-       clock.reset(pomodoroTime);
-       this.set('selectedTask', task);
-       this.set('selectedTaskMsg', task.get('name'));
-       clock.pause();
+        this.set('selectedTaskMsg', task.get('name'));
+        this.set('selectedTask', task);
+        clock.reset(pomodoroTime);
+        clock.pause();
       });
     },
     showHideTasks: function(){
@@ -80,15 +70,11 @@ App.MainController = Ember.ObjectController.extend({
       win.width = 500;
       win.height = height;
     },
-    savePomodoro(){
-      task.get('pomodoros')
-        .pushObject({ "date": utils.getDateString(new Date())});
-      task.save().then(() => {
-        task.saveOnFile();
-      });
-    },
     edit(task) {
-      this.transitionTo('edit', task);
+      this.transitionToRoute('edit', task);
+    },
+    new(){
+      this.transitionToRoute('new');
     }
   }
 });

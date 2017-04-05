@@ -1,7 +1,7 @@
 App.ApplicationRoute = Ember.Route.extend({
   beforeModel(){
     if(environment === 'test'){
-      let tasks = JSON.parse(JSON.stringify(tasksDate(10, 10)));
+      let tasks = JSON.parse(JSON.stringify(tasksDate(1, 1)));
       tasks.forEach((task) => {
         task.pomodoros = task.pomodoros.map((pomodoro) => {
           return {date: new Date(pomodoro.date)}; 
@@ -15,11 +15,12 @@ App.ApplicationRoute = Ember.Route.extend({
             alert("File sync failed : "+error);
           } else {
             let obj = JSON.parse(data.Body.toString());
-            obj.tasks.forEach((task) => {
-              this.store.push('task', task);       
-            });
+            this.loadTasks(obj);
           }
         });
+      }else{
+        let obj = fileIO.read(mainDataPath);
+        this.loadTasks(obj);
       }
     }
   },
@@ -28,5 +29,13 @@ App.ApplicationRoute = Ember.Route.extend({
   },
   afterModel(){
     this.transitionTo('main');
+  },
+  loadTasks(obj){
+    obj.tasks.forEach((task) => {
+      task.pomodoros = task.pomodoros.map((pomodoro) => {
+        return {date: new Date(pomodoro.date)}; 
+      });
+      this.store.push('task', task);
+    });
   }
 });

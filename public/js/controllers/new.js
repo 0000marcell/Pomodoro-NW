@@ -5,15 +5,23 @@ App.NewController = Ember.ObjectController.extend({
         console.log('the name of the task cant be blank');
         return;
       }
-      let task = this.store.createRecord('task', model);
-      task.save();
-      task.set('creation_date', 
-                utils.getDateString(new Date()));
-      task.saveOnFile(task);
-      this.transitionTo('main');
+      model.creation_date = new Date();
+      model.id = this.store.all('task').content.length + 1;
+      this.store.createRecord('task', model);
+      let tasks = 
+        this.store.all('task');
+      tasks = tasks.toArray().map((task, index) => {
+        let json = task.toJSON(); 
+        json['id'] = index + 1;
+        return json;
+      });
+      tasks.push(model);
+      fileIO.save(`{"tasks": ${JSON.stringify(tasks)}}`,
+        mainDataPath)
+      this.transitionToRoute('main');
     },
     cancel() {
-      this.transitionTo('main');
+      this.transitionToRoute('main');
     }
   }
 });
