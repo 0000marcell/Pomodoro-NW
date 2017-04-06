@@ -247,31 +247,31 @@
         content=years
         optionValuePath="content"
         optionLabelPath="content"
-        selectionBinding=yearStart}}
+        selection=yearStart}}
     {{view Ember.Select
         content=months
         optionValuePath="content.label"
         optionLabelPath="content.value"
         prompt="Start month"
-        selectionBinding=monthStart}}
+        selection=monthStart}}
     {{view Ember.Select
         content=years
         optionValuePath="content"
         optionLabelPath="content"
         prompt="Year end"
-        selectionBinding=yearEnd}}
+        selection=yearEnd}}
     {{view Ember.Select
         content=months
         optionValuePath="content.label"
         optionLabelPath="content.value"
         prompt="Month end"
-        selectionBinding=monthEnd}}
+        selection=monthEnd}}
     {{view Ember.Select
         content=tasksList
         optionValuePath="content.id"
         optionLabelPath="content.name"
         prompt="Select a task"
-        selectionBinding=selectedTask}}
+        selection=selectedTask}}
      <!--
       <button type="button" {{action "setPeriod" 7}}>Last Week</button> 
       <button type="button" {{action "setPeriod" 30}}>Last Month</button> 
