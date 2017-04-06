@@ -33,7 +33,6 @@ App.ApplicationRoute = Ember.Route.extend({
   loadTasks(obj){
     obj.tasks.forEach((task) => {
       task.pomodoros = task.pomodoros.map((pomodoro) => {
-        debugger;
         return {date: new Date(pomodoro.date)}; 
       });
       this.store.push('task', task);

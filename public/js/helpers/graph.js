@@ -42,7 +42,6 @@ App.Graph = Ember.Object.extend({
       .range(d3.range(6).map(function(d) {
         return "q" + d + "-5"; 
       }));
-    console.log('height: ', height);
     var svg = d3.select(".graph").selectAll("svg")
       .data(d3.range(statistics.firstPomodoro(tasks).getFullYear(), 
           parseInt(statistics.lastPomodoro(tasks).getFullYear()) + 1))

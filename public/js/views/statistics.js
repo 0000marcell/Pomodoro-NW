@@ -1,7 +1,10 @@
 App.StatisticsView= Ember.View.extend({
   didInsertElement(){
-    App.__container__
-    .lookup('controller:statistics')
-    .load();
+    return new Ember.RSVP.Promise((resolve) => {
+      App.__container__
+      .lookup('controller:statistics')
+      .load();  
+      resolve();
+    });
   }
 });
