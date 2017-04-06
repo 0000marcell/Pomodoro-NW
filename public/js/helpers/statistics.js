@@ -41,10 +41,12 @@ App.Statistics = Ember.Object.extend({
    @method createJsonStatistics
   */
   createJsonStatistics(tasks){
+    this.set('tasksTotalTime', []);
     let jsonStatistics = tasks.reduce((obj, task) => {
       if(!task.get('pomodoros').length)
         return obj;
       let totalTime = this.calculateTaskTotalTime(task);
+      console.log('totalTime: ', totalTime);
       obj.label.push(task.get('name'));
       obj.values
         .push({ label: task.get('name'), values: [totalTime] });
@@ -60,7 +62,7 @@ App.Statistics = Ember.Object.extend({
    * @return {Number} total time 
   */
   calculateTaskTotalTime(tasks){
-    return Math.floor((tasks.get('pomodoros').length * 30)/ 60);
+    return (tasks.get('pomodoros').length * 30)/ 60;
   },
 
   /**
