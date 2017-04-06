@@ -46,7 +46,6 @@ App.Statistics = Ember.Object.extend({
       if(!task.get('pomodoros').length)
         return obj;
       let totalTime = this.calculateTaskTotalTime(task);
-      console.log('totalTime: ', totalTime);
       obj.label.push(task.get('name'));
       obj.values
         .push({ label: task.get('name'), values: [totalTime] });

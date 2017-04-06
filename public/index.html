@@ -272,11 +272,6 @@
         optionLabelPath="content.name"
         prompt="Select a task"
         selection=selectedTask}}
-     <!--
-      <button type="button" {{action "setPeriod" 7}}>Last Week</button> 
-      <button type="button" {{action "setPeriod" 30}}>Last Month</button> 
-      <button type="button" {{action "setPeriod" 365}}>Last Year</button> 
-    -->
   </div>
   <button type="button" {{action "calculateStatistics"}}>Show Statistics</button> 
   <div class="graph">
@@ -298,7 +293,7 @@
     <div class="twelve columns most-productive">
       <b>Most Productive Months:</b>
       {{#each mp in mpMonths}}
-        <p>month({{mp.year}}): {{mp.month}}   {{mp.size}}h<p>
+        <p>month({{mp.year}}): {{mp.month}}   {{mp.size}}h</p>
       {{/each}}    
     </div>
   </div>

@@ -68,10 +68,10 @@ App.StatisticsController = Ember.ObjectController.extend({
           startYearString = `01/${this.get('monthStart.label')}/${this.get('yearStart')}`,
           endYearString = `${lastDayMonth}/${this.get('monthEnd.label')}/${this.get('yearEnd')}`;
       tasks = statistics.filterPomodoros(tasks, startYearString, endYearString);
-      this.set('tasksTotalTime', 
-          statistics.get('tasksTotalTime'));
       graph.loadBarChart(tasks);
       graph.loadD3Calendar(tasks);
+      this.set('tasksTotalTime', 
+          statistics.get('tasksTotalTime'));
     }
   }
 });

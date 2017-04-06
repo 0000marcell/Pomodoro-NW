@@ -1,5 +1,5 @@
 var width = 460,
-    height = 66,
+    height = 36,
     cellSize = 8;
 
 function monthPath(t0) {
