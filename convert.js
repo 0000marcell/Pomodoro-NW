@@ -6,16 +6,17 @@ let otasks = {"tasks": []};
 file.tasks.forEach((task) => {
   let otask = {"id":task.id,"name":task.name,"creation_date": transformDate(task.creation_date),
     "last_active":transformDate(task.last_active),
-    "duration":"25:00","pomodoros": [], "duration": null, 
-    "totalTime": null};
+    "duration":"25:00","pomodoros": [], "duration": task.duration};
   let opomodoros = [];
   for(let pomodoro of task.pomodoros){
     opomodoros
-      .push(transformDate(pomodoro.date)); 
+      .push({"date": transformDate(pomodoro.date)}); 
   }
   otask.pomodoros = opomodoros;
   otasks.tasks.push(otask);
 });
+
+fs.writeFileSync('./new.json', JSON.stringify(otasks));
 
 function transformDate(string){
   n = n + 1;
@@ -33,24 +34,13 @@ function transformDate(string){
     // it is a date
     if ( isNaN( d.getTime()  )  ) {  // d.valueOf() could also work
       console.log(`${nDate} is not a VALID`);
+      return;
     }
   }else{
     console.log(`${nDate} is not a date`);
   }
-  /*
-  try {
-    var date = new Date(nDate);
-  }
-  catch(err) {
-    console.log('ERRRRRRRRRRR: ', err);
-  }
-  */
-  /*
-  date.setHours(hours);
-  date.setMinutes(minutes);
-  date.setSeconds(seconds);
-  return date;
-  */
-  //console.log('nDate: ', nDate);
-  //return new Date(nDate);
+  d.setHours(hours);
+  d.setMinutes(minutes);
+  d.setSeconds(seconds);
+  return d;
 }
