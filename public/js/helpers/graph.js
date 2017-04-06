@@ -1,7 +1,4 @@
-var width = 460,
-    height = 36,
-    cellSize = 8;
-
+var cellSize = 8;
 function monthPath(t0) {
   var t1 = new Date(t0.getFullYear(), t0.getMonth() + 1, 0),
       d0 = t0.getDay(), w0 = d3.time.weekOfYear(t0),
@@ -34,8 +31,9 @@ App.Graph = Ember.Object.extend({
    * @param {object} tasks
    */
   loadD3Calendar(tasks){
+    var width = cellSize * 60,
+        height = cellSize * 10;
     $('.graph').empty(); 
-
     var percent = d3.format(".1%"),
         format = d3.time.format("%d/%m/%Y");
 
@@ -44,6 +42,7 @@ App.Graph = Ember.Object.extend({
       .range(d3.range(6).map(function(d) {
         return "q" + d + "-5"; 
       }));
+    console.log('height: ', height);
     var svg = d3.select(".graph").selectAll("svg")
       .data(d3.range(statistics.firstPomodoro(tasks).getFullYear(), 
           parseInt(statistics.lastPomodoro(tasks).getFullYear()) + 1))
@@ -52,7 +51,7 @@ App.Graph = Ember.Object.extend({
       .attr("height", height)
       .attr("class", "RdYlGn")
       .append("g")
-      .attr("transform", "translate(" + ((width - cellSize * 53) / 2) + "," + (height - cellSize * 7 - 1) + ")");
+      .attr("transform", "translate(" + ((width - cellSize * 55) / 2) + "," + (height - cellSize * 8 - 1) + ")");
 
     svg.append("text")
         .attr("transform", "translate(-6," + cellSize * 3.5 + ")rotate(-90)")
