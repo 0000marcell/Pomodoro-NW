@@ -52,7 +52,7 @@ App.StatisticsController = Ember.ObjectController.extend({
     let weekPomodoros = statistics.weekPomodoroH(tasks);
     this.set('weekPomodoros', weekPomodoros);
     this.set('weekTotal', 
-        `${weekPomodoros.filterBy('name', 'total')[0].time}h`);
+        `${weekPomodoros.filterBy('name', 'total')[0].time}h`);  
   },
   actions: { 
     calculateStatistics(){
