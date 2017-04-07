@@ -178,6 +178,12 @@ i:hover {
   cursor: pointer;
 }
 
+.loading-div{
+  width: 50px;
+  margin-top: 200px;
+  text-align: center;
+}
+
 .u-pull-center{
   display: block;
   margin-left: auto;

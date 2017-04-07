@@ -1,13 +1,12 @@
 App.StatisticsView= Ember.View.extend({
-  setupController(controller, model){
-    console.log('setup controller');
-  },
   didInsertElement(){
-    console.log('did insert elements');
+    let controller =  App.__container__
+      .lookup('controller:statistics');
+    controller.set('loading', true);
     Ember.run.later(this, () => {
-      App.__container__
-      .lookup('controller:statistics')
-      .load();
+      controller.set('mpMonths', []);
+      controller.load();
+      controller.set('loading', false);
     }, 300);
   }
 });
