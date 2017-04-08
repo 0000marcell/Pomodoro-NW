@@ -152,7 +152,7 @@ App.Statistics = Ember.Object.extend({
         }
       }
       if(biggest.size < total){
-        biggest = {month: months[i-1], size: total};
+        biggest = {month: months[i-1], size: (total/2)};
       }
     }
     return biggest;

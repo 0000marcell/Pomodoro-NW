@@ -1,4 +1,4 @@
-var cellSize = 8;
+var cellSize = 12;
 function monthPath(t0) {
   var t1 = new Date(t0.getFullYear(), t0.getMonth() + 1, 0),
       d0 = t0.getDay(), w0 = d3.time.weekOfYear(t0),
@@ -140,7 +140,7 @@ App.Graph = Ember.Object.extend({
   * @method calculateCanvasSize
   */
   calculateCanvasSize(jsonStatistics){
-    let graphicSizeH = jsonStatistics.values.length * 86;
+    let graphicSizeH = jsonStatistics.values.length * 100;
     return graphicSizeH;
   }
 });
