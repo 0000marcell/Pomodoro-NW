@@ -103,9 +103,9 @@ App.Graph = Ember.Object.extend({
   d3CreateDates(tasks){
     let d3datesJSON = [];
     tasks.forEach((task) => {
-      for(var i = 0; i < task.pomodoros.length; i++){
+      for(var i = 0; i < task.get('pomodoros').length; i++){
         let d3JSON = {"Date": "", "Pomodoros": 1};
-        d3JSON.Date = utils.transformDateToString(task.pomodoros[i].date);
+        d3JSON.Date = utils.transformDateToString(task.get('pomodoros')[i].date);
         if(!d3datesJSON.length){
           d3datesJSON.push(d3JSON);
         }else{

@@ -115,8 +115,9 @@ a {
 
 .today-tasks-list{
   list-style-type: none;
-  border: 1px solid #c8c8c8;
-  height: 200px;
+  //border: 1px solid #c8c8c8;
+  max-height: 200px;
+  min-height: 50px;
   overflow: scroll;
 }
 

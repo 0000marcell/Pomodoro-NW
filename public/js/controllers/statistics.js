@@ -53,6 +53,12 @@ App.StatisticsController = Ember.ObjectController.extend({
     this.set('weekPomodoros', weekPomodoros);
     this.set('weekTotal', 
         `${weekPomodoros.filterBy('name', 'total')[0].time}h`);  
+    Ember.run.later(this, () => {
+      graph.loadBarChart(tasks);
+      graph.loadD3Calendar(tasks);
+      this.set('tasksTotalTime', 
+          statistics.get('tasksTotalTime'));
+    }, 500);
   },
   actions: { 
     calculateStatistics(){
