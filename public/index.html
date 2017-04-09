@@ -74,6 +74,7 @@
         </ul>
       </div>
     </div>
+    <hr>
     {{outlet}}
   </div>
 </script>
@@ -240,9 +241,11 @@
         </ul>
       </div>
     </div>
+    <hr>
     <div id="test-pom-average" class="row">
       <h6>Average: {{pomAverage}}</h6>
     </div>
+    <hr>
     <div class="row">
       {{view Ember.Select
           content=years
@@ -277,6 +280,7 @@
     <button type="button" {{action "calculateStatistics"}}>Show Statistics</button> 
     <div class="graph">
     </div>
+    <hr>
     <ul id="total-time-tasks" class='today-tasks-list'>
       {{#each task in tasksTotalTime}}
         <li>{{task.name}}: {{task.time}}h</li>
@@ -290,6 +294,7 @@
         </div>
       </div>
     </div>
+    <hr>
     <div class="row">
       <div class="twelve columns most-productive">
         <b>Most Productive Months:</b>

@@ -6,6 +6,11 @@ html, body {
   background-color:#fff;
 }
 
+hr{
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
 #ember-testing-container{
   visibility: hidden;
 }
