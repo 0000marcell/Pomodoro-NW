@@ -4,16 +4,18 @@ Download http://0000marcell.github.io/Pomodoro-NW/
 
 Simple pomodoro tracker app for mac, linux and windows made using web technologies:
 * ember
-* Jade
+* handlebars
 * NW.js
 * Node.js
-the app can be packed to any of the system mentioned using nw.js (A.K.A nodewebkit) 
+the app can be packed to any of the systems mentioned using nw.js (A.K.A nodewebkit) 
 i've also used flipclock http://flipclockjs.com/
 
-### Issues 
-* there's still a lot of work do to, mainly in the config and statistic parts of the app
-* formating and spacing in the statistics view 
-* better way to point to an external file to save your progress 
+To compile for development change the enviroment variable in public/js/app.js to 'development'
+and the devMode variable to true
+then run `npm run build` or `npm run test` 
 
-<img src=https://s3-us-west-2.amazonaws.com/blogmarcellheroku/posts/images/Captura+de+Tela+2015-08-10+a%CC%80s+19.54.02.png width=300 height=300 />
+To compile for production change the 'devMod' variable in public/js/app.js to false 
+then run `npm run build`
 
+To compile the app for a specific OS run `grunt` the app will be compiled and copied to the build directory
+you can change which OS the app is compiled to in the Gruntfile.js
