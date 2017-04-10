@@ -30,7 +30,7 @@ App.StatisticsController = Ember.ObjectController.extend({
     this.set('tasksList', arr);
     this.get('tasksList')
       .unshiftObject(allTask);
-    this.set('selectedTask', allTask);
+    this.set('sSelectedTask', allTask);
     let currentDate = new Date().getFullYear(),
       first = statistics.firstPomodoro(tasks).getFullYear(),
       diff = currentDate - first + 1,
@@ -62,7 +62,7 @@ App.StatisticsController = Ember.ObjectController.extend({
   },
   actions: { 
     calculateStatistics(){
-      let selectedIds = (this.get('selectedTask.id') !== 'all') ? [this.get('selectedTask.id')] :
+      let selectedIds = (this.get('sSelectedTask.id') !== 'all') ? [this.get('sSelectedTask.id')] :
                                                                   [];
       let tasks;
       if(selectedIds.length){
