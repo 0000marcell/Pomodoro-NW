@@ -2,9 +2,9 @@ let path = require('path'),
     fs = require('fs'),
     os = require('os'),
     __homedir = os.homedir(),
-    awsUseStorage = true,
-    devMode = false,
-    environment = 'development',
+    awsUseStorage = false,
+    devMode = true,
+    environment = 'test',
     pomodoroFilesPath;
 
 

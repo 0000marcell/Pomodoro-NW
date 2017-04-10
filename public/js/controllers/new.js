@@ -17,7 +17,9 @@ App.NewController = Ember.ObjectController.extend({
       });
       tasks.push(model);
       let content = `{"tasks": ${JSON.stringify(tasks)}}`;
-      fileIO.uploadAWS(content);
+      if(awsUseStorage){
+        fileIO.uploadAWS(content);
+      }
       fileIO.save(`{"tasks": ${JSON.stringify(tasks)}}`,
         mainDataPath)
       this.transitionToRoute('main');
