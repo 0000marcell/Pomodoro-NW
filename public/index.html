@@ -28,6 +28,7 @@
     <script src="js/helpers/statistics.js"></script>
     <script src="js/helpers/graph.js"></script>
     <!--Views-->
+    <script src="js/views/application.js"></script>
     <script src="js/views/main.js"></script>
     <script src="js/views/statistics.js"></script>
     <!--Models-->
@@ -76,7 +77,51 @@
     </div>
     <hr>
     {{outlet}}
-  </div>
+    <div id="main-clock">
+      <!-- Clock -->
+      <div class='row'>
+        <div class="five columns">
+          <h4 id="selected-task">{{selectedTaskMsg}}</h4>
+        </div>
+        <div class="three columns">
+          <div id="task-status">
+            <h4 class="clock-paused animated infinite flash">[Paused]</h4>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="ten columns">
+          <div class='clock'>
+          </div>
+        </div>
+        <div class="two columns u-pull-right">
+          <div class="pomodoro-counter">
+            <p>Streak</p>
+            <h3>{{intervalCount}}</h3>
+          </div>
+        </div>
+      </div>
+
+      <!-- Clock Control -->
+      <div class='row'>
+        <div class="seven columns">
+          <div class='clock-controlls u-pull-right'>
+            <ul class="options-list">
+              <li>
+               <i id="test-clock-start" {{action 'startClock'}}
+                class="fa fa-play fa-2x"></i>
+              </li>
+              <li>
+                <i id="test-clock-stop" {{action 'stopClock'}} 
+                class="fa fa-stop fa-2x"></i>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class='message'></div>
+      </div>
+    </div>
 </script>
 <script type="text/x-handlebars" data-template-name="config">
   <div class="row config-view">
@@ -152,52 +197,11 @@
 
   <!-- Show/Hide -->
   <div class='row'>
-    <div class="five columns">
-      <h4 id="selected-task">{{selectedTaskMsg}}</h4>
-    </div>
-    <div class="three columns">
-      <div id="task-status">
-        <h4 class="clock-paused animated infinite flash">[Paused]</h4>
-      </div>
-    </div>
     <div class='show-hide one column u-pull-right'>
       <i {{action "showHideTasks"}} 
          class="fa fa-arrow-up fa-2x u-pull-right"></i>
     </div>
   </div>
-
-  <!-- Clock -->
-  <div class='row'>
-    <div class="ten columns">
-      <div class='clock'>
-      </div>
-    </div>
-    <div class="two columns u-pull-right">
-      <div class="pomodoro-counter">
-        <p>Streak</p>
-        <h3>{{intervalCount}}</h3>
-      </div>
-    </div>
-  </div>
-
-  <!-- Clock Control -->
-  <div class='row'>
-    <div class="seven columns">
-      <div class='clock-controlls u-pull-right'>
-        <ul class="options-list">
-          <li>
-           <i id="test-clock-start" {{action 'startClock'}}
-            class="fa fa-play fa-2x"></i>
-          </li>
-          <li>
-            <i id="test-clock-stop" {{action 'stopClock'}} 
-            class="fa fa-stop fa-2x"></i>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div class='message'></div>
 </script>
 <script type="text/x-handlebars" data-template-name="new">
   <div class="row edit-view">

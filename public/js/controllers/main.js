@@ -1,60 +1,12 @@
 App.MainController = Ember.ObjectController.extend({
-  intervalCount: 0,
-  selectedTaskMsg: 'No task selected!',
   taskVisibility: true, 
-  /** saves the new pomodoro when
-   * the clock reaches zero
-  */
-  stopClock(){
-    /* 
-     * verifies if the clock was stoped because it reached zero
-     * or because the user stoped it
-    */
-    if(clock.get('state') === 'paused'){
-      return;
-    }else if (clock.get('state') === 'interval'){
-      clock.reset(pomodoroTime);
-      clock.modeActive();
-      clock.start();
-    } else {
-      this.set('intervalCount', 
-        this.get('intervalCount') + 1);
-      this.savePomodoro(this.get('selectedTask'));
-      win.focus();
-      let interval = ((this.get('intervalCount') % 3) == 0) ? longIntervalTime : 
-                                                              shortIntervalTime;
-      clock.reset(interval);
-      clock.modeInterval();
-      clock.start();
-    } 
-  },
-  savePomodoro(task){
-    task.get('pomodoros')
-      .pushObject({ "date": new Date()});
-    fileIO.saveTasks(this.store.all('task'));
-  },
   actions: {
-    startClock() {
-      if(this.get('selectedTask') && clock.get('state') === 'active'){
-        alert('you need to pause the clock if you want to select another task!');
-      }else{
-        if(this.get('selectedTask') && 
-          clock.get('state') === 'paused'){
-          clock.modeActive();
-          clock.start();
-        }else{
-          this.set('selectedTaskMsg', 'First select a task!')
-        }
-      }
-    },
-    stopClock() {
-      clock.pause();
-    },
     selectTask: function(id){
+      let appController = App.__container__.lookup("controller:application"); 
       clock.reset(pomodoroTime);
       this.store.find('task', id).then((task) => {
-        this.set('selectedTaskMsg', task.get('name'));
-        this.set('selectedTask', task);
+        appController.set('selectedTaskMsg', task.get('name'));
+        appController.set('selectedTask', task);
         clock.reset(pomodoroTime);
         clock.pause();
       });
@@ -63,7 +15,7 @@ App.MainController = Ember.ObjectController.extend({
       $('.scrollable').toggle('slow/400/fast');
       $('.options-row').toggle('slow/400/fast');
       $('.add-row').toggle('slow/400/fast');
-      var height = (this.taskVisibility) ? 245 : 695;
+      var height = (this.taskVisibility) ? 245 : 725;
       this.taskVisibility = (height == 695) ? true : false;
       if(this.taskVisibility){
         $('.show-hide i')

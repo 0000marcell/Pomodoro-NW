@@ -1,5 +1,6 @@
 App.StatisticsView= Ember.View.extend({
   didInsertElement(){
+    $('#main-clock').hide();
     let controller =  App.__container__
       .lookup('controller:statistics');
     win.width = 800;
