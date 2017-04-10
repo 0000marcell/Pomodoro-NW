@@ -9,10 +9,9 @@ App.EditController = Ember.ObjectController.extend({
       this.transitionToRoute('main');
     },
     delete(task) {
-      task.destroyRecord().then(() => {
-        fileIO.saveTasks(this.store.all('task'));
-        this.transitionToRoute('main');
-      });
+      this.store.unloadRecord(task);
+      fileIO.saveTasks(this.store.all('task'));
+      this.transitionToRoute('main');
     }
   }
 });

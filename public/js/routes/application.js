@@ -10,11 +10,12 @@ App.ApplicationRoute = Ember.Route.extend({
       });
     }else{
       if(awsUseStorage){
-        bucket.getObject({Key: 'data.json'}, (error, data) => {
+        bucket.getObject({Key: 'new.json'}, (error, data) => {
           if (error) {
             alert("File sync failed : "+error);
           } else {
             let obj = JSON.parse(data.Body.toString());
+            debugger;
             this.loadTasks(obj);
           }
         });

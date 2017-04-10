@@ -19,13 +19,23 @@ App.FileIO = Ember.Object.extend({
       console.log('File was saved!');
     });	
   },
+  uploadAWS(content){
+    var params = {Key: 'new.json', Body: content};
+    bucket.upload(params, (error, data) => {
+      if(error){
+        alert("File sync failed "+error);
+      }
+    });
+  },
   saveTasks(tasks){
     tasks = tasks.toArray().map((task, index) => {
       let json = task.toJSON(); 
       json['id'] = index + 1;
       return json;
     });
-    this.save(`{"tasks": ${JSON.stringify(tasks)}}`,
+    let content = `{"tasks": ${JSON.stringify(tasks)}}`;
+    this.uploadAWS(content); 
+    this.save(content,
         mainDataPath);
   },
   copy(source, dest){
