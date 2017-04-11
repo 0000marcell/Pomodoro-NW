@@ -1,6 +1,7 @@
 let arr = [0, 1, 2, 3];
-arr = arr.map((item) => {
-  return item + 1; 
+let result = arr.filter((value) => {
+  return value !== 2; 
 });
-console.log('arr: ', arr);
+
+console.log(result);
 

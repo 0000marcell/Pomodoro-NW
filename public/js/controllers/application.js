@@ -31,7 +31,8 @@ App.ApplicationController = Ember.ObjectController.extend({
   savePomodoro(task){
     task.get('pomodoros')
       .pushObject({ "date": new Date()});
-    fileIO.saveTasks(this.store.all('task'));
+    fileIO
+      .saveTasks(utils.transformTaskObject(this.store.all('task').content));
   },
   actions: {
     startClock() {

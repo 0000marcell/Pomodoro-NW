@@ -28,12 +28,7 @@ App.FileIO = Ember.Object.extend({
     });
   },
   saveTasks(tasks){
-    tasks = tasks.toArray().map((task, index) => {
-      let json = task.toJSON(); 
-      json['id'] = index + 1;
-      return json;
-    });
-    let content = `{"tasks": ${JSON.stringify(tasks)}}`;
+    let content = JSON.stringify(tasks);
     if(awsUseStorage){
       this.uploadAWS(content); 
     }

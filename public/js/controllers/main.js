@@ -16,7 +16,7 @@ App.MainController = Ember.ObjectController.extend({
       $('.options-row').toggle('slow/400/fast');
       $('.add-row').toggle('slow/400/fast');
       var height = (this.taskVisibility) ? 245 : 725;
-      this.taskVisibility = (height == 695) ? true : false;
+      this.taskVisibility = (height == 725) ? true : false;
       if(this.taskVisibility){
         $('.show-hide i')
           .removeClass('fa-arrow-down')

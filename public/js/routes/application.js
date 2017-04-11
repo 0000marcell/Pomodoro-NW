@@ -15,7 +15,6 @@ App.ApplicationRoute = Ember.Route.extend({
             alert("File sync failed : "+error);
           } else {
             let obj = JSON.parse(data.Body.toString());
-            debugger;
             this.loadTasks(obj);
           }
         });

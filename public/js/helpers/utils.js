@@ -1,5 +1,20 @@
 App.Utils = Ember.ObjectController.extend({
   /**
+   * receives a array of store object tasks and 
+   * transform in simple json to be saved on a file
+   */
+  transformTaskObject(arr){
+    let json = {"tasks": []},
+        id, obj;
+    arr.forEach((item) => {
+      id = item.id; 
+      obj = item.toJSON();
+      obj["id"] = id;
+      json.tasks.push(obj);
+    });
+    return json;
+  },
+  /**
    * returns a string in the format expected by json
    */
   getDateString(date){

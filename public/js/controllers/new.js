@@ -6,21 +6,17 @@ App.NewController = Ember.ObjectController.extend({
         return;
       }
       model.creation_date = new Date();
-      model.id = this.store.all('task').content.length + 1;
+      model.id = 
+        parseInt(this.store.all('task').content.slice(-1)[0].id) + 1;
       this.store.createRecord('task', model);
-      let tasks = 
-        this.store.all('task');
-      tasks = tasks.toArray().map((task, index) => {
-        let json = task.toJSON(); 
-        json['id'] = index + 1;
-        return json;
-      });
-      tasks.push(model);
-      let content = `{"tasks": ${JSON.stringify(tasks)}}`;
+      let obj = 
+        utils.transformTaskObject(this.store.all('task').content);
+      obj.tasks.push(model);
+      let content = JSON.stringify(obj);
       if(awsUseStorage){
         fileIO.uploadAWS(content);
       }
-      fileIO.save(`{"tasks": ${JSON.stringify(tasks)}}`,
+      fileIO.save(content,
         mainDataPath)
       this.transitionToRoute('main');
     },
