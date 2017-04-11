@@ -1,4 +1,5 @@
 App.Clock = Ember.Object.extend({
+  previousState: false,
   initialize(){
     this.get('flipClock').setCountdown(true);
     this.get('flipClock').setTime(pomodoroTime);
@@ -7,6 +8,12 @@ App.Clock = Ember.Object.extend({
     this.get('flipClock').setTime(sec)
   },
   start(){
+    if(this.get('previousState') === 'interval'){
+      this.modeInterval();
+      this.set('previousState', false);
+    }else{
+      this.modeActive();
+    }
     this.get('flipClock').start();
   },
   modeActive(){
@@ -20,6 +27,9 @@ App.Clock = Ember.Object.extend({
       .html('<h4 class="clock-interval animated infinite pulse">[Interval]</h4>');  
   },
   pause(){
+    if(this.get('state') !== 'paused'){
+      this.set('previousState', this.get('state'));
+    }
     this.set('state', 'paused');
     $('#task-status')
       .html('<h4 class="clock-paused animated infinite flash">[Paused]</h4>');
