@@ -8,13 +8,14 @@
   </div>
 
   <!-- Tasks List -->
+  <hr>
   <div class='row scrollable'>
     <div class='twelve columns'>
       {{#each task in model}}
-        <div class='row'>
+      <div {{bind-attr id=task.id}}
+          {{action "selectTask" task.id}} class='row task-list-row'>
           <div class='six columns'>
-            <p {{action "selectTask" task.id}}
-               class='task-name'>{{task.name}}</p>
+            <p>{{task.name}}</p>
           </div>
           <div class='six columns'>
             <span>{{task.pomodoros.length}}</span>
@@ -27,6 +28,7 @@
   </div>
 
   <!-- Show/Hide -->
+  <hr>
   <div class='row'>
     <div class='show-hide one column u-pull-right'>
       <i {{action "showHideTasks"}} 

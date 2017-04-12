@@ -140,7 +140,7 @@ App.Graph = Ember.Object.extend({
   * @method calculateCanvasSize
   */
   calculateCanvasSize(jsonStatistics){
-    let graphicSizeH = jsonStatistics.values.length * 100;
+    let graphicSizeH = jsonStatistics.values.length * 120;
     return graphicSizeH;
   }
 });

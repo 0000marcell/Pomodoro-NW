@@ -1,7 +1,12 @@
 App.MainController = Ember.ObjectController.extend({
+  selectedItem: null,
   taskVisibility: true, 
   actions: {
     selectTask: function(id){
+      $(`#${this.get('selectedItem')}`)
+        .removeClass('selected-task');     
+      $(`#${id}`).addClass('selected-task');
+      this.set('selectedItem', id);
       let appController = App.__container__.lookup("controller:application"); 
       clock.reset(pomodoroTime);
       this.store.find('task', id).then((task) => {
@@ -15,7 +20,7 @@ App.MainController = Ember.ObjectController.extend({
       $('.scrollable').toggle('slow/400/fast');
       $('.options-row').toggle('slow/400/fast');
       $('.add-row').toggle('slow/400/fast');
-      var height = (this.taskVisibility) ? 245 : 725;
+      var height = (this.taskVisibility) ? 285 : 725;
       this.taskVisibility = (height == 725) ? true : false;
       if(this.taskVisibility){
         $('.show-hide i')

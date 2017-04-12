@@ -7,7 +7,7 @@ html, body {
 }
 
 hr{
-  margin-top: 0px;
+  margin-top: 10px;
   margin-bottom: 0px;
 }
 
@@ -41,8 +41,6 @@ hr{
 }
 
 .scrollable {
-  padding: 15px;
-  border: 1px solid #c8c8c8;
   height:300px;
   overflow:auto;
 }
@@ -139,12 +137,22 @@ a {
 }
 
 .task-list-row {
-  border-bottom: 1px solid #c8c8c8;
+  padding: 15px;
 }
 
 .task-list-row:hover {
-  border: 2px solid #33c3f0;
-  border-color: #33c3f0;
+  background-color: #f8f8f8;
+  cursor: pointer;
+}
+
+.selected-task{
+  background-color: #33c3f0;
+  color: #fff;
+}
+
+.selected-task:hover{
+  background-color: #33c3f0;
+  color: #fff;
 }
 
 
@@ -226,11 +234,6 @@ i:hover {
   padding: 10px;
   /* border: 1px solid yellow;*/
   max-width: 150px;
-}
-
-.task-name:hover {
-  color: #33c3f0;
-  cursor: pointer;
 }
 
 .most-productive {
