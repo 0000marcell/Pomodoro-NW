@@ -17,9 +17,8 @@ App.MainController = Ember.ObjectController.extend({
       });
     },
     showHideTasks: function(){
-      $('.scrollable').toggle('slow/400/fast');
-      $('.options-row').toggle('slow/400/fast');
-      $('.add-row').toggle('slow/400/fast');
+      $('#main-view').toggle('slow/400/fast');
+      $('#application-view').toggle('slow/400/fast');
       var height = (this.taskVisibility) ? 285 : 725;
       this.taskVisibility = (height == 725) ? true : false;
       if(this.taskVisibility){

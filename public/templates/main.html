@@ -1,34 +1,36 @@
 <script type="text/x-handlebars" data-template-name="main">
-  <!-- Add -->
-  <div class='row add-row'>
-    <div class='one column u-pull-right'>
-      <i {{action "new"}} 
-        class="fa fa-plus fa-2x"></i>
+  <div id="main-view">
+    <!-- Add -->
+    <div class='row add-row'>
+      <div class='one column u-pull-right'>
+        <i {{action "new"}} 
+          class="fa fa-plus fa-2x"></i>
+      </div>
     </div>
-  </div>
 
-  <!-- Tasks List -->
-  <hr>
-  <div class='row scrollable'>
-    <div class='twelve columns'>
-      {{#each task in model}}
-      <div {{bind-attr id=task.id}}
-          {{action "selectTask" task.id}} class='row task-list-row'>
-          <div class='six columns'>
-            <p>{{task.name}}</p>
+    <!-- Tasks List -->
+    <hr>
+    <div class='row scrollable'>
+      <div class='twelve columns'>
+        {{#each task in model}}
+        <div {{bind-attr id=task.id}}
+            {{action "selectTask" task.id}} class='row task-list-row'>
+            <div class='six columns'>
+              <p>{{task.name}}</p>
+            </div>
+            <div class='six columns'>
+              <span>{{task.pomodoros.length}}</span>
+              <i {{action "edit" task}} 
+                class="fa fa-ellipsis-h fa-2x u-pull-right"></i>
+            </div>
           </div>
-          <div class='six columns'>
-            <span>{{task.pomodoros.length}}</span>
-            <i {{action "edit" task}} 
-              class="fa fa-ellipsis-h fa-2x u-pull-right"></i>
-          </div>
-        </div>
-      {{/each}}
+        {{/each}}
+      </div>
     </div>
+    <hr>
   </div>
 
   <!-- Show/Hide -->
-  <hr>
   <div class='row'>
     <div class='show-hide one column u-pull-right'>
       <i {{action "showHideTasks"}} 

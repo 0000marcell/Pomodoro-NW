@@ -136,8 +136,12 @@ a {
   padding-top: 20px;
 }
 
+.task-list-row p {
+  margin-bottom: 0px;
+}
+
 .task-list-row {
-  padding: 15px;
+  padding: 10px 35px 10px 25px;
 }
 
 .task-list-row:hover {
@@ -188,7 +192,7 @@ li{
 }
 
 i:hover {
-  color: #33C3F0; 
+  color: #FF9800; 
   cursor: pointer;
 }
 

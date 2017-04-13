@@ -1,25 +1,27 @@
 <script type="text/x-handlebars">
   <div class='container'>
-    <!-- Options -->
-    <div class='row options-row'>
-      <div class='one column'>
-        <i id="test-main-button" {{action "main"}} 
-          class="fa fa-chevron-left fa-2x"></i>
+    <div id="application-view">
+      <!-- Options -->
+      <div class='row options-row'>
+        <div class='one column'>
+          <i id="test-main-button" {{action "main"}} 
+            class="fa fa-chevron-left fa-2x"></i>
+        </div>
+        <div class='four columns u-pull-right'>
+          <ul class="options-list">
+            <li>
+              <i id="test-statistics-button" {{action "statistics"}}
+                class="fa fa-bar-chart fa-2x"></i>
+            </li>
+            <li>
+              <i id="test-config-button" {{action "config"}} 
+                class="fa fa-cog fa-2x"></i>
+            </li>
+          </ul>
+        </div>
       </div>
-      <div class='four columns u-pull-right'>
-        <ul class="options-list">
-          <li>
-            <i id="test-statistics-button" {{action "statistics"}}
-              class="fa fa-bar-chart fa-2x"></i>
-          </li>
-          <li>
-            <i id="test-config-button" {{action "config"}} 
-              class="fa fa-cog fa-2x"></i>
-          </li>
-        </ul>
-      </div>
+      <hr>
     </div>
-    <hr>
     {{outlet}}
     <div id="main-clock">
       <!-- Clock -->
