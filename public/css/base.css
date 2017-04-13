@@ -202,6 +202,14 @@ i:hover {
   text-align: center;
 }
 
+.u-warm{
+  color: #FF9800 !important;
+}
+
+.u-gray{
+  color: #c8c8c8 !important;
+}
+
 .u-pull-center{
   display: block;
   margin-left: auto;

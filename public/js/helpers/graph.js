@@ -73,7 +73,7 @@ App.Graph = Ember.Object.extend({
       .enter().append("path")
       .attr("class", "month")
       .attr("d", monthPath);
-    
+    const controller = this.get('controller'); 
     d3.json("data.json", (error, json) => {
       json = this.d3CreateDates(tasks);
       if (error) throw error;
@@ -88,7 +88,8 @@ App.Graph = Ember.Object.extend({
           .select("title")
           .text(function(d) { return d + ": " + percent(data[d]); });
       rect.on('click', function(d){ 
-		    alert(data[d]);
+        controller.loadDayInfo(d);
+		    //alert(data[d]);
 			});
     });
     d3.select(self.frameElement).style("height", "2910px");

@@ -11,7 +11,11 @@ const months = [{label: '1', value: 'January'},
              {label: '11', value: 'November'}, 
              {label: '12', value: 'December'}];
 
+const weekday = ['Sunday', 'Monday', 'Tuesday', 
+      'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
 App.StatisticsController = Ember.ObjectController.extend({
+  dayInfo: 'Click on the calendar to load info about a day...',
   mpMonths: [],
   tasks: [],
   isAdmin: true,
@@ -54,11 +58,32 @@ App.StatisticsController = Ember.ObjectController.extend({
     this.set('weekTotal', 
         `${weekPomodoros.filterBy('name', 'total')[0].time}h`);  
     Ember.run.later(this, () => {
+      graph.set('controller', this);
       graph.loadBarChart(tasks);
       graph.loadD3Calendar(tasks);
       this.set('tasksTotalTime', 
           statistics.get('tasksTotalTime'));
     }, 500);
+  },
+  /**
+   * Load information about a particular day
+   */
+  loadDayInfo(d){
+    this.set('dayInfoLoading', true);
+    let dTasks = statistics.filterPomodoros(this.get('tasks'), d, d),
+        time, total = 0, result = [];
+    for(task of dTasks){
+      time = task.get('pomodoros').length * 30/60;
+      total += time;
+      result.pushObject({name: task.get('name'), time: `${time} h`});
+    }
+    result.pushObject({name: 'Total', time: `${total} h`});
+    let day = new Date(dTasks[0].get('pomodoros')[0].date)
+      .getDay();
+    this.set('dayOfTheWeek', weekday[day])
+    this.set('dayInfoLoading', false);
+    this.set('dayInfo', d);
+    this.set('dayInfoPomodoros', result);
   },
   actions: { 
     calculateStatistics(){

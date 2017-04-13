@@ -125,9 +125,14 @@ App.Statistics = Ember.Object.extend({
   filterPomodoros(tasks, startDate, endDate){
     startDate = new Date(utils.transformDate(startDate));
     endDate = new Date(utils.transformDate(endDate));
-    let result = [];
+    let result = [],
+        pTask;
     tasks.forEach((task) => {
-      result.push(this.getPomodorosDateRange(task, startDate, endDate));
+      pTask = 
+        this.getPomodorosDateRange(task, startDate, endDate);
+      if(pTask.pomodoros.length){
+        result.push(pTask);
+      }
     }); 
     return result;
   },
@@ -276,7 +281,7 @@ App.Statistics = Ember.Object.extend({
       if(task.get('pomodoros').length){
         time = task.get('pomodoros').length * 30/60;
         total += time;
-        result.pushObject({name: task.name, time: time})
+        result.pushObject({name: task.name, time: time});
       }
     });
     result.pushObject({name: 'total', time: total});
