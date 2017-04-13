@@ -2,19 +2,17 @@ App.MainController = Ember.ObjectController.extend({
   selectedItem: null,
   taskVisibility: true, 
   actions: {
-    selectTask: function(id){
+    selectTask(task){
       $(`#${this.get('selectedItem')}`)
         .removeClass('selected-task');     
-      $(`#${id}`).addClass('selected-task');
-      this.set('selectedItem', id);
+      $(`#${task.get('id')}`).addClass('selected-task');
+      this.set('selectedItem', task.get('id'));
       let appController = App.__container__.lookup("controller:application"); 
       clock.reset(pomodoroTime);
-      this.store.find('task', id).then((task) => {
-        appController.set('selectedTaskMsg', task.get('name'));
-        appController.set('selectedTask', task);
-        clock.reset(pomodoroTime);
-        clock.pause();
-      });
+      appController.set('selectedTaskMsg', task.get('name'));
+      appController.set('selectedTask', task);
+      clock.reset(pomodoroTime);
+      clock.pause();
     },
     showHideTasks: function(){
       $('#main-view').toggle('slow/400/fast');

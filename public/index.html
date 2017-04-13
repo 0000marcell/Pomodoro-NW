@@ -185,7 +185,7 @@
       <div class='twelve columns'>
         {{#each task in model}}
         <div {{bind-attr id=task.id}}
-            {{action "selectTask" task.id}} class='row task-list-row'>
+            {{action "selectTask" task}} class='row task-list-row'>
             <div class='six columns'>
               <p>{{task.name}}</p>
             </div>
