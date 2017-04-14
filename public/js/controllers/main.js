@@ -17,7 +17,7 @@ App.MainController = Ember.ObjectController.extend({
     showHideTasks: function(){
       $('#main-view').toggle('slow/400/fast');
       $('#application-view').toggle('slow/400/fast');
-      var height = (this.taskVisibility) ? 285 : 725;
+      var height = (this.taskVisibility) ? 285 : 745;
       this.taskVisibility = (height == 725) ? true : false;
       if(this.taskVisibility){
         $('.show-hide i')

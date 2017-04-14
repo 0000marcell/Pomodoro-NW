@@ -35,6 +35,12 @@ App.ApplicationController = Ember.ObjectController.extend({
       .saveTasks(utils.transformTaskObject(this.store.all('task').content));
   },
   actions: {
+    close(){
+      window.close();
+    },
+    minimize(){
+      window.minimize(); 
+    },
     startClock() {
       if(this.get('selectedTask') && clock.get('state') === 'paused'){
         clock.start();
