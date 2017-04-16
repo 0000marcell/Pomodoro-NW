@@ -326,6 +326,7 @@ there.
 }
   .column,
   .columns {
+        //border: 1px solid #000;
         margin-left: 4%; 
 }
   .column:first-child,
