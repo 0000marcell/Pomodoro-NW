@@ -12,6 +12,7 @@ App.NewController = Ember.ObjectController.extend({
       let obj = 
         utils.transformTaskObject(this.store.all('task').content);
       obj.tasks.push(model);
+      obj.lastUpdate = new Date();
       let content = JSON.stringify(obj);
       if(awsUseStorage){
         fileIO.uploadAWS(content);

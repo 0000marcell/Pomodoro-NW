@@ -28,6 +28,7 @@ App.FileIO = Ember.Object.extend({
     });
   },
   saveTasks(tasks){
+    tasks.lastUpdate = new Date();
     let content = JSON.stringify(tasks);
     if(awsUseStorage){
       this.uploadAWS(content); 

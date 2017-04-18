@@ -36,7 +36,6 @@ App.ApplicationController = Ember.ObjectController.extend({
   },
   actions: {
     close(){
-      debugger;
       win.close();
     },
     minimize(){

@@ -1,7 +1,4 @@
-let arr = [0, 1, 2, 3];
-let result = arr.filter((value) => {
-  return value !== 2; 
-});
-
-console.log(result);
-
+let obj = {tasks: []};
+obj.lastUpdate = new Date();
+let result = JSON.stringify(obj);
+console.log('result: ', result);

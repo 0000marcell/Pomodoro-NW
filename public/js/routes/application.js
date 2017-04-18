@@ -10,12 +10,28 @@ App.ApplicationRoute = Ember.Route.extend({
       });
     }else{
       if(awsUseStorage){
+        let localObj = fileIO.read(mainDataPath),
+            lLastUpdate = false;
+        if(localObj.lastUpdate){
+          lLastUpdate = new Date(localObj.lastUpdate);
+        }
         bucket.getObject({Key: 'new.json'}, (error, data) => {
           if (error) {
             alert("File sync failed : "+error);
           } else {
-            let obj = JSON.parse(data.Body.toString());
-            this.loadTasks(obj);
+            let obj = JSON.parse(data.Body.toString()),
+                rLastUpdate = new Date(obj.lastUpdate),
+                result;
+            if(lLastUpdate && rLastUpdate){
+              if(lLastUpdate > rLastUpdate){
+                result = localObj; 
+              }else{
+                result = obj;
+              }
+            }else{
+              result = obj;
+            }
+            this.loadTasks(result);
           }
         });
       }else{
