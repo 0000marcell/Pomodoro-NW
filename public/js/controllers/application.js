@@ -62,6 +62,9 @@ App.ApplicationController = Ember.ObjectController.extend({
     statistics(){
       this.transitionToRoute('statistics');
     }, 
+    schedule(){
+      this.transitionToRoute('schedule');
+    },
     resizeWindow(width, height){
       win.width = width, win.height = height;  
     },
