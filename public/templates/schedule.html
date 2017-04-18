@@ -6,7 +6,45 @@
   {{else}}
     <div class="container">
       <div class="row">
-        <h3>Schedule</h3>
+        <h6>
+          <i class="fa fa-clock-o fa-2x"></i>
+          Schedule
+        </h6>
+      </div>
+      <div class="row">
+        <div class="six columns">
+          <p>Select tasks to add in a day of the week</p>
+          <div>
+            {{view Ember.Select
+              content=tasks
+              optionValuePath="content"
+              optionLabelPath="content"
+              selection=selectedTask}}
+          </div>
+          <div>
+            <button type="button" {{action "addTask"}}>
+              Add
+            </button>  
+          </div>
+        </div>
+        <div class="six columns">
+          {{view Ember.Select
+            content=daysOfTheWeek
+            optionValuePath="content"
+            optionLabelPath="content"
+            selection=selectedDay}}
+          <div id="schedule-selected-tasks" class='schedule-selected-tasks'>
+            {{#each task in selectedTasks}}
+              <div class="schedule-task-row">
+                <div class="eight columns">{{task.name}}</div>
+                <div class="four columns">
+                  <input type="number" name="quantity" min="1">
+                </div>
+              </div>
+            {{/each}}
+          </ul>
+          <p>Total: {{totalTime}}</p>
+        </div>
       </div>
     </div>
   {{/if}}
