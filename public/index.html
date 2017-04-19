@@ -260,14 +260,18 @@
       <div class="row">
         <div class="six columns">
           <p>Select tasks to add in a day of the week</p>
-          {{view Ember.Select
-            content=tasks
-            optionValuePath="content"
-            optionLabelPath="content"
-            selection=selectedTask}}
-          <button type="button" {{action "addTask"}}>
-            Add
-          </button>  
+          <div>
+            {{view Ember.Select
+              content=tasks
+              optionValuePath="content"
+              optionLabelPath="content"
+              selection=selectedTask}}
+          </div>
+          <div>
+            <button type="button" {{action "addTask"}}>
+              Add
+            </button>  
+          </div>
         </div>
         <div class="six columns">
           {{view Ember.Select
@@ -286,6 +290,13 @@
             {{/each}}
           </ul>
           <p>Total: {{totalTime}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="weekdays-container">
+          {{#each task in selectedTasks}}
+            <div class="weekdays-subcontainer"></div>
+          {{/each}}
         </div>
       </div>
     </div>

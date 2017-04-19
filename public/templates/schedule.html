@@ -46,6 +46,13 @@
           <p>Total: {{totalTime}}</p>
         </div>
       </div>
+      <div class="row">
+        <div class="weekdays-container">
+          {{#each day in schedule}}
+            <div class="weekdays-subcontainer"></div>
+          {{/each}}
+        </div>
+      </div>
     </div>
   {{/if}}
 </script>
