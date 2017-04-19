@@ -16,9 +16,10 @@
           <p>Select tasks to add in a day of the week</p>
           <div>
             {{view Ember.Select
-              content=tasks
-              optionValuePath="content"
-              optionLabelPath="content"
+              content=model
+              optionValuePath="content.id"
+              optionLabelPath="content.name"
+              prompt="Select a task"
               selection=selectedTask}}
           </div>
           <div>
@@ -30,15 +31,15 @@
         <div class="six columns">
           {{view Ember.Select
             content=daysOfTheWeek
-            optionValuePath="content"
-            optionLabelPath="content"
+            optionValuePath="content.day"
+            optionLabelPath="content.day"
             selection=selectedDay}}
           <div id="schedule-selected-tasks" class='schedule-selected-tasks'>
             {{#each task in selectedTasks}}
               <div class="schedule-task-row">
                 <div class="eight columns">{{task.name}}</div>
                 <div class="four columns">
-                  <input type="number" name="quantity" min="1">
+                  {{input type="number" value=task.amount name="quantity" min="1"}}
                 </div>
               </div>
             {{/each}}
