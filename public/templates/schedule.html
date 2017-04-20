@@ -4,55 +4,59 @@
       <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
     </div>
   {{else}}
-    <div class="container">
-      <div class="row">
-        <h6>
-          <i class="fa fa-clock-o fa-2x"></i>
-          Schedule
-        </h6>
+    <div class="row">
+      <div class="one column">
+        <i class="fa fa-clock-o fa-3x"></i>
       </div>
-      <div class="row">
-        <div class="six columns">
-          <p>Select tasks to add in a day of the week</p>
-          <div>
-            {{view Ember.Select
-              content=model
-              optionValuePath="content.id"
-              optionLabelPath="content.name"
-              prompt="Select a task"
-              selection=selectedTask}}
-          </div>
-          <div>
-            <button type="button" {{action "addTask"}}>
-              Add
-            </button>  
-          </div>
-        </div>
-        <div class="six columns">
+      <div class="six columns">
+        <h5>Schedule</h5>
+      </div>
+      
+    </div>
+    <div class="row">
+      <div class="six columns">
+        <p>Select tasks to add in a day of the week</p>
+        <div>
           {{view Ember.Select
-            content=daysOfTheWeek
-            optionValuePath="content.day"
-            optionLabelPath="content.day"
-            selection=selectedDay}}
-          <div id="schedule-selected-tasks" class='schedule-selected-tasks'>
-            {{#each task in selectedTasks}}
-              <div class="schedule-task-row">
-                <div class="eight columns">{{task.name}}</div>
-                <div class="four columns">
-                  {{input type="number" value=task.amount name="quantity" min="1"}}
-                </div>
-              </div>
-            {{/each}}
-          </ul>
-          <p>Total: {{totalTime}}</p>
+            content=model
+            optionValuePath="content.id"
+            optionLabelPath="content.name"
+            prompt="Select a task"
+            selection=selectedTask}}
+        </div>
+        <div>
+          <button type="button" {{action "addTask"}}>
+            Add
+          </button>  
         </div>
       </div>
-      <div class="row">
-        <div class="weekdays-container">
-          {{#each day in schedule}}
-            <div class="weekdays-subcontainer"></div>
+      <div class="six columns">
+        {{view Ember.Select
+          content=daysOfTheWeek
+          optionValuePath="content.day"
+          optionLabelPath="content.day"
+          selection=selectedDay}}
+        <div id="schedule-selected-tasks" class='schedule-selected-tasks'>
+          {{#each task in selectedTasks}}
+            <div class="schedule-task-row">
+              <div class="eight columns">{{task.name}}</div>
+              <div class="four columns">
+                {{input type="number" 
+                  class="number-input"
+                  value=task.amount name="quantity" min="1"}}
+              </div>
+            </div>
           {{/each}}
-        </div>
+      </div>
+      <div class="u-blue u-full-width">
+        <p>Total: {{totalTime}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="weekdays-container">
+        {{#each day in schedule}}
+          <div class="weekdays-subcontainer"></div>
+        {{/each}}
       </div>
     </div>
   {{/if}}

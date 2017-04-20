@@ -1,3 +1,20 @@
+.u-blue{
+  background-color: #33C3F0;
+  color: #fff !important;
+}
+
+.options-row-options{
+  width: 200px;
+}
+
+.number-input{
+  width: 80%;
+}
+
+.schedule-selected-tasks{
+  min-height: 200px;
+}
+
 .weekdays-container{
 }
 
@@ -302,5 +319,6 @@ i:hover {
 }
 
 .options-row{
+  margin-top: 25px;
   margin-bottom: 30px;
 }
