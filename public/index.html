@@ -257,7 +257,6 @@
       <div class="six columns">
         <h5>Schedule</h5>
       </div>
-      
     </div>
     <div class="row">
       <div class="six columns">
@@ -285,7 +284,7 @@
         <div id="schedule-selected-tasks" class='schedule-selected-tasks'>
           {{#each task in selectedTasks}}
             <div class="schedule-task-row">
-              <div class="eight columns">{{task.name}}</div>
+              <div class="eight columns" style="padding: 10px 0 0 15px;">{{task.name}}</div>
               <div class="four columns">
                 {{input type="number" 
                   class="number-input"
@@ -294,7 +293,7 @@
             </div>
           {{/each}}
       </div>
-      <div class="u-blue u-full-width">
+      <div class="u-blue u-full-width" style="padding-left: 5px; width: 273px;">
         <p>Total: {{totalTime}}</p>
       </div>
     </div>

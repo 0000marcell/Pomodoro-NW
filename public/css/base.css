@@ -8,11 +8,19 @@
 }
 
 .number-input{
-  width: 80%;
+  width: 50px;
 }
 
 .schedule-selected-tasks{
-  min-height: 200px;
+  border: 1px solid #c8c8c8;
+  padding: 10px;
+  height: 200px;
+  width: 250px;
+}
+
+.schedule-task-row{
+  border-bottom: 1px solid #c8c8c8;
+  height: 45px;
 }
 
 .weekdays-container{
