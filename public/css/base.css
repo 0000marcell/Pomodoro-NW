@@ -11,16 +11,27 @@
   width: 50px;
 }
 
-.schedule-selected-tasks{
+.schedule-tasks{
+  overflow: scroll;
+  height: 300px;
   border: 1px solid #c8c8c8;
-  padding: 10px;
-  height: 200px;
-  width: 250px;
 }
 
+
+
 .schedule-task-row{
+  padding: 8px;
   border-bottom: 1px solid #c8c8c8;
   height: 45px;
+}
+
+.schedule-task-row input{
+  margin-bottom: 0 !important;
+}
+
+.schedule-total-value{
+  padding: 5px;
+  height: 30px;
 }
 
 .weekdays-container{
@@ -279,7 +290,7 @@ i:hover {
 }
 
 .container{
-  overflow-x: hidden;
+  overflow: hidden;
   width: 90%;
   /* border: 1px solid red;*/
 }

@@ -5,7 +5,6 @@ App.EditController = Ember.ObjectController.extend({
         console.log('the name of the task cant be blank');
         return;
       }
-      debugger;
       fileIO.saveTasks(utils.transformTaskObject(this.store.all('task').content));
       this.transitionToRoute('main');
     },
