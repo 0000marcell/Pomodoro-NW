@@ -60,8 +60,14 @@
     </div>
     <div class="row">
       <div class="weekdays-container">
-        {{#each day in schedule}}
-          <div class="weekdays-subcontainer"></div>
+        {{#each item in daysOfTheWeek}}
+          <div class="weekdays-subcontainer">
+            <p>{{item.day}}</p>
+            {{#each task in item.tasks}}   
+              <p>{{task.name}}</p>
+            {{/each}}
+          </div>
+          <hr>
         {{/each}}
       </div>
     </div>
