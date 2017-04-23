@@ -59,17 +59,19 @@
       </div>
     </div>
     <div class="row">
-      <div class="weekdays-container">
         {{#each item in daysOfTheWeek}}
-          <div class="weekdays-subcontainer">
-            <p>{{item.day}}</p>
+          <div class="weekdays-container">
+            <div class="weekdays-subcontainer">
+              <p>{{item.day}}</p>
+            </div>
             {{#each task in item.tasks}}   
-              <p>{{task.name}}</p>
+            <div class="weekdays-subcontainer" 
+              {{bind-attr style=task.style}}>
+                <p>{{task.name}}</p>
+              </div>
             {{/each}}
           </div>
-          <hr>
         {{/each}}
-      </div>
     </div>
   {{/if}}
 </script>

@@ -20,6 +20,14 @@ App.ScheduleController = Ember.ObjectController.extend({
       //clone the object
       let obj = (JSON.parse(JSON.stringify(this.get('selectedTask')._data)));
       obj['amount'] = 0;
+      let color, width;
+      if(!obj['color']){
+        obj['color'] = '#2196F3';
+      }
+      color = obj['color'];
+      width = 50;
+      obj['style'] = 
+        `width: ${width}px; background-color: ${color}; color: #fff;`;
       this.get('selectedDay.tasks').pushObject(obj);
     }
   }
