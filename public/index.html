@@ -304,11 +304,12 @@
         </div>
       </div>
     </div>
+    <hr>
     <div class="row">
         {{#each item in daysOfTheWeek}}
           <div class="weekdays-container">
             <div class="weekdays-subcontainer">
-              <p>{{item.day}}</p>
+              <p>{{item.day}}:</p>
             </div>
             {{#each task in item.tasks}}   
             <div class="weekdays-subcontainer" 

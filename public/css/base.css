@@ -43,7 +43,7 @@
 
 .weekdays-subcontainer{
   border: 1px solid #fff;
-  padding: 5px;
+  padding: 0 5px 0 5px;
   white-space: nowrap;
   float: left;
   overflow: hidden;

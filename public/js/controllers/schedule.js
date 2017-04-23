@@ -14,6 +14,16 @@ App.ScheduleController = Ember.ObjectController.extend({
     this.set('selectedTasks', 
       this.get('selectedDay.tasks'));
   }.observes('selectedDay'),
+  changeAmount: function(){
+    this.get('selectedTasks').forEach((task) => {
+      let width = 0;
+      if(task.amount){
+        width = task.amount * 10;  
+        task.style = 
+        `width: ${width}px; background-color: ${task.color}; color: #fff;`;
+      }
+    });
+  }.observes('selectedTasks.@each.amount'),
   totalTime: 0,
   actions: {
     addTask(){
