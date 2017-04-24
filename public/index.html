@@ -312,8 +312,8 @@
               <p>{{item.day}}:</p>
             </div>
             {{#each task in item.tasks}}   
-            <div class="weekdays-subcontainer" 
-              {{bind-attr style=task.style}}>
+              <div class="weekdays-subcontainer" 
+                {{bind-attr style=task.style}}>
                 <p>{{task.name}}</p>
               </div>
             {{/each}}
