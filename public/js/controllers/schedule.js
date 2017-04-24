@@ -1,19 +1,19 @@
-const WeekDay = Ember.Object.extend({
-  day: null,
-  tasks: [],
+const TaskObj = Ember.Object.extend({
+  data: null,
+  width: 50,
+  amount: 1,
+  color: '#2196F3',
   style: function(){
-    return `width: ${this.get('width')}px; 
+    return `width: ${this.get('width') * this.get('amount')}px; 
       background-color: ${this.get('color')}; color: #fff;`;   
-  }.computed('width', 'color') 
+  }.property('amount') 
 });
 
 let daysOfTheWeek = [];
 ['monday', 'tuesday', 'wednesday', 
   'thrusday', 'friday', 'saturday', 'sunday'].forEach((item) => {
-  daysOfTheWeek.push(WeekDay.create({day: item})); 
+  daysOfTheWeek.push({day: item, tasks: []});
 });
-
-
 
 App.ScheduleController = Ember.ObjectController.extend({
   selectedDay: daysOfTheWeek[0],
@@ -27,17 +27,7 @@ App.ScheduleController = Ember.ObjectController.extend({
   actions: {
     addTask(){
       //clone the object
-      debugger;
-      let obj = (JSON.parse(JSON.stringify(this.get('selectedTask')._data)));
-      obj['amount'] = 0;
-      let color, width;
-      if(!obj['color']){
-        obj['color'] = '#2196F3';
-      }
-      color = obj['color'];
-      width = 50;
-      obj['style'] = 
-        `width: ${width}px; background-color: ${color}; color: #fff;`;
+      let obj = TaskObj.create({data: this.get('selectedTask')._data});
       this.get('selectedDay.tasks').pushObject(obj);
     }
   }
