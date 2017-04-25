@@ -23,7 +23,15 @@ App.ScheduleController = Ember.ObjectController.extend({
     this.set('selectedTasks', 
       this.get('selectedDay.tasks'));
   }.observes('selectedDay'),
-  totalTime: 0,
+  totalTime: function(){
+    let total = 0;
+    this.get('selectedDay.tasks').forEach((task) => {
+      if(task.amount){
+        total += parseInt(task.amount);
+      } 
+    });
+    return total;
+  }.property('selectedDay.tasks.@each.amount'),
   actions: {
     addTask(){
       //clone the object
@@ -36,6 +44,10 @@ App.ScheduleController = Ember.ObjectController.extend({
       });
       this.set('selectedTasks', arr);
       this.set('selectedDay.tasks', arr);
+    },
+    saveSchedule(){
+      let data = this.get('daysOfTheWeek');
+      fileIO.saveSchedule(data, this.store);
     }
   }
 });

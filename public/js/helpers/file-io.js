@@ -27,6 +27,18 @@ App.FileIO = Ember.Object.extend({
       }
     });
   },
+  saveSchedule(schedule, store){
+    let content = 
+      utils.transformTaskObject(store.all('task').content);
+    content['schedule'] = schedule;
+    content['lastUpdate'] = new Date();
+    content = JSON.stringify(content);
+    if(awsUseStorage){
+      this.uploadAWS(content); 
+    }
+    this.save(content,
+        mainDataPath);
+  },
   saveTasks(tasks){
     tasks.lastUpdate = new Date();
     let content = JSON.stringify(tasks);
