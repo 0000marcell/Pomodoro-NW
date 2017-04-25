@@ -1,6 +1,6 @@
 const TaskObj = Ember.Object.extend({
   data: null,
-  width: 50,
+  width: 25,
   amount: 1,
   color: '#2196F3',
   style: function(){
@@ -29,6 +29,13 @@ App.ScheduleController = Ember.ObjectController.extend({
       //clone the object
       let obj = TaskObj.create({data: this.get('selectedTask')._data});
       this.get('selectedDay.tasks').pushObject(obj);
+    },
+    removeTask(task){
+      let arr = this.get('selectedTasks').filter((item) => {
+        return item.data.id !== task.data.id;   
+      });
+      this.set('selectedTasks', arr);
+      this.set('selectedDay.tasks', arr);
     }
   }
 });
