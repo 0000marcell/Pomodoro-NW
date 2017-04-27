@@ -1,3 +1,10 @@
+// used for the schedule
+let daysOfTheWeek = [];
+['monday', 'tuesday', 'wednesday', 
+  'thrusday', 'friday', 'saturday', 'sunday'].forEach((item) => {
+  daysOfTheWeek.push({day: item, tasks: []});
+});
+
 App.ApplicationRoute = Ember.Route.extend({
   beforeModel(){
     if(environment === 'test'){
@@ -47,6 +54,18 @@ App.ApplicationRoute = Ember.Route.extend({
     this.transitionTo('main');
   },
   loadTasks(obj){
+    if(obj['schedule']){
+      let taskObj, tasks;
+      obj.schedule.forEach((day) => {
+        tasks = [];
+        day.tasks.forEach((task, index) => {
+          taskObj = TaskObj.create({itemId: index + 1, id: task.id, 
+              name: task.name, color: '#ff0000'});   
+          tasks.push(taskObj); 
+        });
+        daysOfTheWeek.push({day: day.day, tasks: tasks});
+      });  
+    }
     obj.tasks.forEach((task) => {
       task.pomodoros = task.pomodoros.map((pomodoro) => {
         return {date: new Date(pomodoro.date)}; 

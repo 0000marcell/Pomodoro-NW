@@ -43,7 +43,7 @@
           <div class="schedule-tasks">
             {{#each task in selectedTasks}}
               <div class="schedule-task-row">
-                <div class="four columns">{{task.data.name}}</div>
+                <div class="four columns">{{task.name}}</div>
                 <div class="six columns">
                   {{input type="number" 
                     class="number-input"
@@ -72,7 +72,7 @@
             {{#each task in item.tasks}}   
               <div class="weekdays-subcontainer" 
                 {{bind-attr style=task.style}}>
-                <p>{{task.data.name}}</p>
+                <p>{{task.name}}</p>
               </div>
             {{/each}}
           </div>

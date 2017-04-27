@@ -1,5 +1,6 @@
 const TaskObj = Ember.Object.extend({
-  data: null,
+  id: null,
+  name: null,
   width: 25,
   amount: '1',
   color: '#2196F3',
@@ -7,12 +8,6 @@ const TaskObj = Ember.Object.extend({
     return `width: ${this.get('width') * this.get('amount')}px; 
       background-color: ${this.get('color')}; color: #fff;`;   
   }.property('amount') 
-});
-
-let daysOfTheWeek = [];
-['monday', 'tuesday', 'wednesday', 
-  'thrusday', 'friday', 'saturday', 'sunday'].forEach((item) => {
-  daysOfTheWeek.push({day: item, tasks: []});
 });
 
 App.ScheduleController = Ember.ObjectController.extend({
@@ -27,6 +22,7 @@ App.ScheduleController = Ember.ObjectController.extend({
   }.observes('selectedDay'),
   totalTime: function(){
     let total = 0;
+    if(!this.get('selectedDay')){ return; }
     this.get('selectedDay.tasks').forEach((task) => {
       if(task.amount){
         total += parseInt(task.amount);
@@ -36,10 +32,11 @@ App.ScheduleController = Ember.ObjectController.extend({
   }.property('selectedDay.tasks.@each.amount'),
   actions: {
     addTask(){
+      debugger;
       //clone the object
       let selectedTask = this.get('selectedTask')._data,
-          obj = TaskObj.create({itemId: this.get('selectedDay.tasks.length') + 1,data: {id: selectedTask.id, 
-            name: selectedTask.name}});
+          obj = TaskObj.create({itemId: this.get('selectedDay.tasks.length') + 1, id: selectedTask.id, 
+            name: selectedTask.name});
       this.get('selectedDay.tasks').pushObject(obj);
     },
     removeTask(task){

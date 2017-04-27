@@ -31,7 +31,6 @@ App.FileIO = Ember.Object.extend({
     let content = 
       utils.transformTaskObject(store.all('task').content);
     content['schedule'] = utils.transformScheduleObject(schedule);
-    debugger;
     content['lastUpdate'] = new Date();
     content = JSON.stringify(content);
     if(awsUseStorage){
