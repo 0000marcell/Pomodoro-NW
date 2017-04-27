@@ -4,7 +4,7 @@ App.FileIO = Ember.Object.extend({
     try{
       content = fs.readFileSync(path);
       if (content == 'undefined'){
-        content = fs.readFileSync("back.json");
+        content = fs.readFileSync("pomodoro-files/backup.json");
       }
       return JSON.parse(content);
     }catch(err){

@@ -1,7 +1,7 @@
 const TaskObj = Ember.Object.extend({
   data: null,
   width: 25,
-  amount: 1,
+  amount: '1',
   color: '#2196F3',
   style: function(){
     return `width: ${this.get('width') * this.get('amount')}px; 
