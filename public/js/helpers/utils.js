@@ -18,11 +18,18 @@ App.Utils = Ember.ObjectController.extend({
    * Transform schedule object
    */
   transformScheduleObject(data){
-    data.forEach((item) => {
+    let newObj = [],
+        obj;
+    data.forEach((item, index) => {
+      newObj.push({day: item.day, 
+        tasks: []});
       item.tasks.forEach((task) => {
-         
+        obj = {id: task.data.id, name: task.data.name, 
+          amount: task.amount};
+        newObj[index].tasks.push(obj);
       });
     });
+    return newObj;
   },
   /**
    * returns a string in the format expected by json

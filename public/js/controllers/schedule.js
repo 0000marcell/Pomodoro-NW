@@ -49,7 +49,6 @@ App.ScheduleController = Ember.ObjectController.extend({
     },
     saveSchedule(){
       let data = this.get('daysOfTheWeek');
-      debugger;
       fileIO.saveSchedule(data, this.store);
     }
   }
