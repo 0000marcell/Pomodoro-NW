@@ -35,7 +35,9 @@ App.ScheduleController = Ember.ObjectController.extend({
   actions: {
     addTask(){
       //clone the object
-      let obj = TaskObj.create({data: this.get('selectedTask')._data});
+      let selectedTask = this.get('selectedTask')._data,
+          obj = TaskObj.create({data: {id: selectedTask.id, 
+            name: selectedTask.name}});
       this.get('selectedDay.tasks').pushObject(obj);
     },
     removeTask(task){
@@ -47,6 +49,7 @@ App.ScheduleController = Ember.ObjectController.extend({
     },
     saveSchedule(){
       let data = this.get('daysOfTheWeek');
+      debugger;
       fileIO.saveSchedule(data, this.store);
     }
   }

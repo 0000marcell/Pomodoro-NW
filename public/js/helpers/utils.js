@@ -15,6 +15,16 @@ App.Utils = Ember.ObjectController.extend({
     return json;
   },
   /**
+   * Transform schedule object
+   */
+  transformScheduleObject(data){
+    data.forEach((item) => {
+      item.tasks.forEach((task) => {
+         
+      });
+    });
+  },
+  /**
    * returns a string in the format expected by json
    */
   getDateString(date){
