@@ -16,6 +16,7 @@ let daysOfTheWeek = [];
 });
 
 App.ScheduleController = Ember.ObjectController.extend({
+  saveMessage: false,
   selectedDay: daysOfTheWeek[0],
   selectedTasks: daysOfTheWeek[0].tasks,
   daysOfTheWeek: daysOfTheWeek,
@@ -48,6 +49,7 @@ App.ScheduleController = Ember.ObjectController.extend({
       this.set('selectedDay.tasks', arr);
     },
     saveSchedule(){
+      this.set('saveMessage', true);
       let data = this.get('daysOfTheWeek');
       fileIO.saveSchedule(data, this.store);
     }

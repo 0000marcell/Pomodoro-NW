@@ -325,6 +325,11 @@
         {{/each}}
     </div>
     <div class="row">
+      {{#if saveMessage}}
+        <p class="u-warn">Schedule was saved!</p>
+      {{/if}}
+    </div>
+    <div class="row">
       <button type="button" {{action "saveSchedule"}}>
         save
       </button>

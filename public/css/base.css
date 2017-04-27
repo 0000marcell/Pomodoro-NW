@@ -3,6 +3,12 @@
   color: #fff !important;
 }
 
+.u-warn{
+  padding: 5px;    
+  background-color: #FFC107;
+  color: #fff !important;
+}
+
 .options-row-options{
   width: 200px;
 }
