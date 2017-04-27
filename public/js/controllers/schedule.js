@@ -16,6 +16,7 @@ let daysOfTheWeek = [];
 });
 
 App.ScheduleController = Ember.ObjectController.extend({
+  itemIndex: 0,
   saveMessage: false,
   selectedDay: daysOfTheWeek[0],
   selectedTasks: daysOfTheWeek[0].tasks,
@@ -37,13 +38,13 @@ App.ScheduleController = Ember.ObjectController.extend({
     addTask(){
       //clone the object
       let selectedTask = this.get('selectedTask')._data,
-          obj = TaskObj.create({data: {id: selectedTask.id, 
+          obj = TaskObj.create({itemId: this.get('selectedDay.tasks.length') + 1,data: {id: selectedTask.id, 
             name: selectedTask.name}});
       this.get('selectedDay.tasks').pushObject(obj);
     },
     removeTask(task){
       let arr = this.get('selectedTasks').filter((item) => {
-        return item.data.id !== task.data.id;   
+        return item.itemId !== task.itemId;   
       });
       this.set('selectedTasks', arr);
       this.set('selectedDay.tasks', arr);
