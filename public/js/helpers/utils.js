@@ -24,7 +24,7 @@ App.Utils = Ember.ObjectController.extend({
       newObj.push({day: item.day, 
         tasks: []});
       item.tasks.forEach((task) => {
-        obj = {id: task.data.id, name: task.data.name, 
+        obj = {id: task.id, name: task.name, 
           amount: task.amount};
         newObj[index].tasks.push(obj);
       });

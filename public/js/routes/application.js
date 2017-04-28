@@ -39,11 +39,13 @@ App.ApplicationRoute = Ember.Route.extend({
               result = obj;
             }
             this.loadTasks(result);
+            this.loadSchedule(result);
           }
         });
       }else{
         let obj = fileIO.read(mainDataPath);
         this.loadTasks(obj);
+        this.loadSchedule(obj);
       }
     }
   },
@@ -54,23 +56,30 @@ App.ApplicationRoute = Ember.Route.extend({
     this.transitionTo('main');
   },
   loadTasks(obj){
-    if(obj['schedule']){
-      let taskObj, tasks;
-      obj.schedule.forEach((day) => {
-        tasks = [];
-        day.tasks.forEach((task, index) => {
-          taskObj = TaskObj.create({itemId: index + 1, id: task.id, 
-              name: task.name, color: '#ff0000'});   
-          tasks.push(taskObj); 
-        });
-        daysOfTheWeek.push({day: day.day, tasks: tasks});
-      });  
-    }
     obj.tasks.forEach((task) => {
       task.pomodoros = task.pomodoros.map((pomodoro) => {
         return {date: new Date(pomodoro.date)}; 
       });
       this.store.push('task', task);
     });
+  },
+  loadSchedule(obj){
+    if(obj['schedule']){
+      let color;
+      daysOfTheWeek = [];
+      let taskObj, tasks;
+      obj.schedule.forEach((day) => {
+        tasks = [];
+        day.tasks.forEach((task, index) => {
+          color = this.store.all('task')
+            .findBy('id', task.id).get('color');
+          color = (color) ? color : '#33C3F0';
+          taskObj = TaskObj.create({itemId: index + 1, id: task.id, 
+              name: task.name, color: color});   
+          tasks.push(taskObj); 
+        });
+        daysOfTheWeek.push({day: day.day, tasks: tasks});
+      });  
+    }
   }
 });
