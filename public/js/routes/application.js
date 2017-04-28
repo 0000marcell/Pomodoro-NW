@@ -75,7 +75,7 @@ App.ApplicationRoute = Ember.Route.extend({
             .findBy('id', task.id).get('color');
           color = (color) ? color : '#33C3F0';
           taskObj = TaskObj.create({itemId: index + 1, id: task.id, 
-              name: task.name, color: color});   
+              name: task.name, amount: task.amount, color: color});   
           tasks.push(taskObj); 
         });
         daysOfTheWeek.push({day: day.day, tasks: tasks});
