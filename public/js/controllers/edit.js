@@ -1,4 +1,11 @@
+workColors = [];
+['#880E4F', '#AD1457', '#C2185B', 
+  '#D81B60', '#E91E63', '#EC407A'].forEach((color) => {
+  workColors.push({color: color, style: `background-color: ${color};`}); 
+});
+
 App.EditController = Ember.ObjectController.extend({
+  workColors: workColors, 
   actions: {
     save(task) {
       if(!task.get('name')){

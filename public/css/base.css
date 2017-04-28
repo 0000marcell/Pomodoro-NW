@@ -1,3 +1,9 @@
+.color-item{
+  display: inline-block;
+  height: 30px;
+  width: 30px;
+}
+
 .u-blue{
   background-color: #33C3F0;
   color: #fff !important;
