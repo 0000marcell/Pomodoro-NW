@@ -1,7 +1,12 @@
+.color-list{
+  padding-top: 5px;
+}
+
 .color-item{
   display: inline-block;
   height: 30px;
   width: 30px;
+  border: 1px solid #fff;
 }
 
 .u-blue{

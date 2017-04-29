@@ -175,15 +175,19 @@
       <hr>
       <div class="row">
         <h6>Color</h6>
-        <label>Work</label>
-        <ul class="color-list">
-          {{#each color in workColors}}
-            <li class="color-item" 
-              {{bind-attr style=color.style}}
-              {{action "selectColor" color}}>
-            </li>
-          {{/each}}
-        </ul>
+        {{#each item in colorsObj}}
+          <div class="row">
+            <label>{{item.type}}</label>
+            <ul class="color-list">
+              {{#each color in item.colors}}
+                <li class="color-item" 
+                  {{bind-attr style=color.style}}
+                  {{action "selectColor" color}}>
+                </li>
+              {{/each}}
+            </ul>
+          </div>
+        {{/each}}
       </div>
     </div>
   </div>

@@ -1,20 +1,35 @@
-let workColors = [];
-['#880E4F', '#AD1457', '#C2185B', 
-  '#D81B60', '#E91E63', '#EC407A'].forEach((color) => {
-  workColors.push({color: color, style: `background-color: ${color};`}); 
-});
-
+let workColors = ['#880E4F', '#AD1457', '#C2185B', 
+    '#D81B60', '#E91E63', '#EC407A'].map((color) => { 
+      return {color: color, style: `background-color: ${color};`}; }),
+    learnColors = ['#4A148C', '#6A1B9A', '#7B1FA2', 
+      '#8E24AA', '#9C27B0', '#AB47BC'].map((color) => { 
+       return {color: color, style: `background-color: ${color};`}; }),
+    otherColors = ['#0D47A1', '#1565C0', '#1976D2', 
+       '#1E88E5', '#2196F3', '#42A5F5'].map((color) => { 
+       return {color: color, style: `background-color: ${color};`}; });
+let colorsObj = [{type: 'work', colors: workColors},
+                 {type: 'learn', colors: learnColors},
+                 {type: 'other', colors: otherColors}];
+console.log(colorsObj);
 App.EditController = Ember.ObjectController.extend({
-  workColors: workColors, 
+  colorsObj: colorsObj, 
   changeSelection(color){
-    this.set('workColors', this.get('workColors').map((item) => {
-       if(item.color === color.color){
-        item.style += 'border: 2px solid #000;'; 
-       }else{
-        item.style = `background-color: ${item.color};`;
-       }
-       return item;
-    }));
+    let obj = this.get('colorsObj');
+    obj = obj.map((item) => {
+      item.colors = item.colors.map((col) => {
+        if(col.color === color.color){
+          col.style = `background-color: ${col.color}; 
+                       border: 2px solid #000;`; 
+        }else{
+          col.style = `background-color: ${col.color}; 
+                       border: 2px solid #fff;`;
+        }
+        return col;  
+      });
+      return item;
+    });
+    console.log('obj: ', obj);
+    this.set('colorsObj', obj);
   },
   actions: {
     save(task) {
