@@ -1,4 +1,4 @@
-workColors = [];
+let workColors = [];
 ['#880E4F', '#AD1457', '#C2185B', 
   '#D81B60', '#E91E63', '#EC407A'].forEach((color) => {
   workColors.push({color: color, style: `background-color: ${color};`}); 
@@ -6,6 +6,16 @@ workColors = [];
 
 App.EditController = Ember.ObjectController.extend({
   workColors: workColors, 
+  changeSelection(color){
+    this.set('workColors', this.get('workColors').map((item) => {
+       if(item.color === color.color){
+        item.style += 'border: 2px solid #000;'; 
+       }else{
+        item.style = `background-color: ${item.color};`;
+       }
+       return item;
+    }));
+  },
   actions: {
     save(task) {
       if(!task.get('name')){
@@ -26,6 +36,9 @@ App.EditController = Ember.ObjectController.extend({
         this.store.push('task', item); 
       });
       this.transitionToRoute('main');
+    },
+    selectColor(color){
+      this.changeSelection(color); 
     }
   }
 });
