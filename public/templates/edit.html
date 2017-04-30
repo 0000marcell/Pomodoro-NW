@@ -1,16 +1,9 @@
 <script type="text/x-handlebars" data-template-name="edit">
-  <div class="row edit-view">
+  <div class="row">
     <div class="twelve columns">
       <h6>Edit Task</h6>
       <label>Name</label>
       {{input class="u-full-width"type="text" value=name}}
-      <div class="row">
-        <div class="twelve columns">
-          <button type="submit" {{action "save" model}}>Save</button>
-          <button type="button" {{action "delete" model}}>Delete</button>
-        </div>
-      </div>
-      <hr>
       <div class="row">
         <h6>Color</h6>
         {{#each item in colorsObj}}
@@ -26,6 +19,13 @@
             </ul>
           </div>
         {{/each}}
+      </div>
+      <hr>
+      <div class="row">
+        <div class="twelve columns">
+          <button type="submit" {{action "save" model}}>Save</button>
+          <button type="button" {{action "delete" model}}>Delete</button>
+        </div>
       </div>
     </div>
   </div>

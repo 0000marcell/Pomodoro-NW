@@ -4,19 +4,10 @@ App.Task = DS.Model.extend({
   formated_creation_date: DS.attr('string'),
   last_active: DS.attr('string'),
   formated_last_active: DS.attr('string'),
+  color: DS.attr('string'),
   pomodoros: DS.attr('array'),
   duration: DS.attr('string'),
   totalTime: DS.attr('string'),
-  saveOnFile(){
-    let tasks = this.store.all('task');
-    tasks = tasks.toArray().map((task, index) => {
-      let json = task.toJSON(); 
-      json['id'] = index + 1;
-      return json;
-    });
-    fileIO.save(`{"tasks": ${JSON.stringify(tasks)}}`,
-        mainDataPath);
-  },
   htmlID: function() {
     return 'task' + this.get('id');
   }.property('id'),

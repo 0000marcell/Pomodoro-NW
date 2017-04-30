@@ -10,7 +10,6 @@ let workColors = ['#880E4F', '#AD1457', '#C2185B',
 let colorsObj = [{type: 'work', colors: workColors},
                  {type: 'learn', colors: learnColors},
                  {type: 'other', colors: otherColors}];
-console.log(colorsObj);
 App.EditController = Ember.ObjectController.extend({
   colorsObj: colorsObj, 
   changeSelection(color){
@@ -28,15 +27,14 @@ App.EditController = Ember.ObjectController.extend({
       });
       return item;
     });
-    console.log('obj: ', obj);
     this.set('colorsObj', obj);
   },
   actions: {
     save(task) {
       if(!task.get('name')){
-        console.log('the name of the task cant be blank');
         return;
       }
+      task.set('color', this.get('selectedColor'));
       fileIO.saveTasks(utils.transformTaskObject(this.store.all('task').content));
       this.transitionToRoute('main');
     },
@@ -54,6 +52,7 @@ App.EditController = Ember.ObjectController.extend({
     },
     selectColor(color){
       this.changeSelection(color); 
+      this.set('selectedColor', color.color);
     }
   }
 });

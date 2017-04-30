@@ -6,7 +6,7 @@
   display: inline-block;
   height: 30px;
   width: 30px;
-  border: 1px solid #fff;
+  border: 2px solid #fff;
 }
 
 .u-blue{
@@ -363,10 +363,6 @@ i:hover {
 
 .most-productive p {
   margin-bottom: 0rem;
-}
-
-.edit-view{
-  margin-top: 80px;
 }
 
 .config-view{
