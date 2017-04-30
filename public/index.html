@@ -167,6 +167,7 @@
       <h6>Edit Task</h6>
       <label>Name</label>
       {{input class="u-full-width"type="text" value=name}}
+      <div class="color-item" {{bind-attr style=currentColor}}></div>
       <div class="row">
         <h6>Color</h6>
         {{#each item in colorsObj}}

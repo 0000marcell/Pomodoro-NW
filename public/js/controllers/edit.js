@@ -11,6 +11,15 @@ let colorsObj = [{type: 'work', colors: workColors},
                  {type: 'learn', colors: learnColors},
                  {type: 'other', colors: otherColors}];
 App.EditController = Ember.ObjectController.extend({
+  currentColor: function(){
+    let color
+    if(this.get('selectedColor')){
+      color = this.get('selectedColor');               
+    }else{
+      color = this.get('model.color');               
+    }
+    return `background-color: ${color};`;
+  }.property('selectedColor'), 
   colorsObj: colorsObj, 
   changeSelection(color){
     let obj = this.get('colorsObj');

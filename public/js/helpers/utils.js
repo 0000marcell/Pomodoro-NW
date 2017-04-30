@@ -12,7 +12,6 @@ App.Utils = Ember.ObjectController.extend({
       obj["id"] = id;
       json.tasks.push(obj);
     });
-    debugger;
     return json;
   },
   /**

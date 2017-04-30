@@ -32,11 +32,10 @@ App.ScheduleController = Ember.ObjectController.extend({
   }.property('selectedDay.tasks.@each.amount'),
   actions: {
     addTask(){
-      debugger;
       //clone the object
       let selectedTask = this.get('selectedTask')._data,
           obj = TaskObj.create({itemId: this.get('selectedDay.tasks.length') + 1, id: selectedTask.id, 
-            name: selectedTask.name});
+            name: selectedTask.name, color: (selectedTask.color) ? selectedTask.color : '#2196F3'});
       this.get('selectedDay.tasks').pushObject(obj);
     },
     removeTask(task){
