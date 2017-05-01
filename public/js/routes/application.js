@@ -5,6 +5,8 @@ let daysOfTheWeek = [];
   daysOfTheWeek.push({day: item, tasks: []});
 });
 
+let tags = [{id: null, name: null, color: null}];
+
 App.ApplicationRoute = Ember.Route.extend({
   beforeModel(){
     if(environment === 'test'){
