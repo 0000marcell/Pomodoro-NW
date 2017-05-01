@@ -1,12 +1,3 @@
-// used for the schedule
-let daysOfTheWeek = [];
-['monday', 'tuesday', 'wednesday', 
-  'thrusday', 'friday', 'saturday', 'sunday'].forEach((item) => {
-  daysOfTheWeek.push({day: item, tasks: []});
-});
-
-let tags = [{id: null, name: null, color: null}];
-
 App.ApplicationRoute = Ember.Route.extend({
   beforeModel(){
     if(environment === 'test'){
@@ -15,7 +6,7 @@ App.ApplicationRoute = Ember.Route.extend({
         task.pomodoros = task.pomodoros.map((pomodoro) => {
           return {date: new Date(pomodoro.date)}; 
         });
-        this.store.push('task', task); 
+        store.task.push(task); 
       });
     }else{
       if(awsUseStorage){
@@ -52,7 +43,7 @@ App.ApplicationRoute = Ember.Route.extend({
     }
   },
   model() {
-    return this.store.all('task');
+    return store;
   },
   afterModel(){
     this.transitionTo('main');
@@ -62,25 +53,23 @@ App.ApplicationRoute = Ember.Route.extend({
       task.pomodoros = task.pomodoros.map((pomodoro) => {
         return {date: new Date(pomodoro.date)}; 
       });
-      this.store.push('task', task);
+      store.task.push(task);
     });
   },
   loadSchedule(obj){
     if(obj['schedule']){
       let color;
-      daysOfTheWeek = [];
       let taskObj, tasks;
       obj.schedule.forEach((day) => {
         tasks = [];
         day.tasks.forEach((task, index) => {
-          color = this.store.all('task')
-            .findBy('id', task.id).get('color');
+          color = store.task.findBy('id', task.id).color
           color = (color) ? color : '#33C3F0';
           taskObj = TaskObj.create({itemId: index + 1, id: task.id, 
               name: task.name, amount: task.amount, color: color});   
           tasks.push(taskObj); 
         });
-        daysOfTheWeek.push({day: day.day, tasks: tasks});
+        store.schedule.push({day: day.day, tasks: tasks});
       });  
     }
   }

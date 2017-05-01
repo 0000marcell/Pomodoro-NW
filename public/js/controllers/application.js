@@ -1,4 +1,7 @@
 App.ApplicationController = Ember.ObjectController.extend({
+  options: [{link: 'schedule', icon: 'fa fa-clock-o fa-2x'},
+            {link: 'statistics', icon: 'fa fa-bar-chart fa-2x'},
+            {link: 'config', icon: 'fa fa-cog fa-2x'}],
   showClock: true,
   intervalCount: 0,
   selectedTaskMsg: 'No task selected!',
@@ -62,17 +65,11 @@ App.ApplicationController = Ember.ObjectController.extend({
     statistics(){
       this.transitionToRoute('statistics');
     }, 
-    schedule(){
-      this.transitionToRoute('schedule');
+    transitionTo(route){
+      this.transitionToRoute(route);
     },
     resizeWindow(width, height){
       win.width = width, win.height = height;  
-    },
-    main(){
-     this.transitionToRoute('main');  
-    },
-    config(){
-      this.transitionToRoute('config');
     }
   }
 });

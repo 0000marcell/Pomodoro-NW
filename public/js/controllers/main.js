@@ -5,11 +5,11 @@ App.MainController = Ember.ObjectController.extend({
     selectTask(task){
       $(`#${this.get('selectedItem')}`)
         .removeClass('selected-task');     
-      $(`#${task.get('id')}`).addClass('selected-task');
-      this.set('selectedItem', task.get('id'));
+      $(`#${task.id}`).addClass('selected-task');
+      this.set('selectedItem', task.id);
       let appController = App.__container__.lookup("controller:application"); 
       clock.reset(pomodoroTime);
-      appController.set('selectedTaskMsg', task.get('name'));
+      appController.set('selectedTaskMsg', task.name);
       appController.set('selectedTask', task);
       clock.reset(pomodoroTime);
       clock.pause();

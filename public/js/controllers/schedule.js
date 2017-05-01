@@ -13,9 +13,9 @@ const TaskObj = Ember.Object.extend({
 App.ScheduleController = Ember.ObjectController.extend({
   itemIndex: 0,
   saveMessage: false,
-  selectedDay: daysOfTheWeek[0],
-  selectedTasks: daysOfTheWeek[0].tasks,
-  daysOfTheWeek: daysOfTheWeek,
+  selectedDay: store.schedule[0],
+  selectedTasks: store.schedule[0].tasks,
+  daysOfTheWeek: store.schedule,
   changeDay: function() {
     this.set('selectedTasks', 
       this.get('selectedDay.tasks'));

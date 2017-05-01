@@ -17,23 +17,17 @@
       <!-- Options -->
       <div class='row options-row'>
         <div class='one column'>
-          <i id="test-main-button" {{action "main"}} 
+          <i id="test-main-button" {{action "transitionTo" 'main'}} 
             class="fa fa-chevron-left fa-2x"></i>
         </div>
         <div class='options-row-options u-pull-right'>
           <ul class="options-list">
-            <li>
-              <i id="test-schedule-button" {{action "schedule"}}
-                class="fa fa-clock-o fa-2x"></i>
-            </li>
-            <li>
-              <i id="test-statistics-button" {{action "statistics"}}
-                class="fa fa-bar-chart fa-2x"></i>
-            </li>
-            <li>
-              <i id="test-config-button" {{action "config"}} 
-                class="fa fa-cog fa-2x"></i>
-            </li>
+            {{#each option in options}}
+              <li>
+                <i id="test-schedule-button" {{action "transitionTo" option.link}}
+                  {{bind-attr class=option.icon}}></i>
+              </li>
+            {{/each}}
           </ul>
         </div>
       </div>

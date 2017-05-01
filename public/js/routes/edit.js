@@ -1,5 +1,5 @@
 App.EditRoute = Ember.Route.extend({
   model(params) {
-    return this.store.find('task', params.task_id);
+    return store.task.findBy('id', params.task_id);
   }
 });
