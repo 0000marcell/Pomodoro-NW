@@ -56,7 +56,7 @@ App = Ember.Application.create({
   LOG_TRANSITIONS: true
 });
 let min = 1;
-let pomodoroTime = 25 * min, restart = false,
+let pomodoroTime = 5 * min, restart = false,
     shortIntervalTime = 5 * min, longIntervalTime = 5 * min,
     pause = false;
 

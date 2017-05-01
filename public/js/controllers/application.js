@@ -32,10 +32,9 @@ App.ApplicationController = Ember.ObjectController.extend({
     } 
   },
   savePomodoro(task){
-    task.get('pomodoros')
+    task.pomodoros
       .pushObject({ "date": new Date()});
-    fileIO
-      .saveTasks(utils.transformTaskObject(this.store.all('task').content));
+    store.save();
   },
   actions: {
     close(){
@@ -54,17 +53,6 @@ App.ApplicationController = Ember.ObjectController.extend({
     stopClock() {
       clock.pause();
     },
-    new() {
-      this.transitionToRoute('new');
-    },
-    show(task){
-      task.setTotalTime();
-      task.formatDates();
-      this.transitionToRoute('tasks.show', task);
-    },
-    statistics(){
-      this.transitionToRoute('statistics');
-    }, 
     transitionTo(route){
       this.transitionToRoute(route);
     },
