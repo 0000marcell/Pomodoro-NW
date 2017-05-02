@@ -11,18 +11,15 @@ App.Store = Ember.Object.extend({
   tags: tags,
   save(){
     let obj = { tasks: this.tasks, 
-                schedule: this.schedule,
+                schedule: utils.transformScheduleObject(this.schedule),
                 tags: this.tag,
                 lastUpdate: new Date()};
+    debugger;
     let content = JSON.stringify(obj);
     if(awsUseStorage){
       this.uploadAWS(content); 
     }
     fileIO.save(content, mainDataPath);
-    /*
-    fileIO
-      .saveTasks(utils.transformTaskObject(this.store.all('task').content));
-      */
   },
   loadForTests(){
     let tasks = JSON.parse(JSON.stringify(tasksDate(1, 1)));

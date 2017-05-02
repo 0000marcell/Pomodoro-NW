@@ -28,9 +28,7 @@ App.ScheduleController = Ember.ObjectController.extend({
   }.property('selectedDay.tasks.@each.amount'),
   actions: {
     addTask(){
-      //clone the object
-      debugger;
-      let selectedTask = this.get('selectedTask')._data,
+      let selectedTask = this.get('selectedTask'),
           obj = TaskObj.create({itemId: this.get('selectedDay.tasks.length') + 1, id: selectedTask.id, 
             name: selectedTask.name, color: (selectedTask.color) ? selectedTask.color : '#2196F3'});
       this.get('selectedDay.tasks').pushObject(obj);
@@ -44,9 +42,6 @@ App.ScheduleController = Ember.ObjectController.extend({
     },
     saveSchedule(){
       this.set('saveMessage', true);
-      let data = this.get('daysOfTheWeek');
-      store.schedule = 
-        utils.transformScheduleObject(data);
       store.save();
     }
   }
