@@ -40,11 +40,9 @@ App.EditController = Ember.ObjectController.extend({
   },
   actions: {
     save(task) {
-      if(!task.get('name')){
-        return;
-      }
-      task.set('color', this.get('selectedColor'));
-      fileIO.saveTasks(utils.transformTaskObject(this.store.all('task').content));
+      if(!task.name){ return };
+      task.color = this.get('selectedColor');
+      store.save();
       this.transitionToRoute('main');
     },
     delete(task) {

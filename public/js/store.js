@@ -15,7 +15,6 @@ App.Store = Ember.Object.extend({
                 tags: this.tag,
                 lastUpdate: new Date()};
     let content = JSON.stringify(obj);
-    debugger;
     if(awsUseStorage){
       this.uploadAWS(content); 
     }
