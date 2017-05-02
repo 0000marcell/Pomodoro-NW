@@ -1,4 +1,4 @@
-<script type='text/x-handlebars' data-template-name="schedule">
+<script type='text/x-handlebars' data-template-name="schedule1">
   {{#if loading}} 
     <div class='u-pull-center loading-div'>
       <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
@@ -19,7 +19,7 @@
         </div>
         <div class="row">
           {{view Ember.Select
-            content=model.tasks
+            content=model
             optionValuePath="content.id"
             optionLabelPath="content.name"
             prompt="Select a task"
