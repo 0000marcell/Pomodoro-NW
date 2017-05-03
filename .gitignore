@@ -1,6 +1,9 @@
 *~
 *sublime-*
 node_modules
+**/node_modules/*
+**/build/*
+**/tmp/*
 build
 cache
 /public/aws_config.json
