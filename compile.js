@@ -13,7 +13,7 @@ if(param =='test'){
   nwConfig.window.width = 1200, nwConfig.window.height = 650;
 }else{
   baseFile = `${baseDir}/app.html`
-  nwConfig.window.width = 500, nwConfig.window.height = 695;
+  nwConfig.window.width = 500, nwConfig.window.height = 775;
 }
 fs.writeFileSync('./public/package.json', JSON.stringify(nwConfig));
 
