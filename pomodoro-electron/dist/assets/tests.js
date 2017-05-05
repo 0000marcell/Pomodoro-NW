@@ -10,6 +10,11 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
     assert.ok(true, 'app.js should pass ESLint\n\n');
   });
 
+  QUnit.test('controllers/application.js', function (assert) {
+    assert.expect(1);
+    assert.ok(false, 'controllers/application.js should pass ESLint\n\n11:11 - \'height\' is assigned a value but never used. (no-unused-vars)\n20:11 - \'bars\' is assigned a value but never used. (no-unused-vars)');
+  });
+
   QUnit.test('resolver.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'resolver.js should pass ESLint\n\n');
@@ -184,6 +189,24 @@ define('pomodoro-electron/tests/tests.lint-test', ['exports'], function (exports
   QUnit.test('test-helper.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'test-helper.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('unit/controllers/application-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/controllers/application-test.js should pass ESLint\n\n');
+  });
+});
+define('pomodoro-electron/tests/unit/controllers/application-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleFor)('controller:application', 'Unit | Controller | application', {
+    // Specify the other units that are required for this test.
+    // needs: ['controller:foo']
+  });
+
+  // Replace this with your real tests.
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var controller = this.subject();
+    assert.ok(controller);
   });
 });
 require('pomodoro-electron/tests/test-helper');

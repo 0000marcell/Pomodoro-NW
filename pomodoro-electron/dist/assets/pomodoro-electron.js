@@ -18,11 +18,24 @@ define('pomodoro-electron/app', ['exports', 'ember', 'pomodoro-electron/resolver
 
   exports['default'] = App;
 });
-define('pomodoro-electron/components/welcome-page', ['exports', 'ember-welcome-page/components/welcome-page'], function (exports, _emberWelcomePageComponentsWelcomePage) {
-  Object.defineProperty(exports, 'default', {
-    enumerable: true,
-    get: function get() {
-      return _emberWelcomePageComponentsWelcomePage['default'];
+define('pomodoro-electron/controllers/application', ['exports', 'ember', 'd3-selection', 'd3-scale'], function (exports, _ember, _d3Selection, _d3Scale) {
+  exports['default'] = _ember['default'].Controller.extend({
+    actions: {
+      graphIt: function graphIt() {
+        var dataArray = [20, 40, 50];
+        var colors = ['#E91E63', '#9C27B0', '#673AB7'];
+        var width = 500;
+        var height = 500;
+        var canvas = (0, _d3Selection.select)(".graph").append("svg").attr('width', 500).attr('height', 500).attr("fill", '#ff00ff');
+        var widthScale = (0, _d3Scale.scaleLinear)().domain([0, 60]).range([0, width]);
+        var bars = canvas.selectAll("rect").data(dataArray).enter().append("rect").attr("width", function (d) {
+          return widthScale(d);
+        }).attr("height", 50).attr("fill", function (d, i) {
+          return colors[i];
+        }).attr("y", function (d, i) {
+          return i * 60;
+        });
+      }
     }
   });
 });
@@ -377,7 +390,7 @@ define('pomodoro-electron/services/ajax', ['exports', 'ember-ajax/services/ajax'
   });
 });
 define("pomodoro-electron/templates/application", ["exports"], function (exports) {
-  exports["default"] = Ember.HTMLBars.template({ "id": "1w7MMUVI", "block": "{\"statements\":[[\"append\",[\"unknown\",[\"welcome-page\"]],false],[\"text\",\"\\n\"],[\"text\",\"\\n\"],[\"append\",[\"unknown\",[\"outlet\"]],false],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/application.hbs" } });
+  exports["default"] = Ember.HTMLBars.template({ "id": "Wzn0b6/5", "block": "{\"statements\":[[\"open-element\",\"h1\",[]],[\"flush-element\"],[\"text\",\"Welcome, \"],[\"append\",[\"unknown\",[\"name\"]],false],[\"close-element\"],[\"text\",\"\\n\"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"graph\"],[\"flush-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"],[\"open-element\",\"button\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"graphIt\"]],[\"flush-element\"],[\"text\",\"graph it boi!\"],[\"close-element\"],[\"text\",\"\\n\"],[\"append\",[\"unknown\",[\"outlet\"]],false],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/application.hbs" } });
 });
 
 
@@ -401,6 +414,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("pomodoro-electron/app")["default"].create({"name":"pomodoro-electron","version":"0.0.0+"});
+  require("pomodoro-electron/app")["default"].create({"name":"pomodoro-electron","version":"0.0.0+2e4600c5"});
 }
 //# sourceMappingURL=pomodoro-electron.map
