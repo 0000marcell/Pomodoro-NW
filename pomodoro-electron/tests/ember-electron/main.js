@@ -1,4 +1,5 @@
-/* jshint node:true */
+/*eslint no-undef: "error"*/
+/*global require:true process:true*/
 const { app, BrowserWindow, protocol } = require('electron');
 const { dirname, resolve } = require('path');
 const url = require('url');

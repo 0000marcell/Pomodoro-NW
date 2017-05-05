@@ -414,6 +414,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("pomodoro-electron/app")["default"].create({"name":"pomodoro-electron","version":"0.0.0+2e4600c5"});
+  require("pomodoro-electron/app")["default"].create({"name":"pomodoro-electron","version":"0.0.0+17b9950e"});
 }
 //# sourceMappingURL=pomodoro-electron.map
