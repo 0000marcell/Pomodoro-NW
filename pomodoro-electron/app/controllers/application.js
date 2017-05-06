@@ -4,6 +4,7 @@ import { scaleLinear  } from 'd3-scale';
 
 export default Ember.Controller.extend({
   state: 'paused',
+  mode: 'pomodoro',
   actions: {
     graphIt(){
       var dataArray = [20, 40, 50];

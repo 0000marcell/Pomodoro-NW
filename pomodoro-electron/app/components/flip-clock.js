@@ -5,7 +5,6 @@ let pomodoroTime = 5,
     shortIntervalTime = 5;
 
 export default Ember.Component.extend({
-  active: false,
   previousState: false,
   initialize(){
     this.get('flipClock').setCountdown(true);
@@ -15,17 +14,11 @@ export default Ember.Component.extend({
     this.get('flipClock').setTime(sec)
   },
   pause(){
-    if(this.get('state') !== 'paused'){
-      this.set('previousState', this.get('state'));
-    }
     this.set('state', 'paused');
     this.get('flipClock').stop();
   },
   start(){
-    if(this.get('previousState') === 'interval'){
-      this.set('previousState', false);
-    }else{
-    }
+    this.set('state', 'active');
     this.get('flipClock').start();
   },
   didInsertElement(){
@@ -47,7 +40,7 @@ export default Ember.Component.extend({
     if(this.get('state') === 'paused'){
       return;
     }else if (this.get('state') === 'interval'){
-      this.reset(pomodoroTime);
+      this.get('flipClock').setTime(pomodoroTime);
       this.start();
     } else {
       this.set('intervalCount', 
@@ -55,7 +48,7 @@ export default Ember.Component.extend({
       win.focus();
       let interval = ((this.get('intervalCount') % 3) == 0) ? longIntervalTime : 
                                                               shortIntervalTime;
-      this.reset(interval);
+      this.get('flipClock').setTime(interval);
       this.start();
     } 
   },
