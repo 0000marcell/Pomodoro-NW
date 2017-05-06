@@ -10,6 +10,11 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
     assert.ok(true, 'app.js should pass ESLint\n\n');
   });
 
+  QUnit.test('components/flip-clock.js', function (assert) {
+    assert.expect(1);
+    assert.ok(false, 'components/flip-clock.js should pass ESLint\n\n62:18 - \'pomodoroTime\' is not defined. (no-undef)\n69:7 - \'win\' is not defined. (no-undef)\n70:63 - \'longIntervalTime\' is not defined. (no-undef)\n71:63 - \'shortIntervalTime\' is not defined. (no-undef)');
+  });
+
   QUnit.test('controllers/application.js', function (assert) {
     assert.expect(1);
     assert.ok(false, 'controllers/application.js should pass ESLint\n\n11:11 - \'height\' is assigned a value but never used. (no-unused-vars)\n20:11 - \'bars\' is assigned a value but never used. (no-unused-vars)');
@@ -28,7 +33,8 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
 define('pomodoro-electron/tests/ember-electron/main', ['exports'], function (exports) {
   var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i['return']) _i['return'](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError('Invalid attempt to destructure non-iterable instance'); } }; })();
 
-  /* jshint node:true */
+  /*eslint no-undef: "error"*/
+  /*global require:true process:true*/
 
   var _require = require('electron');
 
@@ -152,6 +158,35 @@ define('pomodoro-electron/tests/helpers/start-app', ['exports', 'ember', 'pomodo
     });
   }
 });
+define('pomodoro-electron/tests/integration/components/flip-clock-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleForComponent)('flip-clock', 'Integration | Component | flip clock', {
+    integration: true
+  });
+
+  (0, _emberQunit.test)('it renders', function (assert) {
+
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.on('myAction', function(val) { ... });
+
+    this.render(Ember.HTMLBars.template({
+      'id': 'HMWic2eh',
+      'block': '{"statements":[["append",["unknown",["flip-clock"]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
+      'meta': {}
+    }));
+
+    assert.equal(this.$().text().trim(), '');
+
+    // Template block usage:
+    this.render(Ember.HTMLBars.template({
+      'id': 'Fa2ZjApE',
+      'block': '{"statements":[["text","\\n"],["block",["flip-clock"],null,null,0],["text","  "]],"locals":[],"named":[],"yields":[],"blocks":[{"statements":[["text","      template block text\\n"]],"locals":[]}],"hasPartials":false}',
+      'meta': {}
+    }));
+
+    assert.equal(this.$().text().trim(), 'template block text');
+  });
+});
 define('pomodoro-electron/tests/test-helper', ['exports', 'pomodoro-electron/tests/helpers/resolver', 'ember-qunit'], function (exports, _pomodoroElectronTestsHelpersResolver, _emberQunit) {
 
   (0, _emberQunit.setResolver)(_pomodoroElectronTestsHelpersResolver['default']);
@@ -163,7 +198,7 @@ define('pomodoro-electron/tests/tests.lint-test', ['exports'], function (exports
 
   QUnit.test('ember-electron/main.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'ember-electron/main.js should pass ESLint\n\n2:42 - \'require\' is not defined. (no-undef)\n3:30 - \'require\' is not defined. (no-undef)\n4:13 - \'require\' is not defined. (no-undef)\n5:23 - \'require\' is not defined. (no-undef)\n12:24 - \'process\' is not defined. (no-undef)\n30:7 - \'process\' is not defined. (no-undef)');
+    assert.ok(true, 'ember-electron/main.js should pass ESLint\n\n');
   });
 
   QUnit.test('helpers/destroy-app.js', function (assert) {
@@ -184,6 +219,11 @@ define('pomodoro-electron/tests/tests.lint-test', ['exports'], function (exports
   QUnit.test('helpers/start-app.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'helpers/start-app.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('integration/components/flip-clock-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/components/flip-clock-test.js should pass ESLint\n\n');
   });
 
   QUnit.test('test-helper.js', function (assert) {

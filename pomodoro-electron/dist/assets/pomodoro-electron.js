@@ -18,6 +18,81 @@ define('pomodoro-electron/app', ['exports', 'ember', 'pomodoro-electron/resolver
 
   exports['default'] = App;
 });
+define('pomodoro-electron/components/flip-clock', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Component.extend({
+    previousState: false,
+    initialize: function initialize() {
+      this.get('flipClock').setCountdown(true);
+      this.get('flipClock').setTime(25 * 60);
+    },
+    reset: function reset(sec) {
+      this.get('flipClock').setTime(sec);
+    },
+    modeActive: function modeActive() {
+      this.set('state', 'active');
+      _ember['default'].$('#task-status').html('<h4 class="clock-active animated infinite pulse">\n        [Active]</h4>');
+    },
+    modeInterval: function modeInterval() {
+      this.set('state', 'interval');
+      _ember['default'].$('#task-status').html('<h4 class="clock-interval animated infinite pulse">\n        [Interval]</h4>');
+    },
+    pause: function pause() {
+      if (this.get('state') !== 'paused') {
+        this.set('previousState', this.get('state'));
+      }
+      this.set('state', 'paused');
+      _ember['default'].$('#task-status').html('<h4 class="clock-paused animated infinite flash">\n          [Paused]</h4>');
+      this.get('flipClock').stop();
+    },
+    start: function start() {
+      if (this.get('previousState') === 'interval') {
+        this.modeInterval();
+        this.set('previousState', false);
+      } else {
+        this.modeActive();
+      }
+      this.get('flipClock').start();
+    },
+    didInsertElement: function didInsertElement() {
+      var flipClock = _ember['default'].$('.clock').FlipClock({
+        thisFace: 'MinuteCounter',
+        autoStart: false,
+        callbacks: {
+          stop: this.stopClock.bind(this)
+        }
+      });
+      this.set('flipClock', flipClock);
+      this.initialize();
+    },
+    stopClock: function stopClock() {
+      /* 
+       * verifies if the this was stoped because it reached zero
+       * or because the user stoped it
+      */
+      if (this.get('state') === 'paused') {
+        return;
+      } else if (this.get('state') === 'interval') {
+        this.reset(pomodoroTime);
+        this.modeActive();
+        this.start();
+      } else {
+        this.set('intervalCount', this.get('intervalCount') + 1);
+        this.savePomodoro(this.get('selectedTask'));
+        win.focus();
+        var interval = this.get('intervalCount') % 3 == 0 ? longIntervalTime : shortIntervalTime;
+        this.reset(interval);
+        this.start();
+        this.modeInterval();
+      }
+    },
+    actions: {
+      start: function start() {
+        this.toggleProperty('active');
+        this.start();
+      }
+    }
+  });
+});
 define('pomodoro-electron/controllers/application', ['exports', 'ember', 'd3-selection', 'd3-scale'], function (exports, _ember, _d3Selection, _d3Scale) {
   exports['default'] = _ember['default'].Controller.extend({
     actions: {
@@ -390,7 +465,10 @@ define('pomodoro-electron/services/ajax', ['exports', 'ember-ajax/services/ajax'
   });
 });
 define("pomodoro-electron/templates/application", ["exports"], function (exports) {
-  exports["default"] = Ember.HTMLBars.template({ "id": "Wzn0b6/5", "block": "{\"statements\":[[\"open-element\",\"h1\",[]],[\"flush-element\"],[\"text\",\"Welcome, \"],[\"append\",[\"unknown\",[\"name\"]],false],[\"close-element\"],[\"text\",\"\\n\"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"graph\"],[\"flush-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"],[\"open-element\",\"button\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"graphIt\"]],[\"flush-element\"],[\"text\",\"graph it boi!\"],[\"close-element\"],[\"text\",\"\\n\"],[\"append\",[\"unknown\",[\"outlet\"]],false],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/application.hbs" } });
+  exports["default"] = Ember.HTMLBars.template({ "id": "2qEit7LW", "block": "{\"statements\":[[\"open-element\",\"h1\",[]],[\"flush-element\"],[\"text\",\"Welcome, \"],[\"append\",[\"unknown\",[\"name\"]],false],[\"close-element\"],[\"text\",\"\\n\"],[\"append\",[\"unknown\",[\"flip-clock\"]],false],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/application.hbs" } });
+});
+define("pomodoro-electron/templates/components/flip-clock", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template({ "id": "ayJ2t9RL", "block": "{\"statements\":[[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"clock\"],[\"flush-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"],[\"open-element\",\"a\",[]],[\"static-attr\",\"href\",\"#\"],[\"static-attr\",\"title\",\"Play video\"],[\"dynamic-attr\",\"class\",[\"concat\",[\"play-button \",[\"helper\",[\"if\"],[[\"get\",[\"active\"]],\"active\"],null]]]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"start\"]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/components/flip-clock.hbs" } });
 });
 
 
@@ -414,6 +492,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("pomodoro-electron/app")["default"].create({"name":"pomodoro-electron","version":"0.0.0+17b9950e"});
+  require("pomodoro-electron/app")["default"].create({"name":"pomodoro-electron","version":"0.0.0+ef9f5960"});
 }
 //# sourceMappingURL=pomodoro-electron.map
