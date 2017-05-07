@@ -7,6 +7,11 @@ export default Ember.Controller.extend({
     state: 'paused',
     mode: 'pomodoro'
   },
+  savePomodoro: Ember.computed('clock', function(){
+    if(this.get('clock.mode') === 'interval'){
+      alert('save pomodoro!');
+    }    
+  }),
   actions: {
     graphIt(){
       var dataArray = [20, 40, 50];

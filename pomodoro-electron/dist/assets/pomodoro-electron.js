@@ -81,6 +81,11 @@ define('pomodoro-electron/controllers/application', ['exports', 'ember', 'd3-sel
       state: 'paused',
       mode: 'pomodoro'
     },
+    savePomodoro: _ember['default'].computed('clock', function () {
+      if (this.get('clock.mode') === 'interval') {
+        alert('save pomodoro!');
+      }
+    }),
     actions: {
       graphIt: function graphIt() {
         var dataArray = [20, 40, 50];
