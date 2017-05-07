@@ -3,9 +3,9 @@
 	"file": "pomodoro-electron.css",
 	"sourceRoot": "/Users/marcell/Documents/github/Pomodoro-NW/pomodoro-nw/pomodoro-electron/app/styles",
 	"sources": [
-		"../../sass_compiler-input_base_path-Z2c6deoO.tmp/app/styles/app.scss",
-		"../../sass_compiler-input_base_path-Z2c6deoO.tmp/app/styles/flipclock.scss",
-		"../../sass_compiler-input_base_path-Z2c6deoO.tmp/app/styles/components/flip-clock.scss"
+		"../../sass_compiler-input_base_path-hzusB7Bj.tmp/app/styles/app.scss",
+		"../../sass_compiler-input_base_path-hzusB7Bj.tmp/app/styles/flipclock.scss",
+		"../../sass_compiler-input_base_path-hzusB7Bj.tmp/app/styles/components/flip-clock.scss"
 	],
 	"sourcesContent": [
 		"@import './flipclock';\n@import './components/flip-clock.scss';\n",

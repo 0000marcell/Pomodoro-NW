@@ -12,12 +12,12 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
 
   QUnit.test('components/flip-clock.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'components/flip-clock.js should pass ESLint\n\n62:18 - \'pomodoroTime\' is not defined. (no-undef)\n69:7 - \'win\' is not defined. (no-undef)\n70:63 - \'longIntervalTime\' is not defined. (no-undef)\n71:63 - \'shortIntervalTime\' is not defined. (no-undef)');
+    assert.ok(true, 'components/flip-clock.js should pass ESLint\n\n');
   });
 
   QUnit.test('controllers/application.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'controllers/application.js should pass ESLint\n\n11:11 - \'height\' is assigned a value but never used. (no-unused-vars)\n20:11 - \'bars\' is assigned a value but never used. (no-unused-vars)');
+    assert.ok(false, 'controllers/application.js should pass ESLint\n\n15:11 - \'height\' is assigned a value but never used. (no-unused-vars)\n24:11 - \'bars\' is assigned a value but never used. (no-unused-vars)');
   });
 
   QUnit.test('resolver.js', function (assert) {
