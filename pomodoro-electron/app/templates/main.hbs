@@ -1,0 +1,8 @@
+<ul>
+  {{#each model.tasks as |task|}}
+    <li>{{task.name}}</li>
+  {{/each}}
+</ul>
+state: {{clock.state}}
+mode: {{clock.mode}}
+{{flip-clock clock=clock}}

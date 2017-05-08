@@ -111,6 +111,14 @@ define('pomodoro-electron/controllers/application', ['exports', 'ember', 'd3-sel
     }
   });
 });
+define('pomodoro-electron/controllers/main', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Controller.extend({
+    clock: {
+      state: 'paused',
+      mode: 'pomodoro'
+    }
+  });
+});
 define('pomodoro-electron/electron/reload', ['exports'], function (exports) {
   function setupLivereload() {
     var process = window ? window.process : null;
@@ -449,9 +457,40 @@ define('pomodoro-electron/router', ['exports', 'ember', 'pomodoro-electron/confi
     rootURL: _pomodoroElectronConfigEnvironment['default'].rootURL
   });
 
-  Router.map(function () {});
+  Router.map(function () {
+    this.route('main');
+  });
 
   exports['default'] = Router;
+});
+define('pomodoro-electron/routes/application', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Route.extend({
+    redirect: function redirect() {
+      this.transitionTo('main');
+    }
+  });
+});
+define('pomodoro-electron/routes/data', ['exports'], function (exports) {
+  function createTasks() {
+    var obj = { tasks: [] };
+    for (var i = 1; i < 6; i++) {
+      obj.tasks.push({ id: i + '', name: 'Task ' + i,
+        pomodoros: [] });
+      for (var j = 1; j < 6; j++) {
+        obj.tasks[i - 1].pomodoros.push({ date: new Date() });
+      }
+    }
+    return obj;
+  }
+
+  exports['default'] = createTasks();
+});
+define('pomodoro-electron/routes/main', ['exports', 'ember', 'pomodoro-electron/routes/data'], function (exports, _ember, _pomodoroElectronRoutesData) {
+  exports['default'] = _ember['default'].Route.extend({
+    model: function model() {
+      return _pomodoroElectronRoutesData['default'];
+    }
+  });
 });
 define('pomodoro-electron/services/ajax', ['exports', 'ember-ajax/services/ajax'], function (exports, _emberAjaxServicesAjax) {
   Object.defineProperty(exports, 'default', {
@@ -462,10 +501,13 @@ define('pomodoro-electron/services/ajax', ['exports', 'ember-ajax/services/ajax'
   });
 });
 define("pomodoro-electron/templates/application", ["exports"], function (exports) {
-  exports["default"] = Ember.HTMLBars.template({ "id": "EUDXUpIe", "block": "{\"statements\":[[\"text\",\"state: \"],[\"append\",[\"unknown\",[\"clock\",\"state\"]],false],[\"text\",\"\\nmode: \"],[\"append\",[\"unknown\",[\"clock\",\"mode\"]],false],[\"text\",\"\\n\"],[\"append\",[\"helper\",[\"flip-clock\"],null,[[\"clock\"],[[\"get\",[\"clock\"]]]]],false],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/application.hbs" } });
+  exports["default"] = Ember.HTMLBars.template({ "id": "c4R1aS5t", "block": "{\"statements\":[[\"append\",[\"unknown\",[\"outlet\"]],false],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/application.hbs" } });
 });
 define("pomodoro-electron/templates/components/flip-clock", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template({ "id": "MVGhIql3", "block": "{\"statements\":[[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"clock\"],[\"flush-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"],[\"open-element\",\"a\",[]],[\"static-attr\",\"href\",\"#\"],[\"static-attr\",\"title\",\"Play video\"],[\"dynamic-attr\",\"class\",[\"concat\",[\"play-button \",[\"helper\",[\"if\"],[[\"get\",[\"active\"]],\"active\"],null]]]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"playPause\"]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/components/flip-clock.hbs" } });
+});
+define("pomodoro-electron/templates/main", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template({ "id": "NEjNThLf", "block": "{\"statements\":[[\"open-element\",\"ul\",[]],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"each\"],[[\"get\",[\"model\",\"tasks\"]]],null,0],[\"close-element\"],[\"text\",\"\\nstate: \"],[\"append\",[\"unknown\",[\"clock\",\"state\"]],false],[\"text\",\"\\nmode: \"],[\"append\",[\"unknown\",[\"clock\",\"mode\"]],false],[\"text\",\"\\n\"],[\"append\",[\"helper\",[\"flip-clock\"],null,[[\"clock\"],[[\"get\",[\"clock\"]]]]],false],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\"    \"],[\"open-element\",\"li\",[]],[\"flush-element\"],[\"append\",[\"unknown\",[\"task\",\"name\"]],false],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[\"task\"]}],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/main.hbs" } });
 });
 
 
