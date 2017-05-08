@@ -53,19 +53,25 @@ define('pomodoro-electron/components/flip-clock', ['exports', 'ember'], function
       this.get('flipClock').start();
     },
     stopClock: function stopClock() {
-      if (this.get('clock.state') === 'paused') {
-        return;
-      }
-      if (this.get('clock.mode') === 'pomodoro') {
-        this.incrementProperty('intervalCount');
-        var interval = this.get('intervalCount') % 3 === 0 ? longIntervalTime : shortIntervalTime;
-        this.get('flipClock').setTime(interval);
-        this.set('clock.mode', 'interval');
-      } else if (this.get('clock.mode') === 'interval') {
-        this.get('flipClock').setTime(pomodoroTime);
-        this.set('clock.mode', 'pomodoro');
-      }
-      this.start();
+      var _this = this;
+
+      _ember['default'].run.later(this, function () {
+        if (_this.get('clock.state') === 'paused') {
+          return;
+        }
+        if (_this.get('clock.mode') === 'pomodoro') {
+          _this.incrementProperty('intervalCount');
+          var interval = _this.get('intervalCount') % 3 === 0 ? longIntervalTime : shortIntervalTime;
+          _this.get('flipClock').setTime(interval);
+          _this.set('clock.mode', 'interval');
+        } else if (_this.get('clock.mode') === 'interval') {
+          _this.get('flipClock').setTime(pomodoroTime);
+          _this.set('clock.mode', 'pomodoro');
+        }
+        _ember['default'].run.later(_this, function () {
+          _this.start();
+        }, 1000);
+      }, 1000);
     },
     actions: {
       playPause: function playPause() {
@@ -483,6 +489,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("pomodoro-electron/app")["default"].create({"name":"pomodoro-electron","version":"0.0.0+dbd35690"});
+  require("pomodoro-electron/app")["default"].create({"name":"pomodoro-electron","version":"0.0.0+0386dff8"});
 }
 //# sourceMappingURL=pomodoro-electron.map

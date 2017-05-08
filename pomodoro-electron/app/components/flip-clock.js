@@ -33,21 +33,25 @@ export default Ember.Component.extend({
     this.get('flipClock').start();
   },
   stopClock(){
-    if(this.get('clock.state') === 'paused'){
-      return;
-    }
-    if(this.get('clock.mode') === 'pomodoro'){
-      this.incrementProperty('intervalCount');
-      let interval = ((this.get('intervalCount') % 3) === 0) ? 
-                        longIntervalTime : 
-                        shortIntervalTime;
-      this.get('flipClock').setTime(interval);
-      this.set('clock.mode', 'interval');
-    }else if(this.get('clock.mode') === 'interval'){
-      this.get('flipClock').setTime(pomodoroTime);   
-      this.set('clock.mode', 'pomodoro');
-    }
-    this.start();
+    Ember.run.later(this, () => {
+      if(this.get('clock.state') === 'paused'){
+        return;
+      }
+      if(this.get('clock.mode') === 'pomodoro'){
+        this.incrementProperty('intervalCount');
+        let interval = ((this.get('intervalCount') % 3) === 0) ? 
+                          longIntervalTime : 
+                          shortIntervalTime;
+        this.get('flipClock').setTime(interval);
+        this.set('clock.mode', 'interval');
+      }else if(this.get('clock.mode') === 'interval'){
+        this.get('flipClock').setTime(pomodoroTime);   
+        this.set('clock.mode', 'pomodoro');
+      }
+      Ember.run.later(this, () => {
+        this.start();
+      }, 1000);
+    }, 1000);
   },
   actions: {
     playPause(){
