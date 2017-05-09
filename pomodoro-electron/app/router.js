@@ -8,6 +8,9 @@ const Router = Ember.Router.extend({
 
 Router.map(function() {
   this.route('main');
+  this.route('schedule');
+  this.route('statistics');
+  this.route('configuration');
 });
 
 export default Router;

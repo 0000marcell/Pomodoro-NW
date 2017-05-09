@@ -1,1 +1,25 @@
-{{outlet}}
+<div class="root-div column">
+  <div class="app-header row">
+    <div class="app-header-side row">
+      {{#link-to 'main' }}
+        {{fa-icon 'chevron-left'}}
+      {{/link-to}}
+    </div>
+    <div class="app-header-main">
+    </div>
+    <div class="app-header-aside row">
+      <ul>
+        {{#each links as |item|}}
+          <li>
+            {{#link-to item.link }}
+              {{fa-icon item.icon}}
+            {{/link-to}}
+          </li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+  <div class="app-body column">
+    {{outlet}}
+  </div>
+</div>

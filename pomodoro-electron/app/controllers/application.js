@@ -2,7 +2,12 @@ import Ember from 'ember';
 import { select  } from 'd3-selection';
 import { scaleLinear  } from 'd3-scale';
 
+const links = [{icon: 'clock-o', name: 'schedule', link: 'schedule'},
+               {icon: 'bar-chart', name: 'statistics', link: 'statistics'},
+               {icon: 'cog', name: 'configuration', link: 'configuration'}]
+
 export default Ember.Controller.extend({
+  links: links,
   clock: {
     state: 'paused',
     mode: 'pomodoro'

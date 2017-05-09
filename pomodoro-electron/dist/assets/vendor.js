@@ -110096,6 +110096,154 @@ define("ember-data/version", ["exports"], function (exports) {
   });
   exports.default = "2.13.0";
 });
+define('ember-font-awesome/components/fa-icon', ['exports', 'ember', 'ember-font-awesome/utils/try-match'], function (exports, _ember, _emberFontAwesomeUtilsTryMatch) {
+  var computed = _ember['default'].computed;
+  var get = _ember['default'].get;
+  var isArray = _ember['default'].isArray;
+
+  var FaIconComponent = _ember['default'].Component.extend({
+    tagName: 'i',
+
+    classNames: ['fa'],
+
+    classNameBindings: ['iconCssClass', 'flipCssClass', 'rotateCssClass', 'sizeCssClass', 'pullCssClass', 'stackCssClass', 'spin:fa-spin', 'fixedWidth:fa-fw', 'listItem:fa-li', 'border:fa-border', 'pulse:fa-pulse', 'inverse:fa-inverse'],
+
+    attributeBindings: ['ariaHiddenAttribute:aria-hidden', 'title', 'style'],
+
+    style: computed('color', function () {
+      var color = get(this, 'color');
+      if (!color) {
+        return;
+      }
+      return _ember['default'].String.htmlSafe('color:' + color);
+    }),
+
+    iconCssClass: computed('icon', 'params.[]', function () {
+      var icon = get(this, 'icon');
+      var params = get(this, 'params');
+
+      icon = icon || isArray(params) && params[0];
+
+      if (icon) {
+        return (0, _emberFontAwesomeUtilsTryMatch['default'])(icon, /^fa-/) ? icon : 'fa-' + icon;
+      }
+    }),
+
+    flipCssClass: computed('flip', function () {
+      var flip = get(this, 'flip');
+      if (!flip) {
+        return;
+      }
+      return (0, _emberFontAwesomeUtilsTryMatch['default'])(flip, /^fa-flip/) ? flip : 'fa-flip-' + flip;
+    }),
+
+    rotateCssClass: computed('rotate', function () {
+      var rotate = get(this, 'rotate');
+      if (!rotate) {
+        return;
+      }
+
+      if ((0, _emberFontAwesomeUtilsTryMatch['default'])(rotate, /^fa-rotate/)) {
+        return rotate;
+      } else {
+        return 'fa-rotate-' + rotate;
+      }
+    }),
+
+    sizeCssClass: computed('size', function () {
+      var size = get(this, 'size');
+      if (!size) {
+        return;
+      }
+
+      if ((0, _emberFontAwesomeUtilsTryMatch['default'])(size, /^fa-/)) {
+        return size;
+      } else if ((0, _emberFontAwesomeUtilsTryMatch['default'])(size, /(?:lg|x)$/)) {
+        return 'fa-' + size;
+      } else {
+        return 'fa-' + size + 'x';
+      }
+    }),
+
+    pullCssClass: computed('pull', function () {
+      var pull = get(this, 'pull');
+      if (!pull) {
+        return;
+      }
+      return 'fa-pull-' + pull;
+    }),
+
+    stackCssClass: computed('stack', function () {
+      var stack = get(this, 'stack');
+      if (!stack) {
+        return;
+      }
+
+      if ((0, _emberFontAwesomeUtilsTryMatch['default'])(stack, /^fa-/)) {
+        return stack;
+      } else if ((0, _emberFontAwesomeUtilsTryMatch['default'])(stack, /x$/)) {
+        return 'fa-stack-' + stack;
+      } else {
+        return 'fa-stack-' + stack + 'x';
+      }
+    }),
+
+    ariaHiddenAttribute: computed('ariaHidden', function () {
+      var ariaHidden = get(this, 'ariaHidden');
+      return ariaHidden !== false ? 'true' : undefined;
+    })
+  });
+
+  FaIconComponent.reopenClass({
+    positionalParams: 'params'
+  });
+
+  exports['default'] = FaIconComponent;
+});
+define('ember-font-awesome/components/fa-list', ['exports', 'ember', 'ember-font-awesome/templates/components/fa-list'], function (exports, _ember, _emberFontAwesomeTemplatesComponentsFaList) {
+  exports['default'] = _ember['default'].Component.extend({
+    layout: _emberFontAwesomeTemplatesComponentsFaList['default'],
+    tagName: 'ul',
+    classNames: 'fa-ul'
+  });
+});
+define('ember-font-awesome/components/fa-stack', ['exports', 'ember', 'ember-font-awesome/utils/try-match', 'ember-font-awesome/templates/components/fa-stack'], function (exports, _ember, _emberFontAwesomeUtilsTryMatch, _emberFontAwesomeTemplatesComponentsFaStack) {
+  var computed = _ember['default'].computed;
+  var get = _ember['default'].get;
+  exports['default'] = _ember['default'].Component.extend({
+    layout: _emberFontAwesomeTemplatesComponentsFaStack['default'],
+
+    tagName: 'span',
+    classNames: 'fa-stack',
+    classNameBindings: ['sizeCssClass'],
+
+    sizeCssClass: computed('size', function () {
+      var size = get(this, 'size');
+      if (!size) {
+        return;
+      }
+
+      if ((0, _emberFontAwesomeUtilsTryMatch['default'])(size, /^fa-/)) {
+        return size;
+      } else if ((0, _emberFontAwesomeUtilsTryMatch['default'])(size, /(?:lg|x)$/)) {
+        return 'fa-' + size;
+      } else {
+        return 'fa-' + size + 'x';
+      }
+    })
+  });
+});
+define("ember-font-awesome/templates/components/fa-list", ["exports"], function (exports) {
+  exports.default = Ember.HTMLBars.template({ "id": "dOjKxzhD", "block": "{\"statements\":[[\"yield\",\"default\",[[\"helper\",[\"hash\"],null,[[\"fa-icon\"],[[\"helper\",[\"component\"],[\"fa-icon\"],[[\"listItem\"],[true]]]]]]]],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[\"default\"],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "ember-font-awesome/templates/components/fa-list.hbs" } });
+});
+define("ember-font-awesome/templates/components/fa-stack", ["exports"], function (exports) {
+  exports.default = Ember.HTMLBars.template({ "id": "c1rjXQwL", "block": "{\"statements\":[[\"yield\",\"default\",[[\"helper\",[\"hash\"],null,[[\"stack-1x\",\"stack-2x\"],[[\"helper\",[\"component\"],[\"fa-icon\"],[[\"stack\"],[\"1\"]]],[\"helper\",[\"component\"],[\"fa-icon\"],[[\"stack\"],[\"2\"]]]]]]]],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[\"default\"],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "ember-font-awesome/templates/components/fa-stack.hbs" } });
+});
+define('ember-font-awesome/utils/try-match', ['exports'], function (exports) {
+  exports['default'] = function (object, regex) {
+    return typeof object === 'string' && object.match(regex);
+  };
+});
 define("ember-inflector/index", ["module", "exports", "ember", "ember-inflector/lib/system", "ember-inflector/lib/ext/string"], function (module, exports, _ember, _system) {
   "use strict";
 

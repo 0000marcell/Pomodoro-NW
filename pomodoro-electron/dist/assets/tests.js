@@ -17,7 +17,7 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
 
   QUnit.test('controllers/application.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'controllers/application.js should pass ESLint\n\n20:11 - \'height\' is assigned a value but never used. (no-unused-vars)\n29:11 - \'bars\' is assigned a value but never used. (no-unused-vars)');
+    assert.ok(false, 'controllers/application.js should pass ESLint\n\n25:11 - \'height\' is assigned a value but never used. (no-unused-vars)\n34:11 - \'bars\' is assigned a value but never used. (no-unused-vars)');
   });
 
   QUnit.test('controllers/main.js', function (assert) {
@@ -40,6 +40,11 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
     assert.ok(true, 'routes/application.js should pass ESLint\n\n');
   });
 
+  QUnit.test('routes/configuration.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'routes/configuration.js should pass ESLint\n\n');
+  });
+
   QUnit.test('routes/data.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'routes/data.js should pass ESLint\n\n');
@@ -48,6 +53,16 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
   QUnit.test('routes/main.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'routes/main.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('routes/schedule.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'routes/schedule.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('routes/statistics.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'routes/statistics.js should pass ESLint\n\n');
   });
 });
 define('pomodoro-electron/tests/ember-electron/main', ['exports'], function (exports) {
@@ -266,9 +281,24 @@ define('pomodoro-electron/tests/tests.lint-test', ['exports'], function (exports
     assert.ok(true, 'unit/routes/application-test.js should pass ESLint\n\n');
   });
 
+  QUnit.test('unit/routes/configuration-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/routes/configuration-test.js should pass ESLint\n\n');
+  });
+
   QUnit.test('unit/routes/main-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'unit/routes/main-test.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('unit/routes/schedule-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/routes/schedule-test.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('unit/routes/statistics-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/routes/statistics-test.js should pass ESLint\n\n');
   });
 });
 define('pomodoro-electron/tests/unit/controllers/application-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
@@ -309,9 +339,45 @@ define('pomodoro-electron/tests/unit/routes/application-test', ['exports', 'embe
     assert.ok(route);
   });
 });
+define('pomodoro-electron/tests/unit/routes/configuration-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleFor)('route:configuration', 'Unit | Route | configuration', {
+    // Specify the other units that are required for this test.
+    // needs: ['controller:foo']
+  });
+
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var route = this.subject();
+    assert.ok(route);
+  });
+});
 define('pomodoro-electron/tests/unit/routes/main-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
 
   (0, _emberQunit.moduleFor)('route:main', 'Unit | Route | main', {
+    // Specify the other units that are required for this test.
+    // needs: ['controller:foo']
+  });
+
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var route = this.subject();
+    assert.ok(route);
+  });
+});
+define('pomodoro-electron/tests/unit/routes/schedule-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleFor)('route:schedule', 'Unit | Route | schedule', {
+    // Specify the other units that are required for this test.
+    // needs: ['controller:foo']
+  });
+
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var route = this.subject();
+    assert.ok(route);
+  });
+});
+define('pomodoro-electron/tests/unit/routes/statistics-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleFor)('route:statistics', 'Unit | Route | statistics', {
     // Specify the other units that are required for this test.
     // needs: ['controller:foo']
   });

@@ -1,0 +1,29 @@
+@mixin border($list) {
+  @each $value in $list{
+    border-#{$value}: 1px solid $border-color; 
+  }
+}
+
+.root-div{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.row{
+  display: flex;
+  flex-direction: row;
+}
+
+.column{
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 1000px){
+  .hide-xs{
+    display: none !important;   
+  }
+}
