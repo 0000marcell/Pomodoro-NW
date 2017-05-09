@@ -1,3 +1,11 @@
+$border-color: #c8c8c8;
+$padding-side: 20px;
+
+i{
+  color: #00baff;
+  font-size: 20px !important;
+}
+
 @mixin border($list) {
   @each $value in $list{
     border-#{$value}: 1px solid $border-color; 
