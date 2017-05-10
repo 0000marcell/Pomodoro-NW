@@ -1,8 +1,10 @@
 $border-color: #c8c8c8;
 $padding-side: 20px;
+$text-color: #c8c8c8;
+$color: #00baff;
 
 i{
-  color: #00baff;
+  color: $color;
   font-size: 20px !important;
 }
 

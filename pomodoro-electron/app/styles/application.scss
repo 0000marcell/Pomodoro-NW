@@ -2,14 +2,12 @@
   @include border(bottom);
   height: 56px;
   .app-header-side{
-    @include border(right);
     padding-left: $padding-side;
     flex: 0 0 20%;
     height: 100%;
     align-items: center;
   }
   .app-header-main{
-    @include border(right);
     flex: 0 1 40%;
     height: 100%;
   }
@@ -17,15 +15,39 @@
     flex: 1 0 40%; 
     height: 100%;
     justify-content: flex-end;
-    ul{
-      marging: 0;
-      padding: 0;
-      padding-right: $padding-side;
-      li{
-        list-style-type: none;
-        display: inline-block;
-        padding-right: $padding-side;
-      }   
-    }
+    
   }
+}
+
+.menu-options {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  li{
+    height: 100%;
+    display: inline-block;
+    list-style-type: none;   
+    .active {
+      color: $text-color !important;
+      background-color: #fff;   
+      border-bottom: 4px solid $color;
+    }
+    a {
+      height: 37px;
+      padding: 16px 15px 0px 15px;
+      display: inline-block;
+      text-decoration: none;
+      color: $text-color;
+    }
+    a:hover {
+      background-color: #fff !important;
+      border-bottom: 4px solid $color;   
+    }
+  }   
+}
+
+.app-body{
+  flex: 1 0 90%;
+  height: 90%;
+  background-color: #e8e8e8;
 }

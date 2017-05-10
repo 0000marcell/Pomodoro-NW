@@ -482,26 +482,43 @@ i {
   border-bottom: 1px solid #c8c8c8;
   height: 56px; }
   .app-header .app-header-side {
-    border-right: 1px solid #c8c8c8;
     padding-left: 20px;
     flex: 0 0 20%;
     height: 100%;
     align-items: center; }
   .app-header .app-header-main {
-    border-right: 1px solid #c8c8c8;
     flex: 0 1 40%;
     height: 100%; }
   .app-header .app-header-aside {
     flex: 1 0 40%;
     height: 100%;
     justify-content: flex-end; }
-    .app-header .app-header-aside ul {
-      marging: 0;
-      padding: 0;
-      padding-right: 20px; }
-      .app-header .app-header-aside ul li {
-        list-style-type: none;
-        display: inline-block;
-        padding-right: 20px; }
+
+.menu-options {
+  height: 100%;
+  padding: 0;
+  margin: 0; }
+  .menu-options li {
+    height: 100%;
+    display: inline-block;
+    list-style-type: none; }
+    .menu-options li .active {
+      color: #c8c8c8 !important;
+      background-color: #fff;
+      border-bottom: 4px solid #00baff; }
+    .menu-options li a {
+      height: 37px;
+      padding: 16px 15px 0px 15px;
+      display: inline-block;
+      text-decoration: none;
+      color: #c8c8c8; }
+    .menu-options li a:hover {
+      background-color: #fff !important;
+      border-bottom: 4px solid #00baff; }
+
+.app-body {
+  flex: 1 0 90%;
+  height: 90%;
+  background-color: #e8e8e8; }
 
 /*# sourceMappingURL=pomodoro-electron.css.map */

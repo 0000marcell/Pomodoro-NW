@@ -1,14 +1,18 @@
 <div class="root-div column">
   <div class="app-header row">
     <div class="app-header-side row">
-      {{#link-to 'main' }}
-        {{fa-icon 'home'}}
-      {{/link-to}}
+      <ul class="menu-options">
+        <li>
+          {{#link-to 'main' }}
+            {{fa-icon 'home'}}
+          {{/link-to}}
+        </li>
+      </ul>
     </div>
     <div class="app-header-main">
     </div>
     <div class="app-header-aside row">
-      <ul>
+      <ul class="menu-options">
         {{#each links as |item|}}
           <li>
             {{#link-to item.link }}
