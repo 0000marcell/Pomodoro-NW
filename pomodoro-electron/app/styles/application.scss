@@ -51,11 +51,31 @@
   height: 80%;
   background-color: #e8e8e8;
   justify-content: center;
-  padding-top: 40px;
+  padding-top: 80px;
   .app-body-container{
     flex: 0 0 90%;   
+    max-width: 600px;
     height: 400px;
     background-color: #fff;
     box-shadow: 2px 2px 2px #888888;
   }
+}
+
+.tasks-button{
+  padding: 10px 0px 0px 20px;
+  i{
+    color: #fff;
+  }
+  z-index: 99;
+  background-color: $color;
+  color: #fff;
+  position: fixed;
+  top: 75px;
+  left: -2px;
+  width: 35px;
+  height: 30px;
+}
+
+.tasks-button:hover {
+  cursor: pointer;
 }
