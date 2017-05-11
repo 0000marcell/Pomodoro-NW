@@ -47,7 +47,15 @@
 }
 
 .app-body{
-  flex: 1 0 90%;
-  height: 90%;
+  flex: 0 0 80%;
+  height: 80%;
   background-color: #e8e8e8;
+  justify-content: center;
+  padding-top: 40px;
+  .app-body-container{
+    flex: 0 0 90%;   
+    height: 400px;
+    background-color: #fff;
+    box-shadow: 2px 2px 2px #888888;
+  }
 }

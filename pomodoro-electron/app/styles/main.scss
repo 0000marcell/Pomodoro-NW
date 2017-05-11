@@ -1,0 +1,25 @@
+.main-container{
+  height: 100%;
+  width: 100%;
+  .main-header{
+    @include border(bottom);
+    flex: 0 0 40%;
+    height: 40%;
+    overflow: scroll;
+    ul{
+      margin: 0;
+      padding: 0;
+      li{
+        @include border(bottom);
+        list-style-type: none;
+        height: 35px;
+        padding-top: $padding-top;
+        padding-left: $padding-side;
+        span{
+        }
+      }
+    }
+  }
+  .main-body{
+  }
+}

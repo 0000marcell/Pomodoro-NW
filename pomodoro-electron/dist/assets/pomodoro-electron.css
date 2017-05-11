@@ -517,8 +517,33 @@ i {
       border-bottom: 4px solid #00baff; }
 
 .app-body {
-  flex: 1 0 90%;
-  height: 90%;
-  background-color: #e8e8e8; }
+  flex: 0 0 80%;
+  height: 80%;
+  background-color: #e8e8e8;
+  justify-content: center;
+  padding-top: 40px; }
+  .app-body .app-body-container {
+    flex: 0 0 90%;
+    height: 400px;
+    background-color: #fff;
+    box-shadow: 2px 2px 2px #888888; }
+
+.main-container {
+  height: 100%;
+  width: 100%; }
+  .main-container .main-header {
+    border-bottom: 1px solid #c8c8c8;
+    flex: 0 0 40%;
+    height: 40%;
+    overflow: scroll; }
+    .main-container .main-header ul {
+      margin: 0;
+      padding: 0; }
+      .main-container .main-header ul li {
+        border-bottom: 1px solid #c8c8c8;
+        list-style-type: none;
+        height: 35px;
+        padding-top: 20px;
+        padding-left: 20px; }
 
 /*# sourceMappingURL=pomodoro-electron.css.map */
