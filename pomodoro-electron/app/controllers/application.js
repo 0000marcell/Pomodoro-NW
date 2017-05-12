@@ -7,6 +7,7 @@ const links = [{icon: 'clock-o', name: 'schedule', link: 'schedule'},
                {icon: 'cog', name: 'configuration', link: 'configuration'}]
 
 export default Ember.Controller.extend({
+  openSidenav: true,
   links: links,
   clock: {
     state: 'paused',
@@ -18,6 +19,9 @@ export default Ember.Controller.extend({
     }    
   }),
   actions: {
+    showSidenav(){
+      this.toggleProperty('openSidenav');
+    },
     graphIt(){
       var dataArray = [20, 40, 50];
       var colors = ['#E91E63', '#9C27B0', '#673AB7'];

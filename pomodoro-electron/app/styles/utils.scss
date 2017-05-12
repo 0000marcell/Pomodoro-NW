@@ -1,8 +1,12 @@
 $border-color: #c8c8c8;
 $padding-side: 20px;
 $padding-top: 20px;
-$text-color: #c8c8c8;
+$text-color: #a8a8a8;
 $color: #00baff;
+
+body, html {
+  color: $text-color;
+}
 
 i{
   color: $color;

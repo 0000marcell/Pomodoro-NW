@@ -1,4 +1,22 @@
-<div class="tasks-sidenav-overlay">
-  <div class="tasks-sidenav">
+<div class="tasks-sidenav-overlay" {{action 'overlayClick'}}>
+</div>
+<div class="tasks-sidenav column">
+  <div class="tasks-sidenav-header">
+    {{input placeholder="Search"
+      type='text' value=search}}
+  </div>
+  <div class="tasks-sidenav-body">
+    <ul>
+      {{#each tasks as |task|}}
+        <li>
+          <span class="task-container">
+            {{task.name}}
+          </span>
+          <span class="opt-container">
+            {{fa-icon "ellipsis-v"}}
+          </span>
+        </li>
+      {{/each}}
+    </ul>
   </div>
 </div>

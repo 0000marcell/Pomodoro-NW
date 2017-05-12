@@ -1,3 +1,6 @@
+body, html {
+  color: #a8a8a8; }
+
 i {
   color: #00baff;
   font-size: 20px !important; }
@@ -479,6 +482,7 @@ i {
       box-shadow: inset 30px 0 0 0 #fff; }
 
 .tasks-sidenav-overlay {
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -486,13 +490,45 @@ i {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.3);
   z-index: 999; }
-  .tasks-sidenav-overlay .tasks-sidenav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 300px;
-    height: 800px;
-    background-color: #fff; }
+
+.tasks-sidenav {
+  position: fixed;
+  top: 0;
+  left: -300px;
+  width: 300px;
+  height: 800px;
+  background-color: #fff;
+  z-index: 9999;
+  transition: transform 0.5s 0.0s; }
+  .tasks-sidenav .tasks-sidenav-header {
+    border-bottom: 1px solid #c8c8c8;
+    height: 50px;
+    padding-top: 80px; }
+    .tasks-sidenav .tasks-sidenav-header input {
+      border: 2px solid #00baff;
+      display: block;
+      width: 70%;
+      height: 20px;
+      margin: 0 auto; }
+
+.open-sidenav .tasks-sidenav {
+  transform: translate(300px); }
+
+.open-sidenav .tasks-sidenav-overlay {
+  display: block; }
+
+.tasks-sidenav-body ul {
+  margin: 0;
+  padding: 0; }
+  .tasks-sidenav-body ul li {
+    padding: 20px 10px 10px 40px; }
+    .tasks-sidenav-body ul li .opt-container {
+      float: right;
+      padding-right: 33px; }
+      .tasks-sidenav-body ul li .opt-container i {
+        color: #a8a8a8; }
+  .tasks-sidenav-body ul li:hover {
+    background-color: #00baff; }
 
 .app-header {
   border-bottom: 1px solid #c8c8c8;
@@ -519,7 +555,7 @@ i {
     display: inline-block;
     list-style-type: none; }
     .menu-options li .active {
-      color: #c8c8c8 !important;
+      color: #a8a8a8 !important;
       background-color: #fff;
       border-bottom: 4px solid #00baff; }
     .menu-options li a {
@@ -527,7 +563,7 @@ i {
       padding: 16px 15px 0px 15px;
       display: inline-block;
       text-decoration: none;
-      color: #c8c8c8; }
+      color: #a8a8a8; }
     .menu-options li a:hover {
       background-color: #fff !important;
       border-bottom: 4px solid #00baff; }

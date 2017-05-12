@@ -1,4 +1,5 @@
 .tasks-sidenav-overlay{
+  display: none;
   position: fixed; 
   top: 0;
   left: 0;
@@ -6,13 +7,58 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.3);
   z-index: 999;
-  .tasks-sidenav{
-    position: fixed; 
-    top: 0;
-    left: 0;
-    width: 300px;
-    height: 800px;
-    background-color: #fff;
+}
+
+.tasks-sidenav{
+  position: fixed; 
+  top: 0;
+  left: -300px;
+  width: 300px;
+  height: 800px;
+  background-color: #fff;
+  z-index: 9999;
+  transition: transform 0.5s 0.0s;
+  .tasks-sidenav-header{
+    @include border(bottom);
+    height: 50px;
+    padding-top: 80px;
+    input{
+      border: 2px solid $color;
+      display: block;   
+      width: 70%;
+      height: 20px;
+      margin: 0 auto;
+    }
   }
 }
 
+.open-sidenav{
+  .tasks-sidenav{
+    transform: translate(300px);
+  }
+  .tasks-sidenav-overlay{
+    display: block;
+  }
+}
+
+.tasks-sidenav-body{
+  ul{
+    margin: 0;
+    padding: 0;
+    li{
+      padding: 20px 10px 10px 40px; 
+      .task-container{
+      }
+      .opt-container{
+        i{
+          color: $text-color;
+        }
+        float: right;
+        padding-right: 33px;
+      }
+    }
+    li:hover{
+      background-color: $color;   
+    }
+  }
+}

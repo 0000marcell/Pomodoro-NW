@@ -1,8 +1,9 @@
-{{tasks-sidenav visibility=sideNavVis}}
+{{tasks-sidenav openSidenav=openSidenav tasks=model.tasks}}
 
-<div class="tasks-button">
+<div {{action 'showSidenav'}} class="tasks-button">
   {{fa-icon 'bars'}}
 </div>
+
 <div class="root-div column">
   <div class="app-header row">
     <div class="app-header-side row">
