@@ -6,7 +6,18 @@ $color: #00baff;
 
 body, html {
   color: $text-color;
+  font-family: proxima-nova,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 14px;
+  line-height: 1.42857143;
 }
+
+.active{
+  background-color: $color;
+  color: #fff;
+  
+}
+
+
 
 i{
   color: $color;

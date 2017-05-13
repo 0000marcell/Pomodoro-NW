@@ -30,6 +30,11 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
     assert.ok(true, 'controllers/main.js should pass ESLint\n\n');
   });
 
+  QUnit.test('helpers/pomodoro-hours.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'helpers/pomodoro-hours.js should pass ESLint\n\n');
+  });
+
   QUnit.test('resolver.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'resolver.js should pass ESLint\n\n');
@@ -315,6 +320,11 @@ define('pomodoro-electron/tests/tests.lint-test', ['exports'], function (exports
     assert.ok(true, 'unit/controllers/main-test.js should pass ESLint\n\n');
   });
 
+  QUnit.test('unit/helpers/pomodoro-hours-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/helpers/pomodoro-hours-test.js should pass ESLint\n\n');
+  });
+
   QUnit.test('unit/routes/application-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'unit/routes/application-test.js should pass ESLint\n\n');
@@ -364,6 +374,16 @@ define('pomodoro-electron/tests/unit/controllers/main-test', ['exports', 'ember-
   (0, _emberQunit.test)('it exists', function (assert) {
     var controller = this.subject();
     assert.ok(controller);
+  });
+});
+define('pomodoro-electron/tests/unit/helpers/pomodoro-hours-test', ['exports', 'pomodoro-electron/helpers/pomodoro-hours', 'qunit'], function (exports, _pomodoroElectronHelpersPomodoroHours, _qunit) {
+
+  (0, _qunit.module)('Unit | Helper | pomodoro hours');
+
+  // Replace this with your real tests.
+  (0, _qunit.test)('it works', function (assert) {
+    var result = (0, _pomodoroElectronHelpersPomodoroHours.pomodoroHours)([42]);
+    assert.ok(result);
   });
 });
 define('pomodoro-electron/tests/unit/routes/application-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
