@@ -555,7 +555,7 @@ i {
         cursor: pointer;
         color: #fff; }
   .tasks-sidenav .tasks-sidenav-footer {
-    background-color: #e8e8e8;
+    border-top: 1px solid #c8c8c8;
     height: 300px; }
 
 .open-sidenav .tasks-sidenav {
@@ -563,6 +563,14 @@ i {
 
 .open-sidenav .tasks-sidenav-overlay {
   display: block; }
+
+.loading-container {
+  width: 100%;
+  padding-top: 100px; }
+  .loading-container i {
+    display: block;
+    margin: 0 auto;
+    font-size: 3em !important; }
 
 .app-header {
   border-bottom: 1px solid #c8c8c8;

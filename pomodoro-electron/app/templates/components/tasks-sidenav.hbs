@@ -14,23 +14,29 @@
     </div>
   </div>
   <div class="tasks-sidenav-body">
-    <ul>
-      {{#each tasks as |task|}}
-        <li onclick={{action 'toggle'}}>
-          <div>
-            <span class="task-name">
-              {{task.name}}
-            </span>
-            <span class="pomodoro-time">
-              {{pomodoro-hours task.pomodoros}}
-            </span>
-            <span class="opt-container">
-              {{fa-icon "ellipsis-v"}}
-            </span>
-          </div>
-        </li>
-      {{/each}}
-    </ul>
+    {{#if loading}}
+      <div class="loading-container">
+        <i class="fa fa-circle-o-notch fa-spin fa-4x fa-fw"></i>
+      </div>
+    {{else}} 
+      <ul>
+        {{#each filteredTasks as |task|}}
+          <li onclick={{action 'toggle'}}>
+            <div>
+              <span class="task-name">
+                {{task.name}}
+              </span>
+              <span class="pomodoro-time">
+                {{pomodoro-hours task.pomodoros}}
+              </span>
+              <span class="opt-container">
+                {{fa-icon "ellipsis-v"}}
+              </span>
+            </div>
+          </li>
+        {{/each}}
+      </ul>
+    {{/if}}
   </div>
   <div class="tasks-sidenav-footer">
   </div>

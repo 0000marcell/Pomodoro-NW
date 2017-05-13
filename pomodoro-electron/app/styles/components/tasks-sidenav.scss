@@ -81,7 +81,7 @@
     }
   }
   .tasks-sidenav-footer{
-    background-color: #e8e8e8;
+    @include border(top);
     height: 300px;
   }
 }
@@ -92,5 +92,15 @@
   }
   .tasks-sidenav-overlay{
     display: block;
+  }
+}
+
+.loading-container{
+  width: 100%;
+  padding-top: 100px;
+  i{
+    display: block;   
+    margin: 0 auto;
+    font-size: 3em !important;
   }
 }
