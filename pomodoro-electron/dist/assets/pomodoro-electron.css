@@ -488,7 +488,74 @@ i {
       border-left: 20px solid #2c3e50;
       box-shadow: inset 30px 0 0 0 #fff; }
 
-.tasks-sidenav-overlay {
+.tasks-sidenav .tasks-sidenav-header {
+  border-bottom: 1px solid #c8c8c8;
+  height: 150px; }
+  .tasks-sidenav .tasks-sidenav-header .tasks-sidenav-header-header {
+    flex: 0 0 50%; }
+    .tasks-sidenav .tasks-sidenav-header .tasks-sidenav-header-header h3 {
+      display: block;
+      margin: 20px auto;
+      color: #00baff; }
+  .tasks-sidenav .tasks-sidenav-header .tasks-sidenav-header-body {
+    padding-top: 20px; }
+  .tasks-sidenav .tasks-sidenav-header input {
+    border: 2px solid #00baff;
+    display: block;
+    width: 70%;
+    height: 20px;
+    margin: 0 auto; }
+
+.tasks-sidenav .tasks-sidenav-body {
+  height: 320px;
+  overflow: scroll; }
+  .tasks-sidenav .tasks-sidenav-body ul {
+    margin: 0;
+    padding: 0; }
+    .tasks-sidenav .tasks-sidenav-body ul li {
+      display: block;
+      border-bottom: 1px solid #c8c8c8;
+      height: 40px;
+      padding: 0; }
+      .tasks-sidenav .tasks-sidenav-body ul li div {
+        margin: 0 auto;
+        height: 100%;
+        width: 80%; }
+        .tasks-sidenav .tasks-sidenav-body ul li div span {
+          display: inline-block;
+          height: 100%;
+          padding-top: 10px; }
+        .tasks-sidenav .tasks-sidenav-body ul li div .task-name {
+          width: 40%; }
+        .tasks-sidenav .tasks-sidenav-body ul li div .pomodoro-time {
+          width: 30%; }
+        .tasks-sidenav .tasks-sidenav-body ul li div .opt-container {
+          text-align: right;
+          width: 25%; }
+    .tasks-sidenav .tasks-sidenav-body ul li:hover {
+      background-color: #00baff;
+      cursor: pointer;
+      color: #fff; }
+  .tasks-sidenav .tasks-sidenav-body .no-result-container {
+    padding-top: 20px; }
+    .tasks-sidenav .tasks-sidenav-body .no-result-container h1 {
+      display: block;
+      width: 200px;
+      margin: 0 auto; }
+
+.tasks-sidenav .tasks-sidenav-footer {
+  border-top: 1px solid #c8c8c8;
+  height: 300px; }
+
+.loading-container {
+  width: 100%;
+  padding-top: 100px; }
+  .loading-container i {
+    display: block;
+    margin: 0 auto;
+    font-size: 3em !important; }
+
+.tasks-sidepanel-overlay {
   display: none;
   position: fixed;
   top: 0;
@@ -498,85 +565,31 @@ i {
   background-color: rgba(0, 0, 0, 0.3);
   z-index: 999; }
 
-.tasks-sidenav {
+.tasks-sidepanel {
   position: fixed;
   top: 0;
-  left: -300px;
-  width: 300px;
+  left: -600px;
+  width: 600px;
   height: 800px;
   background-color: #fff;
   z-index: 9999;
   transition: transform 0.5s 0.0s; }
-  .tasks-sidenav .tasks-sidenav-header {
-    border-bottom: 1px solid #c8c8c8;
-    height: 150px; }
-    .tasks-sidenav .tasks-sidenav-header .tasks-sidenav-header-header {
-      flex: 0 0 50%; }
-      .tasks-sidenav .tasks-sidenav-header .tasks-sidenav-header-header h3 {
-        display: block;
-        margin: 20px auto;
-        color: #00baff; }
-    .tasks-sidenav .tasks-sidenav-header .tasks-sidenav-header-body {
-      padding-top: 20px; }
-    .tasks-sidenav .tasks-sidenav-header input {
-      border: 2px solid #00baff;
-      display: block;
-      width: 70%;
-      height: 20px;
-      margin: 0 auto; }
-  .tasks-sidenav .tasks-sidenav-body {
-    height: 320px;
-    overflow: scroll; }
-    .tasks-sidenav .tasks-sidenav-body ul {
-      margin: 0;
-      padding: 0; }
-      .tasks-sidenav .tasks-sidenav-body ul li {
-        display: block;
-        border-bottom: 1px solid #c8c8c8;
-        height: 40px;
-        padding: 0; }
-        .tasks-sidenav .tasks-sidenav-body ul li div {
-          margin: 0 auto;
-          height: 100%;
-          width: 80%; }
-          .tasks-sidenav .tasks-sidenav-body ul li div span {
-            display: inline-block;
-            height: 100%;
-            padding-top: 10px; }
-          .tasks-sidenav .tasks-sidenav-body ul li div .task-name {
-            width: 40%; }
-          .tasks-sidenav .tasks-sidenav-body ul li div .pomodoro-time {
-            width: 30%; }
-          .tasks-sidenav .tasks-sidenav-body ul li div .opt-container {
-            text-align: right;
-            width: 25%; }
-      .tasks-sidenav .tasks-sidenav-body ul li:hover {
-        background-color: #00baff;
-        cursor: pointer;
-        color: #fff; }
-    .tasks-sidenav .tasks-sidenav-body .no-result-container {
-      padding-top: 20px; }
-      .tasks-sidenav .tasks-sidenav-body .no-result-container h1 {
-        display: block;
-        width: 200px;
-        margin: 0 auto; }
-  .tasks-sidenav .tasks-sidenav-footer {
-    border-top: 1px solid #c8c8c8;
-    height: 300px; }
+  .tasks-sidepanel .tasks-sidepanel-side {
+    border-right: 1px solid #c8c8c8;
+    flex: 0 0 50%;
+    height: 100%; }
+  .tasks-sidepanel .tasks-sidepanel-aside {
+    flex: 0 0 50%;
+    height: 100%; }
 
-.open-sidenav .tasks-sidenav {
+.open-sidenav .tasks-sidepanel {
   transform: translate(300px); }
 
-.open-sidenav .tasks-sidenav-overlay {
+.open-sidenav .tasks-sidepanel-overlay {
   display: block; }
 
-.loading-container {
-  width: 100%;
-  padding-top: 100px; }
-  .loading-container i {
-    display: block;
-    margin: 0 auto;
-    font-size: 3em !important; }
+.left-panel .tasks-sidepanel {
+  transform: translate(600px); }
 
 .app-header {
   border-bottom: 1px solid #c8c8c8;

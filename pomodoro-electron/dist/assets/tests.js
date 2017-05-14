@@ -20,6 +20,11 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
     assert.ok(true, 'components/tasks-sidenav.js should pass ESLint\n\n');
   });
 
+  QUnit.test('components/tasks-sidepanel.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/tasks-sidepanel.js should pass ESLint\n\n');
+  });
+
   QUnit.test('controllers/application.js', function (assert) {
     assert.expect(1);
     assert.ok(false, 'controllers/application.js should pass ESLint\n\n29:11 - \'height\' is assigned a value but never used. (no-unused-vars)\n38:11 - \'bars\' is assigned a value but never used. (no-unused-vars)');
@@ -261,6 +266,35 @@ define('pomodoro-electron/tests/integration/components/tasks-sidenav-test', ['ex
     assert.equal(this.$().text().trim(), 'template block text');
   });
 });
+define('pomodoro-electron/tests/integration/components/tasks-sidepanel-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleForComponent)('tasks-sidepanel', 'Integration | Component | tasks sidepanel', {
+    integration: true
+  });
+
+  (0, _emberQunit.test)('it renders', function (assert) {
+
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.on('myAction', function(val) { ... });
+
+    this.render(Ember.HTMLBars.template({
+      'id': 'MvISRgM3',
+      'block': '{"statements":[["append",["unknown",["tasks-sidepanel"]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
+      'meta': {}
+    }));
+
+    assert.equal(this.$().text().trim(), '');
+
+    // Template block usage:
+    this.render(Ember.HTMLBars.template({
+      'id': 'cYmkxFS6',
+      'block': '{"statements":[["text","\\n"],["block",["tasks-sidepanel"],null,null,0],["text","  "]],"locals":[],"named":[],"yields":[],"blocks":[{"statements":[["text","      template block text\\n"]],"locals":[]}],"hasPartials":false}',
+      'meta': {}
+    }));
+
+    assert.equal(this.$().text().trim(), 'template block text');
+  });
+});
 define('pomodoro-electron/tests/test-helper', ['exports', 'pomodoro-electron/tests/helpers/resolver', 'ember-qunit'], function (exports, _pomodoroElectronTestsHelpersResolver, _emberQunit) {
 
   (0, _emberQunit.setResolver)(_pomodoroElectronTestsHelpersResolver['default']);
@@ -303,6 +337,11 @@ define('pomodoro-electron/tests/tests.lint-test', ['exports'], function (exports
   QUnit.test('integration/components/tasks-sidenav-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'integration/components/tasks-sidenav-test.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('integration/components/tasks-sidepanel-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/components/tasks-sidepanel-test.js should pass ESLint\n\n');
   });
 
   QUnit.test('test-helper.js', function (assert) {
