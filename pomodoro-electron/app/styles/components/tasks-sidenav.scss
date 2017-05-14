@@ -79,6 +79,14 @@
         color: #fff;
       }
     }
+    .no-result-container{
+      padding-top: 20px;
+      h1{
+        display: block;
+        width: 200px;
+        margin: 0 auto;
+      }
+    }
   }
   .tasks-sidenav-footer{
     @include border(top);

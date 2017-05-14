@@ -554,6 +554,12 @@ i {
         background-color: #00baff;
         cursor: pointer;
         color: #fff; }
+    .tasks-sidenav .tasks-sidenav-body .no-result-container {
+      padding-top: 20px; }
+      .tasks-sidenav .tasks-sidenav-body .no-result-container h1 {
+        display: block;
+        width: 200px;
+        margin: 0 auto; }
   .tasks-sidenav .tasks-sidenav-footer {
     border-top: 1px solid #c8c8c8;
     height: 300px; }
