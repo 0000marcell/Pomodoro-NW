@@ -1,6 +1,7 @@
 .main-container{
-  height: 100%;
-  width: 100%;
+  background-color: #c8c8c8;
+  height: 200px;
+  width: 200px;
   .main-header{
     @include border(bottom);
     flex: 0 0 40%;

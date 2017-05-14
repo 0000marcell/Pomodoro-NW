@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   didInsertElement(){
-    this.set('filteredTasks', this.get('tasks'));
+    this.set('filteredTasks', this.get('model.data.tasks'));
   },
   loading: false,
   searchResults: Ember.observer('search', function(){
@@ -10,8 +10,7 @@ export default Ember.Component.extend({
     Ember.run.later(this, () => {
       let regex = 
         new RegExp(this.get('search'), 'i');
-      let result = this.get('tasks').filter((item) => {
-        console.log('item name: ', item.name);
+      let result = this.get('model.data.tasks').filter((item) => {
         return item.name.match(regex); 
       });
       this.set('filteredTasks', result);
@@ -23,14 +22,17 @@ export default Ember.Component.extend({
     overlayClick(){
       this.toggleProperty('openSidenav');
     },
-    toggle(event){
-      event.target
-        .classList.add('active');
+    toggle(task, event){
+      let el = Ember.$(event.target)
+        .closest("li");
+      el.addClass('active');
       if(this.get('prevItem')){
         this.get('prevItem')
-          .classList.remove('active');  
+          .removeClass('active');  
       }
-      this.set('prevItem', event.target);
+      this.set('prevItem', el);
+      this.set('model.state.selectedTask', 
+          task);
     }
   }
 });

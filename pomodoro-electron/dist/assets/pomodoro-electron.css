@@ -640,8 +640,9 @@ i {
   cursor: pointer; }
 
 .main-container {
-  height: 100%;
-  width: 100%; }
+  background-color: #c8c8c8;
+  height: 200px;
+  width: 200px; }
   .main-container .main-header {
     border-bottom: 1px solid #c8c8c8;
     flex: 0 0 40%;

@@ -21,7 +21,7 @@
     {{else}} 
       <ul>
         {{#each filteredTasks as |task|}}
-          <li onclick={{action 'toggle'}}>
+          <li onclick={{action 'toggle' task}}>
             <div>
               <span class="task-name">
                 {{task.name}}

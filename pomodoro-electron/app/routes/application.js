@@ -3,7 +3,10 @@ import data from './data';
 
 export default Ember.Route.extend({
   model(){
-    return data;
+    return Ember.RSVP.hash({
+      data: data,
+      state: {selectedTask: null}
+    });
   },
   redirect(){
     this.transitionTo('main');
