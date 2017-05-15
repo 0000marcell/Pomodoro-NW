@@ -28,7 +28,7 @@
               <span class="pomodoro-time">
                 {{pomodoro-hours task.pomodoros}}
               </span>
-              <span onclick=(action "editTask" task)
+              <span onclick={{action "edit" task}}
                 class="opt-container">
                 {{fa-icon "ellipsis-v"}}
               </span>

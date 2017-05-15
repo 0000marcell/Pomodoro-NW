@@ -33,7 +33,8 @@ export default Ember.Component.extend({
           task);
     },
     edit(task){
-      //this.set('show')
+      console.log('edit!!');
+      this.get('edit')(task);
     }
   }
 });

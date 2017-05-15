@@ -1,11 +1,22 @@
 <div class="tasks-sidepanel-overlay" {{action 'overlayClick'}}>
 </div>
 <div class="tasks-sidepanel row">
-  <div class="tasks-sidepanel-side">
-    <button {{action 'showLeftPanel'}}>show</button>
+  <div class="tasks-sidepanel-side column">
+    <div class="tasks-sidepanel-side-header">
+      <div onclick={{action 'showLeftPanel'}}>
+        {{fa-icon 'chevron-left'}}
+      </div>
+    </div>
+    <div class="tasks-sidepanel-side-body">
+      {{#if selectedTask}}
+        {{edit-task-comp task=selectedTask}} 
+      {{/if}}
+    </div>
   </div>
   <div class="tasks-sidepanel-aside">
-    {{tasks-sidenav model=model}}
+    {{tasks-sidenav model=model
+      edit=(action "edit")
+    }}
     <button {{action 'showLeftPanel'}}>show</button>
   </div>
 </div>

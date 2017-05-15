@@ -22,6 +22,22 @@
     @include border(right);
     flex: 0 0 50%;      
     height: 100%;
+    .tasks-sidepanel-side-header{
+      @include border(bottom);
+      flex: 0 0 5%;
+      height: 50px;
+      i{
+        float: right;
+        padding-right: 20px;
+        padding-top: 17px;
+        cursor: pointer;
+      }
+    }
+    .tasks-sidepanel-side-body{
+      background-color: #c8c8c8;   
+      flex: 0 1 95%;
+      height: 95%;
+    }
   }
   .tasks-sidepanel-aside{
     flex: 0 0 50%;
