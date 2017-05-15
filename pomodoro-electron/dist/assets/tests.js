@@ -17,7 +17,7 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
 
   QUnit.test('components/tasks-sidenav.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'components/tasks-sidenav.js should pass ESLint\n\n');
+    assert.ok(false, 'components/tasks-sidenav.js should pass ESLint\n\n35:10 - \'task\' is defined but never used. (no-unused-vars)');
   });
 
   QUnit.test('components/tasks-sidepanel.js', function (assert) {

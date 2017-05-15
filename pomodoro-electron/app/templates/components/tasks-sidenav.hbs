@@ -1,50 +1,47 @@
-<div class="tasks-sidenav-overlay" {{action 'overlayClick'}}>
+<div class="tasks-sidenav-header column">
+  <div class="tasks-sidenav-header-header row">
+    <h3>
+      {{fa-icon 'bars'}}
+      Tasks
+    </h3>
+  </div>
+  <div class="tasks-sidenav-header-body row">
+    {{input placeholder="Search"
+      type='text' value=search}}
+  </div>
 </div>
-<div class="tasks-sidenav column">
-  <div class="tasks-sidenav-header column">
-    <div class="tasks-sidenav-header-header row">
-      <h3>
-        {{fa-icon 'bars'}}
-        Tasks
-      </h3>
+<div class="tasks-sidenav-body">
+  {{#if loading}}
+    <div class="loading-container">
+      <i 
+      class="fa fa-circle-o-notch fa-spin fa-4x fa-fw"></i>
     </div>
-    <div class="tasks-sidenav-header-body row">
-      {{input placeholder="Search"
-        type='text' value=search}}
-    </div>
-  </div>
-  <div class="tasks-sidenav-body">
-    {{#if loading}}
-      <div class="loading-container">
-        <i 
-        class="fa fa-circle-o-notch fa-spin fa-4x fa-fw"></i>
+  {{else}} 
+    {{#if filteredTasks}}
+      <ul>
+        {{#each filteredTasks as |task|}}
+          <li onclick={{action 'toggle' task}}>
+            <div>
+              <span class="task-name">
+                {{task.name}}
+              </span>
+              <span class="pomodoro-time">
+                {{pomodoro-hours task.pomodoros}}
+              </span>
+              <span onclick=(action "editTask" task)
+                class="opt-container">
+                {{fa-icon "ellipsis-v"}}
+              </span>
+            </div>
+          </li>
+        {{/each}}
+      </ul>  
+    {{else}}
+      <div class="no-result-container">
+        <h1>No Tasks</h1>
       </div>
-    {{else}} 
-      {{#if filteredTasks}}
-        <ul>
-          {{#each filteredTasks as |task|}}
-            <li onclick={{action 'toggle' task}}>
-              <div>
-                <span class="task-name">
-                  {{task.name}}
-                </span>
-                <span class="pomodoro-time">
-                  {{pomodoro-hours task.pomodoros}}
-                </span>
-                <span class="opt-container">
-                  {{fa-icon "ellipsis-v"}}
-                </span>
-              </div>
-            </li>
-          {{/each}}
-        </ul>  
-      {{else}}
-        <div class="no-result-container">
-          <h1>No Tasks</h1>
-        </div>
-      {{/if}}
     {{/if}}
-  </div>
-  <div class="tasks-sidenav-footer">
-  </div>
+  {{/if}}
+</div>
+<div class="tasks-sidenav-footer">
 </div>

@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+  classNames: ['tasks-sidenav'],
   didInsertElement(){
     this.set('filteredTasks', this.get('model.data.tasks'));
   },
@@ -10,18 +11,15 @@ export default Ember.Component.extend({
     Ember.run.later(this, () => {
       let regex = 
         new RegExp(this.get('search'), 'i');
-      let result = this.get('model.data.tasks').filter((item) => {
-        return item.name.match(regex); 
-      });
+      let result = 
+        this.get('model.data.tasks').filter((item) => {
+          return item.name.match(regex); 
+        });
       this.set('filteredTasks', result);
       this.set('loading', false);
     }, 500);
   }),
-  classNameBindings: ['openSidenav'],
   actions: {
-    overlayClick(){
-      this.toggleProperty('openSidenav');
-    },
     toggle(task, event){
       let el = Ember.$(event.target)
         .closest("li");
@@ -33,6 +31,9 @@ export default Ember.Component.extend({
       this.set('prevItem', el);
       this.set('model.state.selectedTask', 
           task);
+    },
+    edit(task){
+      //this.set('show')
     }
   }
 });

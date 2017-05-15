@@ -14,7 +14,9 @@ body, html {
 .active{
   background-color: $color;
   color: #fff;
-  
+  i{
+    color: #fff;
+  }  
 }
 
 
