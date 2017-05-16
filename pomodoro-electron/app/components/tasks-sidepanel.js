@@ -7,8 +7,13 @@ export default Ember.Component.extend({
       this.set('leftPanel', true);
       this.set('selectedTask', task);
     },
+    showCreate(){
+      let task = this.get('newTask')()
+      this.set('newTask', task);
+    },
     overlayClick(){
-      this.toggleProperty('openSidenav');
+      this.set('leftPanel', false);
+      this.set('openSidenav', false);
     },
     showLeftPanel(){
       this.toggleProperty('leftPanel');

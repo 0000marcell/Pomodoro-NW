@@ -1,6 +1,7 @@
 .app-header{
   @include border(bottom);
   height: 56px;
+  min-height: 56px;
   .app-header-side{
     padding-left: $padding-side;
     flex: 0 0 20%;

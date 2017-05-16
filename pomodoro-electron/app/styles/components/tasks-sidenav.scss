@@ -3,7 +3,7 @@
   height: 100%;
   .tasks-sidenav-header{
     @include border(bottom);
-    height: 150px;
+    height: 180px;
     .tasks-sidenav-header-header {
       flex: 0 0 50%;
       h3{
@@ -14,6 +14,12 @@
     }
     .tasks-sidenav-header-body{
       padding-top: 20px;
+      .add-task-container{
+        i{
+          float: right;
+          padding: 20px 27px 10px 0;
+        }
+      }
     }
     input{
       border: 2px solid $color;

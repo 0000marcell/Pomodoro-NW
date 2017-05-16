@@ -6,13 +6,21 @@ $color: #00baff;
 
 body, html {
   color: $text-color;
-  font-family: proxima-nova,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: 
+    proxima-nova,"Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 14px;
   line-height: 1.42857143;
 }
 
-.button-primary{
-  
+button{
+  background-color: #00baff;
+  width: 120px;
+  height: 40px;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
 
 
@@ -27,9 +35,6 @@ input{
 .active{
   background-color: $color;
   color: #fff;
-  i{
-    color: #fff;
-  }  
 }
 
 

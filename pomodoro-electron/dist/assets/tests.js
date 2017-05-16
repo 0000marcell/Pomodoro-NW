@@ -20,6 +20,11 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
     assert.ok(true, 'components/flip-clock.js should pass ESLint\n\n');
   });
 
+  QUnit.test('components/task-form.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/task-form.js should pass ESLint\n\n');
+  });
+
   QUnit.test('components/tasks-sidenav.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'components/tasks-sidenav.js should pass ESLint\n\n');
@@ -57,7 +62,7 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
 
   QUnit.test('routes/application.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'routes/application.js should pass ESLint\n\n16:12 - \'task\' is defined but never used. (no-unused-vars)\n19:10 - \'task\' is defined but never used. (no-unused-vars)');
+    assert.ok(true, 'routes/application.js should pass ESLint\n\n');
   });
 
   QUnit.test('routes/configuration.js', function (assert) {
@@ -83,6 +88,11 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
   QUnit.test('routes/statistics.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'routes/statistics.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('services/store.js', function (assert) {
+    assert.expect(1);
+    assert.ok(false, 'services/store.js should pass ESLint\n\n5:5 - Unexpected console statement. (no-console)');
   });
 });
 define('pomodoro-electron/tests/ember-electron/main', ['exports'], function (exports) {
@@ -271,6 +281,35 @@ define('pomodoro-electron/tests/integration/components/flip-clock-test', ['expor
     assert.equal(this.$().text().trim(), 'template block text');
   });
 });
+define('pomodoro-electron/tests/integration/components/task-form-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleForComponent)('task-form', 'Integration | Component | task form', {
+    integration: true
+  });
+
+  (0, _emberQunit.test)('it renders', function (assert) {
+
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.on('myAction', function(val) { ... });
+
+    this.render(Ember.HTMLBars.template({
+      'id': '+mGzBZ2D',
+      'block': '{"statements":[["append",["unknown",["task-form"]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
+      'meta': {}
+    }));
+
+    assert.equal(this.$().text().trim(), '');
+
+    // Template block usage:
+    this.render(Ember.HTMLBars.template({
+      'id': '9XXWGCm/',
+      'block': '{"statements":[["text","\\n"],["block",["task-form"],null,null,0],["text","  "]],"locals":[],"named":[],"yields":[],"blocks":[{"statements":[["text","      template block text\\n"]],"locals":[]}],"hasPartials":false}',
+      'meta': {}
+    }));
+
+    assert.equal(this.$().text().trim(), 'template block text');
+  });
+});
 define('pomodoro-electron/tests/integration/components/tasks-sidenav-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
 
   (0, _emberQunit.moduleForComponent)('tasks-sidenav', 'Integration | Component | tasks sidenav', {
@@ -373,6 +412,11 @@ define('pomodoro-electron/tests/tests.lint-test', ['exports'], function (exports
     assert.ok(true, 'integration/components/flip-clock-test.js should pass ESLint\n\n');
   });
 
+  QUnit.test('integration/components/task-form-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/components/task-form-test.js should pass ESLint\n\n');
+  });
+
   QUnit.test('integration/components/tasks-sidenav-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'integration/components/tasks-sidenav-test.js should pass ESLint\n\n');
@@ -426,6 +470,11 @@ define('pomodoro-electron/tests/tests.lint-test', ['exports'], function (exports
   QUnit.test('unit/routes/statistics-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'unit/routes/statistics-test.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('unit/services/store-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/services/store-test.js should pass ESLint\n\n');
   });
 });
 define('pomodoro-electron/tests/unit/controllers/application-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
@@ -522,6 +571,19 @@ define('pomodoro-electron/tests/unit/routes/statistics-test', ['exports', 'ember
   (0, _emberQunit.test)('it exists', function (assert) {
     var route = this.subject();
     assert.ok(route);
+  });
+});
+define('pomodoro-electron/tests/unit/services/store-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleFor)('service:store', 'Unit | Service | store', {
+    // Specify the other units that are required for this test.
+    // needs: ['service:foo']
+  });
+
+  // Replace this with your real tests.
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var service = this.subject();
+    assert.ok(service);
   });
 });
 require('pomodoro-electron/tests/test-helper');

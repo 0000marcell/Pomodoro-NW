@@ -5,9 +5,18 @@
       Tasks
     </h3>
   </div>
-  <div class="tasks-sidenav-header-body row">
-    {{input placeholder="Search"
-      type='text' value=search}}
+  <div 
+    class="tasks-sidenav-header-body column">
+    <div>
+      {{input placeholder="Search"
+        type='text' value=search}}
+    </div>
+    
+    <div 
+      onclick={{action "showCreate"}}
+        class="add-task-container">
+      {{fa-icon "plus"}}
+    </div>
   </div>
 </div>
 <div class="tasks-sidenav-body">

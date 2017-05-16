@@ -2,10 +2,11 @@ import Ember from 'ember';
 import data from './data';
 
 export default Ember.Route.extend({
-  data: Ember.RSVP.hash({
-      data: data,
-      state: {selectedTask: null}
-  }),
+  store: Ember.inject.service(),
+  data: {
+    storage: data,
+    state: {selectedTask: null}
+  },
   model(){
     return  this.get('data');
   },
@@ -14,9 +15,18 @@ export default Ember.Route.extend({
   },
   actions: {
     create(task){
-      //this.get('data').pushObject(task); 
+      this.get('data.storage.tasks')
+        .pushObject(task); 
+      this.get('store')
+        .persist(this.get('data.storage'));
     },
-    edit(task){
+    edit(){
+      this.get('store')
+        .persist(this.get('data.storage'));
+    },
+    newTask(){
+      return {name: null, 
+        description: null, pomodoros: []};   
     }
   }
 });

@@ -1,4 +1,5 @@
-<div class="tasks-sidepanel-overlay" {{action 'overlayClick'}}>
+<div class="tasks-sidepanel-overlay" 
+  onclick={{action 'overlayClick'}}>
 </div>
 <div class="tasks-sidepanel row">
   <div class="tasks-sidepanel-side column">
@@ -10,16 +11,17 @@
     <div class="tasks-sidepanel-side-body row">
       <div class="tasks-sidepanel-side-body-container">
         {{#if selectedTask}}
-        {{edit-task-comp 
-          create=(route-action "create") 
-          edit=(route-action "edit")
-          task=selectedTask}} 
+          {{task-form 
+            create=(route-action "create") 
+            edit=(route-action "edit")
+            task=selectedTask}} 
         {{/if}}
       </div>
     </div>
   </div>
   <div class="tasks-sidepanel-aside">
     {{tasks-sidenav 
+      showCreate=(action "showCreate")
       showEdit=(action "showEdit") 
       model=model }}
     <button {{action 'showLeftPanel'}}>show</button>
