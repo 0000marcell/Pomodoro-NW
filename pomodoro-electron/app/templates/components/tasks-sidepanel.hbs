@@ -7,16 +7,21 @@
         {{fa-icon 'chevron-left'}}
       </div>
     </div>
-    <div class="tasks-sidepanel-side-body">
-      {{#if selectedTask}}
-        {{edit-task-comp task=selectedTask}} 
-      {{/if}}
+    <div class="tasks-sidepanel-side-body row">
+      <div class="tasks-sidepanel-side-body-container">
+        {{#if selectedTask}}
+        {{edit-task-comp 
+          create=(route-action "create") 
+          edit=(route-action "edit")
+          task=selectedTask}} 
+        {{/if}}
+      </div>
     </div>
   </div>
   <div class="tasks-sidepanel-aside">
-    {{tasks-sidenav model=model
-      edit=(action "edit")
-    }}
+    {{tasks-sidenav 
+      showEdit=(action "showEdit") 
+      model=model }}
     <button {{action 'showLeftPanel'}}>show</button>
   </div>
 </div>

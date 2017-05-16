@@ -11,6 +11,19 @@ body, html {
   line-height: 1.42857143;
 }
 
+.button-primary{
+  
+}
+
+
+input{
+  border: 2px solid $color;
+  display: block;   
+  width: 100%;
+  height: 20px;
+  margin: 0 auto;
+}
+
 .active{
   background-color: $color;
   color: #fff;

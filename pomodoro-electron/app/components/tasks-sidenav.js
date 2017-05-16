@@ -32,9 +32,8 @@ export default Ember.Component.extend({
       this.set('model.state.selectedTask', 
           task);
     },
-    edit(task){
-      console.log('edit!!');
-      this.get('edit')(task);
+    showEdit(task){
+      this.get('showEdit')(task);
     }
   }
 });

@@ -23,7 +23,6 @@
     flex: 0 0 50%;      
     height: 100%;
     .tasks-sidepanel-side-header{
-      @include border(bottom);
       flex: 0 0 5%;
       height: 50px;
       i{
@@ -34,9 +33,14 @@
       }
     }
     .tasks-sidepanel-side-body{
-      background-color: #c8c8c8;   
       flex: 0 1 95%;
       height: 95%;
+      justify-content: center;
+      .tasks-sidepanel-side-body-container{
+        flex: 0 0 80%; 
+        height: 100%;
+        padding-top: $padding-top;
+      }
     }
   }
   .tasks-sidepanel-aside{

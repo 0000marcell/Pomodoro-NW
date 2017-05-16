@@ -4,6 +4,13 @@ body, html {
   font-size: 14px;
   line-height: 1.42857143; }
 
+input {
+  border: 2px solid #00baff;
+  display: block;
+  width: 100%;
+  height: 20px;
+  margin: 0 auto; }
+
 .active {
   background-color: #00baff;
   color: #fff; }
@@ -584,7 +591,6 @@ i {
     flex: 0 0 50%;
     height: 100%; }
     .tasks-sidepanel .tasks-sidepanel-side .tasks-sidepanel-side-header {
-      border-bottom: 1px solid #c8c8c8;
       flex: 0 0 5%;
       height: 50px; }
       .tasks-sidepanel .tasks-sidepanel-side .tasks-sidepanel-side-header i {
@@ -593,9 +599,13 @@ i {
         padding-top: 17px;
         cursor: pointer; }
     .tasks-sidepanel .tasks-sidepanel-side .tasks-sidepanel-side-body {
-      background-color: #c8c8c8;
       flex: 0 1 95%;
-      height: 95%; }
+      height: 95%;
+      justify-content: center; }
+      .tasks-sidepanel .tasks-sidepanel-side .tasks-sidepanel-side-body .tasks-sidepanel-side-body-container {
+        flex: 0 0 80%;
+        height: 100%;
+        padding-top: 20px; }
   .tasks-sidepanel .tasks-sidepanel-aside {
     flex: 0 0 50%;
     height: 100%; }
