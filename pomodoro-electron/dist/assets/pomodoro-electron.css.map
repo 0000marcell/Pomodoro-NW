@@ -3,15 +3,15 @@
 	"file": "pomodoro-electron.css",
 	"sourceRoot": "/Users/marcell/Documents/github/Pomodoro-NW/pomodoro-nw/pomodoro-electron/app/styles",
 	"sources": [
-		"../../sass_compiler-input_base_path-kOFa6PzE.tmp/app/styles/app.scss",
-		"../../sass_compiler-input_base_path-kOFa6PzE.tmp/app/styles/utils.scss",
-		"../../sass_compiler-input_base_path-kOFa6PzE.tmp/app/styles/flipclock.scss",
-		"../../sass_compiler-input_base_path-kOFa6PzE.tmp/app/styles/components/flip-clock.scss",
-		"../../sass_compiler-input_base_path-kOFa6PzE.tmp/app/styles/components/tasks-sidenav.scss",
-		"../../sass_compiler-input_base_path-kOFa6PzE.tmp/app/styles/components/tasks-sidepanel.scss",
-		"../../sass_compiler-input_base_path-kOFa6PzE.tmp/app/styles/components/task-form.scss",
-		"../../sass_compiler-input_base_path-kOFa6PzE.tmp/app/styles/application.scss",
-		"../../sass_compiler-input_base_path-kOFa6PzE.tmp/app/styles/main.scss"
+		"../../sass_compiler-input_base_path-mDqyNRCD.tmp/app/styles/app.scss",
+		"../../sass_compiler-input_base_path-mDqyNRCD.tmp/app/styles/utils.scss",
+		"../../sass_compiler-input_base_path-mDqyNRCD.tmp/app/styles/flipclock.scss",
+		"../../sass_compiler-input_base_path-mDqyNRCD.tmp/app/styles/components/flip-clock.scss",
+		"../../sass_compiler-input_base_path-mDqyNRCD.tmp/app/styles/components/tasks-sidenav.scss",
+		"../../sass_compiler-input_base_path-mDqyNRCD.tmp/app/styles/components/tasks-sidepanel.scss",
+		"../../sass_compiler-input_base_path-mDqyNRCD.tmp/app/styles/components/task-form.scss",
+		"../../sass_compiler-input_base_path-mDqyNRCD.tmp/app/styles/application.scss",
+		"../../sass_compiler-input_base_path-mDqyNRCD.tmp/app/styles/main.scss"
 	],
 	"sourcesContent": [
 		"@import 'utils';\n@import './flipclock';\n@import './components/flip-clock';\n@import './components/tasks-sidenav';\n@import './components/tasks-sidepanel';\n@import './components/task-form';\n@import 'application';\n@import 'main';\n",

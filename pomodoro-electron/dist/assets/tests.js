@@ -10,11 +10,6 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
     assert.ok(true, 'app.js should pass ESLint\n\n');
   });
 
-  QUnit.test('components/edit-task-comp.js', function (assert) {
-    assert.expect(1);
-    assert.ok(true, 'components/edit-task-comp.js should pass ESLint\n\n');
-  });
-
   QUnit.test('components/flip-clock.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'components/flip-clock.js should pass ESLint\n\n');
@@ -62,7 +57,7 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
 
   QUnit.test('routes/application.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'routes/application.js should pass ESLint\n\n');
+    assert.ok(false, 'routes/application.js should pass ESLint\n\n17:16 - \'task\' is defined but never used. (no-unused-vars)\n18:7 - Unexpected console statement. (no-console)\n27:7 - Unexpected console statement. (no-console)');
   });
 
   QUnit.test('routes/configuration.js', function (assert) {
@@ -223,35 +218,6 @@ define('pomodoro-electron/tests/helpers/start-app', ['exports', 'ember', 'pomodo
     });
   }
 });
-define('pomodoro-electron/tests/integration/components/edit-task-comp-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
-
-  (0, _emberQunit.moduleForComponent)('edit-task-comp', 'Integration | Component | edit task comp', {
-    integration: true
-  });
-
-  (0, _emberQunit.test)('it renders', function (assert) {
-
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.on('myAction', function(val) { ... });
-
-    this.render(Ember.HTMLBars.template({
-      'id': '7mIUwFft',
-      'block': '{"statements":[["append",["unknown",["edit-task-comp"]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
-      'meta': {}
-    }));
-
-    assert.equal(this.$().text().trim(), '');
-
-    // Template block usage:
-    this.render(Ember.HTMLBars.template({
-      'id': 'XestwulS',
-      'block': '{"statements":[["text","\\n"],["block",["edit-task-comp"],null,null,0],["text","  "]],"locals":[],"named":[],"yields":[],"blocks":[{"statements":[["text","      template block text\\n"]],"locals":[]}],"hasPartials":false}',
-      'meta': {}
-    }));
-
-    assert.equal(this.$().text().trim(), 'template block text');
-  });
-});
 define('pomodoro-electron/tests/integration/components/flip-clock-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
 
   (0, _emberQunit.moduleForComponent)('flip-clock', 'Integration | Component | flip clock', {
@@ -400,11 +366,6 @@ define('pomodoro-electron/tests/tests.lint-test', ['exports'], function (exports
   QUnit.test('helpers/start-app.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'helpers/start-app.js should pass ESLint\n\n');
-  });
-
-  QUnit.test('integration/components/edit-task-comp-test.js', function (assert) {
-    assert.expect(1);
-    assert.ok(true, 'integration/components/edit-task-comp-test.js should pass ESLint\n\n');
   });
 
   QUnit.test('integration/components/flip-clock-test.js', function (assert) {

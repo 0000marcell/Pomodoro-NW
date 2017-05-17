@@ -10,19 +10,25 @@
     </div>
     <div class="tasks-sidepanel-side-body row">
       <div class="tasks-sidepanel-side-body-container">
-        {{#if selectedTask}}
+        {{#if (eq mode 'editTask')}}
           {{task-form 
-            create=(route-action "create") 
-            edit=(route-action "edit")
+            mode="edit" 
+            saveTask=(route-action "editTask")
             task=selectedTask}} 
+        {{else if (eq mode "createTask")}}
+          {{task-form 
+            mode="create" 
+            saveTask=(route-action "createTask")
+            task=newTask
+          }} 
         {{/if}}
       </div>
     </div>
   </div>
   <div class="tasks-sidepanel-aside">
     {{tasks-sidenav 
-      showCreate=(action "showCreate")
-      showEdit=(action "showEdit") 
+      showCreateTask=(action "showCreateTask")
+      showEditTask=(action "showEditTask") 
       model=model }}
     <button {{action 'showLeftPanel'}}>show</button>
   </div>

@@ -13,7 +13,7 @@
     </div>
     
     <div 
-      onclick={{action "showCreate"}}
+      onclick={{action "showCreateTask"}}
         class="add-task-container">
       {{fa-icon "plus"}}
     </div>
@@ -37,7 +37,7 @@
               <span class="pomodoro-time">
                 {{pomodoro-hours task.pomodoros}}
               </span>
-              <span onclick={{action "showEdit" task}}
+              <span onclick={{action "showEditTask" task}}
                 class="opt-container">
                 {{fa-icon "ellipsis-v"}}
               </span>

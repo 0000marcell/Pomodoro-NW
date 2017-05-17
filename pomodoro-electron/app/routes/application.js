@@ -14,13 +14,17 @@ export default Ember.Route.extend({
     this.transitionTo('main');
   },
   actions: {
-    create(task){
+    createTask(task){
+      console.log('create task!');
+      /*
       this.get('data.storage.tasks')
         .pushObject(task); 
       this.get('store')
         .persist(this.get('data.storage'));
+        */
     },
-    edit(){
+    editTask(){
+      console.log('edit task!');
       this.get('store')
         .persist(this.get('data.storage'));
     },

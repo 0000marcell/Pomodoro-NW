@@ -18,11 +18,6 @@ define('pomodoro-electron/app', ['exports', 'ember', 'pomodoro-electron/resolver
 
   exports['default'] = App;
 });
-define('pomodoro-electron/components/edit-task-comp', ['exports', 'ember'], function (exports, _ember) {
-  exports['default'] = _ember['default'].Component.extend({
-    classNames: ['edit-task-comp', 'column']
-  });
-});
 define('pomodoro-electron/components/fa-icon', ['exports', 'ember-font-awesome/components/fa-icon'], function (exports, _emberFontAwesomeComponentsFaIcon) {
   Object.defineProperty(exports, 'default', {
     enumerable: true,
@@ -112,7 +107,12 @@ define('pomodoro-electron/components/flip-clock', ['exports', 'ember'], function
 });
 define('pomodoro-electron/components/task-form', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({
-    classNames: ['edit-task-comp', 'column']
+    classNames: ['edit-task-comp', 'column'],
+    actions: {
+      saveTask: function saveTask(task) {
+        this.get('saveTask')(task);
+      }
+    }
   });
 });
 define('pomodoro-electron/components/tasks-sidenav', ['exports', 'ember'], function (exports, _ember) {
@@ -145,11 +145,11 @@ define('pomodoro-electron/components/tasks-sidenav', ['exports', 'ember'], funct
         this.set('prevItem', el);
         this.set('model.state.selectedTask', task);
       },
-      showEdit: function showEdit(task) {
-        this.get('showEdit')(task);
+      showEditTask: function showEditTask(task) {
+        this.get('showEditTask')(task);
       },
-      showCreate: function showCreate() {
-        this.get('showCreate')();
+      showCreateTask: function showCreateTask() {
+        this.get('showCreateTask')();
       }
     }
   });
@@ -158,13 +158,16 @@ define('pomodoro-electron/components/tasks-sidepanel', ['exports', 'ember'], fun
   exports['default'] = _ember['default'].Component.extend({
     classNameBindings: ['openSidenav', 'leftPanel'],
     actions: {
-      showEdit: function showEdit(task) {
-        this.set('leftPanel', true);
+      showEditTask: function showEditTask(task) {
+        this.set('mode', 'editTask');
         this.set('selectedTask', task);
+        this.set('leftPanel', true);
       },
-      showCreate: function showCreate() {
+      showCreateTask: function showCreateTask() {
+        this.set('mode', 'createTask');
         var task = this.get('newTask')();
         this.set('newTask', task);
+        this.set('leftPanel', true);
       },
       overlayClick: function overlayClick() {
         this.set('leftPanel', false);
@@ -352,6 +355,18 @@ define('pomodoro-electron/electron/reload', ['exports'], function (exports) {
 
   setupLivereload();
 });
+define('pomodoro-electron/helpers/and', ['exports', 'ember', 'ember-truth-helpers/helpers/and'], function (exports, _ember, _emberTruthHelpersHelpersAnd) {
+
+  var forExport = null;
+
+  if (_ember['default'].Helper) {
+    forExport = _ember['default'].Helper.helper(_emberTruthHelpersHelpersAnd.andHelper);
+  } else if (_ember['default'].HTMLBars.makeBoundHelper) {
+    forExport = _ember['default'].HTMLBars.makeBoundHelper(_emberTruthHelpersHelpersAnd.andHelper);
+  }
+
+  exports['default'] = forExport;
+});
 define('pomodoro-electron/helpers/app-version', ['exports', 'ember', 'pomodoro-electron/config/environment', 'ember-cli-app-version/utils/regexp'], function (exports, _ember, _pomodoroElectronConfigEnvironment, _emberCliAppVersionUtilsRegexp) {
   exports.appVersion = appVersion;
   var version = _pomodoroElectronConfigEnvironment['default'].APP.version;
@@ -371,6 +386,128 @@ define('pomodoro-electron/helpers/app-version', ['exports', 'ember', 'pomodoro-e
   }
 
   exports['default'] = _ember['default'].Helper.helper(appVersion);
+});
+define('pomodoro-electron/helpers/eq', ['exports', 'ember', 'ember-truth-helpers/helpers/equal'], function (exports, _ember, _emberTruthHelpersHelpersEqual) {
+
+  var forExport = null;
+
+  if (_ember['default'].Helper) {
+    forExport = _ember['default'].Helper.helper(_emberTruthHelpersHelpersEqual.equalHelper);
+  } else if (_ember['default'].HTMLBars.makeBoundHelper) {
+    forExport = _ember['default'].HTMLBars.makeBoundHelper(_emberTruthHelpersHelpersEqual.equalHelper);
+  }
+
+  exports['default'] = forExport;
+});
+define('pomodoro-electron/helpers/gt', ['exports', 'ember', 'ember-truth-helpers/helpers/gt'], function (exports, _ember, _emberTruthHelpersHelpersGt) {
+
+  var forExport = null;
+
+  if (_ember['default'].Helper) {
+    forExport = _ember['default'].Helper.helper(_emberTruthHelpersHelpersGt.gtHelper);
+  } else if (_ember['default'].HTMLBars.makeBoundHelper) {
+    forExport = _ember['default'].HTMLBars.makeBoundHelper(_emberTruthHelpersHelpersGt.gtHelper);
+  }
+
+  exports['default'] = forExport;
+});
+define('pomodoro-electron/helpers/gte', ['exports', 'ember', 'ember-truth-helpers/helpers/gte'], function (exports, _ember, _emberTruthHelpersHelpersGte) {
+
+  var forExport = null;
+
+  if (_ember['default'].Helper) {
+    forExport = _ember['default'].Helper.helper(_emberTruthHelpersHelpersGte.gteHelper);
+  } else if (_ember['default'].HTMLBars.makeBoundHelper) {
+    forExport = _ember['default'].HTMLBars.makeBoundHelper(_emberTruthHelpersHelpersGte.gteHelper);
+  }
+
+  exports['default'] = forExport;
+});
+define('pomodoro-electron/helpers/is-array', ['exports', 'ember', 'ember-truth-helpers/helpers/is-array'], function (exports, _ember, _emberTruthHelpersHelpersIsArray) {
+
+  var forExport = null;
+
+  if (_ember['default'].Helper) {
+    forExport = _ember['default'].Helper.helper(_emberTruthHelpersHelpersIsArray.isArrayHelper);
+  } else if (_ember['default'].HTMLBars.makeBoundHelper) {
+    forExport = _ember['default'].HTMLBars.makeBoundHelper(_emberTruthHelpersHelpersIsArray.isArrayHelper);
+  }
+
+  exports['default'] = forExport;
+});
+define('pomodoro-electron/helpers/is-equal', ['exports', 'ember-truth-helpers/helpers/is-equal'], function (exports, _emberTruthHelpersHelpersIsEqual) {
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function get() {
+      return _emberTruthHelpersHelpersIsEqual['default'];
+    }
+  });
+  Object.defineProperty(exports, 'isEqual', {
+    enumerable: true,
+    get: function get() {
+      return _emberTruthHelpersHelpersIsEqual.isEqual;
+    }
+  });
+});
+define('pomodoro-electron/helpers/lt', ['exports', 'ember', 'ember-truth-helpers/helpers/lt'], function (exports, _ember, _emberTruthHelpersHelpersLt) {
+
+  var forExport = null;
+
+  if (_ember['default'].Helper) {
+    forExport = _ember['default'].Helper.helper(_emberTruthHelpersHelpersLt.ltHelper);
+  } else if (_ember['default'].HTMLBars.makeBoundHelper) {
+    forExport = _ember['default'].HTMLBars.makeBoundHelper(_emberTruthHelpersHelpersLt.ltHelper);
+  }
+
+  exports['default'] = forExport;
+});
+define('pomodoro-electron/helpers/lte', ['exports', 'ember', 'ember-truth-helpers/helpers/lte'], function (exports, _ember, _emberTruthHelpersHelpersLte) {
+
+  var forExport = null;
+
+  if (_ember['default'].Helper) {
+    forExport = _ember['default'].Helper.helper(_emberTruthHelpersHelpersLte.lteHelper);
+  } else if (_ember['default'].HTMLBars.makeBoundHelper) {
+    forExport = _ember['default'].HTMLBars.makeBoundHelper(_emberTruthHelpersHelpersLte.lteHelper);
+  }
+
+  exports['default'] = forExport;
+});
+define('pomodoro-electron/helpers/not-eq', ['exports', 'ember', 'ember-truth-helpers/helpers/not-equal'], function (exports, _ember, _emberTruthHelpersHelpersNotEqual) {
+
+  var forExport = null;
+
+  if (_ember['default'].Helper) {
+    forExport = _ember['default'].Helper.helper(_emberTruthHelpersHelpersNotEqual.notEqualHelper);
+  } else if (_ember['default'].HTMLBars.makeBoundHelper) {
+    forExport = _ember['default'].HTMLBars.makeBoundHelper(_emberTruthHelpersHelpersNotEqual.notEqualHelper);
+  }
+
+  exports['default'] = forExport;
+});
+define('pomodoro-electron/helpers/not', ['exports', 'ember', 'ember-truth-helpers/helpers/not'], function (exports, _ember, _emberTruthHelpersHelpersNot) {
+
+  var forExport = null;
+
+  if (_ember['default'].Helper) {
+    forExport = _ember['default'].Helper.helper(_emberTruthHelpersHelpersNot.notHelper);
+  } else if (_ember['default'].HTMLBars.makeBoundHelper) {
+    forExport = _ember['default'].HTMLBars.makeBoundHelper(_emberTruthHelpersHelpersNot.notHelper);
+  }
+
+  exports['default'] = forExport;
+});
+define('pomodoro-electron/helpers/or', ['exports', 'ember', 'ember-truth-helpers/helpers/or'], function (exports, _ember, _emberTruthHelpersHelpersOr) {
+
+  var forExport = null;
+
+  if (_ember['default'].Helper) {
+    forExport = _ember['default'].Helper.helper(_emberTruthHelpersHelpersOr.orHelper);
+  } else if (_ember['default'].HTMLBars.makeBoundHelper) {
+    forExport = _ember['default'].HTMLBars.makeBoundHelper(_emberTruthHelpersHelpersOr.orHelper);
+  }
+
+  exports['default'] = forExport;
 });
 define('pomodoro-electron/helpers/pluralize', ['exports', 'ember-inflector/lib/helpers/pluralize'], function (exports, _emberInflectorLibHelpersPluralize) {
   exports['default'] = _emberInflectorLibHelpersPluralize['default'];
@@ -394,6 +531,18 @@ define('pomodoro-electron/helpers/route-action', ['exports', 'ember-route-action
 });
 define('pomodoro-electron/helpers/singularize', ['exports', 'ember-inflector/lib/helpers/singularize'], function (exports, _emberInflectorLibHelpersSingularize) {
   exports['default'] = _emberInflectorLibHelpersSingularize['default'];
+});
+define('pomodoro-electron/helpers/xor', ['exports', 'ember', 'ember-truth-helpers/helpers/xor'], function (exports, _ember, _emberTruthHelpersHelpersXor) {
+
+  var forExport = null;
+
+  if (_ember['default'].Helper) {
+    forExport = _ember['default'].Helper.helper(_emberTruthHelpersHelpersXor.xorHelper);
+  } else if (_ember['default'].HTMLBars.makeBoundHelper) {
+    forExport = _ember['default'].HTMLBars.makeBoundHelper(_emberTruthHelpersHelpersXor.xorHelper);
+  }
+
+  exports['default'] = forExport;
 });
 define('pomodoro-electron/initializers/app-version', ['exports', 'ember-cli-app-version/initializer-factory', 'pomodoro-electron/config/environment'], function (exports, _emberCliAppVersionInitializerFactory, _pomodoroElectronConfigEnvironment) {
   var _config$APP = _pomodoroElectronConfigEnvironment['default'].APP;
@@ -561,6 +710,34 @@ define('pomodoro-electron/initializers/transforms', ['exports', 'ember'], functi
     initialize: function initialize() {}
   };
 });
+define('pomodoro-electron/initializers/truth-helpers', ['exports', 'ember', 'ember-truth-helpers/utils/register-helper', 'ember-truth-helpers/helpers/and', 'ember-truth-helpers/helpers/or', 'ember-truth-helpers/helpers/equal', 'ember-truth-helpers/helpers/not', 'ember-truth-helpers/helpers/is-array', 'ember-truth-helpers/helpers/not-equal', 'ember-truth-helpers/helpers/gt', 'ember-truth-helpers/helpers/gte', 'ember-truth-helpers/helpers/lt', 'ember-truth-helpers/helpers/lte'], function (exports, _ember, _emberTruthHelpersUtilsRegisterHelper, _emberTruthHelpersHelpersAnd, _emberTruthHelpersHelpersOr, _emberTruthHelpersHelpersEqual, _emberTruthHelpersHelpersNot, _emberTruthHelpersHelpersIsArray, _emberTruthHelpersHelpersNotEqual, _emberTruthHelpersHelpersGt, _emberTruthHelpersHelpersGte, _emberTruthHelpersHelpersLt, _emberTruthHelpersHelpersLte) {
+  exports.initialize = initialize;
+
+  function initialize() /* container, application */{
+
+    // Do not register helpers from Ember 1.13 onwards, starting from 1.13 they
+    // will be auto-discovered.
+    if (_ember['default'].Helper) {
+      return;
+    }
+
+    (0, _emberTruthHelpersUtilsRegisterHelper.registerHelper)('and', _emberTruthHelpersHelpersAnd.andHelper);
+    (0, _emberTruthHelpersUtilsRegisterHelper.registerHelper)('or', _emberTruthHelpersHelpersOr.orHelper);
+    (0, _emberTruthHelpersUtilsRegisterHelper.registerHelper)('eq', _emberTruthHelpersHelpersEqual.equalHelper);
+    (0, _emberTruthHelpersUtilsRegisterHelper.registerHelper)('not', _emberTruthHelpersHelpersNot.notHelper);
+    (0, _emberTruthHelpersUtilsRegisterHelper.registerHelper)('is-array', _emberTruthHelpersHelpersIsArray.isArrayHelper);
+    (0, _emberTruthHelpersUtilsRegisterHelper.registerHelper)('not-eq', _emberTruthHelpersHelpersNotEqual.notEqualHelper);
+    (0, _emberTruthHelpersUtilsRegisterHelper.registerHelper)('gt', _emberTruthHelpersHelpersGt.gtHelper);
+    (0, _emberTruthHelpersUtilsRegisterHelper.registerHelper)('gte', _emberTruthHelpersHelpersGte.gteHelper);
+    (0, _emberTruthHelpersUtilsRegisterHelper.registerHelper)('lt', _emberTruthHelpersHelpersLt.ltHelper);
+    (0, _emberTruthHelpersUtilsRegisterHelper.registerHelper)('lte', _emberTruthHelpersHelpersLte.lteHelper);
+  }
+
+  exports['default'] = {
+    name: 'truth-helpers',
+    initialize: initialize
+  };
+});
 define("pomodoro-electron/instance-initializers/ember-data", ["exports", "ember-data/-private/instance-initializers/initialize-store-service"], function (exports, _emberDataPrivateInstanceInitializersInitializeStoreService) {
   exports["default"] = {
     name: "ember-data",
@@ -600,11 +777,17 @@ define('pomodoro-electron/routes/application', ['exports', 'ember', 'pomodoro-el
       this.transitionTo('main');
     },
     actions: {
-      create: function create(task) {
-        this.get('data.storage.tasks').pushObject(task);
-        this.get('store').persist(this.get('data.storage'));
+      createTask: function createTask(task) {
+        console.log('create task!');
+        /*
+        this.get('data.storage.tasks')
+          .pushObject(task); 
+        this.get('store')
+          .persist(this.get('data.storage'));
+          */
       },
-      edit: function edit() {
+      editTask: function editTask() {
+        console.log('edit task!');
         this.get('store').persist(this.get('data.storage'));
       },
       newTask: function newTask() {
@@ -658,22 +841,19 @@ define('pomodoro-electron/services/store', ['exports', 'ember'], function (expor
   });
 });
 define("pomodoro-electron/templates/application", ["exports"], function (exports) {
-  exports["default"] = Ember.HTMLBars.template({ "id": "Nw+iA8LU", "block": "{\"statements\":[[\"append\",[\"helper\",[\"tasks-sidepanel\"],null,[[\"create\",\"edit\",\"newTask\",\"openSidenav\",\"model\"],[[\"helper\",[\"route-action\"],[\"create\"],null],[\"helper\",[\"route-action\"],[\"edit\"],null],[\"helper\",[\"route-action\"],[\"newTask\"],null],[\"get\",[\"openSidenav\"]],[\"get\",[\"model\"]]]]],false],[\"text\",\"\\n\\n\"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"tasks-button\"],[\"modifier\",[\"action\"],[[\"get\",[null]],\"showSidenav\"]],[\"flush-element\"],[\"text\",\"\\n  \"],[\"append\",[\"helper\",[\"fa-icon\"],[\"bars\"],null],false],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\\n\"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"root-div column\"],[\"flush-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"app-header row\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"app-header-side row\"],[\"flush-element\"],[\"text\",\"\\n      \"],[\"open-element\",\"ul\",[]],[\"static-attr\",\"class\",\"menu-options\"],[\"flush-element\"],[\"text\",\"\\n        \"],[\"open-element\",\"li\",[]],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"link-to\"],[\"main\"],null,2],[\"text\",\"        \"],[\"close-element\"],[\"text\",\"\\n      \"],[\"close-element\"],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"app-header-main\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"app-header-aside row\"],[\"flush-element\"],[\"text\",\"\\n      \"],[\"open-element\",\"ul\",[]],[\"static-attr\",\"class\",\"menu-options\"],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"each\"],[[\"get\",[\"links\"]]],null,1],[\"text\",\"      \"],[\"close-element\"],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"app-body row\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"app-body-container\"],[\"flush-element\"],[\"text\",\"\\n      \"],[\"comment\",\"\\n      {{outlet}}\\n      \"],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\"              \"],[\"append\",[\"helper\",[\"fa-icon\"],[[\"get\",[\"item\",\"icon\"]]],null],false],[\"text\",\"\\n\"]],\"locals\":[]},{\"statements\":[[\"text\",\"          \"],[\"open-element\",\"li\",[]],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"link-to\"],[[\"get\",[\"item\",\"link\"]]],null,0],[\"text\",\"          \"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[\"item\"]},{\"statements\":[[\"text\",\"            \"],[\"append\",[\"helper\",[\"fa-icon\"],[\"home\"],null],false],[\"text\",\"\\n\"]],\"locals\":[]}],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/application.hbs" } });
-});
-define("pomodoro-electron/templates/components/edit-task-comp", ["exports"], function (exports) {
-  exports["default"] = Ember.HTMLBars.template({ "id": "Vhk5YUbT", "block": "{\"statements\":[[\"open-element\",\"h3\",[]],[\"flush-element\"],[\"text\",\"Edit\"],[\"close-element\"],[\"text\",\"\\n\\n\"],[\"append\",[\"helper\",[\"input\"],null,[[\"type\",\"value\"],[\"text\",[\"get\",[\"task\",\"name\"]]]]],false],[\"text\",\"\\n\\n\"],[\"open-element\",\"button\",[]],[\"static-attr\",\"class\",\"button-primary\"],[\"dynamic-attr\",\"onclick\",[\"helper\",[\"route-action\"],[\"edit\",[\"get\",[\"task\"]]],null],null],[\"flush-element\"],[\"text\",\"Save\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/components/edit-task-comp.hbs" } });
+  exports["default"] = Ember.HTMLBars.template({ "id": "QDhIgybh", "block": "{\"statements\":[[\"append\",[\"helper\",[\"tasks-sidepanel\"],null,[[\"createTask\",\"editTask\",\"newTask\",\"openSidenav\",\"model\"],[[\"helper\",[\"route-action\"],[\"createTask\"],null],[\"helper\",[\"route-action\"],[\"editTask\"],null],[\"helper\",[\"route-action\"],[\"newTask\"],null],[\"get\",[\"openSidenav\"]],[\"get\",[\"model\"]]]]],false],[\"text\",\"\\n\\n\"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"tasks-button\"],[\"modifier\",[\"action\"],[[\"get\",[null]],\"showSidenav\"]],[\"flush-element\"],[\"text\",\"\\n  \"],[\"append\",[\"helper\",[\"fa-icon\"],[\"bars\"],null],false],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\\n\"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"root-div column\"],[\"flush-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"app-header row\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"app-header-side row\"],[\"flush-element\"],[\"text\",\"\\n      \"],[\"open-element\",\"ul\",[]],[\"static-attr\",\"class\",\"menu-options\"],[\"flush-element\"],[\"text\",\"\\n        \"],[\"open-element\",\"li\",[]],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"link-to\"],[\"main\"],null,2],[\"text\",\"        \"],[\"close-element\"],[\"text\",\"\\n      \"],[\"close-element\"],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"app-header-main\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"app-header-aside row\"],[\"flush-element\"],[\"text\",\"\\n      \"],[\"open-element\",\"ul\",[]],[\"static-attr\",\"class\",\"menu-options\"],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"each\"],[[\"get\",[\"links\"]]],null,1],[\"text\",\"      \"],[\"close-element\"],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"app-body row\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"app-body-container\"],[\"flush-element\"],[\"text\",\"\\n      \"],[\"comment\",\"\\n      {{outlet}}\\n      \"],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\"              \"],[\"append\",[\"helper\",[\"fa-icon\"],[[\"get\",[\"item\",\"icon\"]]],null],false],[\"text\",\"\\n\"]],\"locals\":[]},{\"statements\":[[\"text\",\"          \"],[\"open-element\",\"li\",[]],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"link-to\"],[[\"get\",[\"item\",\"link\"]]],null,0],[\"text\",\"          \"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[\"item\"]},{\"statements\":[[\"text\",\"            \"],[\"append\",[\"helper\",[\"fa-icon\"],[\"home\"],null],false],[\"text\",\"\\n\"]],\"locals\":[]}],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/application.hbs" } });
 });
 define("pomodoro-electron/templates/components/flip-clock", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template({ "id": "MVGhIql3", "block": "{\"statements\":[[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"clock\"],[\"flush-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"],[\"open-element\",\"a\",[]],[\"static-attr\",\"href\",\"#\"],[\"static-attr\",\"title\",\"Play video\"],[\"dynamic-attr\",\"class\",[\"concat\",[\"play-button \",[\"helper\",[\"if\"],[[\"get\",[\"active\"]],\"active\"],null]]]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"playPause\"]],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/components/flip-clock.hbs" } });
 });
 define("pomodoro-electron/templates/components/task-form", ["exports"], function (exports) {
-  exports["default"] = Ember.HTMLBars.template({ "id": "QWBPrOq8", "block": "{\"statements\":[[\"open-element\",\"h3\",[]],[\"flush-element\"],[\"append\",[\"unknown\",[\"mode\"]],false],[\"close-element\"],[\"text\",\"\\n\"],[\"append\",[\"helper\",[\"input\"],null,[[\"type\",\"value\"],[\"text\",[\"get\",[\"task\",\"name\"]]]]],false],[\"text\",\"\\n\"],[\"append\",[\"helper\",[\"input\"],null,[[\"type\",\"value\"],[\"text\",[\"get\",[\"task\",\"description\"]]]]],false],[\"text\",\"\\n\"],[\"open-element\",\"button\",[]],[\"static-attr\",\"class\",\"button-primary\"],[\"dynamic-attr\",\"onclick\",[\"helper\",[\"route-action\"],[\"edit\"],null],null],[\"flush-element\"],[\"text\",\"Save\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/components/task-form.hbs" } });
+  exports["default"] = Ember.HTMLBars.template({ "id": "5dgC7NhT", "block": "{\"statements\":[[\"open-element\",\"h3\",[]],[\"flush-element\"],[\"append\",[\"unknown\",[\"mode\"]],false],[\"close-element\"],[\"text\",\"\\n\"],[\"append\",[\"helper\",[\"input\"],null,[[\"type\",\"value\"],[\"text\",[\"get\",[\"task\",\"name\"]]]]],false],[\"text\",\"\\n\"],[\"append\",[\"helper\",[\"input\"],null,[[\"type\",\"value\"],[\"text\",[\"get\",[\"task\",\"description\"]]]]],false],[\"text\",\"\\n\"],[\"open-element\",\"button\",[]],[\"static-attr\",\"class\",\"button-primary\"],[\"dynamic-attr\",\"onclick\",[\"helper\",[\"action\"],[[\"get\",[null]],\"saveTask\",[\"get\",[\"task\"]]],null],null],[\"flush-element\"],[\"text\",\"Save\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/components/task-form.hbs" } });
 });
 define("pomodoro-electron/templates/components/tasks-sidenav", ["exports"], function (exports) {
-  exports["default"] = Ember.HTMLBars.template({ "id": "4xxrfJ4z", "block": "{\"statements\":[[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"tasks-sidenav-header column\"],[\"flush-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"tasks-sidenav-header-header row\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"h3\",[]],[\"flush-element\"],[\"text\",\"\\n      \"],[\"append\",[\"helper\",[\"fa-icon\"],[\"bars\"],null],false],[\"text\",\"\\n      Tasks\\n    \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"tasks-sidenav-header-body column\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"div\",[]],[\"flush-element\"],[\"text\",\"\\n      \"],[\"append\",[\"helper\",[\"input\"],null,[[\"placeholder\",\"type\",\"value\"],[\"Search\",\"text\",[\"get\",[\"search\"]]]]],false],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n    \\n    \"],[\"open-element\",\"div\",[]],[\"dynamic-attr\",\"onclick\",[\"helper\",[\"action\"],[[\"get\",[null]],\"showCreate\"],null],null],[\"static-attr\",\"class\",\"add-task-container\"],[\"flush-element\"],[\"text\",\"\\n      \"],[\"append\",[\"helper\",[\"fa-icon\"],[\"plus\"],null],false],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"tasks-sidenav-body\"],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"if\"],[[\"get\",[\"loading\"]]],null,4,3],[\"close-element\"],[\"text\",\"\\n\"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"tasks-sidenav-footer\"],[\"flush-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\"      \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"no-result-container\"],[\"flush-element\"],[\"text\",\"\\n        \"],[\"open-element\",\"h1\",[]],[\"flush-element\"],[\"text\",\"No Tasks\"],[\"close-element\"],[\"text\",\"\\n      \"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[]},{\"statements\":[[\"text\",\"          \"],[\"open-element\",\"li\",[]],[\"dynamic-attr\",\"onclick\",[\"helper\",[\"action\"],[[\"get\",[null]],\"toggle\",[\"get\",[\"task\"]]],null],null],[\"flush-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"div\",[]],[\"flush-element\"],[\"text\",\"\\n              \"],[\"open-element\",\"span\",[]],[\"static-attr\",\"class\",\"task-name\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"append\",[\"unknown\",[\"task\",\"name\"]],false],[\"text\",\"\\n              \"],[\"close-element\"],[\"text\",\"\\n              \"],[\"open-element\",\"span\",[]],[\"static-attr\",\"class\",\"pomodoro-time\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"append\",[\"helper\",[\"pomodoro-hours\"],[[\"get\",[\"task\",\"pomodoros\"]]],null],false],[\"text\",\"\\n              \"],[\"close-element\"],[\"text\",\"\\n              \"],[\"open-element\",\"span\",[]],[\"dynamic-attr\",\"onclick\",[\"helper\",[\"action\"],[[\"get\",[null]],\"showEdit\",[\"get\",[\"task\"]]],null],null],[\"static-attr\",\"class\",\"opt-container\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"append\",[\"helper\",[\"fa-icon\"],[\"ellipsis-v\"],null],false],[\"text\",\"\\n              \"],[\"close-element\"],[\"text\",\"\\n            \"],[\"close-element\"],[\"text\",\"\\n          \"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[\"task\"]},{\"statements\":[[\"text\",\"      \"],[\"open-element\",\"ul\",[]],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"each\"],[[\"get\",[\"filteredTasks\"]]],null,1],[\"text\",\"      \"],[\"close-element\"],[\"text\",\"  \\n\"]],\"locals\":[]},{\"statements\":[[\"block\",[\"if\"],[[\"get\",[\"filteredTasks\"]]],null,2,0]],\"locals\":[]},{\"statements\":[[\"text\",\"    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"loading-container\"],[\"flush-element\"],[\"text\",\"\\n      \"],[\"open-element\",\"i\",[]],[\"static-attr\",\"class\",\"fa fa-circle-o-notch fa-spin fa-4x fa-fw\"],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[]}],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/components/tasks-sidenav.hbs" } });
+  exports["default"] = Ember.HTMLBars.template({ "id": "+xj1eLkK", "block": "{\"statements\":[[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"tasks-sidenav-header column\"],[\"flush-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"tasks-sidenav-header-header row\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"h3\",[]],[\"flush-element\"],[\"text\",\"\\n      \"],[\"append\",[\"helper\",[\"fa-icon\"],[\"bars\"],null],false],[\"text\",\"\\n      Tasks\\n    \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"tasks-sidenav-header-body column\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"div\",[]],[\"flush-element\"],[\"text\",\"\\n      \"],[\"append\",[\"helper\",[\"input\"],null,[[\"placeholder\",\"type\",\"value\"],[\"Search\",\"text\",[\"get\",[\"search\"]]]]],false],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n    \\n    \"],[\"open-element\",\"div\",[]],[\"dynamic-attr\",\"onclick\",[\"helper\",[\"action\"],[[\"get\",[null]],\"showCreateTask\"],null],null],[\"static-attr\",\"class\",\"add-task-container\"],[\"flush-element\"],[\"text\",\"\\n      \"],[\"append\",[\"helper\",[\"fa-icon\"],[\"plus\"],null],false],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"tasks-sidenav-body\"],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"if\"],[[\"get\",[\"loading\"]]],null,4,3],[\"close-element\"],[\"text\",\"\\n\"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"tasks-sidenav-footer\"],[\"flush-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\"      \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"no-result-container\"],[\"flush-element\"],[\"text\",\"\\n        \"],[\"open-element\",\"h1\",[]],[\"flush-element\"],[\"text\",\"No Tasks\"],[\"close-element\"],[\"text\",\"\\n      \"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[]},{\"statements\":[[\"text\",\"          \"],[\"open-element\",\"li\",[]],[\"dynamic-attr\",\"onclick\",[\"helper\",[\"action\"],[[\"get\",[null]],\"toggle\",[\"get\",[\"task\"]]],null],null],[\"flush-element\"],[\"text\",\"\\n            \"],[\"open-element\",\"div\",[]],[\"flush-element\"],[\"text\",\"\\n              \"],[\"open-element\",\"span\",[]],[\"static-attr\",\"class\",\"task-name\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"append\",[\"unknown\",[\"task\",\"name\"]],false],[\"text\",\"\\n              \"],[\"close-element\"],[\"text\",\"\\n              \"],[\"open-element\",\"span\",[]],[\"static-attr\",\"class\",\"pomodoro-time\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"append\",[\"helper\",[\"pomodoro-hours\"],[[\"get\",[\"task\",\"pomodoros\"]]],null],false],[\"text\",\"\\n              \"],[\"close-element\"],[\"text\",\"\\n              \"],[\"open-element\",\"span\",[]],[\"dynamic-attr\",\"onclick\",[\"helper\",[\"action\"],[[\"get\",[null]],\"showEditTask\",[\"get\",[\"task\"]]],null],null],[\"static-attr\",\"class\",\"opt-container\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"append\",[\"helper\",[\"fa-icon\"],[\"ellipsis-v\"],null],false],[\"text\",\"\\n              \"],[\"close-element\"],[\"text\",\"\\n            \"],[\"close-element\"],[\"text\",\"\\n          \"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[\"task\"]},{\"statements\":[[\"text\",\"      \"],[\"open-element\",\"ul\",[]],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"each\"],[[\"get\",[\"filteredTasks\"]]],null,1],[\"text\",\"      \"],[\"close-element\"],[\"text\",\"  \\n\"]],\"locals\":[]},{\"statements\":[[\"block\",[\"if\"],[[\"get\",[\"filteredTasks\"]]],null,2,0]],\"locals\":[]},{\"statements\":[[\"text\",\"    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"loading-container\"],[\"flush-element\"],[\"text\",\"\\n      \"],[\"open-element\",\"i\",[]],[\"static-attr\",\"class\",\"fa fa-circle-o-notch fa-spin fa-4x fa-fw\"],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[]}],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/components/tasks-sidenav.hbs" } });
 });
 define("pomodoro-electron/templates/components/tasks-sidepanel", ["exports"], function (exports) {
-  exports["default"] = Ember.HTMLBars.template({ "id": "9KErlLQz", "block": "{\"statements\":[[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"tasks-sidepanel-overlay\"],[\"dynamic-attr\",\"onclick\",[\"helper\",[\"action\"],[[\"get\",[null]],\"overlayClick\"],null],null],[\"flush-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"tasks-sidepanel row\"],[\"flush-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"tasks-sidepanel-side column\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"tasks-sidepanel-side-header\"],[\"flush-element\"],[\"text\",\"\\n      \"],[\"open-element\",\"div\",[]],[\"dynamic-attr\",\"onclick\",[\"helper\",[\"action\"],[[\"get\",[null]],\"showLeftPanel\"],null],null],[\"flush-element\"],[\"text\",\"\\n        \"],[\"append\",[\"helper\",[\"fa-icon\"],[\"chevron-left\"],null],false],[\"text\",\"\\n      \"],[\"close-element\"],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"tasks-sidepanel-side-body row\"],[\"flush-element\"],[\"text\",\"\\n      \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"tasks-sidepanel-side-body-container\"],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"if\"],[[\"get\",[\"selectedTask\"]]],null,0],[\"text\",\"      \"],[\"close-element\"],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"tasks-sidepanel-aside\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"append\",[\"helper\",[\"tasks-sidenav\"],null,[[\"showCreate\",\"showEdit\",\"model\"],[[\"helper\",[\"action\"],[[\"get\",[null]],\"showCreate\"],null],[\"helper\",[\"action\"],[[\"get\",[null]],\"showEdit\"],null],[\"get\",[\"model\"]]]]],false],[\"text\",\"\\n    \"],[\"open-element\",\"button\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"showLeftPanel\"]],[\"flush-element\"],[\"text\",\"show\"],[\"close-element\"],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\"          \"],[\"append\",[\"helper\",[\"task-form\"],null,[[\"create\",\"edit\",\"task\"],[[\"helper\",[\"route-action\"],[\"create\"],null],[\"helper\",[\"route-action\"],[\"edit\"],null],[\"get\",[\"selectedTask\"]]]]],false],[\"text\",\" \\n\"]],\"locals\":[]}],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/components/tasks-sidepanel.hbs" } });
+  exports["default"] = Ember.HTMLBars.template({ "id": "+NdR66GD", "block": "{\"statements\":[[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"tasks-sidepanel-overlay\"],[\"dynamic-attr\",\"onclick\",[\"helper\",[\"action\"],[[\"get\",[null]],\"overlayClick\"],null],null],[\"flush-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"tasks-sidepanel row\"],[\"flush-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"tasks-sidepanel-side column\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"tasks-sidepanel-side-header\"],[\"flush-element\"],[\"text\",\"\\n      \"],[\"open-element\",\"div\",[]],[\"dynamic-attr\",\"onclick\",[\"helper\",[\"action\"],[[\"get\",[null]],\"showLeftPanel\"],null],null],[\"flush-element\"],[\"text\",\"\\n        \"],[\"append\",[\"helper\",[\"fa-icon\"],[\"chevron-left\"],null],false],[\"text\",\"\\n      \"],[\"close-element\"],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"tasks-sidepanel-side-body row\"],[\"flush-element\"],[\"text\",\"\\n      \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"tasks-sidepanel-side-body-container\"],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"if\"],[[\"helper\",[\"eq\"],[[\"get\",[\"mode\"]],\"editTask\"],null]],null,2,1],[\"text\",\"      \"],[\"close-element\"],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"tasks-sidepanel-aside\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"append\",[\"helper\",[\"tasks-sidenav\"],null,[[\"showCreateTask\",\"showEditTask\",\"model\"],[[\"helper\",[\"action\"],[[\"get\",[null]],\"showCreateTask\"],null],[\"helper\",[\"action\"],[[\"get\",[null]],\"showEditTask\"],null],[\"get\",[\"model\"]]]]],false],[\"text\",\"\\n    \"],[\"open-element\",\"button\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"showLeftPanel\"]],[\"flush-element\"],[\"text\",\"show\"],[\"close-element\"],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\"          \"],[\"append\",[\"helper\",[\"task-form\"],null,[[\"mode\",\"saveTask\",\"task\"],[\"create\",[\"helper\",[\"route-action\"],[\"createTask\"],null],[\"get\",[\"newTask\"]]]]],false],[\"text\",\" \\n        \"]],\"locals\":[]},{\"statements\":[[\"block\",[\"if\"],[[\"helper\",[\"eq\"],[[\"get\",[\"mode\"]],\"createTask\"],null]],null,0]],\"locals\":[]},{\"statements\":[[\"text\",\"          \"],[\"append\",[\"helper\",[\"task-form\"],null,[[\"mode\",\"saveTask\",\"task\"],[\"edit\",[\"helper\",[\"route-action\"],[\"editTask\"],null],[\"get\",[\"selectedTask\"]]]]],false],[\"text\",\" \\n\"]],\"locals\":[]}],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/components/tasks-sidepanel.hbs" } });
 });
 define("pomodoro-electron/templates/configuration", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template({ "id": "eIiVqaSK", "block": "{\"statements\":[[\"append\",[\"unknown\",[\"outlet\"]],false],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/configuration.hbs" } });
@@ -709,6 +889,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("pomodoro-electron/app")["default"].create({"name":"pomodoro-electron","version":"0.0.0+a8270c06"});
+  require("pomodoro-electron/app")["default"].create({"name":"pomodoro-electron","version":"0.0.0+f9707ecb"});
 }
 //# sourceMappingURL=pomodoro-electron.map
