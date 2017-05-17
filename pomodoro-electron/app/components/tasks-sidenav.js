@@ -37,6 +37,9 @@ export default Ember.Component.extend({
     },
     showCreateTask(){
       this.get('showCreateTask')(); 
+    },
+    showCreateTag(){
+      this.get('showCreateTag')(); 
     }
   }
 });

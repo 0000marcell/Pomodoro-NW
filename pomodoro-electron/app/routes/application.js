@@ -15,7 +15,6 @@ export default Ember.Route.extend({
   },
   actions: {
     createTask(task){
-      console.log('create task!');
       /*
       this.get('data.storage.tasks')
         .pushObject(task); 
@@ -24,13 +23,25 @@ export default Ember.Route.extend({
         */
     },
     editTask(){
-      console.log('edit task!');
       this.get('store')
         .persist(this.get('data.storage'));
     },
     newTask(){
-      return {name: null, 
+      return {id: this.get('data.storage.tasks.length') + 1, 
+        name: null, 
         description: null, pomodoros: []};   
+    },
+    createTag(tag){
+      console.log('create tag!');
+    },
+    editTag(){
+      console.log('edit tag!');
+    },
+    newTag(){
+      return {id: this.get('data.storage.tags.length') + 1, 
+        name: null, 
+        description: null,
+        color: null};   
     }
   }
 });

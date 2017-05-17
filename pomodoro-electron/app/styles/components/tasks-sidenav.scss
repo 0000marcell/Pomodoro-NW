@@ -3,7 +3,7 @@
   height: 100%;
   .tasks-sidenav-header{
     @include border(bottom);
-    height: 180px;
+    height: 160px;
     .tasks-sidenav-header-header {
       flex: 0 0 50%;
       h3{
@@ -14,12 +14,7 @@
     }
     .tasks-sidenav-header-body{
       padding-top: 20px;
-      .add-task-container{
-        i{
-          float: right;
-          padding: 20px 27px 10px 0;
-        }
-      }
+      
     }
     input{
       border: 2px solid $color;
@@ -83,6 +78,16 @@
   .tasks-sidenav-footer{
     @include border(top);
     height: 300px;
+    .sidenav-footer-opts-container {
+      padding: 10px 0 0 25px;
+      button{
+        width: 80px;
+        height: 30px;
+        i{
+          color: #fff;   
+        }
+      }
+    }
   }
 }
 

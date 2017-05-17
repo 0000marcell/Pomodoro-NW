@@ -510,7 +510,7 @@ i {
   height: 100%; }
   .tasks-sidenav .tasks-sidenav-header {
     border-bottom: 1px solid #c8c8c8;
-    height: 180px; }
+    height: 160px; }
     .tasks-sidenav .tasks-sidenav-header .tasks-sidenav-header-header {
       flex: 0 0 50%; }
       .tasks-sidenav .tasks-sidenav-header .tasks-sidenav-header-header h3 {
@@ -519,9 +519,6 @@ i {
         color: #00baff; }
     .tasks-sidenav .tasks-sidenav-header .tasks-sidenav-header-body {
       padding-top: 20px; }
-      .tasks-sidenav .tasks-sidenav-header .tasks-sidenav-header-body .add-task-container i {
-        float: right;
-        padding: 20px 27px 10px 0; }
     .tasks-sidenav .tasks-sidenav-header input {
       border: 2px solid #00baff;
       display: block;
@@ -569,6 +566,13 @@ i {
   .tasks-sidenav .tasks-sidenav-footer {
     border-top: 1px solid #c8c8c8;
     height: 300px; }
+    .tasks-sidenav .tasks-sidenav-footer .sidenav-footer-opts-container {
+      padding: 10px 0 0 25px; }
+      .tasks-sidenav .tasks-sidenav-footer .sidenav-footer-opts-container button {
+        width: 80px;
+        height: 30px; }
+        .tasks-sidenav .tasks-sidenav-footer .sidenav-footer-opts-container button i {
+          color: #fff; }
 
 .loading-container {
   width: 100%;
@@ -636,6 +640,14 @@ i {
   .edit-task-comp button {
     margin-top: 20px; }
   .edit-task-comp input {
+    margin-top: 20px; }
+
+.edit-tag-comp {
+  height: 100%;
+  width: 100%; }
+  .edit-tag-comp button {
+    margin-top: 20px; }
+  .edit-tag-comp input {
     margin-top: 20px; }
 
 .app-header {

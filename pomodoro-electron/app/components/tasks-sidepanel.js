@@ -11,7 +11,18 @@ export default Ember.Component.extend({
     showCreateTask(){
       this.set('mode', 'createTask');
       let task = this.get('newTask')()
-      this.set('newTask', task);
+      this.set('taskObj', task);
+      this.set('leftPanel', true);
+    },
+    showCreateTag(){
+      this.set('mode', 'createTag');
+      let tag = this.get('newTag')()
+      this.set('tagObj', tag);
+      this.set('leftPanel', true);
+    },
+    showEditTag(tag){
+      this.set('mode', 'editTag');
+      this.set('selectedTag', tag);
       this.set('leftPanel', true);
     },
     overlayClick(){

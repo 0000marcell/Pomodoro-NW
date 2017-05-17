@@ -1,5 +1,6 @@
+let obj = {tasks: [], tags: []};  
+
 function createTasks() {
-  let obj = {tasks: []};  
   for (let i = 1; i < 6; i++) {
     obj.tasks.push({id: i+'', name: `Task ${i}`, 
       description: `description ${i}`,

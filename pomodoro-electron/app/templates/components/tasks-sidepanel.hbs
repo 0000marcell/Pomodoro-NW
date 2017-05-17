@@ -19,8 +19,20 @@
           {{task-form 
             mode="create" 
             saveTask=(route-action "createTask")
-            task=newTask
+            task=newObj
           }} 
+        {{else if (eq mode "createTag")}}
+          {{tag-form 
+            mode="create" 
+            saveTag=(route-action "createTag")
+            tag=newTag
+          }}
+        {{else if (eq mode "editTag")}}
+          {{tag-form 
+            mode="edit" 
+            saveTag=(route-action "editTag")
+            tag=newTag
+          }}
         {{/if}}
       </div>
     </div>
@@ -29,6 +41,7 @@
     {{tasks-sidenav 
       showCreateTask=(action "showCreateTask")
       showEditTask=(action "showEditTask") 
+      showCreateTag=(action "showCreateTag")
       model=model }}
     <button {{action 'showLeftPanel'}}>show</button>
   </div>

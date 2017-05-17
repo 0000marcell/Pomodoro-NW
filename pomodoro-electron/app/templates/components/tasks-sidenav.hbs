@@ -7,16 +7,8 @@
   </div>
   <div 
     class="tasks-sidenav-header-body column">
-    <div>
-      {{input placeholder="Search"
-        type='text' value=search}}
-    </div>
-    
-    <div 
-      onclick={{action "showCreateTask"}}
-        class="add-task-container">
-      {{fa-icon "plus"}}
-    </div>
+    {{input placeholder="Search"
+      type='text' value=search}}
   </div>
 </div>
 <div class="tasks-sidenav-body">
@@ -53,4 +45,17 @@
   {{/if}}
 </div>
 <div class="tasks-sidenav-footer">
+  <div class="sidenav-footer-opts-container">
+    <button
+      onclick={{action "showCreateTask"}}
+        class="add-task-container">
+      {{fa-icon "plus"}}
+      Task
+    </button>
+    <button
+      onclick={{action "showCreateTag"}}>
+      {{fa-icon "plus"}}
+      Tag
+    </button>
+  </div>
 </div>
