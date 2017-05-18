@@ -1,0 +1,102 @@
+.sidenav-list{
+  width: 100%;
+  height: 100%;
+  .sidenav-list-header{
+    @include border(bottom);
+    height: 160px;
+    .sidenav-list-header-header {
+      flex: 0 0 50%;
+      h3{
+        display: block;
+        margin: 20px auto;
+        color: $color;
+      }
+    }
+    .sidenav-list-header-body{
+      padding-top: 20px;
+      
+    }
+    input{
+      border: 2px solid $color;
+      display: block;   
+      width: 70%;
+      height: 20px;
+      margin: 0 auto;
+    }
+  }
+
+  .sidenav-list-body{
+    height: 320px;
+    overflow: scroll;
+    ul{
+      margin: 0;
+      padding: 0;
+      li{
+        display: block;
+        @include border(bottom);
+        height: 40px;
+        padding: 0;
+        div{
+          margin: 0 auto;
+          height: 100%;
+          width: 80%;
+          span{
+            display: inline-block;
+            height: 100%;
+            padding-top: 10px;
+          }
+          .task-name{
+            width: 40%;   
+          }
+          .pomodoro-time{
+            width: 30%;   
+          }
+          .opt-container{
+            text-align: right;   
+            width: 25%;
+          }
+        }
+      }
+      li:hover{
+        background-color: $color;   
+        cursor: pointer;
+        color: #fff;
+        i{
+          color: #fff;
+        }
+      }
+    }
+    .no-result-container{
+      padding-top: 20px;
+      h1{
+        display: block;
+        width: 200px;
+        margin: 0 auto;
+      }
+    }
+  }
+  .sidenav-list-footer{
+    @include border(top);
+    height: 300px;
+    .sidenav-footer-opts-container {
+      padding: 10px 0 0 25px;
+      button{
+        width: 80px;
+        height: 30px;
+        i{
+          color: #fff;   
+        }
+      }
+    }
+  }
+}
+
+.loading-container{
+  width: 100%;
+  padding-top: 100px;
+  i{
+    display: block;   
+    margin: 0 auto;
+    font-size: 3em !important;
+  }
+}

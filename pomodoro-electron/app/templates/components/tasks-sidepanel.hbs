@@ -38,11 +38,23 @@
     </div>
   </div>
   <div class="tasks-sidepanel-aside">
-    {{tasks-sidenav 
-      showCreateTask=(action "showCreateTask")
-      showEditTask=(action "showEditTask") 
-      showCreateTag=(action "showCreateTag")
-      model=model }}
+    {{#if showTasksList}}
+      {{sidenav-list 
+        showCreate=(action "showCreateTask")
+        showEdit=(action "showEditTask") 
+        showCreate=(action "showCreateTask")
+        model=model.storage.tasks 
+        state=model.storage.state
+        }}
+    {{else}} 
+      {{sidenav-list 
+        showCreate=(action "showCreateTag")
+        showEditTask=(action "showEditTag") 
+        showCreateTag=(action "showCreateTag")
+        model=model.storage.tags
+        state=model.storage.state
+      }}
+    {{/if}}
     <button {{action 'showLeftPanel'}}>show</button>
   </div>
 </div>

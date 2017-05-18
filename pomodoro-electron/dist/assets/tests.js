@@ -15,6 +15,11 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
     assert.ok(true, 'components/flip-clock.js should pass ESLint\n\n');
   });
 
+  QUnit.test('components/sidenav-list.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/sidenav-list.js should pass ESLint\n\n');
+  });
+
   QUnit.test('components/tag-form.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'components/tag-form.js should pass ESLint\n\n');
@@ -252,6 +257,35 @@ define('pomodoro-electron/tests/integration/components/flip-clock-test', ['expor
     assert.equal(this.$().text().trim(), 'template block text');
   });
 });
+define('pomodoro-electron/tests/integration/components/sidenav-list-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleForComponent)('sidenav-list', 'Integration | Component | sidenav list', {
+    integration: true
+  });
+
+  (0, _emberQunit.test)('it renders', function (assert) {
+
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.on('myAction', function(val) { ... });
+
+    this.render(Ember.HTMLBars.template({
+      'id': 'S19ISxZ1',
+      'block': '{"statements":[["append",["unknown",["sidenav-list"]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
+      'meta': {}
+    }));
+
+    assert.equal(this.$().text().trim(), '');
+
+    // Template block usage:
+    this.render(Ember.HTMLBars.template({
+      'id': '4HzcA9Ms',
+      'block': '{"statements":[["text","\\n"],["block",["sidenav-list"],null,null,0],["text","  "]],"locals":[],"named":[],"yields":[],"blocks":[{"statements":[["text","      template block text\\n"]],"locals":[]}],"hasPartials":false}',
+      'meta': {}
+    }));
+
+    assert.equal(this.$().text().trim(), 'template block text');
+  });
+});
 define('pomodoro-electron/tests/integration/components/tag-form-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
 
   (0, _emberQunit.moduleForComponent)('tag-form', 'Integration | Component | tag form', {
@@ -405,6 +439,11 @@ define('pomodoro-electron/tests/tests.lint-test', ['exports'], function (exports
   QUnit.test('integration/components/flip-clock-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'integration/components/flip-clock-test.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('integration/components/sidenav-list-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/components/sidenav-list-test.js should pass ESLint\n\n');
   });
 
   QUnit.test('integration/components/tag-form-test.js', function (assert) {

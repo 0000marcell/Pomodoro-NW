@@ -5,7 +5,7 @@ export default Ember.Route.extend({
   store: Ember.inject.service(),
   data: {
     storage: data,
-    state: {selectedTask: null}
+    state: {selectedItem: null}
   },
   model(){
     return  this.get('data');
