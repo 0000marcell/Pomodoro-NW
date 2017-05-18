@@ -1,4 +1,4 @@
-.tasks-sidepanel-overlay{
+.sidenav-panel-overlay{
   display: none;
   position: fixed; 
   top: 0;
@@ -9,7 +9,7 @@
   z-index: 999;
 }
 
-.tasks-sidepanel{
+.sidenav-panel{
   position: fixed; 
   top: 0;
   left: -600px;
@@ -18,11 +18,11 @@
   background-color: #fff;
   z-index: 9999;
   transition: transform 0.5s 0.0s;
-  .tasks-sidepanel-side{
+  .sidenav-panel-side{
     @include border(right);
     flex: 0 0 50%;      
     height: 100%;
-    .tasks-sidepanel-side-header{
+    .sidenav-panel-side-header{
       flex: 0 0 5%;
       height: 50px;
       i{
@@ -32,34 +32,34 @@
         cursor: pointer;
       }
     }
-    .tasks-sidepanel-side-body{
+    .sidenav-panel-side-body{
       flex: 0 1 95%;
       height: 95%;
       justify-content: center;
-      .tasks-sidepanel-side-body-container{
+      .sidenav-panel-side-body-container{
         flex: 0 0 80%; 
         height: 100%;
         padding-top: $padding-top;
       }
     }
   }
-  .tasks-sidepanel-aside{
+  .sidenav-panel-aside{
     flex: 0 0 50%;
     height: 100%;
   }
 }
 
 .open-sidenav{
-  .tasks-sidepanel{
+  .sidenav-panel{
     transform: translate(300px);
   }
-  .tasks-sidepanel-overlay{
+  .sidenav-panel-overlay{
     display: block;
   }
 }
 
 .left-panel{
-  .tasks-sidepanel{
+  .sidenav-panel{
     transform: translate(600px);
   }
 }

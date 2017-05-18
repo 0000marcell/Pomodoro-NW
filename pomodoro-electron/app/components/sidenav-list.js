@@ -2,8 +2,9 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   classNames: ['sidenav-list'],
-  didInsertElement(){
-    let listMode = this.get('listMode');
+  didReceiveAttrs(){
+    console.log('list mode: ', 
+      this.get('listMode'));
     this.set('filteredList', 
       this.get(`model.storage.${this.get('listMode')}`)); 
   },
@@ -34,7 +35,7 @@ export default Ember.Component.extend({
       this.set('state.selectedItem', 
           item);
     },
-    showLeftPanel(){
+    showLeftPanel(item){
       this.set('showLeftPanel', true);
       if(item){
         this.get('model.state.selectedItem', 

@@ -1,11 +1,12 @@
-{{tasks-sidepanel
+{{sidenav-panel
   createTask=(route-action "createTask")
   editTask=(route-action "editTask")
   newTask=(route-action "newTask")
   createTag=(route-action "createTag")
   editTag=(route-action "editTag")
   newTag=(route-action "newTag")
-  openSidenav=openSidenav model=model}}
+  openSidenav=openSidenav 
+  model=model}}
 
 <div {{action 'showSidenav'}} class="tasks-button">
   {{fa-icon 'bars'}}

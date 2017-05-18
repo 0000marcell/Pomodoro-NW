@@ -17,7 +17,12 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
 
   QUnit.test('components/sidenav-list.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'components/sidenav-list.js should pass ESLint\n\n6:9 - \'listMode\' is assigned a value but never used. (no-unused-vars)\n39:10 - \'item\' is not defined. (no-undef)\n41:11 - \'item\' is not defined. (no-undef)');
+    assert.ok(false, 'components/sidenav-list.js should pass ESLint\n\n6:5 - Unexpected console statement. (no-console)');
+  });
+
+  QUnit.test('components/sidenav-panel.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/sidenav-panel.js should pass ESLint\n\n');
   });
 
   QUnit.test('components/tag-form.js', function (assert) {
@@ -35,14 +40,9 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
     assert.ok(true, 'components/tasks-sidenav.js should pass ESLint\n\n');
   });
 
-  QUnit.test('components/tasks-sidepanel.js', function (assert) {
-    assert.expect(1);
-    assert.ok(true, 'components/tasks-sidepanel.js should pass ESLint\n\n');
-  });
-
   QUnit.test('controllers/application.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'controllers/application.js should pass ESLint\n\n29:11 - \'height\' is assigned a value but never used. (no-unused-vars)\n38:11 - \'bars\' is assigned a value but never used. (no-unused-vars)');
+    assert.ok(true, 'controllers/application.js should pass ESLint\n\n');
   });
 
   QUnit.test('controllers/main.js', function (assert) {
@@ -296,6 +296,35 @@ define('pomodoro-electron/tests/integration/components/sidenav-list-test', ['exp
     assert.equal(this.$().text().trim(), 'template block text');
   });
 });
+define('pomodoro-electron/tests/integration/components/sidenav-panel-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleForComponent)('sidenav-panel', 'Integration | Component | sidenav panel', {
+    integration: true
+  });
+
+  (0, _emberQunit.test)('it renders', function (assert) {
+
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.on('myAction', function(val) { ... });
+
+    this.render(Ember.HTMLBars.template({
+      'id': '7FqhHRqe',
+      'block': '{"statements":[["append",["unknown",["sidenav-panel"]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
+      'meta': {}
+    }));
+
+    assert.equal(this.$().text().trim(), '');
+
+    // Template block usage:
+    this.render(Ember.HTMLBars.template({
+      'id': 'DmY3+JI3',
+      'block': '{"statements":[["text","\\n"],["block",["sidenav-panel"],null,null,0],["text","  "]],"locals":[],"named":[],"yields":[],"blocks":[{"statements":[["text","      template block text\\n"]],"locals":[]}],"hasPartials":false}',
+      'meta': {}
+    }));
+
+    assert.equal(this.$().text().trim(), 'template block text');
+  });
+});
 define('pomodoro-electron/tests/integration/components/tag-form-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
 
   (0, _emberQunit.moduleForComponent)('tag-form', 'Integration | Component | tag form', {
@@ -383,35 +412,6 @@ define('pomodoro-electron/tests/integration/components/tasks-sidenav-test', ['ex
     assert.equal(this.$().text().trim(), 'template block text');
   });
 });
-define('pomodoro-electron/tests/integration/components/tasks-sidepanel-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
-
-  (0, _emberQunit.moduleForComponent)('tasks-sidepanel', 'Integration | Component | tasks sidepanel', {
-    integration: true
-  });
-
-  (0, _emberQunit.test)('it renders', function (assert) {
-
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.on('myAction', function(val) { ... });
-
-    this.render(Ember.HTMLBars.template({
-      'id': 'MvISRgM3',
-      'block': '{"statements":[["append",["unknown",["tasks-sidepanel"]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
-      'meta': {}
-    }));
-
-    assert.equal(this.$().text().trim(), '');
-
-    // Template block usage:
-    this.render(Ember.HTMLBars.template({
-      'id': 'cYmkxFS6',
-      'block': '{"statements":[["text","\\n"],["block",["tasks-sidepanel"],null,null,0],["text","  "]],"locals":[],"named":[],"yields":[],"blocks":[{"statements":[["text","      template block text\\n"]],"locals":[]}],"hasPartials":false}',
-      'meta': {}
-    }));
-
-    assert.equal(this.$().text().trim(), 'template block text');
-  });
-});
 define('pomodoro-electron/tests/test-helper', ['exports', 'pomodoro-electron/tests/helpers/resolver', 'ember-qunit'], function (exports, _pomodoroElectronTestsHelpersResolver, _emberQunit) {
 
   (0, _emberQunit.setResolver)(_pomodoroElectronTestsHelpersResolver['default']);
@@ -456,6 +456,11 @@ define('pomodoro-electron/tests/tests.lint-test', ['exports'], function (exports
     assert.ok(true, 'integration/components/sidenav-list-test.js should pass ESLint\n\n');
   });
 
+  QUnit.test('integration/components/sidenav-panel-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/components/sidenav-panel-test.js should pass ESLint\n\n');
+  });
+
   QUnit.test('integration/components/tag-form-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'integration/components/tag-form-test.js should pass ESLint\n\n');
@@ -469,11 +474,6 @@ define('pomodoro-electron/tests/tests.lint-test', ['exports'], function (exports
   QUnit.test('integration/components/tasks-sidenav-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'integration/components/tasks-sidenav-test.js should pass ESLint\n\n');
-  });
-
-  QUnit.test('integration/components/tasks-sidepanel-test.js', function (assert) {
-    assert.expect(1);
-    assert.ok(true, 'integration/components/tasks-sidepanel-test.js should pass ESLint\n\n');
   });
 
   QUnit.test('test-helper.js', function (assert) {

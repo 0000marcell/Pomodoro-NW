@@ -1,15 +1,15 @@
-<div class="tasks-sidepanel-overlay" 
+<div class="sidenav-panel-overlay" 
   onclick={{action 'overlayClick'}}>
 </div>
-<div class="tasks-sidepanel row">
-  <div class="tasks-sidepanel-side column">
-    <div class="tasks-sidepanel-side-header">
+<div class="sidenav-panel row">
+  <div class="sidenav-panel-side column">
+    <div class="sidenav-panel-side-header">
       <div onclick={{action 'showLeftPanel'}}>
         {{fa-icon 'chevron-left'}}
       </div>
     </div>
-    <div class="tasks-sidepanel-side-body row">
-      <div class="tasks-sidepanel-side-body-container">
+    <div class="sidenav-panel-side-body row">
+      <div class="sidenav-panel-side-body-container">
         {{#if (eq mode 'editTask')}}
           {{task-form 
             mode="edit" 
@@ -37,24 +37,12 @@
       </div>
     </div>
   </div>
-  <div class="tasks-sidepanel-aside">
-    {{#if showTasksList}}
-      {{sidenav-list 
-        showCreate=(action "showCreateTask")
-        showEdit=(action "showEditTask") 
-        showCreate=(action "showCreateTask")
-        model=model.storage.tasks 
-        state=model.storage.state
-        }}
-    {{else}} 
-      {{sidenav-list 
-        showCreate=(action "showCreateTag")
-        showEditTask=(action "showEditTag") 
-        showCreateTag=(action "showCreateTag")
-        model=model.storage.tags
-        state=model.storage.state
-      }}
-    {{/if}}
+  <div class="sidenav-panel-aside">
+    {{sidenav-list 
+      model=model
+      showLeftPanel=leftPanel
+      listMode=listMode
+    }}
     <button {{action 'showLeftPanel'}}>show</button>
   </div>
 </div>

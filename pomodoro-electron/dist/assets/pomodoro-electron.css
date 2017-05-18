@@ -567,7 +567,9 @@ i {
     border-top: 1px solid #c8c8c8;
     height: 300px; }
     .sidenav-list .sidenav-list-footer .sidenav-footer-opts-container {
-      padding: 10px 0 0 25px; }
+      padding: 10px 0 0 25px;
+      height: 100%;
+      background-color: #c8c8c8; }
       .sidenav-list .sidenav-list-footer .sidenav-footer-opts-container button {
         width: 80px;
         height: 30px; }
@@ -582,7 +584,7 @@ i {
     margin: 0 auto;
     font-size: 3em !important; }
 
-.tasks-sidepanel-overlay {
+.sidenav-panel-overlay {
   display: none;
   position: fixed;
   top: 0;
@@ -592,7 +594,7 @@ i {
   background-color: rgba(0, 0, 0, 0.3);
   z-index: 999; }
 
-.tasks-sidepanel {
+.sidenav-panel {
   position: fixed;
   top: 0;
   left: -600px;
@@ -601,37 +603,37 @@ i {
   background-color: #fff;
   z-index: 9999;
   transition: transform 0.5s 0.0s; }
-  .tasks-sidepanel .tasks-sidepanel-side {
+  .sidenav-panel .sidenav-panel-side {
     border-right: 1px solid #c8c8c8;
     flex: 0 0 50%;
     height: 100%; }
-    .tasks-sidepanel .tasks-sidepanel-side .tasks-sidepanel-side-header {
+    .sidenav-panel .sidenav-panel-side .sidenav-panel-side-header {
       flex: 0 0 5%;
       height: 50px; }
-      .tasks-sidepanel .tasks-sidepanel-side .tasks-sidepanel-side-header i {
+      .sidenav-panel .sidenav-panel-side .sidenav-panel-side-header i {
         float: right;
         padding-right: 20px;
         padding-top: 17px;
         cursor: pointer; }
-    .tasks-sidepanel .tasks-sidepanel-side .tasks-sidepanel-side-body {
+    .sidenav-panel .sidenav-panel-side .sidenav-panel-side-body {
       flex: 0 1 95%;
       height: 95%;
       justify-content: center; }
-      .tasks-sidepanel .tasks-sidepanel-side .tasks-sidepanel-side-body .tasks-sidepanel-side-body-container {
+      .sidenav-panel .sidenav-panel-side .sidenav-panel-side-body .sidenav-panel-side-body-container {
         flex: 0 0 80%;
         height: 100%;
         padding-top: 20px; }
-  .tasks-sidepanel .tasks-sidepanel-aside {
+  .sidenav-panel .sidenav-panel-aside {
     flex: 0 0 50%;
     height: 100%; }
 
-.open-sidenav .tasks-sidepanel {
+.open-sidenav .sidenav-panel {
   transform: translate(300px); }
 
-.open-sidenav .tasks-sidepanel-overlay {
+.open-sidenav .sidenav-panel-overlay {
   display: block; }
 
-.left-panel .tasks-sidepanel {
+.left-panel .sidenav-panel {
   transform: translate(600px); }
 
 .edit-task-comp {

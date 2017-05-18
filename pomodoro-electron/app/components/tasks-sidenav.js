@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  classNames: ['tasks-sidenav'],
+  classNames: ['sidenav-panel'],
   didInsertElement(){
     this.set('filteredTasks', this.get('model.storage.tasks'));
   },

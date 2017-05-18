@@ -1,4 +1,8 @@
-let obj = {tasks: [], tags: []};  
+let obj = {tasks: [], 
+  tags: [{id: 1, name: 'work', 
+    description: 'work!', color: '#ff00ff'},
+    {id: 2, name: 'learning', description: 'learning!',
+      color: '#fff00'}]};  
 
 function createTasks() {
   for (let i = 1; i < 6; i++) {
