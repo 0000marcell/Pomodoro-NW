@@ -2,13 +2,18 @@
   <div class="sidenav-list-header-header row">
     <h3>
       {{fa-icon 'bars'}}
-      Tasks
+      {{listMode}}
     </h3>
   </div>
   <div 
     class="sidenav-list-header-body column">
     {{input placeholder="Search"
       type='text' value=search}}
+  </div>
+  <div
+    onclick={{action "showLeftPanel"}}
+      class="add-item-container">
+    {{fa-icon "plus"}}
   </div>
 </div>
 <div class="sidenav-list-body">
@@ -18,18 +23,20 @@
       class="fa fa-circle-o-notch fa-spin fa-4x fa-fw"></i>
     </div>
   {{else}} 
-    {{#if filteredTasks}}
+    {{#if filteredList}}
       <ul>
-        {{#each filteredTasks as |task|}}
-          <li onclick={{action 'toggle' task}}>
+        {{#each filteredList as |item|}}
+          <li onclick={{action 'toggle' item}}>
             <div>
-              <span class="task-name">
-                {{task.name}}
+              <span class="item-name">
+                {{item.name}}
               </span>
               <span class="pomodoro-time">
-                {{pomodoro-hours task.pomodoros}}
-              </span>
-              <span onclick={{action "showEditTask" task}}
+                {{#if item.pomodoros}}
+                  {{pomodoro-hours item.pomodoros}}
+                {{/if}}
+              </span>  
+              <span onclick={{action "showLeftPanel" item}}
                 class="opt-container">
                 {{fa-icon "ellipsis-v"}}
               </span>
@@ -39,24 +46,14 @@
       </ul>  
     {{else}}
       <div class="no-result-container">
-        <h1>No Tasks</h1>
+        <h1>No Items</h1>
       </div>
     {{/if}}
   {{/if}}
 </div>
 <div class="sidenav-list-footer">
   <div class="sidenav-footer-opts-container">
-    <button
-      onclick={{action "showCreateTask"}}
-        class="add-task-container">
-      {{fa-icon "plus"}}
-      Task
-    </button>
-    <button
-      onclick={{action "showCreateTag"}}>
-      {{fa-icon "plus"}}
-      Tag
-    </button>
+    
   </div>
 </div>
 {{yield}}

@@ -3,7 +3,9 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   classNames: ['sidenav-list'],
   didInsertElement(){
-    this.set('filteredList', this.get('model'));
+    let listMode = this.get('listMode');
+    this.set('filteredList', 
+      this.get(`model.storage.${this.get('listMode')}`)); 
   },
   loading: false,
   searchResults: Ember.observer('search', function(){
@@ -32,11 +34,18 @@ export default Ember.Component.extend({
       this.set('state.selectedItem', 
           item);
     },
-    showEdit(item){
-      this.get('showEdit')(item);
+    showLeftPanel(){
+      this.set('showLeftPanel', true);
+      if(item){
+        this.get('model.state.selectedItem', 
+          item);
+      }else{
+        this.get('model.state.selectedItem', 
+          null);
+      }
     },
-    showCreate(){
-      this.get('showCreate')(); 
+    changeListMode(mode){
+      this.set('listMode', mode);
     }
   }
 });

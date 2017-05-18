@@ -11,6 +11,7 @@ Router.map(function() {
   this.route('schedule');
   this.route('statistics');
   this.route('configuration');
+  this.route('testing');
 });
 
 export default Router;
