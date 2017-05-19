@@ -244,27 +244,112 @@ define('pomodoro-electron/tests/integration/components/flip-clock-test', ['expor
     integration: true
   });
 
-  (0, _emberQunit.test)('it renders', function (assert) {
+  (0, _emberQunit.test)('#flip-clock-01 it renders a clock', function (assert) {
 
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.on('myAction', function(val) { ... });
-
+    var clock = { state: 'paused', mode: 'pomodoro' };
+    this.set('clock', clock);
     this.render(Ember.HTMLBars.template({
-      'id': 'HMWic2eh',
-      'block': '{"statements":[["append",["unknown",["flip-clock"]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
+      'id': 'qd51EArQ',
+      'block': '{"statements":[["append",["helper",["flip-clock"],null,[["clock"],[["get",["clock"]]]]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
       'meta': {}
     }));
+    assert.equal(this.$('.flip-clock').length, 1);
+  });
 
-    assert.equal(this.$().text().trim(), '');
-
-    // Template block usage:
+  (0, _emberQunit.test)('#flip-clock-02 it shows the correct time', function (assert) {
+    var clock = {
+      state: 'paused',
+      mode: 'pomodoro',
+      time: 5
+    };
+    this.set('clock', clock);
     this.render(Ember.HTMLBars.template({
-      'id': 'Fa2ZjApE',
-      'block': '{"statements":[["text","\\n"],["block",["flip-clock"],null,null,0],["text","  "]],"locals":[],"named":[],"yields":[],"blocks":[{"statements":[["text","      template block text\\n"]],"locals":[]}],"hasPartials":false}',
+      'id': 'qd51EArQ',
+      'block': '{"statements":[["append",["helper",["flip-clock"],null,[["clock"],[["get",["clock"]]]]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
       'meta': {}
     }));
+    assert.equal(this.$('.flip-clock').length, 1);
+  });
 
-    assert.equal(this.$().text().trim(), 'template block text');
+  (0, _emberQunit.test)('#flip-clock-03 it starts the clock', function (assert) {
+    var clock = {
+      state: 'paused',
+      mode: 'pomodoro',
+      time: 5
+    };
+    this.set('clock', clock);
+    this.render(Ember.HTMLBars.template({
+      'id': 'qd51EArQ',
+      'block': '{"statements":[["append",["helper",["flip-clock"],null,[["clock"],[["get",["clock"]]]]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
+      'meta': {}
+    }));
+    this.$('#fc-test-startbtn').click();
+    assert.equal(this.$('.flip-clock').length, 1);
+  });
+
+  (0, _emberQunit.test)('#flip-clock-03 it stops the clock', function (assert) {
+    var _this = this;
+
+    var clock = {
+      state: 'paused',
+      mode: 'pomodoro',
+      time: 5
+    };
+    this.set('clock', clock);
+    this.render(Ember.HTMLBars.template({
+      'id': 'qd51EArQ',
+      'block': '{"statements":[["append",["helper",["flip-clock"],null,[["clock"],[["get",["clock"]]]]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
+      'meta': {}
+    }));
+    this.$('#fc-test-startbtn').click();
+    Ember.run.later(this, function () {
+      _this.$('#fc-test-stopbtn').click();
+      assert.equal(_this.$('.flip-clock').length, 1);
+    }, 2000);
+  });
+
+  (0, _emberQunit.test)('#flip-clock-04 goes to interval mode', function (assert) {
+    var _this2 = this;
+
+    var clock = {
+      state: 'paused',
+      mode: 'pomodoro',
+      time: 1,
+      shortInterval: 5
+    };
+    this.set('clock', clock);
+    this.render(Ember.HTMLBars.template({
+      'id': 'qd51EArQ',
+      'block': '{"statements":[["append",["helper",["flip-clock"],null,[["clock"],[["get",["clock"]]]]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
+      'meta': {}
+    }));
+    this.$('#fc-test-startbtn').click();
+    Ember.run.later(this, function () {
+      assert.equal(_this2.get('clock.mode'), 'interval');
+    }, 2000);
+  });
+
+  (0, _emberQunit.test)('#flip-clock-05 comes out of interval mode', function (assert) {
+    var _this3 = this;
+
+    var clock = {
+      state: 'paused',
+      mode: 'pomodoro',
+      time: 1,
+      shortInterval: 1
+    };
+    this.set('clock', clock);
+    this.render(Ember.HTMLBars.template({
+      'id': 'qd51EArQ',
+      'block': '{"statements":[["append",["helper",["flip-clock"],null,[["clock"],[["get",["clock"]]]]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
+      'meta': {}
+    }));
+    this.$('#fc-test-startbtn').click();
+    Ember.run.later(this, function () {
+      assert.equal(_this3.get('clock.mode'), 'pomodoro');
+    }, 2000);
   });
 });
 define('pomodoro-electron/tests/integration/components/sidenav-list-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
@@ -448,7 +533,7 @@ define('pomodoro-electron/tests/tests.lint-test', ['exports'], function (exports
 
   QUnit.test('integration/components/flip-clock-test.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'integration/components/flip-clock-test.js should pass ESLint\n\n');
+    assert.ok(false, 'integration/components/flip-clock-test.js should pass ESLint\n\n53:3 - \'Ember\' is not defined. (no-undef)\n70:3 - \'Ember\' is not defined. (no-undef)\n87:3 - \'Ember\' is not defined. (no-undef)');
   });
 
   QUnit.test('integration/components/sidenav-list-test.js', function (assert) {

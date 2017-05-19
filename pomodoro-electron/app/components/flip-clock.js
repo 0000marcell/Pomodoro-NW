@@ -5,6 +5,7 @@ let pomodoroTime = 5,
     shortIntervalTime = 5;
 
 export default Ember.Component.extend({
+  classNames: ['flip-clock'],
   previousState: false,
   didInsertElement(){
     let flipClock = Ember.$('.clock').FlipClock({
@@ -19,7 +20,7 @@ export default Ember.Component.extend({
   },
   initialize(){
     this.get('flipClock').setCountdown(true);
-    this.get('flipClock').setTime(pomodoroTime);
+    this.get('flipClock').setTime(this.get('clock.time'));
   },
   reset(sec){
     this.get('flipClock').setTime(sec)
