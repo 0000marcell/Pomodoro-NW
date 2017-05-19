@@ -1,9 +1,5 @@
 import Ember from 'ember';
 
-let pomodoroTime = 5,
-    longIntervalTime = 10,
-    shortIntervalTime = 5;
-
 export default Ember.Component.extend({
   classNames: ['flip-clock'],
   previousState: false,
@@ -41,8 +37,8 @@ export default Ember.Component.extend({
       if(this.get('clock.mode') === 'pomodoro'){
         this.incrementProperty('intervalCount');
         let interval = ((this.get('intervalCount') % 3) === 0) ? 
-                          longIntervalTime : 
-                          shortIntervalTime;
+                          this.get('clock.longInterval') : 
+                          this.get('clock.shortInterval');
         this.get('flipClock').setTime(interval);
         this.set('clock.mode', 'interval');
       }else if(this.get('clock.mode') === 'interval'){

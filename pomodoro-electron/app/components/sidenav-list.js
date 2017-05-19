@@ -3,8 +3,6 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   classNames: ['sidenav-list'],
   didReceiveAttrs(){
-    console.log('list mode: ', 
-      this.get('listMode'));
     this.set('filteredList', 
       this.get(`model.storage.${this.get('listMode')}`)); 
   },

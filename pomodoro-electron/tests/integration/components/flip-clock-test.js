@@ -1,5 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import Ember from 'ember';
 
 moduleForComponent('flip-clock', 'Integration | Component | flip clock', {
   integration: true
@@ -39,12 +40,18 @@ test('#flip-clock-03 it starts the clock',
     time: 5
   };
   this.set('clock', clock);
-  this.render(hbs`{{flip-clock clock=clock}}`);
+  this.set('flipClock', null);
+  this.render(hbs`{{flip-clock 
+    flipClock=flipClock
+    clock=clock}}`);
   this.$('#fc-test-startbtn').click();
-  assert.equal(this.$('.flip-clock').length, 1);
+  Ember.run(this, () => {
+    assert.equal(this.get('flipClock').getTime().time, 
+      3);
+  });
 });
 
-test('#flip-clock-03 it stops the clock', 
+test('#flip-clock-04 it stops the clock', 
   function(assert){
   let clock = {
     state: 'paused', 
@@ -54,13 +61,15 @@ test('#flip-clock-03 it stops the clock',
   this.set('clock', clock);
   this.render(hbs`{{flip-clock clock=clock}}`);
   this.$('#fc-test-startbtn').click();
-  Ember.run.later(this, () => {
-    this.$('#fc-test-stopbtn').click();
-    assert.equal(this.$('.flip-clock').length, 1);
-  }, 2000);
+  Ember.run(this, () => {
+    this.$('#fc-test-startbtn').click();
+    Ember.run(this, () => {
+      assert.equal(this.get('clock.state'), 'paused');
+    });
+  });
 });
 
-test('#flip-clock-04 goes to interval mode', 
+test('#flip-clock-05 goes to interval mode', 
   function(assert){
   let clock = {
     state: 'paused', 
@@ -71,13 +80,13 @@ test('#flip-clock-04 goes to interval mode',
   this.set('clock', clock);
   this.render(hbs`{{flip-clock clock=clock}}`);
   this.$('#fc-test-startbtn').click();
-  Ember.run.later(this, () => {
-    assert.equal(this.get('clock.mode'), 
-      'interval');
-  }, 2000);
+  Ember.Test.registerWaiter(function() {
+      assert.equal(this.get('clock.mode'), 
+      'interval');  
+  });
 });
 
-test('#flip-clock-05 comes out of interval mode', 
+test('#flip-clock-06 comes out of interval mode', 
   function(assert){
   let clock = {
     state: 'paused', 
