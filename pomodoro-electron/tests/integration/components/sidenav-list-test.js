@@ -5,21 +5,25 @@ moduleForComponent('sidenav-list', 'Integration | Component | sidenav list', {
   integration: true
 });
 
-test('it renders', function(assert) {
+let baseObj = {
+  storage: {
+  tasks: [{id: 1, name: 'task 1', 
+    description: 'description 1', pomodoros: []},
+    {id: 2, name: 'task 2', description: 'description 2', 
+      pomodoros: []}], 
+  tags: [{id: 1, name: 'work', 
+    description: 'work!', color: '#ff00ff'},
+    {id: 2, name: 'learning', description: 'learning!',
+      color: '#fff00'}]}
+};  
 
+test('#sidenav-list-01 shows a list of items', 
+  function(assert) {
   // Set any properties with this.set('myProperty', 'value');
   // Handle any actions with this.on('myAction', function(val) { ... });
-
-  this.render(hbs`{{sidenav-list}}`);
-
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#sidenav-list}}
-      template block text
-    {{/sidenav-list}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+  let data = baseObj.slice();
+  this.set('model', data);
+  this.set('listMode', 'tasks');
+  this.render(hbs`{{sidenav-list model=model}}`);
+  assert.equal(this.$('li').length, 2);
 });
