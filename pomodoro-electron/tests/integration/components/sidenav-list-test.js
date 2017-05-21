@@ -21,7 +21,7 @@ test('#sidenav-list-01 shows a list of items',
   function(assert) {
   // Set any properties with this.set('myProperty', 'value');
   // Handle any actions with this.on('myAction', function(val) { ... });
-  let data = baseObj.slice();
+  let data = JSON.parse(JSON.stringify(baseObj));
   this.set('model', data);
   this.set('listMode', 'tasks');
   this.render(hbs`{{sidenav-list model=model}}`);

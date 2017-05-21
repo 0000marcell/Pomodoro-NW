@@ -283,18 +283,19 @@ define('pomodoro-electron/tests/integration/components/flip-clock-test', ['expor
       time: 5
     };
     this.set('clock', clock);
+    this.set('flipClock', null);
     this.render(_ember['default'].HTMLBars.template({
-      'id': 'qd51EArQ',
-      'block': '{"statements":[["append",["helper",["flip-clock"],null,[["clock"],[["get",["clock"]]]]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
+      'id': 'HNuUO9Hw',
+      'block': '{"statements":[["append",["helper",["flip-clock"],null,[["flipClock","clock"],[["get",["flipClock"]],["get",["clock"]]]]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
       'meta': {}
     }));
     this.$('#fc-test-startbtn').click();
-    _ember['default'].run.later(this, function () {
+    _ember['default'].run(this, function () {
       assert.equal(_this.get('flipClock').getTime().time, 3);
-    }, 1000);
+    });
   });
 
-  (0, _emberQunit.test)('#flip-clock-03 it stops the clock', function (assert) {
+  (0, _emberQunit.test)('#flip-clock-04 it stops the clock', function (assert) {
     var _this2 = this;
 
     var clock = {
@@ -309,15 +310,15 @@ define('pomodoro-electron/tests/integration/components/flip-clock-test', ['expor
       'meta': {}
     }));
     this.$('#fc-test-startbtn').click();
-    _ember['default'].run.later(this, function () {
-      _this2.$('#fc-test-stopbtn').click();
-      assert.equal(_this2.$('.flip-clock').length, 1);
-    }, 2000);
+    _ember['default'].run(this, function () {
+      _this2.$('#fc-test-startbtn').click();
+      _ember['default'].run(_this2, function () {
+        assert.equal(_this2.get('clock.state'), 'paused');
+      });
+    });
   });
 
-  (0, _emberQunit.test)('#flip-clock-04 goes to interval mode', function (assert) {
-    var _this3 = this;
-
+  (0, _emberQunit.test)('#flip-clock-05 goes to interval mode', function (assert) {
     var clock = {
       state: 'paused',
       mode: 'pomodoro',
@@ -331,13 +332,13 @@ define('pomodoro-electron/tests/integration/components/flip-clock-test', ['expor
       'meta': {}
     }));
     this.$('#fc-test-startbtn').click();
-    _ember['default'].run.later(this, function () {
-      assert.equal(_this3.get('clock.mode'), 'interval');
-    }, 2000);
+    _ember['default'].Test.registerWaiter(function () {
+      assert.equal(this.get('clock.mode'), 'interval');
+    });
   });
 
-  (0, _emberQunit.test)('#flip-clock-05 comes out of interval mode', function (assert) {
-    var _this4 = this;
+  (0, _emberQunit.test)('#flip-clock-06 comes out of interval mode', function (assert) {
+    var _this3 = this;
 
     var clock = {
       state: 'paused',
@@ -353,7 +354,7 @@ define('pomodoro-electron/tests/integration/components/flip-clock-test', ['expor
     }));
     this.$('#fc-test-startbtn').click();
     _ember['default'].run.later(this, function () {
-      assert.equal(_this4.get('clock.mode'), 'pomodoro');
+      assert.equal(_this3.get('clock.mode'), 'pomodoro');
     }, 2000);
   });
 });
@@ -363,27 +364,28 @@ define('pomodoro-electron/tests/integration/components/sidenav-list-test', ['exp
     integration: true
   });
 
-  (0, _emberQunit.test)('it renders', function (assert) {
+  var baseObj = {
+    storage: {
+      tasks: [{ id: 1, name: 'task 1',
+        description: 'description 1', pomodoros: [] }, { id: 2, name: 'task 2', description: 'description 2',
+        pomodoros: [] }],
+      tags: [{ id: 1, name: 'work',
+        description: 'work!', color: '#ff00ff' }, { id: 2, name: 'learning', description: 'learning!',
+        color: '#fff00' }] }
+  };
 
+  (0, _emberQunit.test)('#sidenav-list-01 shows a list of items', function (assert) {
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.on('myAction', function(val) { ... });
-
+    var data = baseObj.slice();
+    this.set('model', data);
+    this.set('listMode', 'tasks');
     this.render(Ember.HTMLBars.template({
-      'id': 'S19ISxZ1',
-      'block': '{"statements":[["append",["unknown",["sidenav-list"]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
+      'id': 'K7+OG6mx',
+      'block': '{"statements":[["append",["helper",["sidenav-list"],null,[["model"],[["get",["model"]]]]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
       'meta': {}
     }));
-
-    assert.equal(this.$().text().trim(), '');
-
-    // Template block usage:
-    this.render(Ember.HTMLBars.template({
-      'id': '4HzcA9Ms',
-      'block': '{"statements":[["text","\\n"],["block",["sidenav-list"],null,null,0],["text","  "]],"locals":[],"named":[],"yields":[],"blocks":[{"statements":[["text","      template block text\\n"]],"locals":[]}],"hasPartials":false}',
-      'meta': {}
-    }));
-
-    assert.equal(this.$().text().trim(), 'template block text');
+    assert.equal(this.$('li').length, 2);
   });
 });
 define('pomodoro-electron/tests/integration/components/sidenav-panel-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
@@ -392,27 +394,40 @@ define('pomodoro-electron/tests/integration/components/sidenav-panel-test', ['ex
     integration: true
   });
 
-  (0, _emberQunit.test)('it renders', function (assert) {
+  (0, _emberQunit.test)('#sidenav-panel-01 it opens the panel', function (assert) {
 
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.on('myAction', function(val) { ... });
-
+    this.set('openSidenav', true);
     this.render(Ember.HTMLBars.template({
-      'id': '7FqhHRqe',
-      'block': '{"statements":[["append",["unknown",["sidenav-panel"]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
+      'id': 'Fp/c9YpB',
+      'block': '{"statements":[["append",["helper",["sidenav-panel"],null,[["openSidenav"],[["get",["openSidenav"]]]]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
       'meta': {}
     }));
+    assert.equal(this.$('.open-sidenav').length, 1);
+  });
 
-    assert.equal(this.$().text().trim(), '');
-
-    // Template block usage:
+  (0, _emberQunit.test)('#sidenav-panel-02 opens left panel', function (assert) {
+    this.set('leftPanel', true);
     this.render(Ember.HTMLBars.template({
-      'id': 'DmY3+JI3',
-      'block': '{"statements":[["text","\\n"],["block",["sidenav-panel"],null,null,0],["text","  "]],"locals":[],"named":[],"yields":[],"blocks":[{"statements":[["text","      template block text\\n"]],"locals":[]}],"hasPartials":false}',
+      'id': 'uq4wkitt',
+      'block': '{"statements":[["append",["helper",["sidenav-panel"],null,[["leftPanel"],[["get",["leftPanel"]]]]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
       'meta': {}
     }));
+    assert.equal(this.$('.left-panel').length, 1);
+  });
 
-    assert.equal(this.$().text().trim(), 'template block text');
+  (0, _emberQunit.test)('#sidenav-panel-03 closes the panel on overlay click', function (assert) {
+    this.set('leftPanel', true);
+    this.set('openSidenav', true);
+    this.render(Ember.HTMLBars.template({
+      'id': 'BXAEXEd+',
+      'block': '{"statements":[["append",["helper",["sidenav-panel"],null,[["leftPanel","openSidenav"],[["get",["leftPanel"]],["get",["openSidenav"]]]]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
+      'meta': {}
+    }));
+    this.$('#sp-test-overlaybtn').click();
+    assert.equal(this.$('.open-sidenav').length, 0);
+    assert.equal(this.$('.left-panel').length, 0);
   });
 });
 define('pomodoro-electron/tests/integration/components/tag-form-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
