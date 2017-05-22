@@ -12,12 +12,12 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
 
   QUnit.test('components/flip-clock.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'components/flip-clock.js should pass ESLint\n\n45:39 - \'pomodoroTime\' is not defined. (no-undef)');
+    assert.ok(true, 'components/flip-clock.js should pass ESLint\n\n');
   });
 
   QUnit.test('components/sidenav-list.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'components/sidenav-list.js should pass ESLint\n\n');
+    assert.ok(false, 'components/sidenav-list.js should pass ESLint\n\n18:9 - Unexpected console statement. (no-console)');
   });
 
   QUnit.test('components/sidenav-panel.js', function (assert) {
@@ -238,7 +238,7 @@ define('pomodoro-electron/tests/helpers/start-app', ['exports', 'ember', 'pomodo
     });
   }
 });
-define('pomodoro-electron/tests/integration/components/flip-clock-test', ['exports', 'ember-qunit', 'ember'], function (exports, _emberQunit, _ember) {
+define('pomodoro-electron/tests/integration/components/flip-clock-test', ['exports', 'ember-qunit', 'ember-test-helpers/wait', 'ember'], function (exports, _emberQunit, _emberTestHelpersWait, _ember) {
 
   (0, _emberQunit.moduleForComponent)('flip-clock', 'Integration | Component | flip clock', {
     integration: true
@@ -319,10 +319,12 @@ define('pomodoro-electron/tests/integration/components/flip-clock-test', ['expor
   });
 
   (0, _emberQunit.test)('#flip-clock-05 goes to interval mode', function (assert) {
+    var _this3 = this;
+
     var clock = {
       state: 'paused',
       mode: 'pomodoro',
-      time: 1,
+      time: 2,
       shortInterval: 5
     };
     this.set('clock', clock);
@@ -332,19 +334,24 @@ define('pomodoro-electron/tests/integration/components/flip-clock-test', ['expor
       'meta': {}
     }));
     this.$('#fc-test-startbtn').click();
-    _ember['default'].Test.registerWaiter(function () {
-      assert.equal(this.get('clock.mode'), 'interval');
+    return new _ember['default'].RSVP.Promise(function (resolve, reject) {
+      var wait = setInterval(function () {
+        assert.equal(_this3.get('clock.mode'), 'interval');
+        _this3.$('#fc-test-startbtn').click();
+        clearInterval(wait);
+        resolve();
+      }, 3000);
     });
   });
 
   (0, _emberQunit.test)('#flip-clock-06 comes out of interval mode', function (assert) {
-    var _this3 = this;
+    var _this4 = this;
 
     var clock = {
       state: 'paused',
       mode: 'pomodoro',
-      time: 1,
-      shortInterval: 1
+      time: 2,
+      shortInterval: 2
     };
     this.set('clock', clock);
     this.render(_ember['default'].HTMLBars.template({
@@ -353,9 +360,14 @@ define('pomodoro-electron/tests/integration/components/flip-clock-test', ['expor
       'meta': {}
     }));
     this.$('#fc-test-startbtn').click();
-    _ember['default'].run.later(this, function () {
-      assert.equal(_this3.get('clock.mode'), 'pomodoro');
-    }, 2000);
+    return new _ember['default'].RSVP.Promise(function (resolve) {
+      var wait = setInterval(function () {
+        assert.equal(_this4.get('clock.mode'), 'interval');
+        _this4.$('#fc-test-startbtn').click();
+        clearInterval(wait);
+        resolve();
+      }, 4000);
+    });
   });
 });
 define('pomodoro-electron/tests/integration/components/sidenav-list-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
@@ -374,18 +386,51 @@ define('pomodoro-electron/tests/integration/components/sidenav-list-test', ['exp
         color: '#fff00' }] }
   };
 
-  (0, _emberQunit.test)('#sidenav-list-01 shows a list of items', function (assert) {
+  (0, _emberQunit.test)('#sidenav-list-01 shows a list of tasks', function (assert) {
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.on('myAction', function(val) { ... });
-    var data = baseObj.slice();
+    var data = JSON.parse(JSON.stringify(baseObj));
     this.set('model', data);
     this.set('listMode', 'tasks');
     this.render(Ember.HTMLBars.template({
-      'id': 'K7+OG6mx',
-      'block': '{"statements":[["append",["helper",["sidenav-list"],null,[["model"],[["get",["model"]]]]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
+      'id': '+M9AoxUG',
+      'block': '{"statements":[["append",["helper",["sidenav-list"],null,[["listMode","model"],[["get",["listMode"]],["get",["model"]]]]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
       'meta': {}
     }));
     assert.equal(this.$('li').length, 2);
+  });
+
+  (0, _emberQunit.test)('#sidenav-list-02 shows a list of tags', function (assert) {
+    var data = JSON.parse(JSON.stringify(baseObj));
+    this.set('model', data);
+    this.set('listMode', 'tags');
+    this.render(Ember.HTMLBars.template({
+      'id': '+M9AoxUG',
+      'block': '{"statements":[["append",["helper",["sidenav-list"],null,[["listMode","model"],[["get",["listMode"]],["get",["model"]]]]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
+      'meta': {}
+    }));
+    assert.equal(this.$('li').length, 2);
+  });
+
+  (0, _emberQunit.test)('#sidenav-list-03 searchs the list', function (assert) {
+    var _this = this;
+
+    var data = JSON.parse(JSON.stringify(baseObj));
+    this.set('model', data);
+    this.set('listMode', 'tags');
+    this.render(Ember.HTMLBars.template({
+      'id': '+M9AoxUG',
+      'block': '{"statements":[["append",["helper",["sidenav-list"],null,[["listMode","model"],[["get",["listMode"]],["get",["model"]]]]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
+      'meta': {}
+    }));
+    this.$('#sl-test-search').val('learning');
+    return new Ember.RSVP.Promise(function (resolve) {
+      var wait = setInterval(function () {
+        assert.equal(_this.$('li').length, 1);
+        clearInterval(wait);
+        resolve();
+      }, 3000);
+    });
   });
 });
 define('pomodoro-electron/tests/integration/components/sidenav-panel-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
@@ -553,12 +598,12 @@ define('pomodoro-electron/tests/tests.lint-test', ['exports'], function (exports
 
   QUnit.test('integration/components/flip-clock-test.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'integration/components/flip-clock-test.js should pass ESLint\n\n');
+    assert.ok(false, 'integration/components/flip-clock-test.js should pass ESLint\n\n3:8 - \'wait\' is defined but never used. (no-unused-vars)\n84:43 - \'reject\' is defined but never used. (no-unused-vars)');
   });
 
   QUnit.test('integration/components/sidenav-list-test.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'integration/components/sidenav-list-test.js should pass ESLint\n\n');
+    assert.ok(false, 'integration/components/sidenav-list-test.js should pass ESLint\n\n51:14 - \'Ember\' is not defined. (no-undef)');
   });
 
   QUnit.test('integration/components/sidenav-panel-test.js', function (assert) {

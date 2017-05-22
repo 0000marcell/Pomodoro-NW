@@ -7,20 +7,23 @@ export default Ember.Component.extend({
       this.get(`model.storage.${this.get('listMode')}`)); 
   },
   loading: false,
-  searchResults: Ember.observer('search', function(){
-    this.set('loading', true);
-    Ember.run.later(this, () => {
-      let regex = 
-        new RegExp(this.get('search'), 'i');
-      let result = 
-        this.get('model').filter((item) => {
-          return item.name.match(regex); 
-        });
-      this.set('filteredList', result);
-      this.set('loading', false);
-    }, 500);
-  }),
   actions: {
+    searchList(){
+      this.set('loading', true);
+      Ember.run.later(this, () => {
+        let regex = 
+          new RegExp(this.get('search'), 'i');
+        let model = 
+          this.get(`model.storage.${this.get('listMode')}`)
+        console.log('model', model);
+        let result = 
+          model.filter((item) => {
+            return item.name.match(regex); 
+          });
+        this.set('filteredList', result);
+        this.set('loading', false);
+      }, 500);     
+    },
     toggle(item, event){
       let el = Ember.$(event.target)
         .closest("li");
