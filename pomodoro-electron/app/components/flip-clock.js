@@ -42,7 +42,8 @@ export default Ember.Component.extend({
         this.get('flipClock').setTime(interval);
         this.set('clock.mode', 'interval');
       }else if(this.get('clock.mode') === 'interval'){
-        this.get('flipClock').setTime(pomodoroTime);   
+        this.get('flipClock')
+          .setTime(this.get('clock.time'));   
         this.set('clock.mode', 'pomodoro');
       }
       Ember.run.later(this, () => {

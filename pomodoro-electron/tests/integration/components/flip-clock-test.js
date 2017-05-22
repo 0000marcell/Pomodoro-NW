@@ -1,5 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import wait from 'ember-test-helpers/wait';
 import Ember from 'ember';
 
 moduleForComponent('flip-clock', 'Integration | Component | flip clock', {
@@ -74,15 +75,20 @@ test('#flip-clock-05 goes to interval mode',
   let clock = {
     state: 'paused', 
     mode: 'pomodoro',
-    time: 1,
+    time: 2,
     shortInterval: 5
   };
   this.set('clock', clock);
   this.render(hbs`{{flip-clock clock=clock}}`);
   this.$('#fc-test-startbtn').click();
-  Ember.Test.registerWaiter(function() {
+  return new Ember.RSVP.Promise((resolve, reject) => {
+    const wait = setInterval(() => {
       assert.equal(this.get('clock.mode'), 
-      'interval');  
+        'interval'); 
+      this.$('#fc-test-startbtn').click();
+      clearInterval(wait);
+      resolve();
+    }, 3000);  
   });
 });
 
@@ -91,14 +97,19 @@ test('#flip-clock-06 comes out of interval mode',
   let clock = {
     state: 'paused', 
     mode: 'pomodoro',
-    time: 1,
-    shortInterval: 1
+    time: 2,
+    shortInterval: 2
   };
   this.set('clock', clock);
   this.render(hbs`{{flip-clock clock=clock}}`);
   this.$('#fc-test-startbtn').click();
-  Ember.run.later(this, () => {
-    assert.equal(this.get('clock.mode'), 
-      'pomodoro');
-  }, 2000);
+  return new Ember.RSVP.Promise((resolve) => {
+    const wait = setInterval(() => {
+      assert.equal(this.get('clock.mode'), 
+        'interval'); 
+      this.$('#fc-test-startbtn').click();
+      clearInterval(wait);
+      resolve();
+    }, 4000);  
+  });
 });
