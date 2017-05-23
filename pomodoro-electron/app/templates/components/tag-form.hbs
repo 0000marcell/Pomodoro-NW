@@ -1,6 +1,14 @@
-<h3>{{mode}} Tag</h3>
+<h3>{{title}}</h3>
+{{#if msgs}}
+  <ul id="tf-test-msgs">
+    {{#each msgs as |msg|}}
+      <li>{{msg}}</li>
+    {{/each}}
+  </ul> 
+{{/if}}
 {{input type='text' value=tag.name}}
 {{input type='text' value=tag.description}}
 {{input type='text' value=tag.color}}
 <button class="button-primary"
+  id="tf-test-saveButton"
   onclick={{action 'saveTag' tag}}>Save</button>

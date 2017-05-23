@@ -6,7 +6,7 @@ moduleForComponent('tag-form',
   integration: true
 });
 
-const newTag = {name: 'work', description: 'work',
+const baseTag = {name: 'work', description: 'work',
   color: '#ff00ff'};
 
 const baseModel = {tasks: [], tags: [{id: 1, name: 'learning', 
@@ -17,24 +17,38 @@ test('#tag-form-01 it creates a tag, shows a msg',
 
   // Set any properties with this.set('myProperty', 'value');
   // Handle any actions with this.on('myAction', function(val) { ... });
-  this.set('newTag', JSON.parse(JSON.stringify(newTag)));
-  this.set('model', JSON.parse(JSON.stringify(baseModel)))
-  this.render(hbs`{{tag-form model=model newTag=newTag}}`);
-  this.$('#tf-test-addButton').click();
-  assert.equal(this.get('model.tags.length'), 2);
-  assert.equal(this.$('#tf-test-msg').text.trim(), 
-    'tag created!');
+  this.set('tag', JSON.parse(JSON.stringify(baseTag)));
+  this.set('saveTag', (newTag) => {
+    assert.deepEqual(newTag, baseTag);
+    return new Ember.RSVP.Promise((resolve, reject) => {
+      if(newTag.name && newTag.description 
+        && newTag.color){
+        resolve();
+      }else{
+        reject();
+      }
+    });
+  });
+  this.render(hbs`{{tag-form saveTag=saveTag tag=tag}}`);
+  this.$('#tf-test-saveButton').click();
+  assert.equal(this.$('#tf-test-msgs').text().trim(), 
+      'tag saved!');
 });
 
-test('#tag-form-02 it shows error msg', function(assert){
-  this.set('newTag', {name: '', 
-    description: '', color: ''});
-  this.set('msgs', []);
-  this.set('model', JSON.parse(JSON.stringify(baseModel)))
-  this.render(hbs`{{tag-form 
-    msgs=msgs
-    model=model newTag=newTag}}`);
-  this.$('#tf-test-addButton').click();
-  assert.ok(this.$('#tf-test-msg').length);
-  assert.equal(this.get('msgs').length, 3);
+test('#tag-form-02 it shows an error msg', function(assert){
+  this.set('tag', {name: '', description: ''});
+  this.set('saveTag', (newTag) => {
+    return new Ember.RSVP.Promise((resolve, reject) => {
+      if(newTag.name && newTag.description 
+        && newTag.color){
+        resolve();
+      }else{
+        reject();
+      }
+    });
+  });
+  this.render(hbs`{{tag-form saveTag=saveTag tag=tag}}`);
+  this.$('#tf-test-saveButton').click();
+  assert.equal(this.$('#tf-test-msgs').text().trim(), 
+      'an error occored!');
 });
