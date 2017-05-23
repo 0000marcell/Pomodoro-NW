@@ -1,10 +1,10 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+  classNames: ['edit-tag-comp', 'column'],
   didInsertElement(){
     this.set('msgs', []);
   },
-  classNames: ['edit-tag-comp', 'column'],
   title: 'new task',
   tag: {name: '', description: '', 
     color: ''},

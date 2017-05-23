@@ -11,7 +11,7 @@ export default Ember.Route.extend({
     return  this.get('data');
   },
   redirect(){
-    this.transitionTo('main');
+    //this.transitionTo('main');
   },
   actions: {
     createTask(task){

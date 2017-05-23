@@ -424,13 +424,13 @@ define('pomodoro-electron/tests/integration/components/sidenav-list-test', ['exp
       'meta': {}
     }));
     this.$('#sl-test-search').val('learning');
-    this.$('#sl-test-search').trigger('key-up');
+    this.$('#sl-test-search').trigger('keyup');
     return new _ember['default'].RSVP.Promise(function (resolve) {
       var wait = setInterval(function () {
         assert.equal(_this.$('li').length, 1);
         clearInterval(wait);
         resolve();
-      }, 3000);
+      }, 700);
     });
   });
 });
@@ -482,27 +482,64 @@ define('pomodoro-electron/tests/integration/components/tag-form-test', ['exports
     integration: true
   });
 
-  (0, _emberQunit.test)('it renders', function (assert) {
+  var baseTag = { name: 'work', description: 'work',
+    color: '#ff00ff' };
+
+  var baseModel = { tasks: [], tags: [{ id: 1, name: 'learning',
+      description: 'learning', color: '#fff000' }] };
+
+  (0, _emberQunit.test)('#tag-form-01 it creates a tag, shows a msg', function (assert) {
 
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.on('myAction', function(val) { ... });
-
+    this.set('tag', JSON.parse(JSON.stringify(baseTag)));
+    this.set('saveTag', function (newTag) {
+      assert.deepEqual(newTag, baseTag);
+      return new Ember.RSVP.Promise(function (resolve, reject) {
+        if (newTag.name && newTag.description && newTag.color) {
+          resolve();
+        } else {
+          reject();
+        }
+      });
+    });
     this.render(Ember.HTMLBars.template({
-      'id': 'A68lo9Nt',
-      'block': '{"statements":[["append",["unknown",["tag-form"]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
+      'id': 'vr64Xwm8',
+      'block': '{"statements":[["append",["helper",["tag-form"],null,[["saveTag","tag"],[["get",["saveTag"]],["get",["tag"]]]]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
       'meta': {}
     }));
+    this.$('#tf-test-saveButton').click();
+    assert.equal(this.$('#tf-test-msgs').text().trim(), 'tag saved!');
+  });
 
-    assert.equal(this.$().text().trim(), '');
-
-    // Template block usage:
+  (0, _emberQunit.test)('#tag-form-02 it shows an error msg', function (assert) {
+    this.set('tag', { name: '', description: '' });
+    this.set('saveTag', function (newTag) {
+      return new Ember.RSVP.Promise(function (resolve, reject) {
+        if (newTag.name && newTag.description && newTag.color) {
+          resolve();
+        } else {
+          reject();
+        }
+      });
+    });
     this.render(Ember.HTMLBars.template({
-      'id': '4NnZXuni',
-      'block': '{"statements":[["text","\\n"],["block",["tag-form"],null,null,0],["text","  "]],"locals":[],"named":[],"yields":[],"blocks":[{"statements":[["text","      template block text\\n"]],"locals":[]}],"hasPartials":false}',
+      'id': 'vr64Xwm8',
+      'block': '{"statements":[["append",["helper",["tag-form"],null,[["saveTag","tag"],[["get",["saveTag"]],["get",["tag"]]]]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
       'meta': {}
     }));
+    this.$('#tf-test-saveButton').click();
+    assert.equal(this.$('#tf-test-msgs').text().trim(), 'an error occored!');
+  });
 
-    assert.equal(this.$().text().trim(), 'template block text');
+  (0, _emberQunit.test)('#tag-form-03 shows a list of colors passed', function (assert) {
+    this.set('colors', [{ id: 1, name: 'pink', value: '#ff00ff' }, { id: 2, name: 'red', value: '#ff0000' }]);
+    this.render(Ember.HTMLBars.template({
+      'id': 'PUMTD9g3',
+      'block': '{"statements":[["append",["helper",["tag-form"],null,[["colors"],[["get",["colors"]]]]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
+      'meta': {}
+    }));
+    assert.equal(this.$('#tf-test-colorList option').length, 2);
   });
 });
 define('pomodoro-electron/tests/integration/components/task-form-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
@@ -614,7 +651,7 @@ define('pomodoro-electron/tests/tests.lint-test', ['exports'], function (exports
 
   QUnit.test('integration/components/tag-form-test.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'integration/components/tag-form-test.js should pass ESLint\n\n');
+    assert.ok(false, 'integration/components/tag-form-test.js should pass ESLint\n\n12:7 - \'baseModel\' is assigned a value but never used. (no-unused-vars)\n23:16 - \'Ember\' is not defined. (no-undef)\n41:16 - \'Ember\' is not defined. (no-undef)');
   });
 
   QUnit.test('integration/components/task-form-test.js', function (assert) {

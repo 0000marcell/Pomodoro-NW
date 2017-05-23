@@ -52,3 +52,11 @@ test('#tag-form-02 it shows an error msg', function(assert){
   assert.equal(this.$('#tf-test-msgs').text().trim(), 
       'an error occored!');
 });
+
+test('#tag-form-03 shows a list of colors passed', function(assert){
+  this.set('colors', [{id: 1, name: 'pink', value: '#ff00ff'},
+    {id: 2, name: 'red', value: '#ff0000'}]);
+  this.render(hbs`{{tag-form colors=colors}}`);
+  assert.equal(this.$('#tf-test-colorList option').length, 
+    2);
+});
