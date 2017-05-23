@@ -370,7 +370,7 @@ define('pomodoro-electron/tests/integration/components/flip-clock-test', ['expor
     });
   });
 });
-define('pomodoro-electron/tests/integration/components/sidenav-list-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+define('pomodoro-electron/tests/integration/components/sidenav-list-test', ['exports', 'ember', 'ember-qunit'], function (exports, _ember, _emberQunit) {
 
   (0, _emberQunit.moduleForComponent)('sidenav-list', 'Integration | Component | sidenav list', {
     integration: true
@@ -392,7 +392,7 @@ define('pomodoro-electron/tests/integration/components/sidenav-list-test', ['exp
     var data = JSON.parse(JSON.stringify(baseObj));
     this.set('model', data);
     this.set('listMode', 'tasks');
-    this.render(Ember.HTMLBars.template({
+    this.render(_ember['default'].HTMLBars.template({
       'id': '+M9AoxUG',
       'block': '{"statements":[["append",["helper",["sidenav-list"],null,[["listMode","model"],[["get",["listMode"]],["get",["model"]]]]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
       'meta': {}
@@ -404,7 +404,7 @@ define('pomodoro-electron/tests/integration/components/sidenav-list-test', ['exp
     var data = JSON.parse(JSON.stringify(baseObj));
     this.set('model', data);
     this.set('listMode', 'tags');
-    this.render(Ember.HTMLBars.template({
+    this.render(_ember['default'].HTMLBars.template({
       'id': '+M9AoxUG',
       'block': '{"statements":[["append",["helper",["sidenav-list"],null,[["listMode","model"],[["get",["listMode"]],["get",["model"]]]]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
       'meta': {}
@@ -418,13 +418,14 @@ define('pomodoro-electron/tests/integration/components/sidenav-list-test', ['exp
     var data = JSON.parse(JSON.stringify(baseObj));
     this.set('model', data);
     this.set('listMode', 'tags');
-    this.render(Ember.HTMLBars.template({
+    this.render(_ember['default'].HTMLBars.template({
       'id': '+M9AoxUG',
       'block': '{"statements":[["append",["helper",["sidenav-list"],null,[["listMode","model"],[["get",["listMode"]],["get",["model"]]]]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
       'meta': {}
     }));
     this.$('#sl-test-search').val('learning');
-    return new Ember.RSVP.Promise(function (resolve) {
+    this.$('#sl-test-search').trigger('key-up');
+    return new _ember['default'].RSVP.Promise(function (resolve) {
       var wait = setInterval(function () {
         assert.equal(_this.$('li').length, 1);
         clearInterval(wait);
@@ -603,7 +604,7 @@ define('pomodoro-electron/tests/tests.lint-test', ['exports'], function (exports
 
   QUnit.test('integration/components/sidenav-list-test.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'integration/components/sidenav-list-test.js should pass ESLint\n\n51:14 - \'Ember\' is not defined. (no-undef)');
+    assert.ok(true, 'integration/components/sidenav-list-test.js should pass ESLint\n\n');
   });
 
   QUnit.test('integration/components/sidenav-panel-test.js', function (assert) {

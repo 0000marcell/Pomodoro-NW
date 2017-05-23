@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
@@ -48,11 +49,12 @@ test('#sidenav-list-03 searchs the list', function(assert){
     listMode=listMode
     model=model}}`);
   this.$('#sl-test-search').val('learning')
+  this.$('#sl-test-search').trigger('keyup');
   return new Ember.RSVP.Promise((resolve) => {
     const wait = setInterval(() => {
       assert.equal(this.$('li').length, 1);
       clearInterval(wait);
       resolve();
-    }, 3000); 
+    }, 700); 
   });
 });
