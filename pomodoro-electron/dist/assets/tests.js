@@ -17,7 +17,7 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
 
   QUnit.test('components/sidenav-list.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'components/sidenav-list.js should pass ESLint\n\n22:9 - Unexpected console statement. (no-console)\n46:7 - Unexpected console statement. (no-console)');
+    assert.ok(false, 'components/sidenav-list.js should pass ESLint\n\n22:9 - Unexpected console statement. (no-console)');
   });
 
   QUnit.test('components/sidenav-panel.js', function (assert) {
@@ -548,27 +548,44 @@ define('pomodoro-electron/tests/integration/components/task-form-test', ['export
     integration: true
   });
 
-  (0, _emberQunit.test)('it renders', function (assert) {
+  var baseModel = { tasks: [{ id: 1, name: 'Task 1',
+      description: 'Task 2', pomodoros: [] }, { id: 2,
+      name: 'Task 2', description: 'Task 2', pomodoros: [] }],
+    tags: [{ id: 1, name: 'learning',
+      description: 'learning', color: '#fff000' }, { id: 2, name: 'work', description: 'work', color: '#ff00ff' }] };
+
+  (0, _emberQunit.test)('#task-form-01 it shows task form with a select of tags', function (assert) {
 
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.on('myAction', function(val) { ... });
-
+    this.set('model', JSON.parse(JSON.stringify(baseModel)));
     this.render(Ember.HTMLBars.template({
-      'id': '+mGzBZ2D',
-      'block': '{"statements":[["append",["unknown",["task-form"]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
+      'id': 'mS7Gmtsz',
+      'block': '{"statements":[["append",["helper",["task-form"],null,[["tags"],[["get",["model","tags"]]]]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
       'meta': {}
     }));
+    assert.equal(this.$('#taf-test-tagsList option').length, 2);
+  });
 
-    assert.equal(this.$().text().trim(), '');
-
-    // Template block usage:
+  (0, _emberQunit.test)('#task-form-02 it create a task shows a msg', function (assert) {
+    this.set('newTask', { name: 'Task 2',
+      description: 'Task 2', pomodoros: [] });
+    this.set('saveAction', function (newTask) {
+      return new Ember.RSVP.Promise(function (resolve, reject) {
+        if (newTask.name && newTask.description) {
+          resolve();
+        } else {
+          reject();
+        }
+      });
+    });
     this.render(Ember.HTMLBars.template({
-      'id': '9XXWGCm/',
-      'block': '{"statements":[["text","\\n"],["block",["task-form"],null,null,0],["text","  "]],"locals":[],"named":[],"yields":[],"blocks":[{"statements":[["text","      template block text\\n"]],"locals":[]}],"hasPartials":false}',
+      'id': 'VvB5Btlx',
+      'block': '{"statements":[["append",["helper",["task-form"],null,[["tags","task","saveTask"],[["get",["model","tags"]],["get",["newTask"]],["get",["saveAction"]]]]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
       'meta': {}
     }));
-
-    assert.equal(this.$().text().trim(), 'template block text');
+    this.$('#taf-test-saveButton').click();
+    assert.equal(this.$('#taf-test-msgs li').length, 1);
   });
 });
 define('pomodoro-electron/tests/integration/components/tasks-sidenav-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
@@ -656,7 +673,7 @@ define('pomodoro-electron/tests/tests.lint-test', ['exports'], function (exports
 
   QUnit.test('integration/components/task-form-test.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'integration/components/task-form-test.js should pass ESLint\n\n');
+    assert.ok(false, 'integration/components/task-form-test.js should pass ESLint\n\n31:16 - \'Ember\' is not defined. (no-undef)');
   });
 
   QUnit.test('integration/components/tasks-sidenav-test.js', function (assert) {

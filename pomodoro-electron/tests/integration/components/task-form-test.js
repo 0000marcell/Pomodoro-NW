@@ -5,21 +5,40 @@ moduleForComponent('task-form', 'Integration | Component | task form', {
   integration: true
 });
 
-test('it renders', function(assert) {
+const baseModel = {tasks: [{id: 1, name: 'Task 1', 
+  description: 'Task 2', pomodoros: []}, {id: 2, 
+    name: 'Task 2', description: 'Task 2', pomodoros: []}], 
+  tags: [{id: 1, name: 'learning', 
+    description: 'learning', color: '#fff000'}, 
+    {id: 2, name: 'work', description: 'work', color: '#ff00ff'}]};
+
+test('#task-form-01 it shows task form with a select of tags', 
+  function(assert) {
 
   // Set any properties with this.set('myProperty', 'value');
   // Handle any actions with this.on('myAction', function(val) { ... });
+  this.set('model', JSON.parse(JSON.stringify(baseModel)));
+  this.render(hbs`{{task-form tags=model.tags}}`);
+  assert.equal(this.$('#taf-test-tagsList option').length, 
+    2);
+});
 
-  this.render(hbs`{{task-form}}`);
-
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#task-form}}
-      template block text
-    {{/task-form}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+test('#task-form-02 it create a task shows a msg', 
+  function(assert){
+  this.set('newTask', {name: 'Task 2', 
+    description: 'Task 2', pomodoros: []});
+  this.set('saveAction', (newTask) => {
+    return new Ember.RSVP.Promise((resolve, reject) => {
+      if(newTask.name && newTask.description){
+        resolve();
+      }else{
+        reject();
+      }
+    });
+  });
+  this.render(hbs`{{task-form tags=model.tags 
+    task=newTask
+    saveTask=saveAction}}`);
+  this.$('#taf-test-saveButton').click();
+  assert.equal(this.$('#taf-test-msgs li').length, 1);
 });

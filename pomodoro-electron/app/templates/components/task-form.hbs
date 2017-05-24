@@ -1,5 +1,20 @@
-<h3>{{mode}} Task</h3>
+<h3>{{title}}</h3>
+{{#if msgs}}
+  <ul id="taf-test-msgs">
+    {{#each msgs as |msg|}}
+      <li>{{msg}}</li>
+    {{/each}}
+  </ul> 
+{{/if}}
 {{input type='text' value=task.name}}
 {{input type='text' value=task.description}}
+<select id="taf-test-tagsList">
+  {{#each tags as |tag|}}
+    <option value={{tag.id}}>
+      {{tag.name}}
+    </option>
+  {{/each}}
+</select>
 <button class="button-primary"
+  id="taf-test-saveButton"
   onclick={{action 'saveTask' task}}>Save</button>

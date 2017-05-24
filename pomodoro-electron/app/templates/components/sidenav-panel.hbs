@@ -15,13 +15,14 @@
           {{task-form 
             title="Edit Task"
             task=mode.model
+            tags=model.storage.tags
             saveTask=(route-action mode.saveAction)
           }} 
         {{else if (eq listMode "tags")}}
           {{tag-form 
             title="Create Tag"
             tag=mode.model
-            saveTask=(route-action mode.saveAction)
+            saveTag=(route-action mode.saveAction)
           }} 
         {{/if}}
       </div>

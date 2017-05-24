@@ -43,7 +43,6 @@ export default Ember.Component.extend({
       }
     },
     showLeftPanel(item){
-      console.log('item: ', item);
       if(this.get('listMode') === 'tasks'){
         this.set('mode.model', 
           (item.name) ? item :  
