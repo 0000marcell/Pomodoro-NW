@@ -2,6 +2,10 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   classNames: ['sidenav-list'],
+  newTag: {name: null, description: null,
+    color: null},
+  newTask: {name: null, description: null, 
+    pomodoros: []},
   didReceiveAttrs(){
     this.set('filteredList', 
       this.get(`model.storage.${this.get('listMode')}`)); 
@@ -33,19 +37,29 @@ export default Ember.Component.extend({
           .removeClass('active');  
       }
       this.set('prevItem', el);
-      this.set('state.selectedItem', 
+      if(this.get('listMode') === 'tasks'){
+        this.set('model.state.selectedTask', 
           item);
+      }
     },
     showLeftPanel(item){
-      this.set('mode', 'editTag');
-      this.set('showLeftPanel', true);
-      if(item){
-        this.set('model.state.selectedItem', 
-          item);
+      console.log('item: ', item);
+      if(this.get('listMode') === 'tasks'){
+        this.set('mode.model', 
+          (item.name) ? item :  
+            this.get('newTask'));
+        this.set('mode.saveAction', 
+          (item.name) ? 'editTask' : 
+            'createTask');
       }else{
-        this.set('model.state.selectedItem', 
-          null);
+        this.set('mode.model', 
+          (item.name) ? item :  
+            this.get('newTag'));
+        this.set('mode.saveAction', 
+          (item.name) ? 'editTag' : 
+            'createTag')
       }
+      this.set('showLeftPanel', true);
     },
     changeListMode(mode){
       this.set('listMode', mode);
