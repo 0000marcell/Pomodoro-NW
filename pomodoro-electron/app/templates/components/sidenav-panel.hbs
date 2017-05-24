@@ -13,26 +13,28 @@
       <div class="sidenav-panel-side-body-container">
         {{#if (eq mode 'editTask')}}
           {{task-form 
-            mode="edit" 
+            title="Edit Task"
+            task=model.state.selectedTask
             saveTask=(route-action "editTask")
             task=selectedTask}} 
         {{else if (eq mode "createTask")}}
           {{task-form 
-            mode="create" 
+            title="Create Task"
+            task=newTask
             saveTask=(route-action "createTask")
             task=newObj
           }} 
         {{else if (eq mode "createTag")}}
           {{tag-form 
-            mode="create" 
-            saveTag=(route-action "createTag")
+            title="Create Tag"
             tag=newTag
+            saveTag=(route-action "createTag")
           }}
         {{else if (eq mode "editTag")}}
           {{tag-form 
-            mode="edit" 
+            title="Edit Tag"
+            tag=model.state.selectedTag
             saveTag=(route-action "editTag")
-            tag=newTag
           }}
         {{/if}}
       </div>
@@ -41,6 +43,7 @@
   <div class="sidenav-panel-aside">
     {{sidenav-list 
       model=model
+      mode=mode
       showLeftPanel=leftPanel
       listMode=listMode
     }}

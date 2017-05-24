@@ -5,7 +5,8 @@ export default Ember.Route.extend({
   store: Ember.inject.service(),
   data: {
     storage: data,
-    state: {selectedItem: null}
+    state: {selectedTask: null,
+            selectedTag: null}
   },
   model(){
     return  this.get('data');
@@ -13,35 +14,26 @@ export default Ember.Route.extend({
   redirect(){
     //this.transitionTo('main');
   },
+  saveToStore(){
+    this.get('store')
+        .persist(this.get('data.storage'));
+  },
   actions: {
     createTask(task){
-      /*
-      this.get('data.storage.tasks')
-        .pushObject(task); 
-      this.get('store')
-        .persist(this.get('data.storage'));
-        */
+      console.log('create task: ', task);
+      this.saveToStore(); 
     },
     editTask(){
-      this.get('store')
-        .persist(this.get('data.storage'));
-    },
-    newTask(){
-      return {id: this.get('data.storage.tasks.length') + 1, 
-        name: null, 
-        description: null, pomodoros: []};   
+      console.log('edit task');
+      this.saveToStore(); 
     },
     createTag(tag){
-      console.log('create tag!');
+      console.log('create tag!', tag);
+      this.saveToStore(); 
     },
     editTag(){
       console.log('edit tag!');
-    },
-    newTag(){
-      return {id: this.get('data.storage.tags.length') + 1, 
-        name: null, 
-        description: null,
-        color: null};   
+      this.saveToStore(); 
     }
   }
 });

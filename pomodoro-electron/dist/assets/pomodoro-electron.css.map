@@ -3,16 +3,16 @@
 	"file": "pomodoro-electron.css",
 	"sourceRoot": "/Users/marcell/Documents/github/Pomodoro-NW/pomodoro-nw/pomodoro-electron/app/styles",
 	"sources": [
-		"../../sass_compiler-input_base_path-MZ37aU3l.tmp/app/styles/app.scss",
-		"../../sass_compiler-input_base_path-MZ37aU3l.tmp/app/styles/utils.scss",
-		"../../sass_compiler-input_base_path-MZ37aU3l.tmp/app/styles/flipclock.scss",
-		"../../sass_compiler-input_base_path-MZ37aU3l.tmp/app/styles/components/flip-clock.scss",
-		"../../sass_compiler-input_base_path-MZ37aU3l.tmp/app/styles/components/sidenav-list.scss",
-		"../../sass_compiler-input_base_path-MZ37aU3l.tmp/app/styles/components/sidenav-panel.scss",
-		"../../sass_compiler-input_base_path-MZ37aU3l.tmp/app/styles/components/task-form.scss",
-		"../../sass_compiler-input_base_path-MZ37aU3l.tmp/app/styles/components/tag-form.scss",
-		"../../sass_compiler-input_base_path-MZ37aU3l.tmp/app/styles/application.scss",
-		"../../sass_compiler-input_base_path-MZ37aU3l.tmp/app/styles/main.scss"
+		"../../sass_compiler-input_base_path-SqDpjfbv.tmp/app/styles/app.scss",
+		"../../sass_compiler-input_base_path-SqDpjfbv.tmp/app/styles/utils.scss",
+		"../../sass_compiler-input_base_path-SqDpjfbv.tmp/app/styles/flipclock.scss",
+		"../../sass_compiler-input_base_path-SqDpjfbv.tmp/app/styles/components/flip-clock.scss",
+		"../../sass_compiler-input_base_path-SqDpjfbv.tmp/app/styles/components/sidenav-list.scss",
+		"../../sass_compiler-input_base_path-SqDpjfbv.tmp/app/styles/components/sidenav-panel.scss",
+		"../../sass_compiler-input_base_path-SqDpjfbv.tmp/app/styles/components/task-form.scss",
+		"../../sass_compiler-input_base_path-SqDpjfbv.tmp/app/styles/components/tag-form.scss",
+		"../../sass_compiler-input_base_path-SqDpjfbv.tmp/app/styles/application.scss",
+		"../../sass_compiler-input_base_path-SqDpjfbv.tmp/app/styles/main.scss"
 	],
 	"sourcesContent": [
 		"@import 'utils';\n@import './flipclock';\n@import './components/flip-clock';\n@import './components/sidenav-list';\n@import './components/sidenav-panel';\n@import './components/task-form';\n@import './components/tag-form';\n@import 'application';\n@import 'main';\n",

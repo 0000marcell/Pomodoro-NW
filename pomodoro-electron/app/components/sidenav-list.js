@@ -37,12 +37,13 @@ export default Ember.Component.extend({
           item);
     },
     showLeftPanel(item){
+      this.set('mode', 'editTag');
       this.set('showLeftPanel', true);
       if(item){
-        this.get('model.state.selectedItem', 
+        this.set('model.state.selectedItem', 
           item);
       }else{
-        this.get('model.state.selectedItem', 
+        this.set('model.state.selectedItem', 
           null);
       }
     },
