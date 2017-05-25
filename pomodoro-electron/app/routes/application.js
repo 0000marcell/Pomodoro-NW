@@ -12,7 +12,7 @@ export default Ember.Route.extend({
     return  this.get('data');
   },
   redirect(){
-    this.transitionTo('main');
+    //this.transitionTo('main');
   },
   saveToStore(){
     return this.get('store')

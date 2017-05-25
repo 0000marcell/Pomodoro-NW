@@ -1,1 +1,3 @@
-{{tag-form title="new tag" colors=colors}}
+{{#dropdown-list items=colors as |color|}}
+  <p>{{color.value}}</p>
+{{/dropdown-list}}

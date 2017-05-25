@@ -1,0 +1,24 @@
+.dropdown-list{
+  .dropdown-list-selected{
+    border: 2px solid $color;
+    max-width: 270px;
+    max-height: 36px;
+    padding: 10px 10px 10px 30px;
+  }
+  .dropdown-list-dropdown{
+    display: none;
+    li{
+      list-style-type: none;
+    }
+  }
+}
+
+.dropdown-list-show{
+  border: 2px solid $color;
+  .dropdown-list-dropdown{
+    display: block !important;
+  }
+  .dropdown-list-selected{
+    border: none !important;
+  }
+}

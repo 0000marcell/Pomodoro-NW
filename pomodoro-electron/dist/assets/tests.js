@@ -15,6 +15,11 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
     assert.ok(true, 'components/color-option.js should pass ESLint\n\n');
   });
 
+  QUnit.test('components/dropdown-list.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/dropdown-list.js should pass ESLint\n\n');
+  });
+
   QUnit.test('components/flip-clock.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'components/flip-clock.js should pass ESLint\n\n');
@@ -259,6 +264,35 @@ define('pomodoro-electron/tests/integration/components/color-option-test', ['exp
     }));
     var result = this.$('#co-test-block').css('background-color');
     assert.equal(result, 'rgb(255, 0, 255)');
+  });
+});
+define('pomodoro-electron/tests/integration/components/dropdown-list-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleForComponent)('dropdown-list', 'Integration | Component | dropdown list', {
+    integration: true
+  });
+
+  (0, _emberQunit.test)('it renders', function (assert) {
+
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.on('myAction', function(val) { ... });
+
+    this.render(Ember.HTMLBars.template({
+      'id': 'LwvNUYZd',
+      'block': '{"statements":[["append",["unknown",["dropdown-list"]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
+      'meta': {}
+    }));
+
+    assert.equal(this.$().text().trim(), '');
+
+    // Template block usage:
+    this.render(Ember.HTMLBars.template({
+      'id': 'FNuZ2y1Q',
+      'block': '{"statements":[["text","\\n"],["block",["dropdown-list"],null,null,0],["text","  "]],"locals":[],"named":[],"yields":[],"blocks":[{"statements":[["text","      template block text\\n"]],"locals":[]}],"hasPartials":false}',
+      'meta': {}
+    }));
+
+    assert.equal(this.$().text().trim(), 'template block text');
   });
 });
 define('pomodoro-electron/tests/integration/components/flip-clock-test', ['exports', 'ember-qunit', 'ember-test-helpers/wait', 'ember'], function (exports, _emberQunit, _emberTestHelpersWait, _ember) {
@@ -698,6 +732,11 @@ define('pomodoro-electron/tests/tests.lint-test', ['exports'], function (exports
   QUnit.test('integration/components/color-option-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'integration/components/color-option-test.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('integration/components/dropdown-list-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/components/dropdown-list-test.js should pass ESLint\n\n');
   });
 
   QUnit.test('integration/components/flip-clock-test.js', function (assert) {

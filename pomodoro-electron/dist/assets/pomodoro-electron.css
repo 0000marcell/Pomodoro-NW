@@ -652,6 +652,24 @@ i {
   .edit-tag-comp input {
     margin-top: 20px; }
 
+.dropdown-list .dropdown-list-selected {
+  border: 2px solid #00baff;
+  max-width: 270px;
+  max-height: 36px;
+  padding: 10px 10px 10px 30px; }
+
+.dropdown-list .dropdown-list-dropdown {
+  display: none; }
+  .dropdown-list .dropdown-list-dropdown li {
+    list-style-type: none; }
+
+.dropdown-list-show {
+  border: 2px solid #00baff; }
+  .dropdown-list-show .dropdown-list-dropdown {
+    display: block !important; }
+  .dropdown-list-show .dropdown-list-selected {
+    border: none !important; }
+
 .app-header {
   border-bottom: 1px solid #c8c8c8;
   height: 56px;

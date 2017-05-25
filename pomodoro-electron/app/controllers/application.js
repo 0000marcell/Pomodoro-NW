@@ -5,7 +5,7 @@ const links = [{icon: 'clock-o', name: 'schedule', link: 'schedule'},
                {icon: 'cog', name: 'configuration', link: 'configuration'}]
 
 export default Ember.Controller.extend({
-  openSidenav: true,
+  openSidenav: false,
   links: links,
   clock: {
     state: 'paused',

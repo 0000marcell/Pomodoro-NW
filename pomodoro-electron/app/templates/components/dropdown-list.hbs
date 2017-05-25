@@ -1,0 +1,14 @@
+<div onclick={{action 'clickSelected'}} 
+  class="dropdown-list-selected">
+  {{yield selectedItem}}
+</div>
+<div class="dropdown-list-dropdown">
+  <ul>
+    {{#each selection as |item|}}
+      <li onclick={{action 'selectItem' item}}>
+        {{yield item}}
+      </li>
+    {{/each}}
+  </ul>
+</div>
+

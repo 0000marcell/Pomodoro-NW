@@ -11,12 +11,7 @@
 <select id="tf-test-colorList">
   {{#each colors as |color|}}
     <option value={{color.id}}>
-      {{color.value}}
-      <!--
-      <div 
-        style="background-color: {{color.value}}"
-        class="color-block"></div>
-      -->
+      {{color-option color=color}}
     </option>
   {{/each}}
 </select>
