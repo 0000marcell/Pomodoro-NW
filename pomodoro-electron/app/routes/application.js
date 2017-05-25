@@ -12,28 +12,24 @@ export default Ember.Route.extend({
     return  this.get('data');
   },
   redirect(){
-    //this.transitionTo('main');
+    this.transitionTo('main');
   },
   saveToStore(){
-    this.get('store')
+    return this.get('store')
         .persist(this.get('data.storage'));
   },
   actions: {
     createTask(task){
-      console.log('create task: ', task);
-      this.saveToStore(); 
+      return this.saveToStore(); 
     },
     editTask(){
-      console.log('edit task');
-      this.saveToStore(); 
+      return this.saveToStore(); 
     },
     createTag(tag){
-      console.log('create tag!', tag);
-      this.saveToStore(); 
+      return this.saveToStore(); 
     },
     editTag(){
-      console.log('edit tag!');
-      this.saveToStore(); 
+      return this.saveToStore(); 
     }
   }
 });

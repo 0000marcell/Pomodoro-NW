@@ -36,9 +36,29 @@ test('#task-form-02 it create a task shows a msg',
       }
     });
   });
-  this.render(hbs`{{task-form tags=model.tags 
+  this.render(hbs`{{task-form  
     task=newTask
     saveTask=saveAction}}`);
   this.$('#taf-test-saveButton').click();
   assert.equal(this.$('#taf-test-msgs li').length, 1);
+});
+
+test('#task-form-03 dont create a task show error msg', 
+  function(assert){
+  this.set('newTask', {name: 'Task 3', 
+    description: null, pomodoros: []});
+  this.set('saveAction', (newTask) => {
+    return new Ember.RSVP.Promise((resolve, reject) => {
+      if(newTask.name && newTask.description){
+        resolve();
+      }else{
+        reject();
+      }
+    });
+  });
+  this.render(hbs`{{task-form  
+    task=newTask
+    saveTask=saveAction}}`);
+  this.$('#taf-test-saveButton').click();
+  assert.equal(this.$('#taf-test-msgs li').length, 1); 
 });
