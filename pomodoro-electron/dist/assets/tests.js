@@ -10,6 +10,11 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
     assert.ok(true, 'app.js should pass ESLint\n\n');
   });
 
+  QUnit.test('components/color-option.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/color-option.js should pass ESLint\n\n');
+  });
+
   QUnit.test('components/flip-clock.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'components/flip-clock.js should pass ESLint\n\n');
@@ -72,7 +77,7 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
 
   QUnit.test('routes/application.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'routes/application.js should pass ESLint\n\n23:7 - Unexpected console statement. (no-console)\n27:7 - Unexpected console statement. (no-console)\n31:7 - Unexpected console statement. (no-console)\n35:7 - Unexpected console statement. (no-console)');
+    assert.ok(false, 'routes/application.js should pass ESLint\n\n22:16 - \'task\' is defined but never used. (no-unused-vars)\n28:15 - \'tag\' is defined but never used. (no-unused-vars)');
   });
 
   QUnit.test('routes/configuration.js', function (assert) {
@@ -107,7 +112,7 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
 
   QUnit.test('services/store.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'services/store.js should pass ESLint\n\n5:5 - Unexpected console statement. (no-console)');
+    assert.ok(false, 'services/store.js should pass ESLint\n\n5:45 - \'reject\' is defined but never used. (no-unused-vars)\n7:7 - Unexpected console statement. (no-console)');
   });
 });
 define('pomodoro-electron/tests/ember-electron/main', ['exports'], function (exports) {
@@ -237,6 +242,24 @@ define('pomodoro-electron/tests/helpers/start-app', ['exports', 'ember', 'pomodo
       return application;
     });
   }
+});
+define('pomodoro-electron/tests/integration/components/color-option-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleForComponent)('color-option', 'Integration | Component | color option', {
+    integration: true
+  });
+
+  (0, _emberQunit.test)('#color-option-01 it show a clock with the color passed', function (assert) {
+
+    this.set('color', { id: 1, value: '#ff00ff' });
+    this.render(Ember.HTMLBars.template({
+      'id': 'rXLjRxAw',
+      'block': '{"statements":[["append",["helper",["color-option"],null,[["color"],[["get",["color"]]]]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
+      'meta': {}
+    }));
+    var result = this.$('#co-test-block').css('background-color');
+    assert.equal(result, 'rgb(255, 0, 255)');
+  });
 });
 define('pomodoro-electron/tests/integration/components/flip-clock-test', ['exports', 'ember-qunit', 'ember-test-helpers/wait', 'ember'], function (exports, _emberQunit, _emberTestHelpersWait, _ember) {
 
@@ -580,8 +603,29 @@ define('pomodoro-electron/tests/integration/components/task-form-test', ['export
       });
     });
     this.render(Ember.HTMLBars.template({
-      'id': 'VvB5Btlx',
-      'block': '{"statements":[["append",["helper",["task-form"],null,[["tags","task","saveTask"],[["get",["model","tags"]],["get",["newTask"]],["get",["saveAction"]]]]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
+      'id': '6HzgALiC',
+      'block': '{"statements":[["append",["helper",["task-form"],null,[["task","saveTask"],[["get",["newTask"]],["get",["saveAction"]]]]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
+      'meta': {}
+    }));
+    this.$('#taf-test-saveButton').click();
+    assert.equal(this.$('#taf-test-msgs li').length, 1);
+  });
+
+  (0, _emberQunit.test)('#task-form-03 dont create a task show error msg', function (assert) {
+    this.set('newTask', { name: 'Task 3',
+      description: null, pomodoros: [] });
+    this.set('saveAction', function (newTask) {
+      return new Ember.RSVP.Promise(function (resolve, reject) {
+        if (newTask.name && newTask.description) {
+          resolve();
+        } else {
+          reject();
+        }
+      });
+    });
+    this.render(Ember.HTMLBars.template({
+      'id': '6HzgALiC',
+      'block': '{"statements":[["append",["helper",["task-form"],null,[["task","saveTask"],[["get",["newTask"]],["get",["saveAction"]]]]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
       'meta': {}
     }));
     this.$('#taf-test-saveButton').click();
@@ -651,6 +695,11 @@ define('pomodoro-electron/tests/tests.lint-test', ['exports'], function (exports
     assert.ok(true, 'helpers/start-app.js should pass ESLint\n\n');
   });
 
+  QUnit.test('integration/components/color-option-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/components/color-option-test.js should pass ESLint\n\n');
+  });
+
   QUnit.test('integration/components/flip-clock-test.js', function (assert) {
     assert.expect(1);
     assert.ok(false, 'integration/components/flip-clock-test.js should pass ESLint\n\n3:8 - \'wait\' is defined but never used. (no-unused-vars)\n84:43 - \'reject\' is defined but never used. (no-unused-vars)');
@@ -673,7 +722,7 @@ define('pomodoro-electron/tests/tests.lint-test', ['exports'], function (exports
 
   QUnit.test('integration/components/task-form-test.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'integration/components/task-form-test.js should pass ESLint\n\n31:16 - \'Ember\' is not defined. (no-undef)');
+    assert.ok(false, 'integration/components/task-form-test.js should pass ESLint\n\n31:16 - \'Ember\' is not defined. (no-undef)\n51:16 - \'Ember\' is not defined. (no-undef)');
   });
 
   QUnit.test('integration/components/tasks-sidenav-test.js', function (assert) {

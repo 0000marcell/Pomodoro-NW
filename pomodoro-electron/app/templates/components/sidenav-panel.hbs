@@ -21,6 +21,7 @@
         {{else if (eq listMode "tags")}}
           {{tag-form 
             title="Create Tag"
+            colors=model.storage.colors
             tag=mode.model
             saveTag=(route-action mode.saveAction)
           }} 
