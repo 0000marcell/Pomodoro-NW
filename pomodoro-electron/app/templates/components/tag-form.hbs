@@ -9,7 +9,7 @@
 {{input type='text' value=tag.name}}
 {{input type='text' value=tag.description}}
 {{#dropdown-list items=colors as |color|}}
-  <p>{{color.value}}</p>
+  {{color-option color=color}}
 {{/dropdown-list}}
 <button class="button-primary"
   id="tf-test-saveButton"

@@ -12,10 +12,12 @@
       key-up=(action "searchList")
       type='text' value=search}}
   </div>
-  <div
-    onclick={{action "showLeftPanel"}}
-      class="add-item-container">
-    {{fa-icon "plus"}}
+  <div class="sidenav-list-header-footer">
+    <div
+      onclick={{action "showLeftPanel"}}
+        class="add-item-container">
+      {{fa-icon "plus"}}
+    </div>
   </div>
 </div>
 <div class="sidenav-list-body">

@@ -22,6 +22,7 @@ export default Ember.Component.extend({
           return item.id !== val.id;
         }));
       this.set('selectedItem', item);
+      this.set('selected', item);
     }
   }
 

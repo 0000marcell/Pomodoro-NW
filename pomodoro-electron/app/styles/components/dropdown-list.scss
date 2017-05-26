@@ -1,14 +1,19 @@
 .dropdown-list{
-  max-width: 200px;
+  min-width: 215px;
+  margin-top: 20px;
   .dropdown-list-selected{
     border: 2px solid $color;
-    padding-left: 20px;
+    padding: 20px 0 0 20px;
   }
   .dropdown-list-selected:hover{
   }
   .dropdown-list-dropdown{
+    position: absolute;
+    min-width: 215px;
+    background-color: #fff;
+    z-index: 99;
     box-shadow: 5px 5px 5px #eee;
-    padding-left: 20px;
+    padding: 20px 0 0 20px;
     border: 2px solid $color;
     display: none;
     ul{

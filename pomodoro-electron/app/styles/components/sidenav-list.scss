@@ -13,8 +13,11 @@
       }
     }
     .sidenav-list-header-body{
-      padding-top: 20px;
-      
+      flex: 0 0 30%;
+    }
+    .sidenav-list-header-footer{
+      flex: 0 0 20%;
+      padding: 10px 0 0 20px;
     }
     input{
       border: 2px solid $color;
@@ -81,7 +84,6 @@
     .sidenav-footer-opts-container {
       padding: 10px 0 0 25px;
       height: 100%;
-      background-color: #c8c8c8;
       button{
         width: 80px;
         height: 30px;

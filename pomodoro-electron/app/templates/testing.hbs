@@ -1,4 +1,4 @@
-{{#dropdown-list selectedItem=selectedItem
+{{#dropdown-list selected=selected
   items=colors as |color|}}
-  <p>{{color.value}}</p>
+  {{color-option color=color}}
 {{/dropdown-list}}

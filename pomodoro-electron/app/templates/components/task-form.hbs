@@ -8,13 +8,9 @@
 {{/if}}
 {{input type='text' value=task.name}}
 {{input type='text' value=task.description}}
-<select id="taf-test-tagsList">
-  {{#each tags as |tag|}}
-    <option value={{tag.id}}>
-      {{tag.name}}
-    </option>
-  {{/each}}
-</select>
+{{#dropdown-list items=tags as |tag|}}
+  <p>{{tag.name}}</p>
+{{/dropdown-list}}
 <button class="button-primary"
   id="taf-test-saveButton"
   onclick={{action 'saveTask' task}}>Save</button>

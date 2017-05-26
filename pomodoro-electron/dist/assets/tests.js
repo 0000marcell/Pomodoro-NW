@@ -62,7 +62,7 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
 
   QUnit.test('controllers/testing.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'controllers/testing.js should pass ESLint\n\n7:5 - Unexpected console statement. (no-console)');
+    assert.ok(true, 'controllers/testing.js should pass ESLint\n\n');
   });
 
   QUnit.test('helpers/pomodoro-hours.js', function (assert) {
