@@ -1,3 +1,4 @@
-{{#dropdown-list items=colors as |color|}}
+{{#dropdown-list selectedItem=selectedItem
+  items=colors as |color|}}
   <p>{{color.value}}</p>
 {{/dropdown-list}}

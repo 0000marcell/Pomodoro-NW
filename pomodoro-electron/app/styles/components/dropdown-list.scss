@@ -1,24 +1,30 @@
 .dropdown-list{
+  max-width: 200px;
   .dropdown-list-selected{
     border: 2px solid $color;
-    max-width: 270px;
-    max-height: 36px;
-    padding: 10px 10px 10px 30px;
+    padding-left: 20px;
+  }
+  .dropdown-list-selected:hover{
   }
   .dropdown-list-dropdown{
+    box-shadow: 5px 5px 5px #eee;
+    padding-left: 20px;
+    border: 2px solid $color;
     display: none;
-    li{
-      list-style-type: none;
+    ul{
+      padding: 0;
+      margin: 0;
+      li{
+        list-style-type: none;
+      }
     }
   }
 }
 
 .dropdown-list-show{
-  border: 2px solid $color;
+  .dropdown-list-selected{
+  }
   .dropdown-list-dropdown{
     display: block !important;
-  }
-  .dropdown-list-selected{
-    border: none !important;
   }
 }

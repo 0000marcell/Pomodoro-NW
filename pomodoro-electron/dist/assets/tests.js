@@ -62,7 +62,7 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
 
   QUnit.test('controllers/testing.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'controllers/testing.js should pass ESLint\n\n');
+    assert.ok(false, 'controllers/testing.js should pass ESLint\n\n7:5 - Unexpected console statement. (no-console)');
   });
 
   QUnit.test('helpers/pomodoro-hours.js', function (assert) {
@@ -272,27 +272,14 @@ define('pomodoro-electron/tests/integration/components/dropdown-list-test', ['ex
     integration: true
   });
 
-  (0, _emberQunit.test)('it renders', function (assert) {
-
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.on('myAction', function(val) { ... });
-
+  (0, _emberQunit.test)('#dropdown-list-01 shows a list of items', function (assert) {
+    this.set('items', [{ id: 1, name: 'pink', value: '#ff00ff' }, { id: 2, name: 'red', value: '#ff0000' }]);
     this.render(Ember.HTMLBars.template({
-      'id': 'LwvNUYZd',
-      'block': '{"statements":[["append",["unknown",["dropdown-list"]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
+      'id': 'uNa+bywi',
+      'block': '{"statements":[["text","\\n"],["block",["dropdown-list"],null,[["items"],[["get",["items"]]]],0]],"locals":[],"named":[],"yields":[],"blocks":[{"statements":[["text","      "],["open-element","p",[]],["flush-element"],["append",["unknown",["item","name"]],false],["close-element"],["text","\\n"]],"locals":["color"]}],"hasPartials":false}',
       'meta': {}
     }));
-
-    assert.equal(this.$().text().trim(), '');
-
-    // Template block usage:
-    this.render(Ember.HTMLBars.template({
-      'id': 'FNuZ2y1Q',
-      'block': '{"statements":[["text","\\n"],["block",["dropdown-list"],null,null,0],["text","  "]],"locals":[],"named":[],"yields":[],"blocks":[{"statements":[["text","      template block text\\n"]],"locals":[]}],"hasPartials":false}',
-      'meta': {}
-    }));
-
-    assert.equal(this.$().text().trim(), 'template block text');
+    assert.equal(this.$('#dl-test-list li').length, 1);
   });
 });
 define('pomodoro-electron/tests/integration/components/flip-clock-test', ['exports', 'ember-qunit', 'ember-test-helpers/wait', 'ember'], function (exports, _emberQunit, _emberTestHelpersWait, _ember) {

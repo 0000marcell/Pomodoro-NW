@@ -5,21 +5,14 @@ moduleForComponent('dropdown-list', 'Integration | Component | dropdown list', {
   integration: true
 });
 
-test('it renders', function(assert) {
-
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
-
-  this.render(hbs`{{dropdown-list}}`);
-
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
+test('#dropdown-list-01 shows a list of items', 
+  function(assert) {
+  this.set('items', [{id: 1, name: 'pink', value: '#ff00ff'},
+    {id: 2, name: 'red', value: '#ff0000'}])
   this.render(hbs`
-    {{#dropdown-list}}
-      template block text
-    {{/dropdown-list}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+    {{#dropdown-list items=items as |color|}}
+      <p>{{item.name}}</p>
+    {{/dropdown-list}}`);
+  assert.equal(this.$('#dl-test-list li').length, 
+      1);
 });

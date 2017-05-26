@@ -2,7 +2,8 @@
   class="dropdown-list-selected">
   {{yield selectedItem}}
 </div>
-<div class="dropdown-list-dropdown">
+<div id="dl-test-list"
+  class="dropdown-list-dropdown">
   <ul>
     {{#each selection as |item|}}
       <li onclick={{action 'selectItem' item}}>

@@ -13,7 +13,7 @@ export default Ember.Component.extend({
   },
   actions: {
     clickSelected(){
-      this.set('dropdownListShow', true); 
+      this.toggleProperty('dropdownListShow');
     },
     selectItem(item){
       this.set('dropdownListShow', false);

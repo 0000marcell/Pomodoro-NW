@@ -8,13 +8,9 @@
 {{/if}}
 {{input type='text' value=tag.name}}
 {{input type='text' value=tag.description}}
-<select id="tf-test-colorList">
-  {{#each colors as |color|}}
-    <option value={{color.id}}>
-      {{color-option color=color}}
-    </option>
-  {{/each}}
-</select>
+{{#dropdown-list items=colors as |color|}}
+  <p>{{color.value}}</p>
+{{/dropdown-list}}
 <button class="button-primary"
   id="tf-test-saveButton"
   onclick={{action 'saveTag' tag}}>Save</button>
