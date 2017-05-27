@@ -1,6 +1,6 @@
 <h3>{{title}}</h3>
 {{#if msgs}}
-  <ul id="tf-test-msgs">
+  <ul data-test-tag-msgs>
     {{#each msgs as |msg|}}
       <li>{{msg}}</li>
     {{/each}}
@@ -12,5 +12,5 @@
   {{color-option color=color}}
 {{/dropdown-list}}
 <button class="button-primary"
-  id="tf-test-saveButton"
+  data-test-tag-save
   onclick={{action 'saveTag' tag}}>Save</button>

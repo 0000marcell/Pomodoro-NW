@@ -1,5 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import testSelector from 'ember-test-selectors';
 
 moduleForComponent('tag-form', 
   'Integration | Component | tag form', {
@@ -30,8 +31,8 @@ test('#tag-form-01 it creates a tag, shows a msg',
     });
   });
   this.render(hbs`{{tag-form saveTag=saveTag tag=tag}}`);
-  this.$('#tf-test-saveButton').click();
-  assert.equal(this.$('#tf-test-msgs').text().trim(), 
+  this.$(testSelector('tag-save')).click()
+  assert.equal(this.$(testSelector('tag-msgs')).text().trim(), 
       'tag saved!');
 });
 
