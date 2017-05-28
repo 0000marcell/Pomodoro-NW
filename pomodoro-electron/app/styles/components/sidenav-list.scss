@@ -3,100 +3,28 @@
   height: 100%;
   .sidenav-list-header{
     @include border(bottom);
-    height: 160px;
-    .sidenav-list-header-header {
-      flex: 0 0 50%;
-      h3{
-        display: block;
-        margin: 30px auto;
-        color: $color;
-      }
+    height: 130px;
+    display: flex;
+    flex-flow: column nowrap;
+    .sidenav-list-header-header{
+      flex: 0 0 33%;
     }
     .sidenav-list-header-body{
-      flex: 0 0 30%;
+      flex: 0 0 33%;
     }
     .sidenav-list-header-footer{
-      flex: 0 0 20%;
-      .add-item-container{
-        padding-left: 26px;
-        padding-bottom: 20px;
-      }
-    }
-    input{
-      padding-left: 20px;
-      border: 2px solid $color;
-      display: block;   
-      width: 75%;
-      height: 30px;
-      margin: 0 auto;
+      flex: 0 0 33%;
+      justify-content: center;
+      padding-left: 10%;
     }
   }
-
   .sidenav-list-body{
-    height: 320px;
+    height: 500px;
     overflow: scroll;
-    ul{
-      margin: 0;
-      padding: 0;
-      li{
-        display: block;
-        @include border(bottom);
-        height: 36px;
-        padding: 0;
-        div{
-          margin: 0 auto;
-          height: 100%;
-          width: 80%;
-          span{
-            display: inline-block;
-            height: 100%;
-            padding-top: 8px;
-          }
-          .task-name{
-            width: 40%;   
-          }
-          .pomodoro-time{
-            width: 34%;
-            padding-left: 50px;
-          }
-          .opt-container{
-            text-align: right;   
-            width: 25%;
-          }
-        }
-      }
-      li:hover{
-        background-color: $color;   
-        cursor: pointer;
-        color: #fff;
-        i{
-          color: #fff;
-        }
-      }
-    }
-    .no-result-container{
-      padding-top: 20px;
-      h1{
-        display: block;
-        width: 200px;
-        margin: 0 auto;
-      }
-    }
   }
   .sidenav-list-footer{
     @include border(top);
     height: 300px;
-    .sidenav-footer-opts-container {
-      padding: 10px 0 0 25px;
-      height: 100%;
-      button{
-        width: 80px;
-        height: 30px;
-        i{
-          color: #fff;   
-        }
-      }
-    }
   }
 }
 

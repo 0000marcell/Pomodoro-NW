@@ -1,26 +1,25 @@
 <div class="sidenav-list-header column">
-  <div class="sidenav-list-header-header row">
+  <div class="sidenav-list-header-header row centralized">
     <h3>
       {{fa-icon 'bars'}}
       {{listMode}}
     </h3>
   </div>
   <div 
-    class="sidenav-list-header-body column">
+    class="sidenav-list-header-body column centralized">
     {{input placeholder="Search"
       id="sl-test-search"
       key-up=(action "searchList")
       type='text' value=search}}
   </div>
-  <div class="sidenav-list-header-footer">
-    <div
-      onclick={{action "showLeftPanel"}}
-        class="add-item-container">
-      {{fa-icon "plus"}}
-    </div>
+  <div class="sidenav-list-header-footer column">
+    <button onclick={{action "showLeftPanel"}}>
+      add
+    </button>
   </div>
 </div>
 <div class="sidenav-list-body">
+  <!--
   {{#if loading}}
     <div class="loading-container">
       <i 
@@ -54,8 +53,10 @@
       </div>
     {{/if}}
   {{/if}}
+  -->
 </div>
 <div class="sidenav-list-footer">
+  <!--
   <div class="sidenav-footer-opts-container">
     <button onclick={{action "changeListMode" "tasks"}}>
       Tasks
@@ -64,5 +65,5 @@
       Tags
     </button>
   </div>
+  -->
 </div>
-{{yield}}

@@ -6,18 +6,24 @@ body, html {
 
 button {
   background-color: #00baff;
-  width: 120px;
-  height: 36px !important;
+  width: 80px;
+  height: 26px !important;
   border: none;
   color: #fff;
   letter-spacing: 2px;
   text-transform: uppercase; }
 
+h3 {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #00baff; }
+
 input {
   border: 2px solid #00baff;
   display: block;
-  width: 100%;
-  height: 20px;
+  width: 80%;
+  height: 23px;
   margin: 0 auto; }
 
 .active {
@@ -34,6 +40,10 @@ i {
   left: 0;
   width: 100%;
   height: 100%; }
+
+.centralized {
+  justify-content: center;
+  align-items: center; }
 
 .row {
   display: flex;
@@ -509,77 +519,23 @@ i {
   height: 100%; }
   .sidenav-list .sidenav-list-header {
     border-bottom: 1px solid #c8c8c8;
-    height: 160px; }
+    height: 130px;
+    display: flex;
+    flex-flow: column nowrap; }
     .sidenav-list .sidenav-list-header .sidenav-list-header-header {
-      flex: 0 0 50%; }
-      .sidenav-list .sidenav-list-header .sidenav-list-header-header h3 {
-        display: block;
-        margin: 30px auto;
-        color: #00baff; }
+      flex: 0 0 33%; }
     .sidenav-list .sidenav-list-header .sidenav-list-header-body {
-      flex: 0 0 30%; }
+      flex: 0 0 33%; }
     .sidenav-list .sidenav-list-header .sidenav-list-header-footer {
-      flex: 0 0 20%; }
-      .sidenav-list .sidenav-list-header .sidenav-list-header-footer .add-item-container {
-        padding-left: 26px;
-        padding-bottom: 20px; }
-    .sidenav-list .sidenav-list-header input {
-      padding-left: 20px;
-      border: 2px solid #00baff;
-      display: block;
-      width: 75%;
-      height: 30px;
-      margin: 0 auto; }
+      flex: 0 0 33%;
+      justify-content: center;
+      padding-left: 10%; }
   .sidenav-list .sidenav-list-body {
-    height: 320px;
+    height: 500px;
     overflow: scroll; }
-    .sidenav-list .sidenav-list-body ul {
-      margin: 0;
-      padding: 0; }
-      .sidenav-list .sidenav-list-body ul li {
-        display: block;
-        border-bottom: 1px solid #c8c8c8;
-        height: 36px;
-        padding: 0; }
-        .sidenav-list .sidenav-list-body ul li div {
-          margin: 0 auto;
-          height: 100%;
-          width: 80%; }
-          .sidenav-list .sidenav-list-body ul li div span {
-            display: inline-block;
-            height: 100%;
-            padding-top: 8px; }
-          .sidenav-list .sidenav-list-body ul li div .task-name {
-            width: 40%; }
-          .sidenav-list .sidenav-list-body ul li div .pomodoro-time {
-            width: 34%;
-            padding-left: 50px; }
-          .sidenav-list .sidenav-list-body ul li div .opt-container {
-            text-align: right;
-            width: 25%; }
-      .sidenav-list .sidenav-list-body ul li:hover {
-        background-color: #00baff;
-        cursor: pointer;
-        color: #fff; }
-        .sidenav-list .sidenav-list-body ul li:hover i {
-          color: #fff; }
-    .sidenav-list .sidenav-list-body .no-result-container {
-      padding-top: 20px; }
-      .sidenav-list .sidenav-list-body .no-result-container h1 {
-        display: block;
-        width: 200px;
-        margin: 0 auto; }
   .sidenav-list .sidenav-list-footer {
     border-top: 1px solid #c8c8c8;
     height: 300px; }
-    .sidenav-list .sidenav-list-footer .sidenav-footer-opts-container {
-      padding: 10px 0 0 25px;
-      height: 100%; }
-      .sidenav-list .sidenav-list-footer .sidenav-footer-opts-container button {
-        width: 80px;
-        height: 30px; }
-        .sidenav-list .sidenav-list-footer .sidenav-footer-opts-container button i {
-          color: #fff; }
 
 .loading-container {
   width: 100%;
