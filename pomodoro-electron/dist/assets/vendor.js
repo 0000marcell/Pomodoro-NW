@@ -88837,6 +88837,22 @@ function createDeprecatedModule(moduleId) {
 createDeprecatedModule('ember/resolver');
 createDeprecatedModule('resolver');
 
+;/* global Ember */
+
+(function() {
+  var bindDataTestAttributes;
+
+  Ember.Component.reopen({
+    init: function() {
+      this._super.apply(this, arguments);
+      if (!bindDataTestAttributes) {
+        bindDataTestAttributes = require('ember-test-selectors/utils/bind-data-test-attributes')['default'];
+      }
+      bindDataTestAttributes(this);
+    }
+  });
+})();
+
 ;/* eslint-disable */
 
 /*
@@ -111446,6 +111462,65 @@ define('ember-route-action-helper/helpers/route-action', ['exports', 'ember', 'e
       return routeAction;
     }
   });
+});
+define('ember-test-selectors/index', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = testSelector;
+  var isNone = _ember['default'].isNone;
+
+  function testSelector(key, value) {
+    return isNone(value) ? '[data-test-' + key + ']' : '[data-test-' + key + '="' + value + '"]';
+  }
+});
+define('ember-test-selectors/utils/bind-data-test-attributes', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = bindDataTestAttributes;
+  var warn = _ember['default'].warn;
+  var isArray = _ember['default'].isArray;
+
+  var TEST_SELECTOR_PREFIX = /data-test-.*/;
+
+  function bindDataTestAttributes(component) {
+    var dataTestProperties = [];
+    for (var attr in component) {
+      if (TEST_SELECTOR_PREFIX.test(attr)) {
+        dataTestProperties.push(attr);
+      }
+    }
+
+    if (dataTestProperties.length === 0) {
+      return;
+    }
+
+    var tagName = component.get('tagName');
+    if (tagName === '') {
+      var message = 'ember-test-selectors could not bind data-test-* properties on ' + component + ' ' + 'automatically because tagName is empty.';
+
+      return warn(message, false, {
+        id: 'ember-test-selectors.empty-tag-name'
+      });
+    }
+
+    var computedBindings = component.attributeBindings && component.attributeBindings.isDescriptor;
+    if (computedBindings) {
+      var message = 'ember-test-selectors could not bind data-test-* properties on ' + component + ' ' + 'automatically because attributeBindings is a computed property.';
+
+      return warn(message, false, {
+        id: 'ember-test-selectors.computed-attribute-bindings'
+      });
+    }
+
+    var attributeBindings = component.getWithDefault('attributeBindings', []);
+    if (!isArray(attributeBindings)) {
+      attributeBindings = [attributeBindings];
+    } else {
+      attributeBindings = attributeBindings.slice();
+    }
+
+    dataTestProperties.forEach(function (it) {
+      return attributeBindings.push(it);
+    });
+
+    component.set('attributeBindings', attributeBindings);
+  }
 });
 define('ember-truth-helpers/helpers/and', ['exports', 'ember-truth-helpers/utils/truth-convert'], function (exports, _emberTruthHelpersUtilsTruthConvert) {
   exports.andHelper = andHelper;

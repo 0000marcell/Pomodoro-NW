@@ -7,9 +7,8 @@ body, html {
 button {
   background-color: #00baff;
   width: 120px;
-  height: 40px;
+  height: 36px !important;
   border: none;
-  border-radius: 8px;
   color: #fff;
   letter-spacing: 2px;
   text-transform: uppercase; }
@@ -515,18 +514,21 @@ i {
       flex: 0 0 50%; }
       .sidenav-list .sidenav-list-header .sidenav-list-header-header h3 {
         display: block;
-        margin: 20px auto;
+        margin: 30px auto;
         color: #00baff; }
     .sidenav-list .sidenav-list-header .sidenav-list-header-body {
       flex: 0 0 30%; }
     .sidenav-list .sidenav-list-header .sidenav-list-header-footer {
-      flex: 0 0 20%;
-      padding: 10px 0 0 20px; }
+      flex: 0 0 20%; }
+      .sidenav-list .sidenav-list-header .sidenav-list-header-footer .add-item-container {
+        padding-left: 26px;
+        padding-bottom: 20px; }
     .sidenav-list .sidenav-list-header input {
+      padding-left: 20px;
       border: 2px solid #00baff;
       display: block;
-      width: 70%;
-      height: 20px;
+      width: 75%;
+      height: 30px;
       margin: 0 auto; }
   .sidenav-list .sidenav-list-body {
     height: 320px;
@@ -537,7 +539,7 @@ i {
       .sidenav-list .sidenav-list-body ul li {
         display: block;
         border-bottom: 1px solid #c8c8c8;
-        height: 40px;
+        height: 36px;
         padding: 0; }
         .sidenav-list .sidenav-list-body ul li div {
           margin: 0 auto;
@@ -546,11 +548,12 @@ i {
           .sidenav-list .sidenav-list-body ul li div span {
             display: inline-block;
             height: 100%;
-            padding-top: 10px; }
+            padding-top: 8px; }
           .sidenav-list .sidenav-list-body ul li div .task-name {
             width: 40%; }
           .sidenav-list .sidenav-list-body ul li div .pomodoro-time {
-            width: 30%; }
+            width: 34%;
+            padding-left: 50px; }
           .sidenav-list .sidenav-list-body ul li div .opt-container {
             text-align: right;
             width: 25%; }

@@ -8,7 +8,7 @@
       flex: 0 0 50%;
       h3{
         display: block;
-        margin: 20px auto;
+        margin: 30px auto;
         color: $color;
       }
     }
@@ -17,13 +17,17 @@
     }
     .sidenav-list-header-footer{
       flex: 0 0 20%;
-      padding: 10px 0 0 20px;
+      .add-item-container{
+        padding-left: 26px;
+        padding-bottom: 20px;
+      }
     }
     input{
+      padding-left: 20px;
       border: 2px solid $color;
       display: block;   
-      width: 70%;
-      height: 20px;
+      width: 75%;
+      height: 30px;
       margin: 0 auto;
     }
   }
@@ -37,7 +41,7 @@
       li{
         display: block;
         @include border(bottom);
-        height: 40px;
+        height: 36px;
         padding: 0;
         div{
           margin: 0 auto;
@@ -46,13 +50,14 @@
           span{
             display: inline-block;
             height: 100%;
-            padding-top: 10px;
+            padding-top: 8px;
           }
           .task-name{
             width: 40%;   
           }
           .pomodoro-time{
-            width: 30%;   
+            width: 34%;
+            padding-left: 50px;
           }
           .opt-container{
             text-align: right;   

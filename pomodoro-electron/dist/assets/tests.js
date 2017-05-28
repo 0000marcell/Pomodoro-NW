@@ -196,6 +196,19 @@ define('pomodoro-electron/tests/helpers/destroy-app', ['exports', 'ember'], func
     _ember['default'].run(application, 'destroy');
   }
 });
+define('pomodoro-electron/tests/helpers/ember-test-selectors', ['exports', 'ember', 'ember-test-selectors'], function (exports, _ember, _emberTestSelectors) {
+  var deprecate = _ember['default'].deprecate;
+
+  var message = 'Importing testSelector() from "<appname>/tests/helpers/ember-test-selectors" is deprecated. ' + 'Please import testSelector() from "ember-test-selectors" instead.';
+
+  deprecate(message, false, {
+    id: 'ember-test-selectors.test-selector-import',
+    until: '0.2.0',
+    url: 'https://github.com/simplabs/ember-test-selectors#usage'
+  });
+
+  exports['default'] = _emberTestSelectors['default'];
+});
 define('pomodoro-electron/tests/helpers/module-for-acceptance', ['exports', 'qunit', 'ember', 'pomodoro-electron/tests/helpers/start-app', 'pomodoro-electron/tests/helpers/destroy-app'], function (exports, _qunit, _ember, _pomodoroElectronTestsHelpersStartApp, _pomodoroElectronTestsHelpersDestroyApp) {
   var Promise = _ember['default'].RSVP.Promise;
 
@@ -520,7 +533,7 @@ define('pomodoro-electron/tests/integration/components/sidenav-panel-test', ['ex
     assert.equal(this.$('.left-panel').length, 0);
   });
 });
-define('pomodoro-electron/tests/integration/components/tag-form-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+define('pomodoro-electron/tests/integration/components/tag-form-test', ['exports', 'ember-qunit', 'ember-test-selectors'], function (exports, _emberQunit, _emberTestSelectors) {
 
   (0, _emberQunit.moduleForComponent)('tag-form', 'Integration | Component | tag form', {
     integration: true
@@ -552,8 +565,8 @@ define('pomodoro-electron/tests/integration/components/tag-form-test', ['exports
       'block': '{"statements":[["append",["helper",["tag-form"],null,[["saveTag","tag"],[["get",["saveTag"]],["get",["tag"]]]]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
       'meta': {}
     }));
-    this.$('#tf-test-saveButton').click();
-    assert.equal(this.$('#tf-test-msgs').text().trim(), 'tag saved!');
+    this.$((0, _emberTestSelectors['default'])('tag-save')).click();
+    assert.equal(this.$((0, _emberTestSelectors['default'])('tag-msgs')).text().trim(), 'tag saved!');
   });
 
   (0, _emberQunit.test)('#tag-form-02 it shows an error msg', function (assert) {
@@ -743,7 +756,7 @@ define('pomodoro-electron/tests/tests.lint-test', ['exports'], function (exports
 
   QUnit.test('integration/components/tag-form-test.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'integration/components/tag-form-test.js should pass ESLint\n\n12:7 - \'baseModel\' is assigned a value but never used. (no-unused-vars)\n23:16 - \'Ember\' is not defined. (no-undef)\n41:16 - \'Ember\' is not defined. (no-undef)');
+    assert.ok(false, 'integration/components/tag-form-test.js should pass ESLint\n\n13:7 - \'baseModel\' is assigned a value but never used. (no-unused-vars)\n24:16 - \'Ember\' is not defined. (no-undef)\n42:16 - \'Ember\' is not defined. (no-undef)');
   });
 
   QUnit.test('integration/components/task-form-test.js', function (assert) {
