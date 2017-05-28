@@ -15,16 +15,60 @@
     .sidenav-list-header-footer{
       flex: 0 0 33%;
       justify-content: center;
-      padding-left: 10%;
+      .sidenav-list-header-footer-container{
+        width: 82%;   
+      }
     }
   }
   .sidenav-list-body{
-    height: 500px;
+    height: 300px;
     overflow: scroll;
+    justify-content: center;
+    ul{
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      li:hover{
+        background-color: $color;
+        color: #fff;
+        cursor: pointer;
+        i{
+          color: #fff;
+        }
+      }
+      .active{
+        i{
+          color: #fff;
+        }
+      }
+      li{
+        list-style-type: none;
+        height: 40px;
+        justify-content: center;
+        align-items: center;
+        div {
+          width: 80%;
+          span{
+            flex: 0 0 33%;
+            i{
+              float: right;   
+            }
+          }
+        }
+      }
+    }
   }
   .sidenav-list-footer{
     @include border(top);
     height: 300px;
+    justify-content: center;
+    padding-top: 10px;
+    .sidenav-list-footer-container{
+      width: 90%;
+    }
+    button{
+      margin-left: 5px;
+    }
   }
 }
 
