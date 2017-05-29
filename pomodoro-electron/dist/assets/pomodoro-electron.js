@@ -234,7 +234,7 @@ define('pomodoro-electron/components/tag-form', ['exports', 'ember'], function (
 });
 define('pomodoro-electron/components/task-form', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({
-    classNames: ['edit-task-comp', 'column'],
+    classNames: ['task-form', 'column'],
     actions: {
       saveTask: function saveTask(task) {
         var _this = this;
@@ -1020,6 +1020,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("pomodoro-electron/app")["default"].create({"name":"pomodoro-electron","version":"0.0.0+22679246"});
+  require("pomodoro-electron/app")["default"].create({"name":"pomodoro-electron","version":"0.0.0+717519c0"});
 }
 //# sourceMappingURL=pomodoro-electron.map

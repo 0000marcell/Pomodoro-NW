@@ -516,10 +516,11 @@ i {
 
 .sidenav-list {
   width: 100%;
-  height: 100%; }
+  height: 100%;
+  padding-top: 55px; }
   .sidenav-list .sidenav-list-header {
     border-bottom: 1px solid #c8c8c8;
-    height: 130px;
+    height: 150px;
     display: flex;
     flex-flow: column nowrap; }
     .sidenav-list .sidenav-list-header .sidenav-list-header-header {
@@ -538,6 +539,7 @@ i {
     .sidenav-list .sidenav-list-body ul {
       margin: 0;
       padding: 0;
+      padding-top: 20px;
       width: 100%; }
       .sidenav-list .sidenav-list-body ul li:hover {
         background-color: #E91E63;
@@ -562,7 +564,7 @@ i {
     border-top: 1px solid #c8c8c8;
     height: 300px;
     justify-content: center;
-    padding-top: 10px; }
+    padding-top: 20px; }
     .sidenav-list .sidenav-list-footer .sidenav-list-footer-container {
       width: 90%; }
     .sidenav-list .sidenav-list-footer button {
@@ -614,7 +616,7 @@ i {
       .sidenav-panel .sidenav-panel-side .sidenav-panel-side-body .sidenav-panel-side-body-container {
         flex: 0 0 80%;
         height: 100%;
-        padding-top: 20px; }
+        padding-top: 32px; }
   .sidenav-panel .sidenav-panel-aside {
     flex: 0 0 50%;
     height: 100%; }
@@ -628,13 +630,14 @@ i {
 .left-panel .sidenav-panel {
   transform: translate(600px); }
 
-.edit-task-comp {
+.task-form {
   height: 100%;
   width: 100%; }
-  .edit-task-comp button {
+  .task-form button {
     margin-top: 20px; }
-  .edit-task-comp input {
-    margin-top: 20px; }
+  .task-form input {
+    margin-top: 20px !important;
+    width: 98%; }
 
 .edit-tag-comp {
   height: 100%;
@@ -649,7 +652,12 @@ i {
   margin-top: 20px; }
   .dropdown-list .dropdown-list-selected {
     border: 2px solid #E91E63;
-    padding: 20px 0 0 20px; }
+    height: 30px;
+    margin: 0; }
+    .dropdown-list .dropdown-list-selected p {
+      margin: 0;
+      padding-top: 5px;
+      padding-left: 5px; }
   .dropdown-list .dropdown-list-dropdown {
     position: absolute;
     min-width: 215px;

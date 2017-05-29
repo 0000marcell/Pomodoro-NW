@@ -1,9 +1,10 @@
 .sidenav-list{
   width: 100%;
   height: 100%;
+  padding-top: 55px;
   .sidenav-list-header{
     @include border(bottom);
-    height: 130px;
+    height: 150px;
     display: flex;
     flex-flow: column nowrap;
     .sidenav-list-header-header{
@@ -27,6 +28,7 @@
     ul{
       margin: 0;
       padding: 0;
+      padding-top: 20px;
       width: 100%;
       li:hover{
         background-color: $color;
@@ -62,7 +64,7 @@
     @include border(top);
     height: 300px;
     justify-content: center;
-    padding-top: 10px;
+    padding-top: 20px;
     .sidenav-list-footer-container{
       width: 90%;
     }
