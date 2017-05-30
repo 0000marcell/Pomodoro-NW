@@ -47,7 +47,7 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
 
   QUnit.test('components/task-form.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'components/task-form.js should pass ESLint\n\n');
+    assert.ok(false, 'components/task-form.js should pass ESLint\n\n17:7 - Unexpected console statement. (no-console)');
   });
 
   QUnit.test('components/tasks-sidenav.js', function (assert) {
@@ -87,7 +87,7 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
 
   QUnit.test('routes/application.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'routes/application.js should pass ESLint\n\n22:16 - \'task\' is defined but never used. (no-unused-vars)\n28:15 - \'tag\' is defined but never used. (no-unused-vars)');
+    assert.ok(true, 'routes/application.js should pass ESLint\n\n');
   });
 
   QUnit.test('routes/configuration.js', function (assert) {

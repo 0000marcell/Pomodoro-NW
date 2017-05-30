@@ -11,7 +11,7 @@ function createTasks() {
   for (let i = 1; i < 6; i++) {
     obj.tasks.push({id: i+'', name: `Task ${i}`, 
       description: `description ${i}`,
-      pomodoros: []}); 
+      pomodoros: [], tag: null}); 
     for (let j = 1; j < 6; j++) {
       obj.tasks[i - 1]
         .pomodoros.push({date: new Date()});

@@ -19,8 +19,14 @@ export default Ember.Component.extend({
     saveTag(tag){
       this.get('saveTag')(tag).then(() => {
         this.set('msgs', ['tag saved!']); 
+        Ember.run.later(this, () => {
+          this.set('msgs', []);
+        }, 5000);
       }).catch(() => {
         this.set('msgs', ['an error occored!']);
+        Ember.run.later(this, () => {
+          this.set('msgs', []);
+        }, 5000);
       }); 
     }
   }

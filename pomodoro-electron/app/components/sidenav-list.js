@@ -4,8 +4,8 @@ export default Ember.Component.extend({
   classNames: ['sidenav-list'],
   newTag: {name: null, description: null,
     color: null},
-  newTask: {name: null, description: null, 
-    pomodoros: []},
+  newTask: {name: null, description: null, tag: null,
+            pomodoros: []},
   didReceiveAttrs(){
     this.set('filteredList', 
       this.get(`model.storage.${this.get('listMode')}`)); 

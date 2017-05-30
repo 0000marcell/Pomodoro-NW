@@ -14,10 +14,17 @@ export default Ember.Component.extend({
   },
   actions: {
     saveTask(task){
+      console.log('save task');
       this.get('saveTask')(task).then(() => {
         this.set('msgs', ['task saved!']); 
+        Ember.run.later(this, () => {
+          this.set('msgs', []);
+        }, 5000);
       }).catch(() => {
         this.set('msgs', ['an error occored!']); 
+        Ember.run.later(this, () => {
+          this.set('msgs', []);
+        }, 5000);
       }); 
     }
   }

@@ -10,7 +10,7 @@
 {{/if}}
 {{input type='text' value=task.name}}
 {{input type='text' value=task.description}}
-{{#dropdown-list items=tags as |tag|}}
+{{#dropdown-list selected=task.tag items=tags as |tag|}}
   <p>{{tag.name}}</p>
 {{/dropdown-list}}
 <button class="button-primary"
