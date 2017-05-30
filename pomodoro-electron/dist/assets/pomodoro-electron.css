@@ -695,6 +695,19 @@ i {
   display: inline-block;
   margin-left: 10px; }
 
+.info-card {
+  padding: 20px;
+  background-color: #FFC107;
+  margin-top: 20px;
+  color: #fff;
+  max-height: 80px;
+  font-size: 15px; }
+  .info-card ul {
+    padding: 0;
+    margin: 0; }
+    .info-card ul li {
+      list-style-type: none; }
+
 .app-header {
   border-bottom: 1px solid #c8c8c8;
   height: 56px;

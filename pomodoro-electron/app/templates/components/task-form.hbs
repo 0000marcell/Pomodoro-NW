@@ -1,10 +1,12 @@
-<h3>{{title}}</h3>
+<h3>{{mode}} task</h3>
 {{#if msgs}}
-  <ul id="taf-test-msgs">
-    {{#each msgs as |msg|}}
-      <li>{{msg}}</li>
-    {{/each}}
-  </ul> 
+  {{#info-card}}
+    <ul id="taf-test-msgs">
+      {{#each msgs as |msg|}}
+        <li>{{msg}}</li>
+      {{/each}}
+    </ul> 
+  {{/info-card}}
 {{/if}}
 {{input type='text' value=task.name}}
 {{input type='text' value=task.description}}

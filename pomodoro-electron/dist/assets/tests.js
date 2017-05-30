@@ -25,6 +25,11 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
     assert.ok(true, 'components/flip-clock.js should pass ESLint\n\n');
   });
 
+  QUnit.test('components/info-card.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/info-card.js should pass ESLint\n\n');
+  });
+
   QUnit.test('components/sidenav-list.js', function (assert) {
     assert.expect(1);
     assert.ok(false, 'components/sidenav-list.js should pass ESLint\n\n39:9 - Unexpected console statement. (no-console)');
@@ -427,6 +432,35 @@ define('pomodoro-electron/tests/integration/components/flip-clock-test', ['expor
     });
   });
 });
+define('pomodoro-electron/tests/integration/components/info-card-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleForComponent)('info-card', 'Integration | Component | info card', {
+    integration: true
+  });
+
+  (0, _emberQunit.test)('it renders', function (assert) {
+
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.on('myAction', function(val) { ... });
+
+    this.render(Ember.HTMLBars.template({
+      'id': 'Bx2W2tn3',
+      'block': '{"statements":[["append",["unknown",["info-card"]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
+      'meta': {}
+    }));
+
+    assert.equal(this.$().text().trim(), '');
+
+    // Template block usage:
+    this.render(Ember.HTMLBars.template({
+      'id': '61yuDTWj',
+      'block': '{"statements":[["text","\\n"],["block",["info-card"],null,null,0],["text","  "]],"locals":[],"named":[],"yields":[],"blocks":[{"statements":[["text","      template block text\\n"]],"locals":[]}],"hasPartials":false}',
+      'meta': {}
+    }));
+
+    assert.equal(this.$().text().trim(), 'template block text');
+  });
+});
 define('pomodoro-electron/tests/integration/components/sidenav-list-test', ['exports', 'ember', 'ember-qunit'], function (exports, _ember, _emberQunit) {
 
   (0, _emberQunit.moduleForComponent)('sidenav-list', 'Integration | Component | sidenav list', {
@@ -742,6 +776,11 @@ define('pomodoro-electron/tests/tests.lint-test', ['exports'], function (exports
   QUnit.test('integration/components/flip-clock-test.js', function (assert) {
     assert.expect(1);
     assert.ok(false, 'integration/components/flip-clock-test.js should pass ESLint\n\n3:8 - \'wait\' is defined but never used. (no-unused-vars)\n84:43 - \'reject\' is defined but never used. (no-unused-vars)');
+  });
+
+  QUnit.test('integration/components/info-card-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/components/info-card-test.js should pass ESLint\n\n');
   });
 
   QUnit.test('integration/components/sidenav-list-test.js', function (assert) {

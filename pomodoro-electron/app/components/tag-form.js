@@ -5,6 +5,13 @@ export default Ember.Component.extend({
   didInsertElement(){
     this.set('msgs', []);
   },
+  didReceiveAttrs(){
+    if(this.get('tag.name')){
+      this.set('mode', 'edit');
+    }else{
+      this.set('mode', 'create');
+    }
+  },
   title: 'new task',
   tag: {name: '', description: '', 
     color: ''},

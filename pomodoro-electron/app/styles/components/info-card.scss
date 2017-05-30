@@ -1,0 +1,15 @@
+.info-card{
+  padding: 20px;
+  background-color: $color-warm;
+  margin-top: 20px;
+  color: #fff;
+  max-height: 80px;
+  font-size: 15px;
+  ul{
+    padding: 0;
+    margin: 0;
+    li{
+      list-style-type: none;
+    }
+  }
+}
