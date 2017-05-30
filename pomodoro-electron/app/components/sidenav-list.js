@@ -11,6 +11,23 @@ export default Ember.Component.extend({
       this.get(`model.storage.${this.get('listMode')}`)); 
   },
   loading: false,
+  setLeftPanelModel(item){
+    if(this.get('listMode') === 'tasks'){
+      this.set('mode.model', 
+        (item.name) ? item :  
+          this.get('newTask'));
+      this.set('mode.saveAction', 
+        (item.name) ? 'editTask' : 
+          'createTask');
+    }else{
+      this.set('mode.model', 
+        (item.name) ? item :  
+          this.get('newTag'));
+      this.set('mode.saveAction', 
+        (item.name) ? 'editTag' : 
+          'createTag')
+    }
+  },
   actions: {
     searchList(){
       this.set('loading', true);
@@ -41,23 +58,10 @@ export default Ember.Component.extend({
         this.set('model.state.selectedTask', 
           item);
       }
+      this.setLeftPanelModel(item);
     },
     showLeftPanel(item){
-      if(this.get('listMode') === 'tasks'){
-        this.set('mode.model', 
-          (item.name) ? item :  
-            this.get('newTask'));
-        this.set('mode.saveAction', 
-          (item.name) ? 'editTask' : 
-            'createTask');
-      }else{
-        this.set('mode.model', 
-          (item.name) ? item :  
-            this.get('newTag'));
-        this.set('mode.saveAction', 
-          (item.name) ? 'editTag' : 
-            'createTag')
-      }
+      this.setLeftPanelModel(item); 
       this.set('showLeftPanel', true);
     },
     changeListMode(mode){

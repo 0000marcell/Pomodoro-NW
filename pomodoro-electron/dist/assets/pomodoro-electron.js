@@ -151,6 +151,15 @@ define('pomodoro-electron/components/sidenav-list', ['exports', 'ember'], functi
       this.set('filteredList', this.get('model.storage.' + this.get('listMode')));
     },
     loading: false,
+    setLeftPanelModel: function setLeftPanelModel(item) {
+      if (this.get('listMode') === 'tasks') {
+        this.set('mode.model', item.name ? item : this.get('newTask'));
+        this.set('mode.saveAction', item.name ? 'editTask' : 'createTask');
+      } else {
+        this.set('mode.model', item.name ? item : this.get('newTag'));
+        this.set('mode.saveAction', item.name ? 'editTag' : 'createTag');
+      }
+    },
     actions: {
       searchList: function searchList() {
         var _this = this;
@@ -177,15 +186,10 @@ define('pomodoro-electron/components/sidenav-list', ['exports', 'ember'], functi
         if (this.get('listMode') === 'tasks') {
           this.set('model.state.selectedTask', item);
         }
+        this.setLeftPanelModel(item);
       },
       showLeftPanel: function showLeftPanel(item) {
-        if (this.get('listMode') === 'tasks') {
-          this.set('mode.model', item.name ? item : this.get('newTask'));
-          this.set('mode.saveAction', item.name ? 'editTask' : 'createTask');
-        } else {
-          this.set('mode.model', item.name ? item : this.get('newTag'));
-          this.set('mode.saveAction', item.name ? 'editTag' : 'createTag');
-        }
+        this.setLeftPanelModel(item);
         this.set('showLeftPanel', true);
       },
       changeListMode: function changeListMode(mode) {
@@ -1020,6 +1024,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("pomodoro-electron/app")["default"].create({"name":"pomodoro-electron","version":"0.0.0+717519c0"});
+  require("pomodoro-electron/app")["default"].create({"name":"pomodoro-electron","version":"0.0.0+80f53600"});
 }
 //# sourceMappingURL=pomodoro-electron.map
