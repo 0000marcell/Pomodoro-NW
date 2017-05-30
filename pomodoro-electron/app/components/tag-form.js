@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  classNames: ['edit-tag-comp', 'column'],
+  classNames: ['tag-form', 'column'],
   didInsertElement(){
     this.set('msgs', []);
   },

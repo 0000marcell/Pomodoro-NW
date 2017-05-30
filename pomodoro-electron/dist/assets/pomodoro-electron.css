@@ -539,7 +539,6 @@ i {
     .sidenav-list .sidenav-list-body ul {
       margin: 0;
       padding: 0;
-      padding-top: 20px;
       width: 100%; }
       .sidenav-list .sidenav-list-body ul li:hover {
         background-color: #E91E63;
@@ -639,13 +638,19 @@ i {
     margin-top: 20px !important;
     width: 98%; }
 
-.edit-tag-comp {
+.tag-form {
   height: 100%;
   width: 100%; }
-  .edit-tag-comp button {
+  .tag-form button {
     margin-top: 20px; }
-  .edit-tag-comp input {
-    margin-top: 20px; }
+  .tag-form input {
+    margin-top: 20px !important;
+    width: 98%; }
+  .tag-form .dropdown-list-selected {
+    padding: 5px; }
+  .tag-form .dropdown-list-dropdown {
+    padding: 5px 0 5px 5px;
+    width: 232px !important; }
 
 .dropdown-list {
   min-width: 215px;
@@ -658,10 +663,12 @@ i {
       margin: 0;
       padding-top: 5px;
       padding-left: 5px; }
+  .dropdown-list .dropdown-list-selected:hover {
+    cursor: pointer; }
   .dropdown-list .dropdown-list-dropdown {
+    cursor: pointer;
     margin-top: 2px;
     width: 236px;
-    height: 32px;
     position: absolute;
     background-color: #fff;
     z-index: 99;

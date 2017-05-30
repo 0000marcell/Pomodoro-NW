@@ -12,11 +12,12 @@
     }
   }
   .dropdown-list-selected:hover{
+    cursor: pointer;
   }
   .dropdown-list-dropdown{
+    cursor: pointer;
     margin-top: 2px;
     width: 236px;
-    height: 32px;
     position: absolute;
     background-color: #fff;
     z-index: 99;

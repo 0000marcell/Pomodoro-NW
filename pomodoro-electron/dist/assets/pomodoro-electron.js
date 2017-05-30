@@ -212,7 +212,7 @@ define('pomodoro-electron/components/sidenav-panel', ['exports', 'ember'], funct
 });
 define('pomodoro-electron/components/tag-form', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({
-    classNames: ['edit-tag-comp', 'column'],
+    classNames: ['tag-form', 'column'],
     didInsertElement: function didInsertElement() {
       this.set('msgs', []);
     },
