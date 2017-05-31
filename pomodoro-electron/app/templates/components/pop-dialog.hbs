@@ -1,1 +1,27 @@
-{{yield}}
+<div class="pop-dialog-box">
+  <div class="pop-dialog-header row">
+    <h3>{{title}}</h3>
+    <button
+      class="icon-button"
+      onclick={{action 'close' false}}>
+      {{fa-icon "close"}}
+    </button>
+  </div>
+  <div class="pop-dialog-body column">
+    <div class="pop-dialog-body-container">
+      {{yield}}
+    </div>
+  </div>
+  <div class="pop-dialog-footer row">
+    <button
+      class="icon-button"
+      onclick={{action 'close' true}}>
+      Confirm
+    </button>
+    <button
+      class="icon-button"
+      onclick={{action 'close' false}}>
+      Cancel
+    </button>
+  </div>
+</div>
