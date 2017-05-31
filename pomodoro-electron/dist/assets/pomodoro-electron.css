@@ -637,6 +637,11 @@ i {
   .task-form input {
     margin-top: 20px !important;
     width: 98%; }
+  .task-form .task-form-header {
+    justify-content: space-between;
+    align-items: center; }
+    .task-form .task-form-header button {
+      margin: 0; }
 
 .tag-form {
   height: 100%;
@@ -707,6 +712,23 @@ i {
     margin: 0; }
     .info-card ul li {
       list-style-type: none; }
+
+.pop-dialog-overlay {
+  display: none;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center; }
+  .pop-dialog-overlay .pop-dialog-box {
+    width: 350px;
+    height: 300px; }
 
 .app-header {
   border-bottom: 1px solid #c8c8c8;

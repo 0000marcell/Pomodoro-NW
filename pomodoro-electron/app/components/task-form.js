@@ -14,7 +14,6 @@ export default Ember.Component.extend({
   },
   actions: {
     saveTask(task){
-      console.log('save task');
       this.get('saveTask')(task).then(() => {
         this.set('msgs', ['task saved!']); 
         Ember.run.later(this, () => {
@@ -26,6 +25,9 @@ export default Ember.Component.extend({
           this.set('msgs', []);
         }, 5000);
       }); 
+    },
+    deleteTask(task){
+      console.log('deleteTask');
     }
   }
 });

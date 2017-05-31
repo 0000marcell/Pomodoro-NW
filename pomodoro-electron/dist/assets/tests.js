@@ -30,6 +30,11 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
     assert.ok(true, 'components/info-card.js should pass ESLint\n\n');
   });
 
+  QUnit.test('components/pop-dialog.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/pop-dialog.js should pass ESLint\n\n');
+  });
+
   QUnit.test('components/sidenav-list.js', function (assert) {
     assert.expect(1);
     assert.ok(false, 'components/sidenav-list.js should pass ESLint\n\n39:9 - Unexpected console statement. (no-console)');
@@ -47,7 +52,7 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
 
   QUnit.test('components/task-form.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'components/task-form.js should pass ESLint\n\n17:7 - Unexpected console statement. (no-console)');
+    assert.ok(false, 'components/task-form.js should pass ESLint\n\n29:16 - \'task\' is defined but never used. (no-unused-vars)\n30:7 - Unexpected console statement. (no-console)');
   });
 
   QUnit.test('components/tasks-sidenav.js', function (assert) {
@@ -461,6 +466,35 @@ define('pomodoro-electron/tests/integration/components/info-card-test', ['export
     assert.equal(this.$().text().trim(), 'template block text');
   });
 });
+define('pomodoro-electron/tests/integration/components/pop-dialog-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleForComponent)('pop-dialog', 'Integration | Component | pop dialog', {
+    integration: true
+  });
+
+  (0, _emberQunit.test)('it renders', function (assert) {
+
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.on('myAction', function(val) { ... });
+
+    this.render(Ember.HTMLBars.template({
+      'id': 'opuZ4rTW',
+      'block': '{"statements":[["append",["unknown",["pop-dialog"]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
+      'meta': {}
+    }));
+
+    assert.equal(this.$().text().trim(), '');
+
+    // Template block usage:
+    this.render(Ember.HTMLBars.template({
+      'id': 'g/WH0x+9',
+      'block': '{"statements":[["text","\\n"],["block",["pop-dialog"],null,null,0],["text","  "]],"locals":[],"named":[],"yields":[],"blocks":[{"statements":[["text","      template block text\\n"]],"locals":[]}],"hasPartials":false}',
+      'meta': {}
+    }));
+
+    assert.equal(this.$().text().trim(), 'template block text');
+  });
+});
 define('pomodoro-electron/tests/integration/components/sidenav-list-test', ['exports', 'ember', 'ember-qunit'], function (exports, _ember, _emberQunit) {
 
   (0, _emberQunit.moduleForComponent)('sidenav-list', 'Integration | Component | sidenav list', {
@@ -781,6 +815,11 @@ define('pomodoro-electron/tests/tests.lint-test', ['exports'], function (exports
   QUnit.test('integration/components/info-card-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'integration/components/info-card-test.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('integration/components/pop-dialog-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/components/pop-dialog-test.js should pass ESLint\n\n');
   });
 
   QUnit.test('integration/components/sidenav-list-test.js', function (assert) {
