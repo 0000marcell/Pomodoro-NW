@@ -32,8 +32,9 @@
     }
     .pop-dialog-body{
       justify-content: center;
-      align-items: center;
-      height: 60%;
+      height: 55%;
+      padding: 20px 20px 0 20px;
+      font-size: 18px;
       .pop-dialog-body-container{
         width: 80%;
         height: 200px;
@@ -42,6 +43,10 @@
     .pop-dialog-footer{
       height: 20%;
       padding: 0 20px 0 20px;
+      button{
+        width: 86px;
+        margin-right: 20px;
+      }
     }
   }
 }

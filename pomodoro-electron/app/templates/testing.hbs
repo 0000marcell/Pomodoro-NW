@@ -1,3 +1,10 @@
-{{#pop-dialog title="Testing"}}
-  <h3>Testing</h3>
+{{#pop-dialog 
+  confirm=dialogCB
+  showDialog=showDialog
+  title="Testing"}}
+  <p>Are you sure you wanna delete ?</p>
 {{/pop-dialog}}
+<button
+  onclick={{action 'showDialog'}}>
+  show
+</button>

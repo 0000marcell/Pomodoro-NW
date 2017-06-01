@@ -7,7 +7,7 @@ export default Ember.Component.extend({
   actions: {
     close(val){
       this.set('showDialog', false);
-      this.set('result', val);
+      this.get('confirm')(val);
     }
   }
 });
