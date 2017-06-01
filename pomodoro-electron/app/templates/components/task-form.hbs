@@ -1,8 +1,11 @@
 <div class="task-form-header row">
   <h3>{{mode}} task</h3>
-  <button
-    id="taf-test-saveButton"
-    onclick={{action 'deleteTask' task}}>delete</button>
+  {{#if (eq mode 'edit')}}
+    <button
+      onclick={{action 'completeTask' task}}>
+      complete
+    </button>  
+  {{/if}}
 </div>
 {{#if msgs}}
   {{#info-card}}

@@ -16,4 +16,11 @@
     padding: 5px 0 5px 5px;
     width: 232px !important;
   }
+  .tag-form-header{
+    justify-content: space-between;
+    align-items: center;
+    button{
+      margin: 0;
+    }
+  }
 }

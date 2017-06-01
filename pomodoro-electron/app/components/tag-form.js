@@ -28,6 +28,9 @@ export default Ember.Component.extend({
           this.set('msgs', []);
         }, 5000);
       }); 
+    },
+    completeTag(tag){
+      this.get('completeTag')(tag);
     }
   }
 });

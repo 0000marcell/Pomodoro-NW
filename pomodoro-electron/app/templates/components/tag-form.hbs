@@ -1,4 +1,12 @@
-<h3>{{mode}} tag</h3>
+<div class="tag-form-header row">
+  <h3>{{mode}} tag</h3>
+  {{#if (eq mode 'edit')}}
+    <button
+      onclick={{action 'completeTag' tag}}>
+      complete
+    </button>  
+  {{/if}}
+</div>
 {{#if msgs}}
   <ul data-test-tag-msgs>
     {{#each msgs as |msg|}}

@@ -26,8 +26,8 @@ export default Ember.Component.extend({
         }, 5000);
       }); 
     },
-    deleteTask(task){
-      this.get('deleteTask', task);
+    completeTask(task){
+      this.get('completeTask')(task);
     }
   }
 });

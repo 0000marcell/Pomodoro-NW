@@ -29,17 +29,8 @@ export default Ember.Route.extend({
         .pushObject(obj);
       return this.saveToStore(); 
     },
-    deleteTask(task){
-      this.set('showDialog', true);
-      this.set('dialogTitle', 'delete task');
-      this.set('text', `
-        Are you sure you wanna delete ${task.name} ?
-      `);
-      this.set('dialogCB', (val) => {
-        this.set('showDialog', false);
-        console.log('delete: ', val);
-      });
-
+    completeTask(task){
+      console.log('complete task!', task.id);
     },
     editTask(){
       return this.saveToStore(); 
@@ -52,8 +43,8 @@ export default Ember.Route.extend({
         .pushObject(obj);
       return this.saveToStore(); 
     },
-    deleteTag(tag){
-
+    completeTag(tag){
+      console.log('complete tag!', tag.id);
     },
     editTag(){
       return this.saveToStore(); 

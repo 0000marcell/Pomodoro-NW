@@ -17,14 +17,14 @@
             task=mode.model
             tags=model.storage.tags
             saveTask=(route-action mode.saveAction)
-            deleteTask=(route-action 'deleteTask')
+            completeTask=(route-action 'completeTask')
           }} 
         {{else if (eq listMode "tags")}}
           {{tag-form 
             title="Create Tag"
             colors=model.storage.colors
             tag=mode.model
-            deleteTag=(route-action 'deleteTag')
+            completeTag=(route-action 'completeTag')
             saveTag=(route-action mode.saveAction)
           }} 
         {{/if}}
