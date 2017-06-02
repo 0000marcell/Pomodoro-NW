@@ -6,9 +6,18 @@ export default Ember.Component.extend({
     color: null},
   newTask: {name: null, description: null, tag: null,
             pomodoros: []},
+  reloadList(){
+    let list = 
+      this.get(`model.storage.${this.get('listMode')}`),
+      result = list.filter((item) => {
+        return item.active; 
+      });
+    this.set('filteredList', result);
+  },
   didReceiveAttrs(){
-    this.set('filteredList', 
-      this.get(`model.storage.${this.get('listMode')}`)); 
+    this.reloadList();  
+    this.get('register')()
+      .set('sidenavList', this);
   },
   loading: false,
   setLeftPanelModel(item){

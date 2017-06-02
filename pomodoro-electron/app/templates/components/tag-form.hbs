@@ -8,11 +8,13 @@
   {{/if}}
 </div>
 {{#if msgs}}
-  <ul data-test-tag-msgs>
-    {{#each msgs as |msg|}}
-      <li>{{msg}}</li>
-    {{/each}}
-  </ul> 
+  {{#info-card}}
+    <ul data-test-tag-msgs>
+      {{#each msgs as |msg|}}
+        <li>{{msg}}</li>
+      {{/each}}
+    </ul> 
+  {{/info-card}}
 {{/if}}
 {{input type='text' value=tag.name}}
 {{input type='text' value=tag.description}}

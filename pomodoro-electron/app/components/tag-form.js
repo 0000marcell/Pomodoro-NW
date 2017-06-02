@@ -11,8 +11,12 @@ export default Ember.Component.extend({
     }else{
       this.set('mode', 'create');
     }
+    this.set('sidenavPanel', 
+      this.get('register')());
+    this.get('sidenavPanel')
+      .set('tagForm', this);
   },
-  title: 'new task',
+  title: 'new tag',
   tag: {name: '', description: '', 
     color: ''},
   actions: {
@@ -30,7 +34,18 @@ export default Ember.Component.extend({
       }); 
     },
     completeTag(tag){
-      this.get('completeTag')(tag);
+      this.get('completeTag')(tag).then(() => {
+        this.get('sidenavPanel').reloadList();
+        this.set('msgs', ['tag completed!']); 
+        Ember.run.later(this, () => {
+          this.set('msgs', []);
+        }, 5000);
+      }).catch((error) => {
+        this.set('msgs', [`error: ${error}`]); 
+        Ember.run.later(this, () => {
+          this.set('msgs', []);
+        }, 5000);
+      });
     }
   }
 });

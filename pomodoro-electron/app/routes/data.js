@@ -1,8 +1,8 @@
 let obj = {tasks: [], 
   tags: [{id: 1, name: 'work', 
-    description: 'work!', color: '#ff00ff'},
+    description: 'work!', color: '#ff00ff', active: true},
     {id: 2, name: 'learning', description: 'learning!',
-      color: '#fff00'}],
+      color: '#fff00', active: true}],
   colors: [{id: 1, value: '#F44336'}, 
     {id: 2, value: '#E91E63'},
     {id: 3, value: '#9C27B0'}]};  

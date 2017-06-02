@@ -47,6 +47,8 @@ export default Ember.Route.extend({
     },
     completeTag(tag){
       console.log('complete tag!', tag.id);
+      tag.active = false;
+      return this.saveToStore(); 
     },
     editTag(){
       return this.saveToStore(); 

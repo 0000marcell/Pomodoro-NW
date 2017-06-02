@@ -11,6 +11,10 @@ export default Ember.Component.extend({
     }else{
       this.set('mode', 'create');
     }
+    this.set('sidenavPanel', 
+      this.get('register')());
+    this.get('sidenavPanel')
+      .set('taskForm', this);
   },
   actions: {
     saveTask(task){
@@ -28,12 +32,13 @@ export default Ember.Component.extend({
     },
     completeTask(task){
       this.get('completeTask')(task).then(() => {
+        this.get('sidenavPanel').reloadList();
         this.set('msgs', ['task completed!']); 
         Ember.run.later(this, () => {
           this.set('msgs', []);
         }, 5000);
-      }).catch(() => {
-        this.set('msgs', ['an error occored!']); 
+      }).catch((error) => {
+        this.set('msgs', [`error: ${error}`]); 
         Ember.run.later(this, () => {
           this.set('msgs', []);
         }, 5000);
