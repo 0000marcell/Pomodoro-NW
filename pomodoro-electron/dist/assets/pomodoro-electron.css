@@ -565,9 +565,10 @@ i {
   .sidenav-list .sidenav-list-footer {
     border-top: 1px solid #c8c8c8;
     height: 300px;
-    justify-content: center;
-    padding-top: 20px; }
-    .sidenav-list .sidenav-list-footer .sidenav-list-footer-container {
+    justify-content: center; }
+    .sidenav-list .sidenav-list-footer .sidenav-list-footer-header button {
+      float: right; }
+    .sidenav-list .sidenav-list-footer .sidenav-list-footer-body {
       width: 90%; }
     .sidenav-list .sidenav-list-footer button {
       margin-left: 5px; }

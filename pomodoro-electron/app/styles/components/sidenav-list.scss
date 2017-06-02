@@ -63,8 +63,12 @@
     @include border(top);
     height: 300px;
     justify-content: center;
-    padding-top: 20px;
-    .sidenav-list-footer-container{
+    .sidenav-list-footer-header{
+      button{
+        float: right;
+      }
+    }
+    .sidenav-list-footer-body{
       width: 90%;
     }
     button{

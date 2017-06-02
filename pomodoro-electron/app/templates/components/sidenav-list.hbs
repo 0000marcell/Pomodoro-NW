@@ -57,7 +57,12 @@
   {{/if}}
 </div>
 <div class="sidenav-list-footer row">
-  <div class="sidenav-list-footer-container">
+  <div class="sidenav-list-footer-header">
+    <button onclick={{action "showInactive"}}>
+      Inactive
+    </button> 
+  </div>
+  <div class="sidenav-list-footer-body">
     <button onclick={{action "changeListMode" "tasks"}}>
       Tasks
     </button> 

@@ -38,6 +38,14 @@ export default Ember.Component.extend({
     }
   },
   actions: {
+    showInactive(){
+      let list = 
+        this.get(`model.storage.${this.get('listMode')}`),
+        result = list.filter((item) => {
+          return !item.active; 
+        });
+      this.set('filteredList', result);
+    },
     searchList(){
       this.set('loading', true);
       Ember.run.later(this, () => {
