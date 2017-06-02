@@ -9,7 +9,7 @@ body, html {
 
 button {
   background-color: #E91E63;
-  width: 80px;
+  min-width: 80px;
   height: 26px !important;
   border: none;
   color: #fff;

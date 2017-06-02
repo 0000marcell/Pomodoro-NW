@@ -21,7 +21,7 @@ body, html {
 
 button{
   background-color: $color;
-  width: 80px;
+  min-width: 80px;
   height: 26px !important;
   border: none;
   color: #fff;

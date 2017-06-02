@@ -31,6 +31,8 @@ export default Ember.Route.extend({
     },
     completeTask(task){
       console.log('complete task!', task.id);
+      task.active = false;
+      return this.saveToStore(); 
     },
     editTask(){
       return this.saveToStore(); 

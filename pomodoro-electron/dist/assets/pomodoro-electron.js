@@ -300,7 +300,19 @@ define('pomodoro-electron/components/task-form', ['exports', 'ember'], function 
         });
       },
       completeTask: function completeTask(task) {
-        this.get('completeTask')(task);
+        var _this2 = this;
+
+        this.get('completeTask')(task).then(function () {
+          _this2.set('msgs', ['task completed!']);
+          _ember['default'].run.later(_this2, function () {
+            _this2.set('msgs', []);
+          }, 5000);
+        })['catch'](function () {
+          _this2.set('msgs', ['an error occored!']);
+          _ember['default'].run.later(_this2, function () {
+            _this2.set('msgs', []);
+          }, 5000);
+        });
       }
     }
   });
@@ -965,6 +977,8 @@ define('pomodoro-electron/routes/application', ['exports', 'ember', 'pomodoro-el
       },
       completeTask: function completeTask(task) {
         console.log('complete task!', task.id);
+        task.active = false;
+        return this.saveToStore();
       },
       editTask: function editTask() {
         return this.saveToStore();
@@ -999,7 +1013,7 @@ define('pomodoro-electron/routes/data', ['exports'], function (exports) {
     for (var i = 1; i < 6; i++) {
       obj.tasks.push({ id: i + '', name: 'Task ' + i,
         description: 'description ' + i,
-        pomodoros: [], tag: null });
+        pomodoros: [], tag: null, active: true });
       for (var j = 1; j < 6; j++) {
         obj.tasks[i - 1].pomodoros.push({ date: new Date() });
       }
@@ -1110,6 +1124,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("pomodoro-electron/app")["default"].create({"name":"pomodoro-electron","version":"0.0.0+0d377bb1"});
+  require("pomodoro-electron/app")["default"].create({"name":"pomodoro-electron","version":"0.0.0+44452096"});
 }
 //# sourceMappingURL=pomodoro-electron.map

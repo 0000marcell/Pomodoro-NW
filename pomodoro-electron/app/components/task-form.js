@@ -27,7 +27,17 @@ export default Ember.Component.extend({
       }); 
     },
     completeTask(task){
-      this.get('completeTask')(task);
+      this.get('completeTask')(task).then(() => {
+        this.set('msgs', ['task completed!']); 
+        Ember.run.later(this, () => {
+          this.set('msgs', []);
+        }, 5000);
+      }).catch(() => {
+        this.set('msgs', ['an error occored!']); 
+        Ember.run.later(this, () => {
+          this.set('msgs', []);
+        }, 5000);
+      });
     }
   }
 });
