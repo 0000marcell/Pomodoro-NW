@@ -466,29 +466,35 @@ i {
   100% {
     opacity: 0; } }
 
+.flip-clock {
+  padding: 20px; }
+  .flip-clock flip-clock-header .clock {
+    margin: 0 auto;
+    background-color: #ff00ff; }
+
 .play-button {
   display: block;
   width: 0;
   height: 0;
-  border-top: 50px solid transparent;
-  border-bottom: 50px solid transparent;
-  border-left: 60px solid #2c3e50;
-  margin: 100px auto 50px auto;
+  border-top: 30px solid transparent;
+  border-bottom: 30px solid transparent;
+  border-left: 36px solid #E91E63;
+  margin: 60px auto 30px auto;
   position: relative;
   z-index: 1;
   transition: all 0.3s;
   -webkit-transition: all 0.3s;
   -moz-transition: all 0.3s;
-  left: 10px; }
+  left: 6px; }
   .play-button:before {
     content: '';
     position: absolute;
-    top: -75px;
-    left: -115px;
-    bottom: -75px;
-    right: -35px;
+    top: -45px;
+    left: -69px;
+    bottom: -45px;
+    right: -21px;
     border-radius: 50%;
-    border: 10px solid #2c3e50;
+    border: 6px solid #E91E63;
     z-index: 2;
     transition: all 0.3s;
     -webkit-transition: all 0.3s;
@@ -508,14 +514,14 @@ i {
     .play-button.active:after {
       content: '';
       opacity: 1;
-      width: 50px;
-      height: 80px;
-      background: #2c3e50;
+      width: 30px;
+      height: 48px;
+      background: #E91E63;
       position: absolute;
-      right: 5px;
-      top: -40px;
-      border-left: 20px solid #2c3e50;
-      box-shadow: inset 30px 0 0 0 #fff; }
+      right: 3px;
+      top: -24px;
+      border-left: 12px solid #E91E63;
+      box-shadow: inset 18px 0 0 0 #fff; }
 
 .sidenav-list {
   width: 100%;
@@ -769,6 +775,10 @@ i {
 .show-dialog {
   display: flex; }
 
+.task-info {
+  width: 100%;
+  height: 100%; }
+
 .app-header {
   border-bottom: 1px solid #c8c8c8;
   height: 56px;
@@ -838,14 +848,13 @@ i {
   cursor: pointer; }
 
 .main-container {
-  background-color: #c8c8c8;
-  height: 200px;
-  width: 200px; }
+  margin: 0 auto;
+  height: 100%;
+  width: 80%;
+  padding: 20px; }
   .main-container .main-header {
-    border-bottom: 1px solid #c8c8c8;
-    flex: 0 0 40%;
-    height: 40%;
-    overflow: scroll; }
+    flex: 0 0 20%;
+    height: 20%; }
     .main-container .main-header ul {
       margin: 0;
       padding: 0; }
@@ -855,5 +864,8 @@ i {
         height: 35px;
         padding-top: 20px;
         padding-left: 20px; }
+  .main-container .main-body {
+    flex: 0 0 80%;
+    height: 80%; }
 
 /*# sourceMappingURL=pomodoro-electron.css.map */

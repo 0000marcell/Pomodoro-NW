@@ -55,6 +55,11 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
     assert.ok(true, 'components/task-form.js should pass ESLint\n\n');
   });
 
+  QUnit.test('components/task-info.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/task-info.js should pass ESLint\n\n');
+  });
+
   QUnit.test('components/tasks-sidenav.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'components/tasks-sidenav.js should pass ESLint\n\n');
@@ -734,6 +739,35 @@ define('pomodoro-electron/tests/integration/components/task-form-test', ['export
     assert.equal(this.$('#taf-test-msgs li').length, 1);
   });
 });
+define('pomodoro-electron/tests/integration/components/task-info-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleForComponent)('task-info', 'Integration | Component | task info', {
+    integration: true
+  });
+
+  (0, _emberQunit.test)('it renders', function (assert) {
+
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.on('myAction', function(val) { ... });
+
+    this.render(Ember.HTMLBars.template({
+      'id': 'DEaOPGFJ',
+      'block': '{"statements":[["append",["unknown",["task-info"]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
+      'meta': {}
+    }));
+
+    assert.equal(this.$().text().trim(), '');
+
+    // Template block usage:
+    this.render(Ember.HTMLBars.template({
+      'id': 'khJRkS3I',
+      'block': '{"statements":[["text","\\n"],["block",["task-info"],null,null,0],["text","  "]],"locals":[],"named":[],"yields":[],"blocks":[{"statements":[["text","      template block text\\n"]],"locals":[]}],"hasPartials":false}',
+      'meta': {}
+    }));
+
+    assert.equal(this.$().text().trim(), 'template block text');
+  });
+});
 define('pomodoro-electron/tests/integration/components/tasks-sidenav-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
 
   (0, _emberQunit.moduleForComponent)('tasks-sidenav', 'Integration | Component | tasks sidenav', {
@@ -840,6 +874,11 @@ define('pomodoro-electron/tests/tests.lint-test', ['exports'], function (exports
   QUnit.test('integration/components/task-form-test.js', function (assert) {
     assert.expect(1);
     assert.ok(false, 'integration/components/task-form-test.js should pass ESLint\n\n31:16 - \'Ember\' is not defined. (no-undef)\n51:16 - \'Ember\' is not defined. (no-undef)');
+  });
+
+  QUnit.test('integration/components/task-info-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/components/task-info-test.js should pass ESLint\n\n');
   });
 
   QUnit.test('integration/components/tasks-sidenav-test.js', function (assert) {

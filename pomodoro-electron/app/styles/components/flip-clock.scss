@@ -1,8 +1,21 @@
 $transition-time:0.3s;
 $background:#fff;
-$foreground:#2c3e50;
-$size:50px;
+$foreground: $color;
+$size:30px;
 $ratio:1.2;
+
+.flip-clock{
+  padding: 20px;
+  flip-clock-header{
+    .clock{
+      margin: 0 auto;
+      background-color: #ff00ff;
+    }
+  }
+  flip-clock-body{
+
+  }
+}
 
 .play-button {
   display:block;

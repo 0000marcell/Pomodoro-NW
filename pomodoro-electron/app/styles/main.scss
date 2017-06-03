@@ -1,12 +1,11 @@
 .main-container{
-  background-color: #c8c8c8;
-  height: 200px;
-  width: 200px;
+  margin: 0 auto;
+  height: 100%;
+  width: 80%;
+  padding: 20px;
   .main-header{
-    @include border(bottom);
-    flex: 0 0 40%;
-    height: 40%;
-    overflow: scroll;
+    flex: 0 0 20%;
+    height: 20%;
     ul{
       margin: 0;
       padding: 0;
@@ -22,5 +21,7 @@
     }
   }
   .main-body{
+    flex: 0 0 80%;
+    height: 80%;
   }
 }

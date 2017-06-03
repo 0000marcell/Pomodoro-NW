@@ -1,7 +1,8 @@
 <div class="main-container column">
+  <div class="main-header">
+    {{task-info state=model.state}}
+  </div>
   <div class="main-body">
-    state: {{clock.state}}
-    mode: {{clock.mode}}
     {{flip-clock clock=clock}}
   </div>
 </div>
