@@ -564,10 +564,11 @@ i {
               float: right; }
   .sidenav-list .sidenav-list-footer {
     border-top: 1px solid #c8c8c8;
-    height: 300px;
-    justify-content: center; }
-    .sidenav-list .sidenav-list-footer .sidenav-list-footer-header button {
-      float: right; }
+    height: 300px; }
+    .sidenav-list .sidenav-list-footer .sidenav-list-footer-header {
+      height: 30px; }
+      .sidenav-list .sidenav-list-footer .sidenav-list-footer-header button {
+        float: right; }
     .sidenav-list .sidenav-list-footer .sidenav-list-footer-body {
       width: 90%; }
     .sidenav-list .sidenav-list-footer button {

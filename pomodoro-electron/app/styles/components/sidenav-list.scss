@@ -62,8 +62,8 @@
   .sidenav-list-footer{
     @include border(top);
     height: 300px;
-    justify-content: center;
     .sidenav-list-footer-header{
+      height: 30px;
       button{
         float: right;
       }

@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+  inactive: false,
   classNames: ['sidenav-list'],
   newTag: {name: null, description: null,
     color: null},
@@ -38,12 +39,17 @@ export default Ember.Component.extend({
     }
   },
   actions: {
-    showInactive(){
+    toggleInactive(){
       let list = 
         this.get(`model.storage.${this.get('listMode')}`),
         result = list.filter((item) => {
-          return !item.active; 
+          if(this.get('inactive')){
+            return item.active;
+          }else{
+            return !item.active; 
+          }
         });
+      this.toggleProperty('inactive');
       this.set('filteredList', result);
     },
     searchList(){
