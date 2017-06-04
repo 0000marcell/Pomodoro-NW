@@ -10,6 +10,11 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
     assert.ok(true, 'app.js should pass ESLint\n\n');
   });
 
+  QUnit.test('components/clock-comp.js', function (assert) {
+    assert.expect(1);
+    assert.ok(false, 'components/clock-comp.js should pass ESLint\n\n12:16 - \'attr\' is not defined. (no-undef)\n14:16 - \'attr\' is not defined. (no-undef)\n33:9 - \'min\' is assigned a value but never used. (no-unused-vars)\n34:9 - \'sec\' is assigned a value but never used. (no-unused-vars)');
+  });
+
   QUnit.test('components/color-option.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'components/color-option.js should pass ESLint\n\n');
@@ -275,6 +280,35 @@ define('pomodoro-electron/tests/helpers/start-app', ['exports', 'ember', 'pomodo
       return application;
     });
   }
+});
+define('pomodoro-electron/tests/integration/components/clock-comp-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleForComponent)('clock-comp', 'Integration | Component | clock comp', {
+    integration: true
+  });
+
+  (0, _emberQunit.test)('it renders', function (assert) {
+
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.on('myAction', function(val) { ... });
+
+    this.render(Ember.HTMLBars.template({
+      'id': '8aRzEGBa',
+      'block': '{"statements":[["append",["unknown",["clock-comp"]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
+      'meta': {}
+    }));
+
+    assert.equal(this.$().text().trim(), '');
+
+    // Template block usage:
+    this.render(Ember.HTMLBars.template({
+      'id': 'a7YBFNzR',
+      'block': '{"statements":[["text","\\n"],["block",["clock-comp"],null,null,0],["text","  "]],"locals":[],"named":[],"yields":[],"blocks":[{"statements":[["text","      template block text\\n"]],"locals":[]}],"hasPartials":false}',
+      'meta': {}
+    }));
+
+    assert.equal(this.$().text().trim(), 'template block text');
+  });
 });
 define('pomodoro-electron/tests/integration/components/color-option-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
 
@@ -829,6 +863,11 @@ define('pomodoro-electron/tests/tests.lint-test', ['exports'], function (exports
   QUnit.test('helpers/start-app.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'helpers/start-app.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('integration/components/clock-comp-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/components/clock-comp-test.js should pass ESLint\n\n');
   });
 
   QUnit.test('integration/components/color-option-test.js', function (assert) {

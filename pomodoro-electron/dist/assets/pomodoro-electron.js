@@ -18,6 +18,44 @@ define('pomodoro-electron/app', ['exports', 'ember', 'pomodoro-electron/resolver
 
   exports['default'] = App;
 });
+define('pomodoro-electron/components/clock-comp', ['exports', 'ember'], function (exports, _ember) {
+  exports['default'] = _ember['default'].Component.extend({
+    min: '00',
+    sec: '00',
+    didReceiveAttrs: function didReceiveAttrs() {
+      var clock = this.get('clock');
+      this.setClock(clock.time);
+    },
+    setWithPad: function setWithPad(att, val) {
+      if (val < 10) {
+        this.set(attr, '0' + val);
+      } else {
+        this.set(attr, val);
+      }
+    },
+    setClock: function setClock(time) {
+      if (time > 60) {
+        var min = Math.floor(time / 60);
+        this.setWithPad('min', min);
+        var sec = time % 60;
+        this.setWithPad('sec', sec);
+      } else {
+        this.setWithPad('sec', time);
+      }
+    },
+    start: function start() {
+      var _this = this;
+
+      _ember['default'].run.later(this, function () {
+        _this.decreaseTime();
+      }, 1000);
+    },
+    decreaseTime: function decreaseTime() {
+      var min = parseInt(this.get('min'));
+      var sec = parseInt(this.get('sec'));
+    }
+  });
+});
 define('pomodoro-electron/components/color-option', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({
     classNames: ['color-option'],
@@ -1111,6 +1149,9 @@ define('pomodoro-electron/services/store', ['exports', 'ember'], function (expor
 define("pomodoro-electron/templates/application", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template({ "id": "lIbfBLu+", "block": "{\"statements\":[[\"append\",[\"helper\",[\"sidenav-panel\"],null,[[\"createTask\",\"editTask\",\"createTag\",\"editTag\",\"openSidenav\",\"model\"],[[\"helper\",[\"route-action\"],[\"createTask\"],null],[\"helper\",[\"route-action\"],[\"editTask\"],null],[\"helper\",[\"route-action\"],[\"createTag\"],null],[\"helper\",[\"route-action\"],[\"editTag\"],null],[\"get\",[\"openSidenav\"]],[\"get\",[\"model\"]]]]],false],[\"text\",\"\\n\\n\"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"tasks-button\"],[\"modifier\",[\"action\"],[[\"get\",[null]],\"showSidenav\"]],[\"flush-element\"],[\"text\",\"\\n  \"],[\"append\",[\"helper\",[\"fa-icon\"],[\"bars\"],null],false],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\\n\"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"root-div column\"],[\"flush-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"app-header row\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"app-header-side row\"],[\"flush-element\"],[\"text\",\"\\n      \"],[\"open-element\",\"ul\",[]],[\"static-attr\",\"class\",\"menu-options\"],[\"flush-element\"],[\"text\",\"\\n        \"],[\"open-element\",\"li\",[]],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"link-to\"],[\"main\"],null,2],[\"text\",\"        \"],[\"close-element\"],[\"text\",\"\\n      \"],[\"close-element\"],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"app-header-main\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"app-header-aside row\"],[\"flush-element\"],[\"text\",\"\\n      \"],[\"open-element\",\"ul\",[]],[\"static-attr\",\"class\",\"menu-options\"],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"each\"],[[\"get\",[\"links\"]]],null,1],[\"text\",\"      \"],[\"close-element\"],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"app-body row\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"app-body-container\"],[\"flush-element\"],[\"text\",\"\\n      \"],[\"append\",[\"unknown\",[\"outlet\"]],false],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\"              \"],[\"append\",[\"helper\",[\"fa-icon\"],[[\"get\",[\"item\",\"icon\"]]],null],false],[\"text\",\"\\n\"]],\"locals\":[]},{\"statements\":[[\"text\",\"          \"],[\"open-element\",\"li\",[]],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"link-to\"],[[\"get\",[\"item\",\"link\"]]],null,0],[\"text\",\"          \"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[\"item\"]},{\"statements\":[[\"text\",\"            \"],[\"append\",[\"helper\",[\"fa-icon\"],[\"home\"],null],false],[\"text\",\"\\n\"]],\"locals\":[]}],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/application.hbs" } });
 });
+define("pomodoro-electron/templates/components/clock-comp", ["exports"], function (exports) {
+  exports["default"] = Ember.HTMLBars.template({ "id": "wp3tfsEH", "block": "{\"statements\":[[\"yield\",\"default\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[\"default\"],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/components/clock-comp.hbs" } });
+});
 define("pomodoro-electron/templates/components/color-option", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template({ "id": "jvhfBK7k", "block": "{\"statements\":[[\"open-element\",\"div\",[]],[\"static-attr\",\"id\",\"co-test-block\"],[\"dynamic-attr\",\"style\",[\"unknown\",[\"style\"]],null],[\"static-attr\",\"class\",\"color-option-block\"],[\"flush-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"],[\"open-element\",\"p\",[]],[\"flush-element\"],[\"append\",[\"unknown\",[\"color\",\"value\"]],false],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/components/color-option.hbs" } });
 });
@@ -1148,7 +1189,7 @@ define("pomodoro-electron/templates/configuration", ["exports"], function (expor
   exports["default"] = Ember.HTMLBars.template({ "id": "eIiVqaSK", "block": "{\"statements\":[[\"append\",[\"unknown\",[\"outlet\"]],false],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/configuration.hbs" } });
 });
 define("pomodoro-electron/templates/main", ["exports"], function (exports) {
-  exports["default"] = Ember.HTMLBars.template({ "id": "srgYh5ec", "block": "{\"statements\":[[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"main-container column\"],[\"flush-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"main-header\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"append\",[\"helper\",[\"task-info\"],null,[[\"state\"],[[\"get\",[\"model\",\"state\"]]]]],false],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"main-body\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"append\",[\"helper\",[\"flip-clock\"],null,[[\"clock\"],[[\"get\",[\"clock\"]]]]],false],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\\n\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/main.hbs" } });
+  exports["default"] = Ember.HTMLBars.template({ "id": "c3cl2tVv", "block": "{\"statements\":[[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"main-container column\"],[\"flush-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"main-header\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"append\",[\"helper\",[\"task-info\"],null,[[\"state\"],[[\"get\",[\"model\",\"state\"]]]]],false],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"main-body\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"append\",[\"helper\",[\"clock-comp\"],null,[[\"clock\"],[[\"get\",[\"clock\"]]]]],false],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\\n\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/main.hbs" } });
 });
 define("pomodoro-electron/templates/schedule", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template({ "id": "VBYx0O08", "block": "{\"statements\":[[\"append\",[\"unknown\",[\"outlet\"]],false],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/schedule.hbs" } });
@@ -1181,6 +1222,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("pomodoro-electron/app")["default"].create({"name":"pomodoro-electron","version":"0.0.0+24667e26"});
+  require("pomodoro-electron/app")["default"].create({"name":"pomodoro-electron","version":"0.0.0+073aae5a"});
 }
 //# sourceMappingURL=pomodoro-electron.map
