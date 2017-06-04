@@ -1,5 +1,3 @@
-let val = 105;
-sec = val%60;
-min = Math.floor(val/60);
+let val = '09';
+let sec = parseInt(val);
 console.log(sec);
-console.log(min);

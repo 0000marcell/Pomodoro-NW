@@ -1,13 +1,14 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+  classNames: ['clock-comp'],
   min: '00',
   sec: '00',
   didReceiveAttrs(){
     let clock = this.get('clock');
     this.setClock(clock.time);
   },
-  setWithPad(att, val){
+  setWithPad(attr, val){
     if(val < 10){
       this.set(attr, `0${val}`);
     }else{
@@ -25,12 +26,36 @@ export default Ember.Component.extend({
     }
   },
   start(){
-    Ember.run.later(this, () => {
+    let timeInt = setInterval(() => {
       this.decreaseTime();
-    }, 1000);
+    }, 1000)
+    this.set('timeInt', timeInt);
+    this.get('startCB')();
+  },
+  stop(){
+    clearInterval(this.get('timeInt'));
+    this.get('stopCB')();
   },
   decreaseTime(){
     let min = parseInt(this.get('min'));
     let sec = parseInt(this.get('sec'));
+    sec = sec - 1;
+    if(sec < 0){
+      min = min - 1;
+      if(min < 0){
+        this.stop();
+      }else{
+        this.setWithPad('min', min);
+      }
+    }else{
+      this.setWithPad('sec', sec);   
+    }
+  },
+  actions: {
+    playPause(){
+      (this.get('active')) ? this.stop() : 
+        this.start();
+      this.toggleProperty('active');
+    }
   }
 });

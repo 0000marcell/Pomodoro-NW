@@ -1,1 +1,9 @@
-{{yield}}
+<h3>
+  {{min}}:{{sec}}
+</h3>
+<div class="flip-clock-body">
+  <a id="fc-test-startbtn" 
+    onclick={{action 'playPause'}} 
+    href="#" title="Start clock" 
+    class="play-button {{if active 'active'}}"></a>
+</div>

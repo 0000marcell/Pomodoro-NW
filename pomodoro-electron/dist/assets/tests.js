@@ -12,7 +12,7 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
 
   QUnit.test('components/clock-comp.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'components/clock-comp.js should pass ESLint\n\n12:16 - \'attr\' is not defined. (no-undef)\n14:16 - \'attr\' is not defined. (no-undef)\n33:9 - \'min\' is assigned a value but never used. (no-unused-vars)\n34:9 - \'sec\' is assigned a value but never used. (no-unused-vars)');
+    assert.ok(true, 'components/clock-comp.js should pass ESLint\n\n');
   });
 
   QUnit.test('components/color-option.js', function (assert) {
