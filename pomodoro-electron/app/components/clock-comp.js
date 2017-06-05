@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  classNames: ['clock-comp'],
+  classNames: ['clock-comp', 'column'],
   min: '00',
   sec: '00',
   didReceiveAttrs(){

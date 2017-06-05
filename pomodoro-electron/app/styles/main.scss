@@ -5,20 +5,6 @@
   .main-header{
     flex: 0 0 20%;
     height: 20%;
-    padding-top: 20px;
-    ul{
-      margin: 0;
-      padding: 0;
-      li{
-        @include border(bottom);
-        list-style-type: none;
-        height: 35px;
-        padding-top: $padding-top;
-        padding-left: $padding-side;
-        span{
-        }
-      }
-    }
   }
   .main-body{
     flex: 0 0 80%;

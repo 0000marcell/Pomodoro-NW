@@ -24,7 +24,7 @@ $ratio:1.2;
   border-top: $size solid transparent;
   border-bottom: $size solid transparent;
   border-left: ($size*$ratio) solid $foreground;
-  margin: ($size * 2) auto $size auto;
+  margin: 15px auto 0 auto;
   position:relative;
   z-index:1;
   transition: all $transition-time;
