@@ -10,16 +10,17 @@ export default Ember.Controller.extend({
     streak: 0
   },
   actions: {
-    startClock(clock){
-      console.log('start clock!');
-      clock
-        .setTime(this.get('clock.shortInterval'));
-      clock.start();
-    },
     stopClock(clock){
       console.log('stop clock!');
-      clock
-        .setTime(this.get('clock.shortInterval'));
+      this.increaseProperty('clock.streak');
+      if(this.get('clock.streak')){
+        clock
+          .setTime(this.get('clock.shortInterval'));
+        this.set('clock.mode', 'iterval');
+      }else{
+        clock
+          .setTime(this.get('clock.longInterval'));
+      }
       clock.start();
     }  
   }

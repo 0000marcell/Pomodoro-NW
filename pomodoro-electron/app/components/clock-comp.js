@@ -31,9 +31,6 @@ export default Ember.Component.extend({
       this.decreaseTime();
     }, 1000)
     this.set('timeInt', timeInt);
-    if(this.get('startCB')){
-      this.get('startCB')(this);
-    }
   },
   stop(){
     clearInterval(this.get('timeInt'));
