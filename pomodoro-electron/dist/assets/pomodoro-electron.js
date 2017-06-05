@@ -21,11 +21,12 @@ define('pomodoro-electron/app', ['exports', 'ember', 'pomodoro-electron/resolver
 define('pomodoro-electron/components/clock-comp', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Component.extend({
     classNames: ['clock-comp', 'column'],
+    active: false,
     min: '00',
     sec: '00',
     didReceiveAttrs: function didReceiveAttrs() {
       var clock = this.get('clock');
-      this.setClock(clock.time);
+      this.setTime(clock.time);
     },
     setWithPad: function setWithPad(attr, val) {
       if (val < 10) {
@@ -34,7 +35,7 @@ define('pomodoro-electron/components/clock-comp', ['exports', 'ember'], function
         this.set(attr, val);
       }
     },
-    setClock: function setClock(time) {
+    setTime: function setTime(time) {
       if (time > 60) {
         var min = Math.floor(time / 60);
         this.setWithPad('min', min);
@@ -51,11 +52,15 @@ define('pomodoro-electron/components/clock-comp', ['exports', 'ember'], function
         _this.decreaseTime();
       }, 1000);
       this.set('timeInt', timeInt);
-      this.get('startCB')();
+      if (this.get('startCB')) {
+        this.get('startCB')(this);
+      }
     },
     stop: function stop() {
       clearInterval(this.get('timeInt'));
-      this.get('stopCB')();
+      if (this.get('stopCB')) {
+        this.get('stopCB')(this);
+      }
     },
     decreaseTime: function decreaseTime() {
       var min = parseInt(this.get('min'));
@@ -74,8 +79,12 @@ define('pomodoro-electron/components/clock-comp', ['exports', 'ember'], function
     },
     actions: {
       playPause: function playPause() {
-        this.get('active') ? this.stop() : this.start();
         this.toggleProperty('active');
+        if (this.get('active')) {
+          this.start();
+        } else {
+          this.stop();
+        }
       }
     }
   });
@@ -503,7 +512,20 @@ define('pomodoro-electron/controllers/main', ['exports', 'ember'], function (exp
       mode: 'pomodoro',
       time: 5,
       shortInterval: 10,
-      longInterval: 10
+      longInterval: 10,
+      streak: 0
+    },
+    actions: {
+      startClock: function startClock(clock) {
+        console.log('start clock!');
+        clock.setTime(this.get('clock.shortInterval'));
+        clock.start();
+      },
+      stopClock: function stopClock(clock) {
+        console.log('stop clock!');
+        clock.setTime(this.get('clock.shortInterval'));
+        clock.start();
+      }
     }
   });
 });
@@ -1213,7 +1235,7 @@ define("pomodoro-electron/templates/configuration", ["exports"], function (expor
   exports["default"] = Ember.HTMLBars.template({ "id": "eIiVqaSK", "block": "{\"statements\":[[\"append\",[\"unknown\",[\"outlet\"]],false],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/configuration.hbs" } });
 });
 define("pomodoro-electron/templates/main", ["exports"], function (exports) {
-  exports["default"] = Ember.HTMLBars.template({ "id": "c3cl2tVv", "block": "{\"statements\":[[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"main-container column\"],[\"flush-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"main-header\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"append\",[\"helper\",[\"task-info\"],null,[[\"state\"],[[\"get\",[\"model\",\"state\"]]]]],false],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"main-body\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"append\",[\"helper\",[\"clock-comp\"],null,[[\"clock\"],[[\"get\",[\"clock\"]]]]],false],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\\n\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/main.hbs" } });
+  exports["default"] = Ember.HTMLBars.template({ "id": "eXslziM/", "block": "{\"statements\":[[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"main-container column\"],[\"flush-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"main-header\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"append\",[\"helper\",[\"task-info\"],null,[[\"state\"],[[\"get\",[\"model\",\"state\"]]]]],false],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"main-body\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"append\",[\"helper\",[\"clock-comp\"],null,[[\"clock\",\"startCB\",\"stopCB\"],[[\"get\",[\"clock\"]],[\"helper\",[\"action\"],[[\"get\",[null]],\"startClock\"],null],[\"helper\",[\"action\"],[[\"get\",[null]],\"stopClock\"],null]]]],false],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\\n\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/main.hbs" } });
 });
 define("pomodoro-electron/templates/schedule", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template({ "id": "VBYx0O08", "block": "{\"statements\":[[\"append\",[\"unknown\",[\"outlet\"]],false],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/schedule.hbs" } });

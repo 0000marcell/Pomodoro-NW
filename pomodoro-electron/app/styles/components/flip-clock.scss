@@ -64,6 +64,7 @@ $ratio:1.2;
   
   &.active {
     border-color:transparent;
+    background-color: transparent !important;
     &:after {
       content:'';
       opacity:1;

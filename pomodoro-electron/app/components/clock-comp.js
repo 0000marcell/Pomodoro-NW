@@ -2,11 +2,12 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   classNames: ['clock-comp', 'column'],
+  active: false,
   min: '00',
   sec: '00',
   didReceiveAttrs(){
     let clock = this.get('clock');
-    this.setClock(clock.time);
+    this.setTime(clock.time);
   },
   setWithPad(attr, val){
     if(val < 10){
@@ -15,7 +16,7 @@ export default Ember.Component.extend({
       this.set(attr, val);
     }
   },
-  setClock(time){
+  setTime(time){
     if(time > 60){
       let min = Math.floor(time/60);
       this.setWithPad('min', min);
@@ -30,11 +31,15 @@ export default Ember.Component.extend({
       this.decreaseTime();
     }, 1000)
     this.set('timeInt', timeInt);
-    this.get('startCB')();
+    if(this.get('startCB')){
+      this.get('startCB')(this);
+    }
   },
   stop(){
     clearInterval(this.get('timeInt'));
-    this.get('stopCB')();
+    if(this.get('stopCB')){
+      this.get('stopCB')(this);
+    }
   },
   decreaseTime(){
     let min = parseInt(this.get('min'));
@@ -53,9 +58,12 @@ export default Ember.Component.extend({
   },
   actions: {
     playPause(){
-      (this.get('active')) ? this.stop() : 
-        this.start();
       this.toggleProperty('active');
+      if(this.get('active')){
+        this.start();
+      }else{
+        this.stop();
+      }
     }
   }
 });
