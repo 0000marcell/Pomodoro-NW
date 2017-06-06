@@ -35,34 +35,7 @@ define('pomodoro-electron/components/clock-comp', ['exports', 'ember'], function
         this.set(attr, val);
       }
     },
-    setTime: function setTime(time) {
-      if (time > 60) {
-        var min = Math.floor(time / 60);
-        this.setWithPad('min', min);
-        var sec = time % 60;
-        this.setWithPad('sec', sec);
-      } else {
-        this.setWithPad('sec', time);
-      }
-    },
-    start: function start() {
-      var _this = this;
 
-      if (!this.get('timeInt')) {
-        var timeInt = setInterval(function () {
-          _this.decreaseTime();
-        }, 1000);
-        this.set('timeInt', timeInt);
-        this.set('clock.pausedByUser', false);
-      }
-    },
-    stop: function stop() {
-      clearInterval(this.get('timeInt'));
-      this.set('timeInt', null);
-      if (this.get('stopCB')) {
-        this.get('stopCB')(this);
-      }
-    },
     decreaseTime: function decreaseTime() {
       var min = parseInt(this.get('min'));
       var sec = parseInt(this.get('sec'));
@@ -80,14 +53,7 @@ define('pomodoro-electron/components/clock-comp', ['exports', 'ember'], function
     },
     actions: {
       playPause: function playPause() {
-        console.log(this.get('active'));
-        if (this.get('active')) {
-          this.set('clock.pausedByUser', true);
-          this.stop();
-        } else {
-          this.start();
-        }
-        this.toggleProperty('active');
+        this.get('playPause')(this);
       }
     }
   });
@@ -510,15 +476,6 @@ define('pomodoro-electron/controllers/application', ['exports', 'ember'], functi
 });
 define('pomodoro-electron/controllers/main', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Controller.extend({
-    clock: {
-      state: 'paused',
-      mode: 'pomodoro',
-      time: 5,
-      shortInterval: 10,
-      longInterval: 15,
-      streak: 0,
-      pausedByUser: false
-    },
     actions: {
       stopClock: function stopClock(clock) {
         console.log(clock.get('clock.pausedByUser'));
@@ -540,6 +497,19 @@ define('pomodoro-electron/controllers/main', ['exports', 'ember'], function (exp
           clock.set('clock.mode', 'pomodoro');
         }
         clock.start();
+      },
+      playPause: function playPause(clock) {
+        if (!this.get('model.state.selectedTask')) {
+          console.log('first you need to select a task!');
+          return;
+        }
+        if (clock.get('active')) {
+          clock.set('clock.pausedByUser', true);
+          clock.stop();
+        } else {
+          clock.start();
+        }
+        clock.toggleProperty('active');
       }
     }
   });
@@ -1105,7 +1075,17 @@ define('pomodoro-electron/routes/application', ['exports', 'ember', 'pomodoro-el
     data: {
       storage: _pomodoroElectronRoutesData['default'],
       state: { selectedTask: null,
-        selectedTag: null }
+        selectedTag: null,
+        clock: {
+          state: 'paused',
+          mode: 'pomodoro',
+          time: 5,
+          shortInterval: 10,
+          longInterval: 15,
+          streak: 0,
+          pausedByUser: false
+        }
+      }
     },
     model: function model() {
       return this.get('data');
@@ -1117,6 +1097,7 @@ define('pomodoro-electron/routes/application', ['exports', 'ember', 'pomodoro-el
       return this.get('store').persist(this.get('data.storage'));
     },
     actions: {
+      changeTask: function changeTask(task) {},
       createTask: function createTask(task) {
         var tasks = this.get('data.storage.tasks'),
             obj = { id: tasks.length + 1, name: task.name,
@@ -1232,7 +1213,7 @@ define("pomodoro-electron/templates/components/sidenav-list", ["exports"], funct
   exports["default"] = Ember.HTMLBars.template({ "id": "RJz658+m", "block": "{\"statements\":[[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"sidenav-list-header column\"],[\"flush-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"sidenav-list-header-header row centralized\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"h3\",[]],[\"flush-element\"],[\"text\",\"\\n      \"],[\"append\",[\"helper\",[\"fa-icon\"],[\"bars\"],null],false],[\"text\",\"\\n      \"],[\"append\",[\"unknown\",[\"listMode\"]],false],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"sidenav-list-header-body column centralized\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"append\",[\"helper\",[\"input\"],null,[[\"placeholder\",\"id\",\"key-up\",\"type\",\"value\"],[\"Search\",\"sl-test-search\",[\"helper\",[\"action\"],[[\"get\",[null]],\"searchList\"],null],\"text\",[\"get\",[\"search\"]]]]],false],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"sidenav-list-header-footer row centralized\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"sidenav-list-header-footer-container\"],[\"flush-element\"],[\"text\",\"\\n      \"],[\"open-element\",\"button\",[]],[\"dynamic-attr\",\"onclick\",[\"helper\",[\"action\"],[[\"get\",[null]],\"showLeftPanel\"],null],null],[\"flush-element\"],[\"text\",\"\\n        add\\n      \"],[\"close-element\"],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"sidenav-list-body row\"],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"if\"],[[\"get\",[\"loading\"]]],null,5,4],[\"close-element\"],[\"text\",\"\\n\"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"sidenav-list-footer column\"],[\"flush-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"sidenav-list-footer-header\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"button\",[]],[\"dynamic-attr\",\"onclick\",[\"helper\",[\"action\"],[[\"get\",[null]],\"toggleInactive\"],null],null],[\"flush-element\"],[\"text\",\"\\n      Inactive\\n    \"],[\"close-element\"],[\"text\",\" \\n  \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"sidenav-list-footer-body row\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"button\",[]],[\"dynamic-attr\",\"onclick\",[\"helper\",[\"action\"],[[\"get\",[null]],\"changeListMode\",\"tasks\"],null],null],[\"flush-element\"],[\"text\",\"\\n      Tasks\\n    \"],[\"close-element\"],[\"text\",\" \\n    \"],[\"open-element\",\"button\",[]],[\"dynamic-attr\",\"onclick\",[\"helper\",[\"action\"],[[\"get\",[null]],\"changeListMode\",\"tags\"],null],null],[\"flush-element\"],[\"text\",\"\\n      Tags\\n    \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\"      \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"no-result-container\"],[\"flush-element\"],[\"text\",\"\\n        \"],[\"open-element\",\"h1\",[]],[\"flush-element\"],[\"text\",\"No Items\"],[\"close-element\"],[\"text\",\"\\n      \"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[]},{\"statements\":[[\"text\",\"                    \"],[\"append\",[\"helper\",[\"pomodoro-hours\"],[[\"get\",[\"item\",\"pomodoros\"]]],null],false],[\"text\",\"\\n\"]],\"locals\":[]},{\"statements\":[[\"text\",\"          \"],[\"open-element\",\"li\",[]],[\"static-attr\",\"class\",\"row\"],[\"dynamic-attr\",\"onclick\",[\"helper\",[\"action\"],[[\"get\",[null]],\"toggle\",[\"get\",[\"item\"]]],null],null],[\"flush-element\"],[\"text\",\"\\n              \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"row\"],[\"flush-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"span\",[]],[\"flush-element\"],[\"text\",\"\\n                  \"],[\"append\",[\"unknown\",[\"item\",\"name\"]],false],[\"text\",\"\\n                \"],[\"close-element\"],[\"text\",\"\\n                \"],[\"open-element\",\"span\",[]],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"if\"],[[\"get\",[\"item\",\"pomodoros\"]]],null,1],[\"text\",\"                \"],[\"close-element\"],[\"text\",\"  \\n                \"],[\"open-element\",\"span\",[]],[\"dynamic-attr\",\"onclick\",[\"helper\",[\"action\"],[[\"get\",[null]],\"showLeftPanel\",[\"get\",[\"item\"]]],null],null],[\"flush-element\"],[\"text\",\"\\n                  \"],[\"append\",[\"helper\",[\"fa-icon\"],[\"ellipsis-v\"],null],false],[\"text\",\"\\n                \"],[\"close-element\"],[\"text\",\"\\n              \"],[\"close-element\"],[\"text\",\"\\n          \"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[\"item\"]},{\"statements\":[[\"text\",\"      \"],[\"open-element\",\"ul\",[]],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"each\"],[[\"get\",[\"filteredList\"]]],null,2],[\"text\",\"      \"],[\"close-element\"],[\"text\",\"  \\n\"]],\"locals\":[]},{\"statements\":[[\"block\",[\"if\"],[[\"get\",[\"filteredList\"]]],null,3,0]],\"locals\":[]},{\"statements\":[[\"text\",\"    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"loading-container\"],[\"flush-element\"],[\"text\",\"\\n      \"],[\"open-element\",\"i\",[]],[\"static-attr\",\"class\",\"fa fa-circle-o-notch fa-spin fa-4x fa-fw\"],[\"flush-element\"],[\"close-element\"],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[]}],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/components/sidenav-list.hbs" } });
 });
 define("pomodoro-electron/templates/components/sidenav-panel", ["exports"], function (exports) {
-  exports["default"] = Ember.HTMLBars.template({ "id": "ldQTicRS", "block": "{\"statements\":[[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"sidenav-panel-overlay\"],[\"static-attr\",\"id\",\"sp-test-overlaybtn\"],[\"dynamic-attr\",\"onclick\",[\"helper\",[\"action\"],[[\"get\",[null]],\"overlayClick\"],null],null],[\"flush-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"sidenav-panel row\"],[\"flush-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"sidenav-panel-side column\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"sidenav-panel-side-header\"],[\"flush-element\"],[\"text\",\"\\n      \"],[\"open-element\",\"div\",[]],[\"dynamic-attr\",\"onclick\",[\"helper\",[\"action\"],[[\"get\",[null]],\"showLeftPanel\"],null],null],[\"flush-element\"],[\"text\",\"\\n        \"],[\"append\",[\"helper\",[\"fa-icon\"],[\"chevron-left\"],null],false],[\"text\",\"\\n      \"],[\"close-element\"],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"sidenav-panel-side-body row\"],[\"flush-element\"],[\"text\",\"\\n      \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"sidenav-panel-side-body-container\"],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"if\"],[[\"helper\",[\"eq\"],[[\"get\",[\"listMode\"]],\"tasks\"],null]],null,2,1],[\"text\",\"      \"],[\"close-element\"],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"sidenav-panel-aside\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"append\",[\"helper\",[\"sidenav-list\"],null,[[\"model\",\"mode\",\"register\",\"showLeftPanel\",\"listMode\"],[[\"get\",[\"model\"]],[\"get\",[\"mode\"]],[\"helper\",[\"action\"],[[\"get\",[null]],\"register\"],null],[\"get\",[\"leftPanel\"]],[\"get\",[\"listMode\"]]]]],false],[\"text\",\"\\n    \"],[\"open-element\",\"button\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"showLeftPanel\"]],[\"flush-element\"],[\"text\",\"show\"],[\"close-element\"],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\"          \"],[\"append\",[\"helper\",[\"tag-form\"],null,[[\"title\",\"colors\",\"tag\",\"register\",\"completeTag\",\"saveTag\"],[\"Create Tag\",[\"get\",[\"model\",\"storage\",\"colors\"]],[\"get\",[\"mode\",\"model\"]],[\"helper\",[\"action\"],[[\"get\",[null]],\"register\"],null],[\"helper\",[\"route-action\"],[\"completeTag\"],null],[\"helper\",[\"route-action\"],[[\"get\",[\"mode\",\"saveAction\"]]],null]]]],false],[\"text\",\" \\n        \"]],\"locals\":[]},{\"statements\":[[\"block\",[\"if\"],[[\"helper\",[\"eq\"],[[\"get\",[\"listMode\"]],\"tags\"],null]],null,0]],\"locals\":[]},{\"statements\":[[\"text\",\"          \"],[\"append\",[\"helper\",[\"task-form\"],null,[[\"title\",\"task\",\"tags\",\"register\",\"saveTask\",\"completeTask\"],[\"Edit Task\",[\"get\",[\"mode\",\"model\"]],[\"get\",[\"model\",\"storage\",\"tags\"]],[\"helper\",[\"action\"],[[\"get\",[null]],\"register\"],null],[\"helper\",[\"route-action\"],[[\"get\",[\"mode\",\"saveAction\"]]],null],[\"helper\",[\"route-action\"],[\"completeTask\"],null]]]],false],[\"text\",\" \\n\"]],\"locals\":[]}],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/components/sidenav-panel.hbs" } });
+  exports["default"] = Ember.HTMLBars.template({ "id": "V8JM19b4", "block": "{\"statements\":[[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"sidenav-panel-overlay\"],[\"static-attr\",\"id\",\"sp-test-overlaybtn\"],[\"dynamic-attr\",\"onclick\",[\"helper\",[\"action\"],[[\"get\",[null]],\"overlayClick\"],null],null],[\"flush-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"sidenav-panel row\"],[\"flush-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"sidenav-panel-side column\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"sidenav-panel-side-header\"],[\"flush-element\"],[\"text\",\"\\n      \"],[\"open-element\",\"div\",[]],[\"dynamic-attr\",\"onclick\",[\"helper\",[\"action\"],[[\"get\",[null]],\"showLeftPanel\"],null],null],[\"flush-element\"],[\"text\",\"\\n        \"],[\"append\",[\"helper\",[\"fa-icon\"],[\"chevron-left\"],null],false],[\"text\",\"\\n      \"],[\"close-element\"],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n    \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"sidenav-panel-side-body row\"],[\"flush-element\"],[\"text\",\"\\n      \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"sidenav-panel-side-body-container\"],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"if\"],[[\"helper\",[\"eq\"],[[\"get\",[\"listMode\"]],\"tasks\"],null]],null,2,1],[\"text\",\"      \"],[\"close-element\"],[\"text\",\"\\n    \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"sidenav-panel-aside\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"append\",[\"helper\",[\"sidenav-list\"],null,[[\"changeSelected\",\"model\",\"mode\",\"register\",\"showLeftPanel\",\"listMode\"],[[\"helper\",[\"route-action\"],[\"changeSelected\"],null],[\"get\",[\"model\"]],[\"get\",[\"mode\"]],[\"helper\",[\"action\"],[[\"get\",[null]],\"register\"],null],[\"get\",[\"leftPanel\"]],[\"get\",[\"listMode\"]]]]],false],[\"text\",\"\\n    \"],[\"open-element\",\"button\",[]],[\"modifier\",[\"action\"],[[\"get\",[null]],\"showLeftPanel\"]],[\"flush-element\"],[\"text\",\"show\"],[\"close-element\"],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\"          \"],[\"append\",[\"helper\",[\"tag-form\"],null,[[\"title\",\"colors\",\"tag\",\"register\",\"completeTag\",\"saveTag\"],[\"Create Tag\",[\"get\",[\"model\",\"storage\",\"colors\"]],[\"get\",[\"mode\",\"model\"]],[\"helper\",[\"action\"],[[\"get\",[null]],\"register\"],null],[\"helper\",[\"route-action\"],[\"completeTag\"],null],[\"helper\",[\"route-action\"],[[\"get\",[\"mode\",\"saveAction\"]]],null]]]],false],[\"text\",\" \\n        \"]],\"locals\":[]},{\"statements\":[[\"block\",[\"if\"],[[\"helper\",[\"eq\"],[[\"get\",[\"listMode\"]],\"tags\"],null]],null,0]],\"locals\":[]},{\"statements\":[[\"text\",\"          \"],[\"append\",[\"helper\",[\"task-form\"],null,[[\"title\",\"task\",\"tags\",\"register\",\"saveTask\",\"completeTask\"],[\"Edit Task\",[\"get\",[\"mode\",\"model\"]],[\"get\",[\"model\",\"storage\",\"tags\"]],[\"helper\",[\"action\"],[[\"get\",[null]],\"register\"],null],[\"helper\",[\"route-action\"],[[\"get\",[\"mode\",\"saveAction\"]]],null],[\"helper\",[\"route-action\"],[\"completeTask\"],null]]]],false],[\"text\",\" \\n\"]],\"locals\":[]}],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/components/sidenav-panel.hbs" } });
 });
 define("pomodoro-electron/templates/components/tag-form", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template({ "id": "ILpVw82v", "block": "{\"statements\":[[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"tag-form-header row\"],[\"flush-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"h3\",[]],[\"flush-element\"],[\"append\",[\"unknown\",[\"mode\"]],false],[\"text\",\" tag\"],[\"close-element\"],[\"text\",\"\\n\"],[\"block\",[\"if\"],[[\"helper\",[\"eq\"],[[\"get\",[\"mode\"]],\"edit\"],null]],null,4],[\"close-element\"],[\"text\",\"\\n\"],[\"block\",[\"if\"],[[\"get\",[\"msgs\"]]],null,3],[\"append\",[\"helper\",[\"input\"],null,[[\"type\",\"value\"],[\"text\",[\"get\",[\"tag\",\"name\"]]]]],false],[\"text\",\"\\n\"],[\"append\",[\"helper\",[\"input\"],null,[[\"type\",\"value\"],[\"text\",[\"get\",[\"tag\",\"description\"]]]]],false],[\"text\",\"\\n\"],[\"block\",[\"dropdown-list\"],null,[[\"items\"],[[\"get\",[\"colors\"]]]],0],[\"open-element\",\"button\",[]],[\"static-attr\",\"class\",\"button-primary\"],[\"static-attr\",\"data-test-tag-save\",\"\"],[\"dynamic-attr\",\"onclick\",[\"helper\",[\"action\"],[[\"get\",[null]],\"saveTag\",[\"get\",[\"tag\"]]],null],null],[\"flush-element\"],[\"text\",\"Save\"],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[{\"statements\":[[\"text\",\"  \"],[\"append\",[\"helper\",[\"color-option\"],null,[[\"color\"],[[\"get\",[\"color\"]]]]],false],[\"text\",\"\\n\"]],\"locals\":[\"color\"]},{\"statements\":[[\"text\",\"        \"],[\"open-element\",\"li\",[]],[\"flush-element\"],[\"append\",[\"get\",[\"msg\"]],false],[\"close-element\"],[\"text\",\"\\n\"]],\"locals\":[\"msg\"]},{\"statements\":[[\"text\",\"    \"],[\"open-element\",\"ul\",[]],[\"static-attr\",\"data-test-tag-msgs\",\"\"],[\"flush-element\"],[\"text\",\"\\n\"],[\"block\",[\"each\"],[[\"get\",[\"msgs\"]]],null,1],[\"text\",\"    \"],[\"close-element\"],[\"text\",\" \\n\"]],\"locals\":[]},{\"statements\":[[\"block\",[\"info-card\"],null,null,2]],\"locals\":[]},{\"statements\":[[\"text\",\"    \"],[\"open-element\",\"button\",[]],[\"dynamic-attr\",\"onclick\",[\"helper\",[\"action\"],[[\"get\",[null]],\"completeTag\",[\"get\",[\"tag\"]]],null],null],[\"flush-element\"],[\"text\",\"\\n      complete\\n    \"],[\"close-element\"],[\"text\",\"  \\n\"]],\"locals\":[]}],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/components/tag-form.hbs" } });
@@ -1250,7 +1231,7 @@ define("pomodoro-electron/templates/configuration", ["exports"], function (expor
   exports["default"] = Ember.HTMLBars.template({ "id": "eIiVqaSK", "block": "{\"statements\":[[\"append\",[\"unknown\",[\"outlet\"]],false],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/configuration.hbs" } });
 });
 define("pomodoro-electron/templates/main", ["exports"], function (exports) {
-  exports["default"] = Ember.HTMLBars.template({ "id": "Z6quOw0a", "block": "{\"statements\":[[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"main-container column\"],[\"flush-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"main-header\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"append\",[\"helper\",[\"task-info\"],null,[[\"state\"],[[\"get\",[\"model\",\"state\"]]]]],false],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"main-body\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"append\",[\"helper\",[\"clock-comp\"],null,[[\"clock\",\"stopCB\"],[[\"get\",[\"clock\"]],[\"helper\",[\"action\"],[[\"get\",[null]],\"stopClock\"],null]]]],false],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\\n\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/main.hbs" } });
+  exports["default"] = Ember.HTMLBars.template({ "id": "ClcYFKNO", "block": "{\"statements\":[[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"main-container column\"],[\"flush-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"main-header\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"append\",[\"helper\",[\"task-info\"],null,[[\"state\"],[[\"get\",[\"model\",\"state\"]]]]],false],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n  \"],[\"open-element\",\"div\",[]],[\"static-attr\",\"class\",\"main-body\"],[\"flush-element\"],[\"text\",\"\\n    \"],[\"append\",[\"helper\",[\"clock-comp\"],null,[[\"clock\",\"playPause\",\"stopCB\"],[[\"get\",[\"model\",\"state\",\"clock\"]],[\"helper\",[\"action\"],[[\"get\",[null]],\"playPause\"],null],[\"helper\",[\"action\"],[[\"get\",[null]],\"stopClock\"],null]]]],false],[\"text\",\"\\n  \"],[\"close-element\"],[\"text\",\"\\n\"],[\"close-element\"],[\"text\",\"\\n\\n\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/main.hbs" } });
 });
 define("pomodoro-electron/templates/schedule", ["exports"], function (exports) {
   exports["default"] = Ember.HTMLBars.template({ "id": "VBYx0O08", "block": "{\"statements\":[[\"append\",[\"unknown\",[\"outlet\"]],false],[\"text\",\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"blocks\":[],\"hasPartials\":false}", "meta": { "moduleName": "pomodoro-electron/templates/schedule.hbs" } });

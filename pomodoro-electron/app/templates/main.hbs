@@ -3,7 +3,8 @@
     {{task-info state=model.state}}
   </div>
   <div class="main-body">
-    {{clock-comp clock=clock 
+    {{clock-comp clock=model.state.clock 
+      playPause=(action "playPause")
       stopCB=(action "stopClock")
     }}
   </div>

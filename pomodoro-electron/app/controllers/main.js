@@ -1,15 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  clock: {
-    state: 'paused',
-    mode: 'pomodoro',
-    time: 5,
-    shortInterval: 10,
-    longInterval: 15,
-    streak: 0,
-    pausedByUser: false
-  },
   actions: {
     stopClock(clock){
       console.log(clock.get('clock.pausedByUser'));
@@ -34,6 +25,19 @@ export default Ember.Controller.extend({
         clock.set('clock.mode', 'pomodoro');
       }
       clock.start();
-    }  
+    },
+    playPause(clock){
+      if(!this.get('model.state.selectedTask')){
+        console.log('first you need to select a task!');
+        return;  
+      }
+      if(clock.get('active')){
+        clock.set('clock.pausedByUser', true);
+        clock.stop();
+      }else{
+        clock.start();
+      }
+      clock.toggleProperty('active');
+    }
   }
 });

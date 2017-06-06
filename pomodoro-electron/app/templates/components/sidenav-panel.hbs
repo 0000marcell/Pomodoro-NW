@@ -35,6 +35,7 @@
   </div>
   <div class="sidenav-panel-aside">
     {{sidenav-list 
+      changeSelected=(route-action "changeSelected")
       model=model
       mode=mode
       register=(action "register")

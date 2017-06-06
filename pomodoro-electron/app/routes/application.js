@@ -6,7 +6,17 @@ export default Ember.Route.extend({
   data: {
     storage: data,
     state: {selectedTask: null,
-            selectedTag: null}
+            selectedTag: null,
+            clock: {
+              state: 'paused',
+              mode: 'pomodoro',
+              time: 5,
+              shortInterval: 10,
+              longInterval: 15,
+              streak: 0,
+              pausedByUser: false
+            }
+    }
   },
   model(){
     return  this.get('data');
@@ -19,6 +29,8 @@ export default Ember.Route.extend({
         .persist(this.get('data.storage'));
   },
   actions: {
+    changeTask(task){
+    },
     createTask(task){
       let tasks = this.get('data.storage.tasks'),
           obj = {id: tasks.length + 1, name: task.name, 
