@@ -12,7 +12,7 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
 
   QUnit.test('components/clock-comp.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'components/clock-comp.js should pass ESLint\n\n');
+    assert.ok(false, 'components/clock-comp.js should pass ESLint\n\n62:7 - Unexpected console statement. (no-console)');
   });
 
   QUnit.test('components/color-option.js', function (assert) {
@@ -77,7 +77,7 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
 
   QUnit.test('controllers/main.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'controllers/main.js should pass ESLint\n\n14:7 - Unexpected console statement. (no-console)\n20:7 - Unexpected console statement. (no-console)');
+    assert.ok(false, 'controllers/main.js should pass ESLint\n\n15:7 - Unexpected console statement. (no-console)\n20:11 - \'model\' is assigned a value but never used. (no-unused-vars)');
   });
 
   QUnit.test('controllers/testing.js', function (assert) {

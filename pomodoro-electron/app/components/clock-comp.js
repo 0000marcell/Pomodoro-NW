@@ -27,13 +27,17 @@ export default Ember.Component.extend({
     }
   },
   start(){
-    let timeInt = setInterval(() => {
-      this.decreaseTime();
-    }, 1000)
-    this.set('timeInt', timeInt);
+    if(!this.get('timeInt')){
+      let timeInt = setInterval(() => {
+        this.decreaseTime();
+      }, 1000)
+      this.set('timeInt', timeInt);
+      this.set('clock.pausedByUser', false);
+    }
   },
   stop(){
     clearInterval(this.get('timeInt'));
+    this.set('timeInt', null);
     if(this.get('stopCB')){
       this.get('stopCB')(this);
     }
@@ -55,12 +59,14 @@ export default Ember.Component.extend({
   },
   actions: {
     playPause(){
-      this.toggleProperty('active');
+      console.log(this.get('active'));
       if(this.get('active')){
-        this.start();
-      }else{
+        this.set('clock.pausedByUser', true);
         this.stop();
+      }else{
+        this.start();
       }
+      this.toggleProperty('active');
     }
   }
 });

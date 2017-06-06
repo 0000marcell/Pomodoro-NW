@@ -8,7 +8,7 @@ body, html {
   width: 30px; }
 
 button {
-  background-color: #2196F3;
+  background-color: #795548;
   min-width: 80px;
   height: 26px !important;
   border: none;
@@ -20,21 +20,21 @@ h3 {
   margin: 0;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: #2196F3; }
+  color: #795548; }
 
 input {
-  border: 2px solid #2196F3;
+  border: 2px solid #795548;
   display: block;
   width: 80%;
   height: 23px;
   margin: 0 auto; }
 
 .active {
-  background-color: #2196F3;
+  background-color: #795548;
   color: #fff; }
 
 i {
-  color: #2196F3;
+  color: #795548;
   font-size: 20px !important; }
 
 .root-div {
@@ -478,7 +478,7 @@ i {
   height: 0;
   border-top: 30px solid transparent;
   border-bottom: 30px solid transparent;
-  border-left: 36px solid #2196F3;
+  border-left: 36px solid #795548;
   margin: 15px auto 0 auto;
   position: relative;
   z-index: 1;
@@ -494,7 +494,7 @@ i {
     bottom: -45px;
     right: -21px;
     border-radius: 50%;
-    border: 6px solid #2196F3;
+    border: 6px solid #795548;
     z-index: 2;
     transition: all 0.3s;
     -webkit-transition: all 0.3s;
@@ -517,11 +517,11 @@ i {
       opacity: 1;
       width: 30px;
       height: 48px;
-      background: #2196F3;
+      background: #795548;
       position: absolute;
       right: 3px;
       top: -24px;
-      border-left: 12px solid #2196F3;
+      border-left: 12px solid #795548;
       box-shadow: inset 18px 0 0 0 #fff; }
 
 .sidenav-list {
@@ -551,7 +551,7 @@ i {
       padding: 0;
       width: 100%; }
       .sidenav-list .sidenav-list-body ul li:hover {
-        background-color: #2196F3;
+        background-color: #795548;
         color: #fff;
         cursor: pointer; }
         .sidenav-list .sidenav-list-body ul li:hover i {
@@ -678,7 +678,7 @@ i {
   min-width: 215px;
   margin-top: 20px; }
   .dropdown-list .dropdown-list-selected {
-    border: 2px solid #2196F3;
+    border: 2px solid #795548;
     height: 30px;
     margin: 0; }
     .dropdown-list .dropdown-list-selected p {
@@ -749,7 +749,7 @@ i {
     .pop-dialog .pop-dialog-box .pop-dialog-header {
       height: 20%;
       max-width: 100%;
-      background-color: #2196F3;
+      background-color: #795548;
       justify-content: space-between;
       align-items: center;
       padding: 0 20px 0 20px; }
@@ -821,7 +821,7 @@ i {
     .menu-options li .active {
       color: #c8c8c8 !important;
       background-color: #fff;
-      border-bottom: 4px solid #2196F3; }
+      border-bottom: 4px solid #795548; }
     .menu-options li a {
       height: 37px;
       padding: 16px 15px 0px 15px;
@@ -830,7 +830,7 @@ i {
       color: #c8c8c8; }
     .menu-options li a:hover {
       background-color: #fff !important;
-      border-bottom: 4px solid #2196F3; }
+      border-bottom: 4px solid #795548; }
 
 .app-body {
   flex: 0 0 80%;
@@ -848,7 +848,7 @@ i {
 .tasks-button {
   padding: 10px 0px 0px 20px;
   z-index: 99;
-  background-color: #2196F3;
+  background-color: #795548;
   color: #fff;
   position: fixed;
   top: 75px;
