@@ -63,11 +63,11 @@
 }
 
 .tasks-button{
+  z-index: 1;
   padding: 10px 0px 0px 20px;
   i{
     color: #fff;
   }
-  z-index: 99;
   background-color: $color;
   color: #fff;
   position: fixed;

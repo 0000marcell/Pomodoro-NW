@@ -5,8 +5,12 @@ export default Ember.Component.extend({
   active: false,
   min: '00',
   sec: '00',
+  timeObj: Ember.observer('clock.time', function(){
+    console.log('time changed');
+  }),
   didReceiveAttrs(){
     let clock = this.get('clock');
+    this.set('clock.env', this);
     this.setTime(clock.time);
   },
   start(){

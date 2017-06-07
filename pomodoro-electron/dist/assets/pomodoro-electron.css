@@ -8,7 +8,7 @@ body, html {
   width: 30px; }
 
 button {
-  background-color: #795548;
+  background-color: #2196F3;
   min-width: 80px;
   height: 26px !important;
   border: none;
@@ -20,21 +20,21 @@ h3 {
   margin: 0;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: #795548; }
+  color: #2196F3; }
 
 input {
-  border: 2px solid #795548;
+  border: 2px solid #2196F3;
   display: block;
   width: 80%;
   height: 23px;
   margin: 0 auto; }
 
 .active {
-  background-color: #795548;
+  background-color: #2196F3;
   color: #fff; }
 
 i {
-  color: #795548;
+  color: #2196F3;
   font-size: 20px !important; }
 
 .root-div {
@@ -478,7 +478,7 @@ i {
   height: 0;
   border-top: 30px solid transparent;
   border-bottom: 30px solid transparent;
-  border-left: 36px solid #795548;
+  border-left: 36px solid #2196F3;
   margin: 15px auto 0 auto;
   position: relative;
   z-index: 1;
@@ -494,7 +494,7 @@ i {
     bottom: -45px;
     right: -21px;
     border-radius: 50%;
-    border: 6px solid #795548;
+    border: 6px solid #2196F3;
     z-index: 2;
     transition: all 0.3s;
     -webkit-transition: all 0.3s;
@@ -517,11 +517,11 @@ i {
       opacity: 1;
       width: 30px;
       height: 48px;
-      background: #795548;
+      background: #2196F3;
       position: absolute;
       right: 3px;
       top: -24px;
-      border-left: 12px solid #795548;
+      border-left: 12px solid #2196F3;
       box-shadow: inset 18px 0 0 0 #fff; }
 
 .sidenav-list {
@@ -551,7 +551,7 @@ i {
       padding: 0;
       width: 100%; }
       .sidenav-list .sidenav-list-body ul li:hover {
-        background-color: #795548;
+        background-color: #2196F3;
         color: #fff;
         cursor: pointer; }
         .sidenav-list .sidenav-list-body ul li:hover i {
@@ -597,16 +597,16 @@ i {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.3);
-  z-index: 999; }
+  z-index: 1; }
 
 .sidenav-panel {
+  z-index: 2;
   position: fixed;
   top: 0;
   left: -600px;
   width: 600px;
   height: 800px;
   background-color: #fff;
-  z-index: 9999;
   transition: transform 0.5s 0.0s; }
   .sidenav-panel .sidenav-panel-side {
     border-right: 1px solid #c8c8c8;
@@ -678,7 +678,7 @@ i {
   min-width: 215px;
   margin-top: 20px; }
   .dropdown-list .dropdown-list-selected {
-    border: 2px solid #795548;
+    border: 2px solid #2196F3;
     height: 30px;
     margin: 0; }
     .dropdown-list .dropdown-list-selected p {
@@ -737,19 +737,21 @@ i {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 9999999999;
+  z-index: 5;
   flex-flow: row wrap;
   justify-content: center;
-  align-items: center; }
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.3); }
   .pop-dialog .pop-dialog-box {
-    z-index: 9999999999;
+    z-index: 6;
     width: 450px;
     height: 300px;
+    background-color: #fff;
     box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2), 0 13px 19px 2px rgba(0, 0, 0, 0.14), 0 5px 24px 4px rgba(0, 0, 0, 0.12); }
     .pop-dialog .pop-dialog-box .pop-dialog-header {
       height: 20%;
       max-width: 100%;
-      background-color: #795548;
+      background-color: #2196F3;
       justify-content: space-between;
       align-items: center;
       padding: 0 20px 0 20px; }
@@ -821,7 +823,7 @@ i {
     .menu-options li .active {
       color: #c8c8c8 !important;
       background-color: #fff;
-      border-bottom: 4px solid #795548; }
+      border-bottom: 4px solid #2196F3; }
     .menu-options li a {
       height: 37px;
       padding: 16px 15px 0px 15px;
@@ -830,7 +832,7 @@ i {
       color: #c8c8c8; }
     .menu-options li a:hover {
       background-color: #fff !important;
-      border-bottom: 4px solid #795548; }
+      border-bottom: 4px solid #2196F3; }
 
 .app-body {
   flex: 0 0 80%;
@@ -846,9 +848,9 @@ i {
     box-shadow: 2px 2px 2px #888888; }
 
 .tasks-button {
+  z-index: 1;
   padding: 10px 0px 0px 20px;
-  z-index: 99;
-  background-color: #795548;
+  background-color: #2196F3;
   color: #fff;
   position: fixed;
   top: 75px;

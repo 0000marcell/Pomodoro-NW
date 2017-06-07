@@ -18,7 +18,8 @@ export default Ember.Route.extend({
               shortInterval: 10,
               longInterval: 15,
               streak: 0,
-              pausedByUser: false
+              pausedByUser: false,
+              env: null
             }
     }
   },
@@ -44,6 +45,8 @@ export default Ember.Route.extend({
       controller.set('dialogCB', (val) => {
         if(val){
           console.log('reset task!');
+          let env = this.get('clock.env');
+          debugger;
         }else{
           console.log('dont reset!');
         }
