@@ -3,6 +3,10 @@ import data from './data';
 
 export default Ember.Route.extend({
   store: Ember.inject.service(),
+  setupController(controller, post) {
+    this._super(controller, post);
+    this.set('controller', controller);
+  },
   data: {
     storage: data,
     state: {selectedTask: null,
@@ -30,7 +34,20 @@ export default Ember.Route.extend({
   },
   actions: {
     changeSelected(item, mode){
-      console.log('change selected!');
+      let controller = this.get('controller');
+      controller.set('showDialog', true);
+      controller.set('popTitle', 'stop clock!');
+      controller.set('popMsg', `
+      are you sure you wanna change the task,
+      clock gonna be reseted
+      `);
+      controller.set('dialogCB', (val) => {
+        if(val){
+          console.log('reset task!');
+        }else{
+          console.log('dont reset!');
+        }
+      });
     },
     createTask(task){
       let tasks = this.get('data.storage.tasks'),

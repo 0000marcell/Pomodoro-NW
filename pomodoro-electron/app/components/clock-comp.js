@@ -9,6 +9,32 @@ export default Ember.Component.extend({
     let clock = this.get('clock');
     this.setTime(clock.time);
   },
+  start(){
+    if(!this.get('timeInt')){
+      let timeInt = setInterval(() => {
+        this.decreaseTime();
+      }, 1000)
+      this.set('timeInt', timeInt);
+      this.set('clock.pausedByUser', false);
+    }
+  },
+  stop(){
+    clearInterval(this.get('timeInt'));
+    this.set('timeInt', null);
+    if(this.get('stopCB')){
+      this.get('stopCB')(this);
+    }
+  },
+  setTime(time){
+    if(time > 60){
+      let min = Math.floor(time/60);
+      this.setWithPad('min', min);
+      let sec = time%60;
+      this.setWithPad('sec', sec);
+    }else{
+      this.setWithPad('sec', time);
+    }
+  },
   setWithPad(attr, val){
     if(val < 10){
       this.set(attr, `0${val}`);

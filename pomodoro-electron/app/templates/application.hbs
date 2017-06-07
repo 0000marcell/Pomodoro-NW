@@ -1,3 +1,10 @@
+{{#pop-dialog 
+  confirm=dialogCB
+  showDialog=showDialog
+  title=popTitle}}
+  <p>{{popMsg}}</p>
+{{/pop-dialog}}
+
 {{sidenav-panel
   createTask=(route-action "createTask")
   editTask=(route-action "editTask")
@@ -37,6 +44,7 @@
   </div>
   <div class="app-body row">
     <div class="app-body-container">
+      
       {{outlet}}
     </div>
   </div>
