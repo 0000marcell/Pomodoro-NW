@@ -267,6 +267,7 @@ define('pomodoro-electron/components/sidenav-list', ['exports', 'ember'], functi
         if (this.get('listMode') === 'tasks') {
           this.set('model.state.selectedTask', item);
         }
+        this.get('changeSelected')(item, this.get('listMode'));
         this.setLeftPanelModel(item);
       },
       showLeftPanel: function showLeftPanel(item) {
@@ -1097,7 +1098,9 @@ define('pomodoro-electron/routes/application', ['exports', 'ember', 'pomodoro-el
       return this.get('store').persist(this.get('data.storage'));
     },
     actions: {
-      changeTask: function changeTask(task) {},
+      changeSelected: function changeSelected(item, mode) {
+        console.log('change selected!');
+      },
       createTask: function createTask(task) {
         var tasks = this.get('data.storage.tasks'),
             obj = { id: tasks.length + 1, name: task.name,
@@ -1264,6 +1267,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("pomodoro-electron/app")["default"].create({"name":"pomodoro-electron","version":"0.0.0+3f01bf90"});
+  require("pomodoro-electron/app")["default"].create({"name":"pomodoro-electron","version":"0.0.0+16fccc16"});
 }
 //# sourceMappingURL=pomodoro-electron.map

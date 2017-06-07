@@ -102,7 +102,7 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
 
   QUnit.test('routes/application.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'routes/application.js should pass ESLint\n\n32:16 - \'task\' is defined but never used. (no-unused-vars)\n45:7 - Unexpected console statement. (no-console)\n61:7 - Unexpected console statement. (no-console)');
+    assert.ok(false, 'routes/application.js should pass ESLint\n\n32:26 - \'mode\' is defined but never used. (no-unused-vars)\n33:7 - Unexpected console statement. (no-console)\n46:7 - Unexpected console statement. (no-console)\n62:7 - Unexpected console statement. (no-console)');
   });
 
   QUnit.test('routes/configuration.js', function (assert) {

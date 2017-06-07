@@ -81,6 +81,7 @@ export default Ember.Component.extend({
         this.set('model.state.selectedTask', 
           item);
       }
+      this.get('changeSelected')(item, this.get('listMode'));
       this.setLeftPanelModel(item);
     },
     showLeftPanel(item){

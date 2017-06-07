@@ -29,7 +29,8 @@ export default Ember.Route.extend({
         .persist(this.get('data.storage'));
   },
   actions: {
-    changeTask(task){
+    changeSelected(item, mode){
+      console.log('change selected!');
     },
     createTask(task){
       let tasks = this.get('data.storage.tasks'),
