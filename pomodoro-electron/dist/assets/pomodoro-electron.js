@@ -24,13 +24,18 @@ define('pomodoro-electron/components/clock-comp', ['exports', 'ember'], function
     active: false,
     min: '00',
     sec: '00',
-    timeObj: _ember['default'].observer('clock.time', function () {
-      console.log('time changed');
-    }),
     didReceiveAttrs: function didReceiveAttrs() {
-      var clock = this.get('clock');
-      this.set('clock.env', this);
-      this.setTime(clock.time);
+      this.set('clock.reset', this.get('reset').bind(this));
+      this.setTime(this.get('clock.time'));
+    },
+    reset: function reset() {
+      if (this.get('timeInt')) {
+        clearInterval(this.get('timeInt'));
+        this.set('timeInt', null);
+        this.set('clock.state', 'paused');
+        this.set('active', false);
+        this.setTime(this.get('clock.time'));
+      }
     },
     start: function start() {
       var _this = this;
@@ -41,11 +46,14 @@ define('pomodoro-electron/components/clock-comp', ['exports', 'ember'], function
         }, 1000);
         this.set('timeInt', timeInt);
         this.set('clock.pausedByUser', false);
+        this.set('active', true);
+        this.set('clock.state', 'running');
       }
     },
     stop: function stop() {
       clearInterval(this.get('timeInt'));
       this.set('timeInt', null);
+      this.set('clock.state', 'paused');
       if (this.get('stopCB')) {
         this.get('stopCB')(this);
       }
@@ -1121,7 +1129,7 @@ define('pomodoro-electron/routes/application', ['exports', 'ember', 'pomodoro-el
           longInterval: 15,
           streak: 0,
           pausedByUser: false,
-          env: null
+          reset: null
         }
       }
     },
@@ -1138,17 +1146,16 @@ define('pomodoro-electron/routes/application', ['exports', 'ember', 'pomodoro-el
       changeSelected: function changeSelected(item, mode) {
         var _this = this;
 
+        if (this.get('data.state.clock.state') === 'paused') {
+          return;
+        }
         var controller = this.get('controller');
         controller.set('showDialog', true);
         controller.set('popTitle', 'stop clock!');
         controller.set('popMsg', '\n      are you sure you wanna change the task,\n      clock gonna be reseted\n      ');
         controller.set('dialogCB', function (val) {
           if (val) {
-            console.log('reset task!');
-            var env = _this.get('clock.env');
-            debugger;
-          } else {
-            console.log('dont reset!');
+            _this.get('data.state.clock.reset')();
           }
         });
       },
@@ -1318,6 +1325,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("pomodoro-electron/app")["default"].create({"name":"pomodoro-electron","version":"0.0.0+16fccc16"});
+  require("pomodoro-electron/app")["default"].create({"name":"pomodoro-electron","version":"0.0.0+057cc76d"});
 }
 //# sourceMappingURL=pomodoro-electron.map

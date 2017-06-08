@@ -12,7 +12,7 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
 
   QUnit.test('components/clock-comp.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'components/clock-comp.js should pass ESLint\n\n9:5 - Unexpected console statement. (no-console)');
+    assert.ok(true, 'components/clock-comp.js should pass ESLint\n\n');
   });
 
   QUnit.test('components/color-option.js', function (assert) {
@@ -102,7 +102,7 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
 
   QUnit.test('routes/application.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'routes/application.js should pass ESLint\n\n37:26 - \'mode\' is defined but never used. (no-unused-vars)\n47:11 - Unexpected console statement. (no-console)\n48:15 - \'env\' is assigned a value but never used. (no-unused-vars)\n49:11 - Unexpected \'debugger\' statement. (no-debugger)\n51:11 - Unexpected console statement. (no-console)\n66:7 - Unexpected console statement. (no-console)\n82:7 - Unexpected console statement. (no-console)');
+    assert.ok(false, 'routes/application.js should pass ESLint\n\n37:26 - \'mode\' is defined but never used. (no-unused-vars)\n65:7 - Unexpected console statement. (no-console)\n81:7 - Unexpected console statement. (no-console)');
   });
 
   QUnit.test('routes/configuration.js', function (assert) {

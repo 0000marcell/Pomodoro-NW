@@ -5,13 +5,19 @@ export default Ember.Component.extend({
   active: false,
   min: '00',
   sec: '00',
-  timeObj: Ember.observer('clock.time', function(){
-    console.log('time changed');
-  }),
   didReceiveAttrs(){
-    let clock = this.get('clock');
-    this.set('clock.env', this);
-    this.setTime(clock.time);
+    this.set('clock.reset', 
+      this.get('reset').bind(this));
+    this.setTime(this.get('clock.time'));
+  },
+  reset(){
+    if(this.get('timeInt')){
+      clearInterval(this.get('timeInt'));
+      this.set('timeInt', null);
+      this.set('clock.state', 'paused');
+      this.set('active', false);
+      this.setTime(this.get('clock.time'));
+    }
   },
   start(){
     if(!this.get('timeInt')){
@@ -20,11 +26,14 @@ export default Ember.Component.extend({
       }, 1000)
       this.set('timeInt', timeInt);
       this.set('clock.pausedByUser', false);
+      this.set('active', true);
+      this.set('clock.state', 'running');
     }
   },
   stop(){
     clearInterval(this.get('timeInt'));
     this.set('timeInt', null);
+    this.set('clock.state', 'paused');
     if(this.get('stopCB')){
       this.get('stopCB')(this);
     }

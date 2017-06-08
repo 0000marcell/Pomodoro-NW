@@ -19,7 +19,7 @@ export default Ember.Route.extend({
               longInterval: 15,
               streak: 0,
               pausedByUser: false,
-              env: null
+              reset: null
             }
     }
   },
@@ -35,6 +35,9 @@ export default Ember.Route.extend({
   },
   actions: {
     changeSelected(item, mode){
+      if(this.get('data.state.clock.state') === 'paused'){
+        return;
+      }
       let controller = this.get('controller');
       controller.set('showDialog', true);
       controller.set('popTitle', 'stop clock!');
@@ -44,11 +47,7 @@ export default Ember.Route.extend({
       `);
       controller.set('dialogCB', (val) => {
         if(val){
-          console.log('reset task!');
-          let env = this.get('clock.env');
-          debugger;
-        }else{
-          console.log('dont reset!');
+          this.get('data.state.clock.reset')();
         }
       });
     },
