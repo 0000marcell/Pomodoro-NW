@@ -34,6 +34,10 @@ export default Ember.Route.extend({
         .persist(this.get('data.storage'));
   },
   actions: {
+    showSidenav(){
+      this.get('controller')
+        .toggleProperty('openSidenav');
+    },
     changeSelected(item, mode){
       if(this.get('data.state.clock.state') === 'paused'){
         return;
