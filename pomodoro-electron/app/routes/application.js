@@ -2,7 +2,6 @@ import Ember from 'ember';
 import data from './data';
 
 export default Ember.Route.extend({
-  store: Ember.inject.service(),
   setupController(controller, post) {
     this._super(controller, post);
     this.set('controller', controller);
@@ -24,14 +23,20 @@ export default Ember.Route.extend({
     }
   },
   model(){
+    let result = this.store.findAll('task');
+    console.log(result);
     return  this.get('data');
   },
   redirect(){
     //this.transitionTo('main');
   },
   saveToStore(){
-    return this.get('store')
-        .persist(this.get('data.storage'));
+    this.store.createRecord('task', {name: 'testing', 
+      description: 'description'}).save().then((val) => {
+         console.log(`value saved ${val}`);
+      }).catch((error) => {
+         console.error(error);
+      });
   },
   actions: {
     showSidenav(){
