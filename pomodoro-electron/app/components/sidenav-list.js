@@ -7,18 +7,15 @@ export default Ember.Component.extend({
     color: null},
   newTask: {name: null, description: null, tag: null,
             pomodoros: []},
-  reloadList(){
-    /*
+  loadList(){
     let list = 
-      this.get(`model.storage.${this.get('listMode')}`),
-      result = list.filter((item) => {
-        return item.active; 
-      });
-    this.set('filteredList', result);
-    */
+    this.get(`model.${this.get('listMode')}`);
+    list.setEach('active', true);
+    this.set('filteredList', 
+      list.filterBy('active', !this.get('inactive')));
   },
   didReceiveAttrs(){
-    //this.reloadList();  
+    this.loadList();
     this.get('register')()
       .set('sidenavList', this);
   },
@@ -42,17 +39,8 @@ export default Ember.Component.extend({
   },
   actions: {
     toggleInactive(){
-      let list = 
-        this.get(`model.${this.get('listMode')}`),
-        result = list.filter((item) => {
-          if(this.get('inactive')){
-            return item.active;
-          }else{
-            return !item.active; 
-          }
-        });
       this.toggleProperty('inactive');
-      this.set('filteredList', result);
+      this.loadList();
     },
     searchList(){
       this.set('loading', true);

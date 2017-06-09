@@ -60,8 +60,7 @@ export default Ember.Route.extend({
       });
     },
     createTask(task){
-      reutrn this.store.createRecord('task', {name: task.name, 
-        description: task.description}).save();
+      return this.store.createRecord('task', task).save();
     },
     completeTask(task){
       console.log('complete task!', task.id);
@@ -72,8 +71,7 @@ export default Ember.Route.extend({
       return task.save();
     },
     createTag(tag){
-      reutrn this.store.createRecord('tag', {name: tag.name, 
-        description: tag.description, color: tag.color}).save();
+      return this.store.createRecord('tag', tag).save();
     },
     completeTag(tag){
       console.log('complete task!', tag.id);
