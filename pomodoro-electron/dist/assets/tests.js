@@ -95,6 +95,11 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
     assert.ok(true, 'helpers/pomodoro-hours.js should pass ESLint\n\n');
   });
 
+  QUnit.test('models/tag.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'models/tag.js should pass ESLint\n\n');
+  });
+
   QUnit.test('models/task.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'models/task.js should pass ESLint\n\n');
@@ -112,7 +117,7 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
 
   QUnit.test('routes/application.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'routes/application.js should pass ESLint\n\n27:5 - Unexpected console statement. (no-console)\n36:10 - Unexpected console statement. (no-console)\n38:10 - Unexpected console statement. (no-console)\n46:26 - \'mode\' is defined but never used. (no-unused-vars)\n74:7 - Unexpected console statement. (no-console)\n90:7 - Unexpected console statement. (no-console)');
+    assert.ok(false, 'routes/application.js should pass ESLint\n\n26:51 - \'item\' is defined but never used. (no-unused-vars)\n27:7 - Unexpected \'debugger\' statement. (no-debugger)\n29:5 - Unexpected console statement. (no-console)\n38:10 - Unexpected console statement. (no-console)\n40:10 - Unexpected console statement. (no-console)\n48:26 - \'mode\' is defined but never used. (no-unused-vars)\n76:7 - Unexpected console statement. (no-console)\n92:7 - Unexpected console statement. (no-console)');
   });
 
   QUnit.test('routes/configuration.js', function (assert) {
@@ -960,6 +965,11 @@ define('pomodoro-electron/tests/tests.lint-test', ['exports'], function (exports
     assert.ok(true, 'unit/helpers/pomodoro-hours-test.js should pass ESLint\n\n');
   });
 
+  QUnit.test('unit/models/tag-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/models/tag-test.js should pass ESLint\n\n');
+  });
+
   QUnit.test('unit/models/task-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'unit/models/task-test.js should pass ESLint\n\n');
@@ -1055,6 +1065,19 @@ define('pomodoro-electron/tests/unit/helpers/pomodoro-hours-test', ['exports', '
   (0, _qunit.test)('it works', function (assert) {
     var result = (0, _pomodoroElectronHelpersPomodoroHours.pomodoroHours)([42]);
     assert.ok(result);
+  });
+});
+define('pomodoro-electron/tests/unit/models/tag-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleForModel)('tag', 'Unit | Model | tag', {
+    // Specify the other units that are required for this test.
+    needs: []
+  });
+
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var model = this.subject();
+    // let store = this.store();
+    assert.ok(!!model);
   });
 });
 define('pomodoro-electron/tests/unit/models/task-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {

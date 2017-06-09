@@ -8,15 +8,17 @@ export default Ember.Component.extend({
   newTask: {name: null, description: null, tag: null,
             pomodoros: []},
   reloadList(){
+    /*
     let list = 
       this.get(`model.storage.${this.get('listMode')}`),
       result = list.filter((item) => {
         return item.active; 
       });
     this.set('filteredList', result);
+    */
   },
   didReceiveAttrs(){
-    this.reloadList();  
+    //this.reloadList();  
     this.get('register')()
       .set('sidenavList', this);
   },
@@ -41,7 +43,7 @@ export default Ember.Component.extend({
   actions: {
     toggleInactive(){
       let list = 
-        this.get(`model.storage.${this.get('listMode')}`),
+        this.get(`model.${this.get('listMode')}`),
         result = list.filter((item) => {
           if(this.get('inactive')){
             return item.active;
@@ -58,7 +60,7 @@ export default Ember.Component.extend({
         let regex = 
           new RegExp(this.get('search'), 'i');
         let model = 
-          this.get(`model.storage.${this.get('listMode')}`)
+          this.get(`model.${this.get('listMode')}`)
         console.log('model', model);
         let result = 
           model.filter((item) => {

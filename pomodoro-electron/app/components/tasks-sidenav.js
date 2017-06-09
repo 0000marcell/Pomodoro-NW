@@ -3,7 +3,7 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   classNames: ['sidenav-panel'],
   didInsertElement(){
-    this.set('filteredTasks', this.get('model.storage.tasks'));
+    this.set('filteredTasks', this.get('model.tasks'));
   },
   loading: false,
   searchResults: Ember.observer('search', function(){
@@ -12,7 +12,7 @@ export default Ember.Component.extend({
       let regex = 
         new RegExp(this.get('search'), 'i');
       let result = 
-        this.get('model.storage.tasks').filter((item) => {
+        this.get('model.tasks').filter((item) => {
           return item.name.match(regex); 
         });
       this.set('filteredTasks', result);

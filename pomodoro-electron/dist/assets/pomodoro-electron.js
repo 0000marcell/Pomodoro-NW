@@ -1097,6 +1097,13 @@ define("pomodoro-electron/instance-initializers/ember-data", ["exports", "ember-
     initialize: _emberDataPrivateInstanceInitializersInitializeStoreService["default"]
   };
 });
+define('pomodoro-electron/models/tag', ['exports', 'ember-data', 'ember-pouch'], function (exports, _emberData, _emberPouch) {
+  exports['default'] = _emberPouch.Model.extend({
+    name: _emberData['default'].attr('string'),
+    description: _emberData['default'].attr('string'),
+    color: _emberData['default'].attr('string')
+  });
+});
 define('pomodoro-electron/models/task', ['exports', 'ember-data', 'ember-pouch'], function (exports, _emberData, _emberPouch) {
   exports['default'] = _emberPouch.Model.extend({
     name: _emberData['default'].attr('string'),
@@ -1146,7 +1153,9 @@ define('pomodoro-electron/routes/application', ['exports', 'ember', 'pomodoro-el
       }
     },
     model: function model() {
-      var result = this.store.findAll('task');
+      var result = this.store.findAll('task').then(function (item) {
+        debugger;
+      });
       console.log(result);
       return this.get('data');
     },
@@ -1352,6 +1361,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("pomodoro-electron/app")["default"].create({"name":"pomodoro-electron","version":"0.0.0+5e29d519"});
+  require("pomodoro-electron/app")["default"].create({"name":"pomodoro-electron","version":"0.0.0+528d463b"});
 }
 //# sourceMappingURL=pomodoro-electron.map

@@ -15,7 +15,7 @@
           {{task-form 
             title="Edit Task"
             task=mode.model
-            tags=model.storage.tags
+            tags=model.tags
             register=(action "register")
             saveTask=(route-action mode.saveAction)
             completeTask=(route-action 'completeTask')
@@ -23,7 +23,7 @@
         {{else if (eq listMode "tags")}}
           {{tag-form 
             title="Create Tag"
-            colors=model.storage.colors
+            colors=model.colors
             tag=mode.model
             register=(action "register")
             completeTag=(route-action 'completeTag')

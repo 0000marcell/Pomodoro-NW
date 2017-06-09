@@ -6,26 +6,25 @@ export default Ember.Route.extend({
     this._super(controller, post);
     this.set('controller', controller);
   },
-  data: {
-    storage: data,
-    state: {selectedTask: null,
-            selectedTag: null,
-            clock: {
-              state: 'paused',
-              mode: 'pomodoro',
-              time: 5,
-              shortInterval: 10,
-              longInterval: 15,
-              streak: 0,
-              pausedByUser: false,
-              reset: null
-            }
+  state: {selectedTask: null,
+    selectedTag: null,
+    clock: {
+      state: 'paused',
+      mode: 'pomodoro',
+      time: 5,
+      shortInterval: 10,
+      longInterval: 15,
+      streak: 0,
+      pausedByUser: false,
+      reset: null
     }
   },
   model(){
-    let result = this.store.findAll('task');
-    console.log(result);
-    return  this.get('data');
+    return Ember.RSVP.hash({
+      tasks: this.store.findAll('task'),
+      tags: this.store.findAll('tag'),
+      state: this.get('state') 
+    });
   },
   redirect(){
     //this.transitionTo('main');
@@ -61,38 +60,28 @@ export default Ember.Route.extend({
       });
     },
     createTask(task){
-      let tasks = this.get('data.storage.tasks'),
-          obj = {id: tasks.length + 1, name: task.name, 
-                description: task.description, 
-                tag: task.tag,
-                pomodoros: []};
-      this.get('data.storage.tasks')
-        .pushObject(obj);
-      return this.saveToStore(); 
+      reutrn this.store.createRecord('task', {name: task.name, 
+        description: task.description}).save();
     },
     completeTask(task){
       console.log('complete task!', task.id);
-      task.active = false;
-      return this.saveToStore(); 
+      task.set('active', false);
+      return task.save();
     },
-    editTask(){
-      return this.saveToStore(); 
+    editTask(task){
+      return task.save();
     },
     createTag(tag){
-      let tags = this.get('data.storage.tags'),
-          obj = {id: tags.length + 1, name: tag.name,
-            description: tag.description, color: tag.color};
-      this.get('data.storage.tags')
-        .pushObject(obj);
-      return this.saveToStore(); 
+      reutrn this.store.createRecord('tag', {name: tag.name, 
+        description: tag.description, color: tag.color}).save();
     },
     completeTag(tag){
-      console.log('complete tag!', tag.id);
-      tag.active = false;
-      return this.saveToStore(); 
+      console.log('complete task!', tag.id);
+      tag.set('active', false);
+      return tag.save();
     },
-    editTag(){
-      return this.saveToStore(); 
+    editTag(tag){
+      return tag.save(); 
     }
   }
 });
