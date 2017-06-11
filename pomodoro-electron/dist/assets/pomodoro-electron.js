@@ -1151,7 +1151,43 @@ define('pomodoro-electron/routes/application', ['exports', 'ember', 'pomodoro-el
         reset: null
       }
     },
+
+    // seed the db
+    seed: function seed() {
+      for (var key in _pomodoroElectronRoutesData['default']) {
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+          for (var _iterator = _pomodoroElectronRoutesData['default'][key][Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var value = _step.value;
+
+            console.log(key);
+            this.store.createRecord(key, value).save().then(function (val) {
+              console.log('value inserted');
+            })['catch'](function (error) {
+              console.error('\n            error trying to seed the db!: ' + error + '\n          ');
+            });
+          }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator['return']) {
+              _iterator['return']();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
+          }
+        }
+      }
+    },
     model: function model() {
+      //this.seed();
       return _ember['default'].RSVP.hash({
         tasks: this.store.findAll('task'),
         tags: this.store.findAll('tag'),
@@ -1217,8 +1253,14 @@ define('pomodoro-electron/routes/application', ['exports', 'ember', 'pomodoro-el
 define('pomodoro-electron/routes/configuration', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Route.extend({});
 });
-define("pomodoro-electron/routes/data", ["exports"], function (exports) {
-  exports["default"] = data;
+define('pomodoro-electron/routes/data', ['exports'], function (exports) {
+  var data = {
+    task: [{ name: 'task 1', description: 'task 2', active: true }],
+    tag: [{ name: 'tag 1', description: 'tag 2', color: '#ff00ff' }],
+    color: [{ name: '', value: '#ff00ff' }],
+    pomodoro: [{ date: new Date(), task: 1 }]
+  };
+  exports['default'] = data;
 });
 define('pomodoro-electron/routes/main', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Route.extend({});

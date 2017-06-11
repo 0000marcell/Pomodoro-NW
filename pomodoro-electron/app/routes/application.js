@@ -19,12 +19,30 @@ export default Ember.Route.extend({
       reset: null
     }
   },
+
+  // seed the db 
+  seed(){
+    for(let key in data){
+      for(let value of data[key]){
+        console.log(key);
+        this.store.createRecord(key, value).save()
+          .then((val) => {
+          console.log('value inserted');  
+        }).catch((error) => {
+          console.error(`
+            error trying to seed the db!: ${error}
+          `);
+        });    
+      }
+    }
+  },
   model(){
+    //this.seed();
     return Ember.RSVP.hash({
       tasks: this.store.findAll('task'),
       tags: this.store.findAll('tag'),
       state: this.get('state') 
-    });
+    });   
   },
   redirect(){
     //this.transitionTo('main');

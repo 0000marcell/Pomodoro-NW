@@ -1,18 +1,20 @@
-let clock = {
-  callLocal(){
-    console.log(`the value is ${this.localValue}`);
-  } 
-};
-
-let clockContainer = {
-  init(clock){
-    this.callLocal = clock.callLocal.bind(this);
-  },
-  call(){
-    this.localValue = 'local';
-    this.callLocal();
-  }
+let data = {
+  task: [
+    {name: 'task 1', description: 'task 2', active: true}
+  ],
+  tag: [
+    {name: 'tag 1', description: 'tag 2', color: '#ff00ff'}
+  ],
+  color: [
+    {name: '', value: '#ff00ff'}
+  ],
+  pomodoro: [
+    {date: new Date(), task: 1}
+  ]
 }
 
-clockContainer.init(clock);
-clockContainer.call();
+for(let key in data){
+  for(let val of data[key]){
+    console.log(val);
+  }
+}
