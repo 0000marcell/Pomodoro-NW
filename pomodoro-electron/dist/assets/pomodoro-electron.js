@@ -131,7 +131,7 @@ define('pomodoro-electron/components/dropdown-list', ['exports', 'ember'], funct
     didReceiveAttrs: function didReceiveAttrs() {
       var _this = this;
 
-      if (this.get('items')) {
+      if (this.get('items')[0]) {
         this.set('selectedItem', this.get('items')[0]);
         this.set('selection', this.get('items').filter(function (item) {
           return item.id !== _this.get('items')[0].id;
@@ -1085,6 +1085,12 @@ define("pomodoro-electron/instance-initializers/ember-data", ["exports", "ember-
     initialize: _emberDataPrivateInstanceInitializersInitializeStoreService["default"]
   };
 });
+define('pomodoro-electron/models/color', ['exports', 'ember-data', 'ember-pouch'], function (exports, _emberData, _emberPouch) {
+  exports['default'] = _emberPouch.Model.extend({
+    name: _emberData['default'].attr('string'),
+    value: _emberData['default'].attr('string')
+  });
+});
 define('pomodoro-electron/models/pomodoro', ['exports', 'ember-data', 'ember-pouch'], function (exports, _emberData, _emberPouch) {
   exports['default'] = _emberPouch.Model.extend({
     date: _emberData['default'].attr('date'),
@@ -1211,26 +1217,8 @@ define('pomodoro-electron/routes/application', ['exports', 'ember', 'pomodoro-el
 define('pomodoro-electron/routes/configuration', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Route.extend({});
 });
-define('pomodoro-electron/routes/data', ['exports'], function (exports) {
-  var obj = { tasks: [],
-    tags: [{ id: 1, name: 'work',
-      description: 'work!', color: '#ff00ff', active: true }, { id: 2, name: 'learning', description: 'learning!',
-      color: '#fff00', active: true }],
-    colors: [{ id: 1, value: '#F44336' }, { id: 2, value: '#E91E63' }, { id: 3, value: '#9C27B0' }] };
-
-  function createTasks() {
-    for (var i = 1; i < 6; i++) {
-      obj.tasks.push({ id: i + '', name: 'Task ' + i,
-        description: 'description ' + i,
-        pomodoros: [], tag: null, active: true });
-      for (var j = 1; j < 6; j++) {
-        obj.tasks[i - 1].pomodoros.push({ date: new Date() });
-      }
-    }
-    return obj;
-  }
-
-  exports['default'] = createTasks();
+define("pomodoro-electron/routes/data", ["exports"], function (exports) {
+  exports["default"] = data;
 });
 define('pomodoro-electron/routes/main', ['exports', 'ember'], function (exports, _ember) {
   exports['default'] = _ember['default'].Route.extend({});
@@ -1344,6 +1332,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("pomodoro-electron/app")["default"].create({"name":"pomodoro-electron","version":"0.0.0+a38fa934"});
+  require("pomodoro-electron/app")["default"].create({"name":"pomodoro-electron","version":"0.0.0+5e7ccf80"});
 }
 //# sourceMappingURL=pomodoro-electron.map

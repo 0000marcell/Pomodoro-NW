@@ -95,6 +95,11 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
     assert.ok(true, 'helpers/pomodoro-hours.js should pass ESLint\n\n');
   });
 
+  QUnit.test('models/color.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'models/color.js should pass ESLint\n\n');
+  });
+
   QUnit.test('models/pomodoro.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'models/pomodoro.js should pass ESLint\n\n');
@@ -132,7 +137,7 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
 
   QUnit.test('routes/data.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'routes/data.js should pass ESLint\n\n');
+    assert.ok(false, 'routes/data.js should pass ESLint\n\n2:16 - \'data\' is not defined. (no-undef)');
   });
 
   QUnit.test('routes/main.js', function (assert) {
@@ -970,6 +975,11 @@ define('pomodoro-electron/tests/tests.lint-test', ['exports'], function (exports
     assert.ok(true, 'unit/helpers/pomodoro-hours-test.js should pass ESLint\n\n');
   });
 
+  QUnit.test('unit/models/color-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/models/color-test.js should pass ESLint\n\n');
+  });
+
   QUnit.test('unit/models/pomodoro-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'unit/models/pomodoro-test.js should pass ESLint\n\n');
@@ -1075,6 +1085,19 @@ define('pomodoro-electron/tests/unit/helpers/pomodoro-hours-test', ['exports', '
   (0, _qunit.test)('it works', function (assert) {
     var result = (0, _pomodoroElectronHelpersPomodoroHours.pomodoroHours)([42]);
     assert.ok(result);
+  });
+});
+define('pomodoro-electron/tests/unit/models/color-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleForModel)('color', 'Unit | Model | color', {
+    // Specify the other units that are required for this test.
+    needs: []
+  });
+
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var model = this.subject();
+    // let store = this.store();
+    assert.ok(!!model);
   });
 });
 define('pomodoro-electron/tests/unit/models/pomodoro-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
