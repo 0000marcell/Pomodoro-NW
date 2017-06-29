@@ -331,7 +331,8 @@ define('pomodoro-electron/components/sidenav-panel', ['exports', 'ember'], funct
     listMode: 'tasks',
     mode: { model: '', saveAction: 'createTask' },
     reloadList: function reloadList() {
-      this.get('sidenavList').reloadList();
+      console.log('reload list!');
+      this.get('sidenavList').loadList();
     },
     actions: {
       register: function register() {
@@ -424,6 +425,7 @@ define('pomodoro-electron/components/task-form', ['exports', 'ember'], function 
           _ember['default'].run.later(_this, function () {
             _this.set('msgs', []);
           }, 5000);
+          _this.get('sidenavPanel').reloadList();
         })['catch'](function () {
           _this.set('msgs', ['an error occored!']);
           _ember['default'].run.later(_this, function () {
