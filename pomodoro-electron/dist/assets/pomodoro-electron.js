@@ -1197,14 +1197,6 @@ define('pomodoro-electron/routes/application', ['exports', 'ember', 'pomodoro-el
     redirect: function redirect() {
       //this.transitionTo('main');
     },
-    saveToStore: function saveToStore() {
-      this.store.createRecord('task', { name: 'testing',
-        description: 'description' }).save().then(function (val) {
-        console.log('value saved ' + val);
-      })['catch'](function (error) {
-        console.error(error);
-      });
-    },
     actions: {
       showSidenav: function showSidenav() {
         this.get('controller').toggleProperty('openSidenav');
@@ -1374,6 +1366,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("pomodoro-electron/app")["default"].create({"name":"pomodoro-electron","version":"0.0.0+52c15cb3"});
+  require("pomodoro-electron/app")["default"].create({"name":"pomodoro-electron","version":"0.0.0+4098c4ac"});
 }
 //# sourceMappingURL=pomodoro-electron.map

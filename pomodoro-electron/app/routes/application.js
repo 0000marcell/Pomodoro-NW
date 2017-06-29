@@ -47,14 +47,6 @@ export default Ember.Route.extend({
   redirect(){
     //this.transitionTo('main');
   },
-  saveToStore(){
-    this.store.createRecord('task', {name: 'testing', 
-      description: 'description'}).save().then((val) => {
-         console.log(`value saved ${val}`);
-      }).catch((error) => {
-         console.error(error);
-      });
-  },
   actions: {
     showSidenav(){
       this.get('controller')
