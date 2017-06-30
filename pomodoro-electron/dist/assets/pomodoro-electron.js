@@ -309,9 +309,8 @@ define('pomodoro-electron/components/sidenav-list', ['exports', 'ember'], functi
         }
         this.set('prevItem', el);
         if (this.get('listMode') === 'tasks') {
-          this.set('model.state.selectedTask', item);
+          this.get('changeSelected')(item);
         }
-        this.get('changeSelected')(item, this.get('listMode'));
         this.setLeftPanelModel(item);
       },
       showLeftPanel: function showLeftPanel(item) {
@@ -1201,21 +1200,24 @@ define('pomodoro-electron/routes/application', ['exports', 'ember', 'pomodoro-el
       showSidenav: function showSidenav() {
         this.get('controller').toggleProperty('openSidenav');
       },
-      changeSelected: function changeSelected(item, mode) {
+      changeSelected: function changeSelected(item) {
         var _this = this;
 
         if (this.get('state.clock.state') === 'paused') {
+          this.set('state.selectedTask', item);
           return;
+        } else {
+          var controller = this.get('controller');
+          controller.set('showDialog', true);
+          controller.set('popTitle', 'stop clock!');
+          controller.set('popMsg', '\n        are you sure you wanna change the task,\n        clock gonna be reseted\n        ');
+          controller.set('dialogCB', function (val) {
+            if (val) {
+              _this.set('state.selectedTask', item);
+              _this.get('state.clock.reset')();
+            }
+          });
         }
-        var controller = this.get('controller');
-        controller.set('showDialog', true);
-        controller.set('popTitle', 'stop clock!');
-        controller.set('popMsg', '\n      are you sure you wanna change the task,\n      clock gonna be reseted\n      ');
-        controller.set('dialogCB', function (val) {
-          if (val) {
-            _this.get('state.clock.reset')();
-          }
-        });
       },
       createTask: function createTask(task) {
         return this.store.createRecord('task', task).save();

@@ -52,22 +52,25 @@ export default Ember.Route.extend({
       this.get('controller')
         .toggleProperty('openSidenav');
     },
-    changeSelected(item, mode){
+    changeSelected(item){
       if(this.get('state.clock.state') === 'paused'){
+        this.set('state.selectedTask', item);
         return;
+      }else{
+        let controller = this.get('controller');
+        controller.set('showDialog', true);
+        controller.set('popTitle', 'stop clock!');
+        controller.set('popMsg', `
+        are you sure you wanna change the task,
+        clock gonna be reseted
+        `);
+        controller.set('dialogCB', (val) => {
+          if(val){
+            this.set('state.selectedTask', item);
+            this.get('state.clock.reset')();
+          }
+        });
       }
-      let controller = this.get('controller');
-      controller.set('showDialog', true);
-      controller.set('popTitle', 'stop clock!');
-      controller.set('popMsg', `
-      are you sure you wanna change the task,
-      clock gonna be reseted
-      `);
-      controller.set('dialogCB', (val) => {
-        if(val){
-          this.get('state.clock.reset')();
-        }
-      });
     },
     createTask(task){
       return this.store.createRecord('task', task).save();
