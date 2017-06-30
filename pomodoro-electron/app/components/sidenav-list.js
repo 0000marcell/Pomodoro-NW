@@ -49,7 +49,6 @@ export default Ember.Component.extend({
           new RegExp(this.get('search'), 'i');
         let model = 
           this.get(`model.${this.get('listMode')}`)
-        console.log('model', model);
         let result = 
           model.filter((item) => {
             return item.name.match(regex); 

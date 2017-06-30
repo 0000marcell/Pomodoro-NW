@@ -53,7 +53,7 @@ export default Ember.Route.extend({
         .toggleProperty('openSidenav');
     },
     changeSelected(item, mode){
-      if(this.get('data.state.clock.state') === 'paused'){
+      if(this.get('state.clock.state') === 'paused'){
         return;
       }
       let controller = this.get('controller');
@@ -65,7 +65,7 @@ export default Ember.Route.extend({
       `);
       controller.set('dialogCB', (val) => {
         if(val){
-          this.get('data.state.clock.reset')();
+          this.get('state.clock.reset')();
         }
       });
     },

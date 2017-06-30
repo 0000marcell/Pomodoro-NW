@@ -294,7 +294,6 @@ define('pomodoro-electron/components/sidenav-list', ['exports', 'ember'], functi
         _ember['default'].run.later(this, function () {
           var regex = new RegExp(_this.get('search'), 'i');
           var model = _this.get('model.' + _this.get('listMode'));
-          console.log('model', model);
           var result = model.filter(function (item) {
             return item.name.match(regex);
           });
@@ -331,7 +330,6 @@ define('pomodoro-electron/components/sidenav-panel', ['exports', 'ember'], funct
     listMode: 'tasks',
     mode: { model: '', saveAction: 'createTask' },
     reloadList: function reloadList() {
-      console.log('reload list!');
       this.get('sidenavList').loadList();
     },
     actions: {
@@ -1206,7 +1204,7 @@ define('pomodoro-electron/routes/application', ['exports', 'ember', 'pomodoro-el
       changeSelected: function changeSelected(item, mode) {
         var _this = this;
 
-        if (this.get('data.state.clock.state') === 'paused') {
+        if (this.get('state.clock.state') === 'paused') {
           return;
         }
         var controller = this.get('controller');
@@ -1215,7 +1213,7 @@ define('pomodoro-electron/routes/application', ['exports', 'ember', 'pomodoro-el
         controller.set('popMsg', '\n      are you sure you wanna change the task,\n      clock gonna be reseted\n      ');
         controller.set('dialogCB', function (val) {
           if (val) {
-            _this.get('data.state.clock.reset')();
+            _this.get('state.clock.reset')();
           }
         });
       },
@@ -1368,6 +1366,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("pomodoro-electron/app")["default"].create({"name":"pomodoro-electron","version":"0.0.0+4098c4ac"});
+  require("pomodoro-electron/app")["default"].create({"name":"pomodoro-electron","version":"0.0.0+6cade2db"});
 }
 //# sourceMappingURL=pomodoro-electron.map

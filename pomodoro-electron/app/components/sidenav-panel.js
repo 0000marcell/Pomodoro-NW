@@ -5,7 +5,6 @@ export default Ember.Component.extend({
   listMode: 'tasks',
   mode: {model: '', saveAction: 'createTask'},
   reloadList(){
-    console.log('reload list!');
     this.get('sidenavList').loadList();
   },
   actions: {
