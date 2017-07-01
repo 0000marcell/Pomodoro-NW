@@ -24,8 +24,8 @@ export default Ember.Component.extend({
           this.set('msgs', []);
         }, 5000);
         this.get('sidenavPanel').reloadList();
-      }).catch(() => {
-        this.set('msgs', ['an error occored!']); 
+      }).catch((err) => {
+        this.set('msgs', [`An error occored ${err}`]); 
         Ember.run.later(this, () => {
           this.set('msgs', []);
         }, 5000);

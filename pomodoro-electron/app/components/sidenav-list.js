@@ -77,6 +77,7 @@ export default Ember.Component.extend({
     },
     changeListMode(mode){
       this.set('listMode', mode);
+      //this.loadList();
     }
   }
 });

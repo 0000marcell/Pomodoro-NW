@@ -4,20 +4,12 @@
 
 define('pomodoro-electron/adapters/application', ['exports', 'pouchdb', 'ember-pouch'], function (exports, _pouchdb, _emberPouch) {
 
-     //var remote = new PouchDB('http://localhost:5984/my_couch');
-     var db = new _pouchdb['default']('local_pouch');
+  //var remote = new PouchDB('http://localhost:5984/my_couch');
+  var db = new _pouchdb['default']('local_pouch');
 
-     /*
-     db.sync(remote, {
-          live: true,   // do a live, ongoing sync
-          retry: true   // retry if the connection is lost
-     
-     });
-     */
-
-     exports['default'] = _emberPouch.Adapter.extend({
-          db: db
-     });
+  exports['default'] = _emberPouch.Adapter.extend({
+    db: db
+  });
 });
 define('pomodoro-electron/app', ['exports', 'ember', 'pomodoro-electron/resolver', 'ember-load-initializers', 'pomodoro-electron/config/environment'], function (exports, _ember, _pomodoroElectronResolver, _emberLoadInitializers, _pomodoroElectronConfigEnvironment) {
 
@@ -131,7 +123,7 @@ define('pomodoro-electron/components/dropdown-list', ['exports', 'ember'], funct
     didReceiveAttrs: function didReceiveAttrs() {
       var _this = this;
 
-      if (this.get('items')[0]) {
+      if (this.get('items')) {
         this.set('selectedItem', this.get('items')[0]);
         this.set('selection', this.get('items').filter(function (item) {
           return item.id !== _this.get('items')[0].id;
@@ -319,6 +311,7 @@ define('pomodoro-electron/components/sidenav-list', ['exports', 'ember'], functi
       },
       changeListMode: function changeListMode(mode) {
         this.set('listMode', mode);
+        //this.loadList();
       }
     }
   });
@@ -423,8 +416,8 @@ define('pomodoro-electron/components/task-form', ['exports', 'ember'], function 
             _this.set('msgs', []);
           }, 5000);
           _this.get('sidenavPanel').reloadList();
-        })['catch'](function () {
-          _this.set('msgs', ['an error occored!']);
+        })['catch'](function (err) {
+          _this.set('msgs', ['An error occored ' + err]);
           _ember['default'].run.later(_this, function () {
             _this.set('msgs', []);
           }, 5000);
@@ -1087,7 +1080,8 @@ define("pomodoro-electron/instance-initializers/ember-data", ["exports", "ember-
 define('pomodoro-electron/models/color', ['exports', 'ember-data', 'ember-pouch'], function (exports, _emberData, _emberPouch) {
   exports['default'] = _emberPouch.Model.extend({
     name: _emberData['default'].attr('string'),
-    value: _emberData['default'].attr('string')
+    value: _emberData['default'].attr('string'),
+    tags: _emberData['default'].hasMany('tag')
   });
 });
 define('pomodoro-electron/models/pomodoro', ['exports', 'ember-data', 'ember-pouch'], function (exports, _emberData, _emberPouch) {
@@ -1100,7 +1094,8 @@ define('pomodoro-electron/models/tag', ['exports', 'ember-data', 'ember-pouch'],
   exports['default'] = _emberPouch.Model.extend({
     name: _emberData['default'].attr('string'),
     description: _emberData['default'].attr('string'),
-    color: _emberData['default'].attr('string')
+    color: _emberData['default'].belongsTo('color'),
+    active: _emberData['default'].attr('string')
   });
 });
 define('pomodoro-electron/models/task', ['exports', 'ember-data', 'ember-pouch'], function (exports, _emberData, _emberPouch) {
@@ -1368,6 +1363,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("pomodoro-electron/app")["default"].create({"name":"pomodoro-electron","version":"0.0.0+6cade2db"});
+  require("pomodoro-electron/app")["default"].create({"name":"pomodoro-electron","version":"0.0.0+ca155fd7"});
 }
 //# sourceMappingURL=pomodoro-electron.map

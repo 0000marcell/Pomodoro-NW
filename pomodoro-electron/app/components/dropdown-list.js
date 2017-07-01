@@ -4,7 +4,7 @@ export default Ember.Component.extend({
   classNames: ['dropdown-list'],
   classNameBindings: ['dropdownListShow'],
   didReceiveAttrs(){
-    if(this.get('items')[0]){
+    if(this.get('items')){
       this.set('selectedItem',
         this.get('items')[0]);
       this.set('selection', 
