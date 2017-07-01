@@ -18,6 +18,11 @@
 {{/if}}
 {{input type='text' value=tag.name}}
 {{input type='text' value=tag.description}}
+<div class="tag-form-add-color-button">
+  <button class="button-primary"
+    data-test-tag-add-color
+    onclick={{action 'addColor'}}>Add Color</button>
+</div>
 {{#dropdown-list items=colors as |color|}}
   {{color-option color=color}}
 {{/dropdown-list}}

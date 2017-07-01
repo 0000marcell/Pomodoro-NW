@@ -655,6 +655,20 @@ i {
     .task-form .task-form-header button {
       margin: 0; }
 
+.color-form {
+  height: 100%;
+  width: 100%; }
+  .color-form button {
+    margin-top: 20px; }
+  .color-form input {
+    margin-top: 20px !important;
+    width: 98%; }
+  .color-form .color-form-header {
+    justify-content: space-between;
+    align-items: center; }
+    .color-form .color-form-header button {
+      margin: 0; }
+
 .tag-form {
   height: 100%;
   width: 100%; }
@@ -673,6 +687,9 @@ i {
     align-items: center; }
     .tag-form .tag-form-header button {
       margin: 0; }
+  .tag-form .tag-form-add-color-button {
+    width: 50%;
+    float: right; }
 
 .dropdown-list {
   min-width: 215px;

@@ -6,10 +6,10 @@ export default Ember.Component.extend({
   didReceiveAttrs(){
     if(this.get('items')){
       this.set('selectedItem',
-        this.get('items')[0]);
+        this.get('items').objectAt(0));
       this.set('selection', 
         this.get('items').filter((item) => {
-          return item.id !== this.get('items')[0].id;  
+          return item.id !== this.get('items').objectAt(0).id;  
         }));
     }
   },

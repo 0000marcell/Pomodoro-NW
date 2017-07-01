@@ -29,6 +29,14 @@
             completeTag=(route-action 'completeTag')
             saveTag=(route-action mode.saveAction)
           }} 
+        {{else if (eq listMode "colors")}}
+          {{tag-form 
+            title="Create Color"
+            colors=model.colors
+            tag=mode.model
+            register=(action "register")
+            saveColor=(route-action mode.saveAction)
+          }}
         {{/if}}
       </div>
     </div>

@@ -20,6 +20,11 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
     assert.ok(true, 'components/clock-comp.js should pass ESLint\n\n');
   });
 
+  QUnit.test('components/color-form.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/color-form.js should pass ESLint\n\n');
+  });
+
   QUnit.test('components/color-option.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'components/color-option.js should pass ESLint\n\n');
@@ -127,7 +132,7 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
 
   QUnit.test('routes/application.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'routes/application.js should pass ESLint\n\n27:9 - Unexpected console statement. (no-console)\n29:18 - \'val\' is defined but never used. (no-unused-vars)\n30:11 - Unexpected console statement. (no-console)\n32:11 - Unexpected console statement. (no-console)\n79:7 - Unexpected console statement. (no-console)\n90:7 - Unexpected console statement. (no-console)');
+    assert.ok(false, 'routes/application.js should pass ESLint\n\n27:9 - Unexpected console statement. (no-console)\n29:18 - \'val\' is defined but never used. (no-unused-vars)\n30:11 - Unexpected console statement. (no-console)\n32:11 - Unexpected console statement. (no-console)\n79:7 - Unexpected console statement. (no-console)\n87:7 - Unexpected \'debugger\' statement. (no-debugger)\n91:7 - Unexpected console statement. (no-console)');
   });
 
   QUnit.test('routes/configuration.js', function (assert) {
@@ -324,6 +329,35 @@ define('pomodoro-electron/tests/integration/components/clock-comp-test', ['expor
     this.render(Ember.HTMLBars.template({
       'id': 'a7YBFNzR',
       'block': '{"statements":[["text","\\n"],["block",["clock-comp"],null,null,0],["text","  "]],"locals":[],"named":[],"yields":[],"blocks":[{"statements":[["text","      template block text\\n"]],"locals":[]}],"hasPartials":false}',
+      'meta': {}
+    }));
+
+    assert.equal(this.$().text().trim(), 'template block text');
+  });
+});
+define('pomodoro-electron/tests/integration/components/color-form-test', ['exports', 'ember-qunit'], function (exports, _emberQunit) {
+
+  (0, _emberQunit.moduleForComponent)('color-form', 'Integration | Component | color form', {
+    integration: true
+  });
+
+  (0, _emberQunit.test)('it renders', function (assert) {
+
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.on('myAction', function(val) { ... });
+
+    this.render(Ember.HTMLBars.template({
+      'id': 'yubugZVI',
+      'block': '{"statements":[["append",["unknown",["color-form"]],false]],"locals":[],"named":[],"yields":[],"blocks":[],"hasPartials":false}',
+      'meta': {}
+    }));
+
+    assert.equal(this.$().text().trim(), '');
+
+    // Template block usage:
+    this.render(Ember.HTMLBars.template({
+      'id': '/ZT65Mir',
+      'block': '{"statements":[["text","\\n"],["block",["color-form"],null,null,0],["text","  "]],"locals":[],"named":[],"yields":[],"blocks":[{"statements":[["text","      template block text\\n"]],"locals":[]}],"hasPartials":false}',
       'meta': {}
     }));
 
@@ -888,6 +922,11 @@ define('pomodoro-electron/tests/tests.lint-test', ['exports'], function (exports
   QUnit.test('integration/components/clock-comp-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'integration/components/clock-comp-test.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('integration/components/color-form-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'integration/components/color-form-test.js should pass ESLint\n\n');
   });
 
   QUnit.test('integration/components/color-option-test.js', function (assert) {

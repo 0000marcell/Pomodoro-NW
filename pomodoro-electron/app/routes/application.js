@@ -84,6 +84,7 @@ export default Ember.Route.extend({
       return task.save();
     },
     createTag(tag){
+      debugger;
       return this.store.createRecord('tag', tag).save();
     },
     completeTag(tag){

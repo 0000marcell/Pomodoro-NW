@@ -26,12 +26,15 @@ export default Ember.Component.extend({
         Ember.run.later(this, () => {
           this.set('msgs', []);
         }, 5000);
-      }).catch(() => {
-        this.set('msgs', ['an error occored!']);
+      }).catch((err) => {
+        this.set('msgs', [`an error occored ${err}!`]);
         Ember.run.later(this, () => {
           this.set('msgs', []);
         }, 5000);
       }); 
+    },
+    addColor(){
+      this.get('sidenavPanel').set('listMode', 'colors');
     },
     completeTag(tag){
       this.get('completeTag')(tag).then(() => {

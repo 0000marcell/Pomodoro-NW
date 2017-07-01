@@ -1,0 +1,7 @@
+<div class="color-form-header">
+  <h3>{{mode}} Color</h3>
+</div>
+{{input type='text' value=color.name}}
+{{input type='text' value=color.value}}
+<button class="button-primary"
+  onclick={{action 'saveColor' color}}>Save</button>
