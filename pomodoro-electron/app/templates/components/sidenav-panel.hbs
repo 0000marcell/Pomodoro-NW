@@ -11,6 +11,8 @@
     </div>
     <div class="sidenav-panel-side-body row">
       <div class="sidenav-panel-side-body-container">
+        {{component compName}}
+        <!--
         {{#if (eq listMode 'tasks')}}
           {{task-form 
             title="Edit Task"
@@ -38,6 +40,7 @@
             saveColor=(route-action mode.saveAction)
           }}
         {{/if}}
+        -->
       </div>
     </div>
   </div>

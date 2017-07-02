@@ -9,7 +9,11 @@ export default Ember.Component.extend({
             pomodoros: []},
   loadList(){
     let list = 
-    this.get(`model.${this.get('listMode')}`);
+      this.get(`model.${this.get('listMode')}`);
+    if(!list){
+      this.set('filteredList', []);
+      return;
+    }
     list.setEach('active', true);
     this.set('filteredList', 
       list.filterBy('active', !this.get('inactive')));
