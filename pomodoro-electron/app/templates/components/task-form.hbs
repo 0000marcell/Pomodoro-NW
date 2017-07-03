@@ -1,6 +1,6 @@
 <div class="task-form-header row">
-  <h3>{{mode}} task</h3>
-  {{#if (eq mode 'edit')}}
+  <h3>{{comp.mode}} task</h3>
+  {{#if (eq comp.mode 'edit')}}
     <button
       onclick={{action 'completeTask' task}}>
       complete
@@ -16,9 +16,10 @@
     </ul> 
   {{/info-card}}
 {{/if}}
-{{input type='text' value=task.name}}
-{{input type='text' value=task.description}}
-{{#dropdown-list selected=task.tag items=tags as |tag|}}
+{{input type='text' value=comp.model.name}}
+{{input type='text' value=comp.model.description}}
+{{#dropdown-list selected=comp.model.tag 
+  items=comp.model.tags as |tag|}}
   <p>{{tag.name}}</p>
 {{/dropdown-list}}
 <button class="button-primary"

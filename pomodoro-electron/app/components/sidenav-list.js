@@ -7,6 +7,7 @@ export default Ember.Component.extend({
     color: null},
   newTask: {name: null, description: null, tag: null,
             pomodoros: []},
+  newColor: {name: null, value: null, tags: []},
   loadList(){
     let list = 
       this.get(`model.${this.get('listMode')}`);
@@ -25,32 +26,44 @@ export default Ember.Component.extend({
   },
   loading: false,
   setLeftPanelModel(item){
+    let obj = {};
     if(this.get('listMode') === 'tasks'){
-      let obj = {
+      obj = {
         name: 'task-form',
-        title: 'Edit Task',
+        mode: (item.name) ? 'Edit' :
+          'New',
         tags: this.get('model-tags'),
+        model: (item.name) ? item :  
+          this.get('newTask'),
+        saveAction: (item.name) ? 'editTask' : 
+          'createTask',
+        completeAction: 'completeTask'
       }
-      this.set('dynComp.name', 'task-form');
-      this.set('dynComp.tags', 
-        this.get('model.tags'));
-      this.set('dynComp.')
-      this.set('dynComp.model', 
-        (item.name) ? item :  
-          this.get('newTask'));
-      this.set('dynComp.saveAction', 
-        (item.name) ? 'editTask' : 
-          'createTask');
     }else if(this.get('listMode') === 'tags'){
-      this.set('mode.model', 
-        (item.name) ? item :  
-          this.get('newTag'));
-      this.set('mode.saveAction', 
-        (item.name) ? 'editTag' : 
-          'createTag')
+      debugger;
+      obj = {
+        name: 'tag-form',
+        mode: (item.name) ? 'Edit' :
+          'New',
+        colors: this.get('model.colors'),
+        model: (item.name) ? item :  
+          this.get('newTag'),
+        saveAction: (item.name) ? 'editTag' : 
+          'createTag',
+        completeAction: 'completeTag'
+      }
     }else {
-
+      obj = {
+        name: 'color-form',
+        mode: (item.name) ? 'Edit' :
+          'New',
+        model: (item.name) ? item :  
+          this.get('newColor'),
+        saveAction: (item.name) ? 'editColor' : 
+          'createColor'
+      }
     }
+    this.set('dynComp', obj); 
   },
   actions: {
     toggleInactive(){

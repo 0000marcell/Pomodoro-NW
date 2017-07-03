@@ -11,12 +11,14 @@
     </div>
     <div class="sidenav-panel-side-body row">
       <div class="sidenav-panel-side-body-container">
-        {{component dynComp.name
-          model=dynComp
-          register=(action "register")
-          saveTask=(route-action dynComp.saveAction)
-          completeTask=(route-action dynComp.completeAction)
-        }}
+        {{#if dynComp.name}}
+          {{component dynComp.name
+            comp=dynComp
+            register=(action "register")
+            saveTask=(route-action dynComp.saveAction)
+            completeTask=(route-action dynComp.completeAction)
+          }}  
+        {{/if}}
         <!--
         {{#if (eq listMode 'tasks')}}
           {{task-form 

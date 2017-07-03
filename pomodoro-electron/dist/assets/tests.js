@@ -52,12 +52,12 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
 
   QUnit.test('components/sidenav-list.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'components/sidenav-list.js should pass ESLint\n\n29:11 - \'obj\' is assigned a value but never used. (no-unused-vars)\n51:11 - Empty block statement. (no-empty)');
+    assert.ok(false, 'components/sidenav-list.js should pass ESLint\n\n43:7 - Unexpected \'debugger\' statement. (no-debugger)');
   });
 
   QUnit.test('components/sidenav-panel.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'components/sidenav-panel.js should pass ESLint\n\n11:7 - \'completeAction\' is not defined. (no-undef)');
+    assert.ok(true, 'components/sidenav-panel.js should pass ESLint\n\n');
   });
 
   QUnit.test('components/tag-form.js', function (assert) {
@@ -132,7 +132,7 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
 
   QUnit.test('routes/application.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'routes/application.js should pass ESLint\n\n27:9 - Unexpected console statement. (no-console)\n29:18 - \'val\' is defined but never used. (no-unused-vars)\n30:11 - Unexpected console statement. (no-console)\n32:11 - Unexpected console statement. (no-console)\n79:7 - Unexpected console statement. (no-console)\n87:7 - Unexpected \'debugger\' statement. (no-debugger)\n91:7 - Unexpected console statement. (no-console)');
+    assert.ok(false, 'routes/application.js should pass ESLint\n\n27:9 - Unexpected console statement. (no-console)\n29:18 - \'val\' is defined but never used. (no-unused-vars)\n30:11 - Unexpected console statement. (no-console)\n32:11 - Unexpected console statement. (no-console)\n79:7 - Unexpected console statement. (no-console)\n90:7 - Unexpected console statement. (no-console)');
   });
 
   QUnit.test('routes/configuration.js', function (assert) {
