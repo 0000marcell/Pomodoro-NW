@@ -26,19 +26,30 @@ export default Ember.Component.extend({
   loading: false,
   setLeftPanelModel(item){
     if(this.get('listMode') === 'tasks'){
-      this.set('mode.model', 
+      let obj = {
+        name: 'task-form',
+        title: 'Edit Task',
+        tags: this.get('model-tags'),
+      }
+      this.set('dynComp.name', 'task-form');
+      this.set('dynComp.tags', 
+        this.get('model.tags'));
+      this.set('dynComp.')
+      this.set('dynComp.model', 
         (item.name) ? item :  
           this.get('newTask'));
-      this.set('mode.saveAction', 
+      this.set('dynComp.saveAction', 
         (item.name) ? 'editTask' : 
           'createTask');
-    }else{
+    }else if(this.get('listMode') === 'tags'){
       this.set('mode.model', 
         (item.name) ? item :  
           this.get('newTag'));
       this.set('mode.saveAction', 
         (item.name) ? 'editTag' : 
           'createTag')
+    }else {
+
     }
   },
   actions: {

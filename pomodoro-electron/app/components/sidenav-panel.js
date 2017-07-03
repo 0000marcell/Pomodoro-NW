@@ -3,8 +3,13 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   classNameBindings: ['openSidenav', 'leftPanel'],
   listMode: 'tasks',
-  compName: 'tag-form',
-  mode: {model: '', saveAction: 'createTask'},
+  dynComp: {
+    name: '',
+    title: '',
+    mode: {model: '', 
+      saveAction: 'createTask',
+      completeAction}
+  },
   reloadList(){
     this.get('sidenavList').loadList();
   },

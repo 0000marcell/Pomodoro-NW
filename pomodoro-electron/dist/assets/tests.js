@@ -52,12 +52,12 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
 
   QUnit.test('components/sidenav-list.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'components/sidenav-list.js should pass ESLint\n\n');
+    assert.ok(false, 'components/sidenav-list.js should pass ESLint\n\n29:11 - \'obj\' is assigned a value but never used. (no-unused-vars)\n51:11 - Empty block statement. (no-empty)');
   });
 
   QUnit.test('components/sidenav-panel.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'components/sidenav-panel.js should pass ESLint\n\n');
+    assert.ok(false, 'components/sidenav-panel.js should pass ESLint\n\n11:7 - \'completeAction\' is not defined. (no-undef)');
   });
 
   QUnit.test('components/tag-form.js', function (assert) {
@@ -92,7 +92,7 @@ define('pomodoro-electron/tests/app.lint-test', ['exports'], function (exports) 
 
   QUnit.test('controllers/testing.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'controllers/testing.js should pass ESLint\n\n8:8 - Unexpected console statement. (no-console)\n12:10 - Unexpected console statement. (no-console)');
+    assert.ok(true, 'controllers/testing.js should pass ESLint\n\n');
   });
 
   QUnit.test('helpers/pomodoro-hours.js', function (assert) {
