@@ -5,7 +5,11 @@
   left: 0;
   height: 55px;
   width: 100%;
-  background-color: #f8f8f8;
+  background-color: #33C3F0;
+}
+
+.window-frame i {
+  color: #fff;
 }
 
 html, body {
