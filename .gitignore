@@ -5,6 +5,7 @@ node_modules
 **/electron-out/*
 **/build/*
 **/tmp/*
+test.js
 build
 cache
 /public/aws_config.json
