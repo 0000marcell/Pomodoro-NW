@@ -1,0 +1,359 @@
+<html><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Pomodoro-NW</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/app.css">
+  </head>
+  <body>
+    <!-- <script src="../node_modules/nw-dev/lib/dev.js"></script> -->
+    <!-- Libs-->
+    <script src="js/libs/jquery-1.10.2.js"></script>
+    
+    <script src="js/libs/d3.min.js"></script>
+    <script src="js/libs/jit.js"></script>
+    <script src="js/libs/flipclock.js"></script>
+    <script src="js/libs/handlebars-1.1.2.js"></script>
+    <script src="js/libs/ember-1.7.0.js"></script>
+    <script src="js/libs/ember-data.js"></script>
+    <!-- script(src='js/helpers/format-currency.js')-->
+    <script src="js/libs/aws-sdk.min.js"></script>
+    <!-- Helpers-->
+    <script src="js/app.js"></script>
+    <script src="js/helpers/bar-chart.js"></script>
+    <script src="js/helpers/clock.js"></script>
+    <script src="js/helpers/utils.js"></script>
+    <script src="js/helpers/file-io.js"></script>
+    <script src="js/helpers/statistics.js"></script>
+    <script src="js/helpers/graph.js"></script>
+    <!--Views-->
+    <script src="js/views/application.js"></script>
+    <script src="js/views/main.js"></script>
+    <script src="js/views/statistics.js"></script>
+    <!--Models-->
+    <script src="js/models/arraytransform_helper.js"></script>
+    <script src="js/models/task.js"></script>
+    <!-- Routes-->
+    <script src="js/routes/router.js"></script>
+    <script src="js/routes/application.js"></script>
+    <script src="js/routes/main.js"></script>
+    <script src="js/routes/statistics.js"></script>
+    <script src="js/routes/config.js"></script>
+    <script src="js/routes/new.js"></script>
+    <script src="js/routes/edit.js"></script>
+    <!-- Controllers-->
+    <script src="js/controllers/application.js"></script>
+    <script src="js/controllers/main.js"></script>
+    <script src="js/controllers/statistics.js"></script>
+    <script src="js/controllers/config.js"></script>
+    <script src="js/controllers/new.js"></script>
+    <script src="js/controllers/edit.js"></script>
+    <!-- Initializers --> 
+    <script src="tests/tests-helper.js"></script>
+    <!--
+    <script src="js/initializers/load-tasks.js"></script>
+    -->
+    <div id="ember-app"><script type="text/x-handlebars">
+  <div class="window-frame" 
+    style="-webkit-app-region: drag;">
+    <div class="row">
+      <div class="four columns">
+      </div>
+      <div 
+        class="two columns u-pull-right" 
+        style="margin-top: 5px">
+        <i {{action "minimize"}} 
+          class="fa fa-window-minimize" 
+          style="font-size: 1.5em;"></i>
+        <i {{action "close"}} 
+           class="fa fa-close fa-2x"></i>
+      </div>
+    </div>
+  </div>
+  <div class='container' style="margin-top: 50px;">
+    <div style="padding-top: 20px;" 
+      id="application-view">
+      <!-- Options -->
+      <div class='row options-row'>
+        <div class='one column'>
+          <i id="test-main-button" {{action "main"}} 
+            class="fa fa-chevron-left fa-2x"></i>
+        </div>
+        <div class='four columns u-pull-right'>
+          <ul class="options-list">
+            <li>
+              <i id="test-statistics-button" {{action "statistics"}}
+                class="fa fa-bar-chart fa-2x"></i>
+            </li>
+            <li>
+              <i id="test-config-button" {{action "config"}} 
+                class="fa fa-cog fa-2x"></i>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <hr>
+    </div>
+    {{outlet}}
+    <div id="main-clock">
+      <!-- Clock -->
+      <div class='row'>
+        <div class="five columns">
+          <h4 id="selected-task">{{selectedTaskMsg}}</h4>
+        </div>
+        <div class="three columns">
+          <div id="task-status">
+            <h4 class="clock-paused animated infinite flash">[Paused]</h4>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="ten columns">
+          <div class='clock'>
+          </div>
+        </div>
+        <div class="two columns u-pull-right">
+          <div class="pomodoro-counter">
+            <p>Streak</p>
+            <h3>{{intervalCount}}</h3>
+          </div>
+        </div>
+      </div>
+
+      <!-- Clock Control -->
+      <div class='row'>
+        <div class="seven columns">
+          <div class='clock-controlls u-pull-right'>
+            <ul class="options-list">
+              <li>
+               <i id="test-clock-start" {{action 'startClock'}}
+                class="fa fa-play fa-2x"></i>
+              </li>
+              <li>
+                <i id="test-clock-stop" {{action 'stopClock'}} 
+                class="fa fa-stop fa-2x"></i>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class='message'></div>
+      </div>
+    </div>
+</script>
+<script type="text/x-handlebars" data-template-name="config">
+  <div class="row config-view">
+    <div class="twelve columns">
+      <h6>Configuration</h6>
+      <p>
+        You can configure aws s3 storage to save your info in {{filesPath}}/config.json
+        all your info is also saved there, in the data.json file
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <p>Using aws: {{usingAws}}</p>
+    <p>Files Path: {{filesPath}}</p>
+  </div>
+</script>
+<script type="text/x-handlebars" data-template-name="edit">
+  <div class="row edit-view">
+    <div class="twelve columns">
+      <h6>Edit Task</h6>
+      <label>Name</label>
+      {{input class="u-full-width"type="text" value=name}}
+      <div class="row">
+        <div class="twelve columns">
+          <button type="submit" {{action "save" model}}>Save</button>
+          <button type="button" {{action "delete" model}}>Delete</button>
+        </div>
+      </div>
+      {{!--
+      {{#form-for controller id="form-task"}}
+        {{#input name}}
+          {{label-field name text="Task"}}
+          {{input-field name class="form-control" autofocus="false"}}
+          {{#if view.showError}}
+            {{error-field name}}
+          {{/if}}
+        {{/input}}
+        <button type="submit" {{action "save" model}}>Save</button>
+        <button type="button" {{action "cancel" model}}>Cancel</button>
+        <button type="button" {{action "delete" model}}>Delete</button>
+      {{/form-for}}
+      --}}
+    </div>
+  </div>
+</script>
+<script type="text/x-handlebars" data-template-name="main">
+  <div id="main-view">
+    <!-- Add -->
+    <div class='row add-row'>
+      <div class='one column u-pull-right'>
+        <i {{action "new"}} 
+          class="fa fa-plus fa-2x"></i>
+      </div>
+    </div>
+
+    <!-- Tasks List -->
+    <hr>
+    <div class='row scrollable'>
+      <div class='twelve columns'>
+        {{#each task in model}}
+        <div {{bind-attr id=task.id}}
+            {{action "selectTask" task}} class='row task-list-row'>
+            <div class='six columns'>
+              <p>{{task.name}}</p>
+            </div>
+            <div class='six columns'>
+              <span>{{task.pomodoros.length}}</span>
+              <i {{action "edit" task}} 
+                class="fa fa-ellipsis-h fa-2x u-pull-right"></i>
+            </div>
+          </div>
+        {{/each}}
+      </div>
+    </div>
+    <hr>
+  </div>
+
+  <!-- Show/Hide -->
+  <div class='row'>
+    <div class='show-hide one column u-pull-right'>
+      <i {{action "showHideTasks"}} 
+         class="fa fa-arrow-up fa-2x u-pull-right"></i>
+    </div>
+  </div>
+</script>
+<script type="text/x-handlebars" data-template-name="new">
+  <div class="row edit-view">
+    <div class="twelve columns">
+      <h6>New Task</h6>
+      <label>Name</label>
+      {{input class="u-full-width"type="text" value=model.name}}
+      <div class="row">
+        <div class="twelve columns">
+          <button type="submit" {{action "save" model}}>Save</button>
+          <button type="button" {{action "cancel" }}>Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</script>
+<script type="text/x-handlebars" data-template-name="statistics">
+  {{#if loading}} 
+    <div class='u-pull-center loading-div'>
+      <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+    </div>
+  {{else}}
+    <div class="row">
+      <div id="test-today-tasks" 
+           class="six columns">
+        <h6>Today: {{todayTotal}}</h6>
+        <h6 class='today-tasks-title' >Week tasks:</h6>
+        <ul id="test-week-list" class='today-tasks-list'>
+          {{#each task in weekPomodoros}}
+            <li>{{task.name}}: {{task.time}}</li>
+          {{/each}}
+        </ul>
+      </div>
+      <div id="test-week-tasks" class="six columns">
+        <h6>This week: {{weekTotal}}</h6>
+        <h6 class='today-tasks-title'>Today tasks:</h6>
+        <ul id="test-today-list" class='today-tasks-list'>
+          {{#each task in todayPomodoros}}
+            <li>{{task.name}}: {{task.time}}</li>
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="six columns">
+        {{#if dayInfoLoading}}
+          <div class='u-pull-center loading-div'>
+            <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+          </div>
+        {{else}}
+          <h6>{{dayOfTheWeek}} {{dayInfo}}</h6>
+          <ul id="test-day-list" class='today-tasks-list'>
+            {{#each task in dayInfoPomodoros}}
+              <li>{{task.name}}: {{task.time}}</li>
+            {{/each}}
+          </ul>
+        {{/if}}
+      </div>
+      <div class="six columns">
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      {{view Ember.Select
+          content=years
+          optionValuePath="content"
+          optionLabelPath="content"
+          selection=yearStart}}
+      {{view Ember.Select
+          content=months
+          optionValuePath="content.label"
+          optionLabelPath="content.value"
+          prompt="Start month"
+          selection=monthStart}}
+      {{view Ember.Select
+          content=years
+          optionValuePath="content"
+          optionLabelPath="content"
+          prompt="Year end"
+          selection=yearEnd}}
+      {{view Ember.Select
+          content=months
+          optionValuePath="content.label"
+          optionLabelPath="content.value"
+          prompt="Month end"
+          selection=monthEnd}}
+      {{view Ember.Select
+          content=tasksList
+          optionValuePath="content.id"
+          optionLabelPath="content.name"
+          prompt="Select a task"
+          selection=sSelectedTask}}
+    </div>
+    <button type="button" {{action "calculateStatistics"}}>Show Statistics</button> 
+    <div class="graph">
+    </div>
+    <hr>
+    <div id="test-pom-average" class="row">
+      <h6>Average: {{pomAverage}}</h6>
+    </div>
+    <hr>
+    <ul id="total-time-tasks" class='today-tasks-list'>
+      {{#each task in tasksTotalTime}}
+        <li>{{task.name}}: {{task.time}}h</li>
+      {{/each}}
+    </ul>
+    <div class='jit-graphics'>
+      <div id="center-container">
+        <div id="infovis">
+        </div>
+        <div id='log'>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="twelve columns most-productive">
+        <b>Most Productive Months:</b>
+        {{#each mp in mpMonths}}
+          <p>month({{mp.year}}): {{mp.month}}   {{mp.size}}h</p>
+        {{/each}}    
+      </div>
+    </div>
+  {{/if}}
+ </script>
+</div>
+  
+  
+
+
+</body></html>
