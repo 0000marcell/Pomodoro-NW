@@ -13,7 +13,8 @@
     "grunt-contrib-uglify": "~0.4.0",
     "grunt-nw-builder": "^3.0.0",
     "jsdom": "^9.11.0",
-    "nw-dev": "^1.2.3"
+    "nw-dev": "^1.2.3",
+    "nwjs-builder-phoenix": "^1.14.3"
   },
   "dependencies": {
     "aws-sdk": "^2.1.48",
