@@ -2,10 +2,10 @@ module.exports = function(grunt) {
   grunt.initConfig({
     nwjs: {
       options: {
-        version: '0.19.3',
+        version: '0.20.0',
         //platforms: ['linux', 'win', 'osx64'],
-        //platforms: ['win'],
-        platforms: ['osx64', 'win'],
+        platforms: ['osx64'],
+        //platforms: ['osx64', 'win'],
         buildDir: 'build',
       },
       src: 'public/**/*'

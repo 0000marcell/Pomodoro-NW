@@ -3,25 +3,19 @@
   "version": "0.1.0",
   "scripts": {
     "build": "node compile.js",
-    "test": "node compile.js test",
-    "dist": "build --tasks mac-x64 --mirror https://dl.nwjs.io/ ."
+    "test": "node compile.js test"
   },
   "build": {
-    "nwVersion": "0.19.3"
+    "nwVersion": "0.20.0"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
-    "grunt-contrib-jade": "^0.14.1",
     "grunt-contrib-jshint": "~0.10.0",
     "grunt-contrib-nodeunit": "~0.3.3",
-    "grunt-contrib-uglify": "~0.4.0",
-    "grunt-nw-builder": "^3.0.0",
+    "grunt-nw-builder": "^3.0.1",
     "jsdom": "^9.11.0",
-    "nw-dev": "^1.2.3",
-    "nwjs-builder-phoenix": "^1.14.3"
+    "nw-dev": "^1.2.3"
   },
   "dependencies": {
-    "aws-sdk": "^2.1.48",
-    "jade": "^1.9.2"
   }
 }
