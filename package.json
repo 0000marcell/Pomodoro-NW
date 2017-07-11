@@ -3,7 +3,11 @@
   "version": "0.1.0",
   "scripts": {
     "build": "node compile.js",
-    "test": "node compile.js test"
+    "test": "node compile.js test",
+    "dist": "build --tasks mac-x64 --mirror https://dl.nwjs.io/ ."
+  },
+  "build": {
+    "nwVersion": "0.19.3"
   },
   "devDependencies": {
     "grunt": "^0.4.5",

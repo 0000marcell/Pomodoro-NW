@@ -7,6 +7,7 @@ node_modules
 **/tmp/*
 test.js
 build
+dist
 cache
 /public/aws_config.json
 /public/data.json
