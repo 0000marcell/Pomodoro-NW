@@ -2,9 +2,9 @@ let path = require('path'),
     fs = require('fs'),
     os = require('os'),
     __homedir = os.homedir(),
-    awsUseStorage = false,
-    devMode = true,
-    environment = 'development',
+    awsUseStorage = true,
+    devMode = false,
+    environment = 'production',
     pomodoroFilesPath;
 
 
@@ -55,9 +55,9 @@ if(awsUseStorage){
 App = Ember.Application.create({
   LOG_TRANSITIONS: true
 });
-let min = 1;
-let pomodoroTime = 5 * min, restart = false,
-    shortIntervalTime = 5 * min, longIntervalTime = 5 * min,
+let min = 60;
+let pomodoroTime = 25 * min, restart = false,
+    shortIntervalTime = 5 * min, longIntervalTime = 10 * min,
     pause = false;
 
 //App.ApplicationAdapter = DS.FixtureAdapter.extend({

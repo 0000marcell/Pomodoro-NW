@@ -4,8 +4,8 @@ module.exports = function(grunt) {
       options: {
         version: '0.20.0',
         //platforms: ['linux', 'win', 'osx64'],
-        platforms: ['osx64'],
-        //platforms: ['osx64', 'win'],
+        //platforms: ['osx64'],
+        platforms: ['osx64', 'win'],
         buildDir: 'build',
       },
       src: 'public/**/*'
