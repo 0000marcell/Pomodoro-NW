@@ -12,21 +12,31 @@ App.ApplicationController = Ember.ObjectController.extend({
     */
     if(clock.get('state') === 'paused'){
       return;
-    }else if (clock.get('state') === 'interval'){
-      clock.reset(pomodoroTime);
-      clock.modeActive();
-      clock.start();
-    } else {
-      this.set('intervalCount', 
-        this.get('intervalCount') + 1);
-      this.savePomodoro(this.get('selectedTask'));
-      win.focus();
-      let interval = ((this.get('intervalCount') % 3) == 0) ? longIntervalTime : 
-                                                              shortIntervalTime;
-      clock.reset(interval);
-      clock.start();
-      clock.modeInterval();
-    } 
+    }
+    setTimeout(() => {
+      if (clock.get('state') === 'interval'){
+        clock.reset(pomodoroTime);
+        setTimeout(() => {
+          clock.start();
+        }, 1000);
+      } else {
+        clock.set('intervalCount', 
+          clock.get('intervalCount') + 1);
+        this.set('intervalCount', 
+          clock.get('intervalCount'));
+        this.set
+        this.savePomodoro(this.get('selectedTask'));
+        win.focus();
+        let interval = 
+          ((clock.get('intervalCount') % 3) == 0) ? 
+            longIntervalTime : 
+            shortIntervalTime;
+        clock.reset(interval);
+        setTimeout(() => {
+          clock.start();
+        }, 1000);
+      }
+    }, 1000);
   },
   savePomodoro(task){
     task.get('pomodoros')
@@ -42,9 +52,10 @@ App.ApplicationController = Ember.ObjectController.extend({
       win.minimize(); 
     },
     startClock() {
-      if(this.get('selectedTask') && clock.get('state') === 'paused'){
+      if(this.get('selectedTask') && 
+        clock.get('state') === 'paused'){
         clock.start();
-      }else{
+      }else if(!this.get('selectedTaskMsg')){
         this.set('selectedTaskMsg', 'First select a task!');
       }
     },

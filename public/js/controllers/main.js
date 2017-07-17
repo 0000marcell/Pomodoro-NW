@@ -11,7 +11,6 @@ App.MainController = Ember.ObjectController.extend({
       clock.reset(pomodoroTime);
       appController.set('selectedTaskMsg', task.get('name'));
       appController.set('selectedTask', task);
-      clock.reset(pomodoroTime);
       clock.pause();
     },
     showHideTasks: function(){
