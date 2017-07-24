@@ -10,7 +10,7 @@ App.MainController = Ember.ObjectController.extend({
   filterModel(){
     let tasks = this.get('model'),
         activeState = this.get('activeState.val'),
-        state = (activeState) ? null : 'true',
+        state = (activeState) ? false : true,
         result = tasks.filterBy('disabled', state);
     this.set('filteredModel', result);
   },

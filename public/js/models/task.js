@@ -7,7 +7,7 @@ App.Task = DS.Model.extend({
   pomodoros: DS.attr('array'),
   duration: DS.attr('string'),
   totalTime: DS.attr('string'),
-  disabled: DS.attr('string'),
+  disabled: DS.attr('boolean'),
   saveOnFile(){
     let tasks = this.store.all('task');
     tasks = tasks.toArray().map((task, index) => {

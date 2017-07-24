@@ -1,10 +1,14 @@
 App.EditController = Ember.ObjectController.extend({
+  stateOptions: [{label: 'Active', val: false}, 
+    {label: 'Inactive', val: true}],
   actions: {
     save(task) {
       if(!task.get('name')){
         console.log('the name of the task cant be blank');
         return;
       }
+      task.set('disabled', 
+        this.get('activeState.val'));
       fileIO
         .saveTasks(utils
         .transformTaskObject(this.store.all('task').content));
@@ -20,13 +24,6 @@ App.EditController = Ember.ObjectController.extend({
       obj.tasks.forEach((item) => {
         this.store.push('task', item); 
       });
-      this.transitionToRoute('main');
-    },
-    disable(task){
-      task.set('disabled', true);
-      fileIO
-        .saveTasks(utils
-        .transformTaskObject(this.store.all('task').content));
       this.transitionToRoute('main');
     }
   }
