@@ -8,6 +8,7 @@ App.MainController = Ember.ObjectController.extend({
     this.filterModel();
   }.observes('activeState'),
   filterModel(){
+    debugger;
     let tasks = this.get('model'),
         activeState = this.get('activeState.val'),
         state = (activeState) ? false : true,

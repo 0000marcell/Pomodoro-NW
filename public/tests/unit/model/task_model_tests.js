@@ -41,14 +41,3 @@ test('Testing createPomodoroArrayIfUnd App.Task', function(){
   });
   equal(pomodoros, 'undefined');
 });
-
-test('Testing createJsonString App.Task', function(){  
-});
-
-
-test('Testing formatDates App.Task', function(){  
-});
-
-test('Testing formatDate App.Task', function(){  
-});
-

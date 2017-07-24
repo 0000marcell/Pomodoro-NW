@@ -10,7 +10,8 @@ function createTasks(taskN, pomN){
 
   for (let i = 0; i < taskN; i++) {
     arr.push(App.TaskObject.create({ id: i+1, name: `Task ${i}`, 
-      pomodoros: pomodoros })); 
+      pomodoros: pomodoros, 
+      disabled: (i%2) ? true : false})); 
   }
   return arr;
 }
