@@ -2,7 +2,13 @@
   <div id="main-view">
     <!-- Add -->
     <div class='row add-row'>
-      <div class='one column u-pull-right'>
+      <div class='five columns u-pull-right'>
+        {{view Ember.Select
+          class="main-select"
+          content=stateOptions
+          optionValuePath="content.val"
+          optionLabelPath="content.label"
+          selection=activeState}}
         <i {{action "new"}} 
           class="fa fa-plus fa-2x"></i>
       </div>
@@ -12,8 +18,8 @@
     <hr>
     <div class='row scrollable'>
       <div class='twelve columns'>
-        {{#each task in model}}
-        <div {{bind-attr id=task.id}}
+        {{#each task in filteredModel}}
+          <div {{bind-attr id=task.id}}
             {{action "selectTask" task}} class='row task-list-row'>
             <div class='six columns'>
               <p>{{task.name}}</p>

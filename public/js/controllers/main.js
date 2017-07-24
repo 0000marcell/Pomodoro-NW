@@ -1,13 +1,27 @@
 App.MainController = Ember.ObjectController.extend({
   selectedItem: null,
   taskVisibility: true, 
+  stateOptions: [{label: 'Active', val: true}, 
+    {label: 'Inactive', val: false}],
+  filteredModel: [],
+  changeActiveState: function() {
+    this.filterModel();
+  }.observes('activeState'),
+  filterModel(){
+    let tasks = this.get('model'),
+        activeState = this.get('activeState.val'),
+        state = (activeState) ? null : 'true',
+        result = tasks.filterBy('disabled', state);
+    this.set('filteredModel', result);
+  },
   actions: {
     selectTask(task){
       $(`#${this.get('selectedItem')}`)
         .removeClass('selected-task');     
       $(`#${task.get('id')}`).addClass('selected-task');
       this.set('selectedItem', task.get('id'));
-      let appController = App.__container__.lookup("controller:application"); 
+      let appController = 
+        App.__container__.lookup("controller:application"); 
       clock.reset(pomodoroTime);
       appController.set('selectedTaskMsg', task.get('name'));
       appController.set('selectedTask', task);

@@ -43,7 +43,8 @@ App.StatisticsController = Ember.ObjectController.extend({
     this.set('yearStart', years[0]);
     this.set('monthStart', this.get('months').objectAt(0));
     this.set('yearEnd', years[years.length - 1]);
-    this.set('monthEnd', this.get('months').objectAt(this.get('months.length') - 1));
+    this.set('monthEnd', this.get('months')
+      .objectAt(this.get('months.length') - 1));
     for(let year of years){
       let obj = statistics.mostProductiveMonth(tasks, year);
       obj['year'] = year;
@@ -52,7 +53,8 @@ App.StatisticsController = Ember.ObjectController.extend({
     let todayPomodoros = statistics.todayPomodoros(tasks);
     this.set('todayPomodoros', todayPomodoros);
     this.set('todayTotal', 
-        `${this.get('todayPomodoros').filterBy('name', 'total')[0].time}h`);
+        `${this.get('todayPomodoros')
+            .filterBy('name', 'total')[0].time}h`);
     let weekPomodoros = statistics.weekPomodoroH(tasks);
     this.set('weekPomodoros', weekPomodoros);
     this.set('weekTotal', 
@@ -87,11 +89,13 @@ App.StatisticsController = Ember.ObjectController.extend({
   },
   actions: { 
     calculateStatistics(){
-      let selectedIds = (this.get('sSelectedTask.id') !== 'all') ? [this.get('sSelectedTask.id')] :
-                                                                  [];
+      let selectedIds = 
+        (this.get('sSelectedTask.id') !== 'all') ? 
+        [this.get('sSelectedTask.id')] : [];
       let tasks;
       if(selectedIds.length){
-        tasks = statistics.filterTasks(this.get('tasks'), selectedIds);
+        tasks = statistics
+          .filterTasks(this.get('tasks'), selectedIds);
       }else{
         tasks = this.get('tasks');
       }

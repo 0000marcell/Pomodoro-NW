@@ -5,8 +5,9 @@ App.EditController = Ember.ObjectController.extend({
         console.log('the name of the task cant be blank');
         return;
       }
-      debugger;
-      fileIO.saveTasks(utils.transformTaskObject(this.store.all('task').content));
+      fileIO
+        .saveTasks(utils
+        .transformTaskObject(this.store.all('task').content));
       this.transitionToRoute('main');
     },
     delete(task) {
@@ -19,6 +20,13 @@ App.EditController = Ember.ObjectController.extend({
       obj.tasks.forEach((item) => {
         this.store.push('task', item); 
       });
+      this.transitionToRoute('main');
+    },
+    disable(task){
+      task.set('disabled', true);
+      fileIO
+        .saveTasks(utils
+        .transformTaskObject(this.store.all('task').content));
       this.transitionToRoute('main');
     }
   }

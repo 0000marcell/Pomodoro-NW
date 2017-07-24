@@ -6,8 +6,12 @@
       {{input class="u-full-width"type="text" value=name}}
       <div class="row">
         <div class="twelve columns">
-          <button type="submit" {{action "save" model}}>Save</button>
-          <button type="button" {{action "delete" model}}>Delete</button>
+          <button type="submit" {{action "save" model}}>
+            Save</button>
+          <button type="submit" {{action "disable" model}}>
+            Disable</button>
+          <button type="button" {{action "delete" model}}>
+            Delete</button>
         </div>
       </div>
       {{!--
@@ -19,9 +23,12 @@
             {{error-field name}}
           {{/if}}
         {{/input}}
-        <button type="submit" {{action "save" model}}>Save</button>
-        <button type="button" {{action "cancel" model}}>Cancel</button>
-        <button type="button" {{action "delete" model}}>Delete</button>
+        <button type="submit" {{action "save" model}}>
+          Save</button>
+        <button type="button" {{action "cancel" model}}>
+          Cancel</button>
+        <button type="button" {{action "delete" model}}>
+          Delete</button>
       {{/form-for}}
       --}}
     </div>

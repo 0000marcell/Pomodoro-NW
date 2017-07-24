@@ -73,7 +73,7 @@
     </div>
   </div>
   -->
-  <div class='container' style="margin-top: 50px;">
+  <div class='container'>
     <div style="padding-top: 20px;" 
       id="application-view">
       <!-- Options -->
@@ -167,8 +167,12 @@
       {{input class="u-full-width"type="text" value=name}}
       <div class="row">
         <div class="twelve columns">
-          <button type="submit" {{action "save" model}}>Save</button>
-          <button type="button" {{action "delete" model}}>Delete</button>
+          <button type="submit" {{action "save" model}}>
+            Save</button>
+          <button type="submit" {{action "disable" model}}>
+            Disable</button>
+          <button type="button" {{action "delete" model}}>
+            Delete</button>
         </div>
       </div>
       {{!--
@@ -180,9 +184,12 @@
             {{error-field name}}
           {{/if}}
         {{/input}}
-        <button type="submit" {{action "save" model}}>Save</button>
-        <button type="button" {{action "cancel" model}}>Cancel</button>
-        <button type="button" {{action "delete" model}}>Delete</button>
+        <button type="submit" {{action "save" model}}>
+          Save</button>
+        <button type="button" {{action "cancel" model}}>
+          Cancel</button>
+        <button type="button" {{action "delete" model}}>
+          Delete</button>
       {{/form-for}}
       --}}
     </div>
@@ -192,7 +199,13 @@
   <div id="main-view">
     <!-- Add -->
     <div class='row add-row'>
-      <div class='one column u-pull-right'>
+      <div class='five columns u-pull-right'>
+        {{view Ember.Select
+          class="main-select"
+          content=stateOptions
+          optionValuePath="content.val"
+          optionLabelPath="content.label"
+          selection=activeState}}
         <i {{action "new"}} 
           class="fa fa-plus fa-2x"></i>
       </div>
@@ -202,8 +215,8 @@
     <hr>
     <div class='row scrollable'>
       <div class='twelve columns'>
-        {{#each task in model}}
-        <div {{bind-attr id=task.id}}
+        {{#each task in filteredModel}}
+          <div {{bind-attr id=task.id}}
             {{action "selectTask" task}} class='row task-list-row'>
             <div class='six columns'>
               <p>{{task.name}}</p>
