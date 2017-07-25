@@ -3,12 +3,10 @@ App.MainController = Ember.ObjectController.extend({
   taskVisibility: true, 
   stateOptions: [{label: 'Active', val: true}, 
     {label: 'Inactive', val: false}],
-  filteredModel: [],
   changeActiveState: function() {
     this.filterModel();
   }.observes('activeState'),
   filterModel(){
-    debugger;
     let tasks = this.get('model'),
         activeState = this.get('activeState.val'),
         state = (activeState) ? false : true,

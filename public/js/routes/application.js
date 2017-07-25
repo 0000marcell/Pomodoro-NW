@@ -15,24 +15,28 @@ App.ApplicationRoute = Ember.Route.extend({
         if(localObj.lastUpdate){
           lLastUpdate = new Date(localObj.lastUpdate);
         }
-        bucket.getObject({Key: 'new.json'}, (error, data) => {
-          if (error) {
-            alert("File sync failed : "+error);
-          } else {
-            let obj = JSON.parse(data.Body.toString()),
-                rLastUpdate = new Date(obj.lastUpdate),
-                result;
-            if(lLastUpdate && rLastUpdate){
-              if(lLastUpdate > rLastUpdate){
-                result = localObj; 
+        return new Ember.RSVP.Promise((resolve, reject) => {
+          bucket.getObject({Key: 'new.json'}, (error, data) => {
+            if (error) {
+              alert("File sync failed : "+error);
+              reject();
+            } else {
+              let obj = JSON.parse(data.Body.toString()),
+                  rLastUpdate = new Date(obj.lastUpdate),
+                  result;
+              if(lLastUpdate && rLastUpdate){
+                if(lLastUpdate > rLastUpdate){
+                  result = localObj; 
+                }else{
+                  result = obj;
+                }
               }else{
                 result = obj;
               }
-            }else{
-              result = obj;
+              this.loadTasks(result);
+              resolve();
             }
-            this.loadTasks(result);
-          }
+          });  
         });
       }else{
         let obj = fileIO.read(mainDataPath);
