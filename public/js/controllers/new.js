@@ -8,6 +8,7 @@ App.NewController = Ember.ObjectController.extend({
       model.creation_date = new Date();
       model.id = 
         parseInt(this.store.all('task').content.slice(-1)[0].id) + 1;
+      model.disabled = false;
       this.store.createRecord('task', model);
       let obj = 
         utils.transformTaskObject(this.store.all('task').content);
