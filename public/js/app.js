@@ -26,7 +26,7 @@ if(!fs.existsSync(pomodoroFilesPath)){
     console.log(`error trying to create folder: ${err}`)
   }
   let defaultConfig = {accessKeyId: null, 
-      secretAccessKey: null, region: null, 
+      secretAccessKey: null, region: null, bucketName: null,
       mainDataPath: mainDataPath};
   fs.writeFileSync(generalConfigPath, 
       JSON.stringify(defaultConfig));
@@ -49,7 +49,7 @@ if (config.accessKeyId) {
 let bucket;
 if(awsUseStorage){
   AWS.config.update({accessKeyId: config.accessKeyId, secretAccessKey: config.secretAccessKey, region: config.region});
-  bucket = new AWS.S3({params: {Bucket: 'pomodorog'}});
+  bucket = new AWS.S3({params: {Bucket: config.bucketName}});
 }
 
 App = Ember.Application.create({
