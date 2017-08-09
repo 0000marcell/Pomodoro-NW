@@ -2,7 +2,7 @@ let path = require('path'),
     fs = require('fs'),
     os = require('os'),
     __homedir = os.homedir(),
-    awsUseStorage = false,
+    awsUseStorage = true,
     devMode = false,
     environment = 'production',
     pomodoroFilesPath;
@@ -30,7 +30,8 @@ if(!fs.existsSync(pomodoroFilesPath)){
       mainDataPath: mainDataPath};
   fs.writeFileSync(generalConfigPath, 
       JSON.stringify(defaultConfig));
-  fs.createReadStream('data.json').pipe(fs.createWriteStream(mainDataPath));
+  fs.writeFileSync(mainDataPath, fs.readFileSync('data.json'));
+  //fs.createReadStream('data.json').pipe(fs.createWriteStream(mainDataPath));
 }
 
 let config;
