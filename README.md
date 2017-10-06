@@ -2,11 +2,9 @@
 
 ** NEW VERSION COMING SOON **
 ** DOWNLOADS FOR THE OLDER VERSION WILL BE PUT ON THE SITE**
-Download http://0000marcell.github.io/Pomodoro-NW/
 
 Simple pomodoro tracker app for mac, linux and windows made using web technologies:
 * ember
-* handlebars
 * NW.js
 * Node.js
 the app can be packed to any of the systems mentioned using nw.js (A.K.A nodewebkit) 
